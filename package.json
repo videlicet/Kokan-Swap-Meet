@@ -8,8 +8,8 @@
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "server": "ts-node-esm ./server/server.ts",
-    "start": "concurrently \"npx tsc --watch\" \"npm run server\""
+    "server": "dotenv -e .env.server ts-node-esm ./server/server.ts",
+    "start": "concurrently \"dotenv -e .env npm run dev\" \"npm run server\""
   },
   "dependencies": {
     "@types/react-router-dom": "5.3.3",

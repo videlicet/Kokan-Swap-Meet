@@ -10,14 +10,14 @@ function App() {
 
   const getData = ():void => {
     setLoading(true);
-    fetch('http://localhost:3001')
+    fetch('/api/v1')
     .then((res) => res.json())
     .then(
       //console.log("Request successful")
     )
     .catch((e) => {
-      console.log(e.message);
-      setError(e.message);
+      console.log(e.message)
+      setError(e.message)
     })
     .finally(() => {
       setLoading(false);
