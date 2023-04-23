@@ -15,6 +15,9 @@ Looking to exchange your digital assets with other users? Whether you have code,
 * JavaScript, React, Vite, Node, Express
 * [DB]
 
+## Acknowledgements
+
+Login Icons: Squarecup LTD, CC Atribution | Color changed to white 
 
 ## Miscellaneous
 Kokan is Japanese (交換, koukan) for 'barter, exchange', among others.
