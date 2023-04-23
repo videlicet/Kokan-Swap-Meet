@@ -1,25 +1,45 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import './styles/0_index.css'
+
 import App from './routes/1_App.tsx'
-import './styles/index.css'
+//import Assets from './routes/3_Assets.tsx'
+import HowItWorks from './routes/4_How_It_Works.tsx'
+import About from './routes/5_About.tsx'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const router = createBrowserRouter([{
   path: "/",
   element: <App />,
-  /*errorElement: <ErrorPage />,
+  //errorElement: <ErrorPage />,
   children: [
-      {
+     /* {
         path: "/",
-        element: <Home />,
+        element: <Assets />
+      },*/
+      {
+        path: "how-it-works",
+        element: <HowItWorks />
       },
       {
-        path: "menus",
-        element: <Menu />,
-        children: [
-          {
+        path: "about",
+        element: <About />
+      },
+    ],
+}]);
+
+root.render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
+
+
+/*
+children: [
+         {
             path: ":menuID",
             element: <MenuInfo />,
           },
@@ -28,12 +48,4 @@ const router = createBrowserRouter([{
             element: <Recipe />,
           }
         ]
-      },
-    ],*/
-}]);
-
-root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
-);
+ */

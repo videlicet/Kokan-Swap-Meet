@@ -1,0 +1,164 @@
+.page-container {
+  grid-row: 2 / 3;
+}
+
+@media screen and (min-width: 760px) {
+  .page-container  {
+    grid-area: 1 / 2 / 3 / 3;
+    display: flex;
+    flex-direction: column;
+
+    padding: 1rem 3rem 2rem 3rem;
+
+    background: linear-gradient(16deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+  } 
+}
+
+@media screen and (min-width: 1800px) {
+  .page-container  {
+
+  }
+}
+
+/* header */
+
+h1 {
+  display: none;
+  text-transform: uppercase;
+}
+
+@media screen and (min-width: 760px) {
+  h1 {
+    padding: 0.3rem;
+
+    display: block;
+
+    background-color: black;
+    border-radius: 15px;
+
+    text-align: center;
+    color: white;
+  }
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-around;
+
+  list-style: none;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+#header .navbar {
+  background-color: black;
+  border-radius: 15px;
+
+  color: white;
+}
+
+@media screen and (min-width: 760px) {
+  #header .navbar {
+    padding: 0.3rem;
+  }
+}
+
+.navbar a {
+  text-decoration: none;
+}
+
+#login_icon {
+  height: 20px;
+}
+
+#newCounter {
+  padding: 0.3rem;
+
+  vertical-align: top;
+
+  background-color: red;
+  border-radius: 50px;
+
+  font-size:x-small;
+}
+
+/* main container */
+
+#main-container {
+  height: 100%;
+
+  border: 5px solid black;
+  border-radius: 15px;
+}
+
+@media screen and (min-width: 760px) {
+  #main-container {
+    padding: 0.5rem;
+  }
+}
+
+/* footer */
+
+#footer {
+  grid-area: 3 / 0 / 4 / 0 ;
+
+  color: grey;
+}
+
+@media screen and (min-width: 760px) {
+  #footer {
+    grid-area: 3 / 2 / 4 / 3 ;
+  }
+}
+
+#footer hr {
+  margin: 1rem 2rem;
+}
+
+
+/*#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+*/

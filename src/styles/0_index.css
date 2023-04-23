@@ -23,92 +23,23 @@
 
 body {
   height: 100vh;
-}
-
-@media screen and (min-width: 760px) {
-  .page-container  {
-    width: 50%;
-
-    margin: auto;
-    padding: 3rem 3rem;
-
-    background: linear-gradient(16deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
-
-    border-top-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-  }
-  
-}
-
-@media screen and (min-width: 1800px) {
-  .page-container  {
-    width: 40%;
-  }
-}
-
-h1 {
-  display: none;
-  text-transform: uppercase;
-}
-
-@media screen and (min-width: 760px) {
-  h1 {
-    width: 100%;
-    padding: 0.3rem;
-
-    display: block;
-
-    background-color: black;
-    border-radius: 15px;
-
-    text-align: center;
-    color: white;
-  }
-}
-
-.navbar {
   width: 100%;
-  margin: rem; 
+}
 
-  display: flex;
-  justify-content: space-around;
+#root {
+  height: 100%;
 
-  background-color: black;
-
-  list-style: none;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  color: white;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-auto-flow: column;
 }
 
 @media screen and (min-width: 760px) {
-  .navbar {
-    width: 100%;
-    padding: 0.3rem;
-
-    display: flex;
-    justify-content: space-around;
-
-    background-color: black;
-    border-radius: 15px;
-
-    list-style: none;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    color: white;
+  #root {
+    grid-template-columns: 0.5fr 1fr 0.5fr;
   }
 }
-
-.navbar a {
-  text-decoration: none;
-}
-
-#login_icon {
-  height: 20px;
-}
-
 
 /*
 
