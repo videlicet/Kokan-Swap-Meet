@@ -5,6 +5,7 @@ import './styles/0_index.css'
 
 import App from './routes/1_App.tsx'
 //import Assets from './routes/3_Assets.tsx'
+import Login from './routes/1.1_Login.tsx'
 import HowItWorks from './routes/4_How_It_Works.tsx'
 import About from './routes/5_About.tsx'
 
@@ -26,6 +27,10 @@ const router = createBrowserRouter([{
       {
         path: "about",
         element: <About />
+      },
+      {
+        path: "login",
+        element: <Login />
       },
     ],
 }]);
