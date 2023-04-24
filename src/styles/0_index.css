@@ -1,11 +1,11 @@
 /* general */
 *:root {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Rubik", Arial, Helvetica, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   /*color-scheme: light dark; ?*/
-  color: rgba(255, 255, 255, 0.87);
+  color: rgb(221, 213, 207);
   background: linear-gradient(16deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
 
   font-synthesis: none; /*?*/

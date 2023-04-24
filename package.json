@@ -12,6 +12,7 @@
     "start": "concurrently \"dotenv -e .env npm run dev\" \"npm run server\""
   },
   "dependencies": {
+    "@fontsource/rubik": "^4.5.14",
     "@types/react-router-dom": "5.3.3",
     "concurrently": "^8.0.1",
     "cors": "^2.8.5",

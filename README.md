@@ -29,7 +29,8 @@ REACT_APP_PORT=
 
 ## Acknowledgements
 
-Login Icons: Squarecup LTD, CC Atribution | Color changed to white 
+Kokan Icon: sudheep b, CC Attribution | Color changed 
+Login Icons: Squarecup LTD, CC Attribution | Color changed 
 
 ## Miscellaneous
 Kokan is Japanese (交換, koukan) for 'barter, exchange', among others.

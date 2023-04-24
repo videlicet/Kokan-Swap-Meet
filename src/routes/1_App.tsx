@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
+
 import '../styles/1_App.css'
+import "@fontsource/rubik/500.css";
 
 import login_icon from '../assets/login_icon.png'
+import brand_icon from '../assets/kokan_icon_w.png'
 import { mockUserLoggedIn, mockUserLoggedOut } from '../assets/mockUsers'
 
 
@@ -40,7 +43,7 @@ function App() {
     <>
       <div className='page-container'>
 
-        <h1>kokan</h1>
+        <h1 id='brand'><img id='brand_icon' src={brand_icon} height='50'/>okan</h1>
 
         <nav id='header'>
           <ul className='navbar'>
@@ -48,7 +51,7 @@ function App() {
               <li className='' key={index}>
                   <NavLink style={({ isActive }) => ({
                       backgroundColor: isActive ? 'lightgrey' : '',
-                      color: isActive ? 'black' : 'white',
+                      color: isActive ? 'black' : 'rgb(221, 213, 207)',
                       padding: isActive ? '0 0.8rem' : 0,
                       borderRadius: isActive ? 15 : 0,
                       })} 
