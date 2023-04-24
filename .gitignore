@@ -25,3 +25,6 @@ dist-ssr
 
 # Server Setup
 /server
+
+# Env
+.env.server
