@@ -96,8 +96,10 @@ h1 {
 /* main container */
 
 #main-container {
+  min-height: 0;
   height: 100%;
 
+  background-color: rgba(0, 0, 0, 0.6);;
   border: 5px solid black;
   border-radius: 15px;
 }

@@ -8,6 +8,7 @@ import App from './routes/1_App.tsx'
 import Login from './routes/1.1_Login.tsx'
 import HowItWorks from './routes/4_How_It_Works.tsx'
 import About from './routes/5_About.tsx'
+import User from './routes/2_User.tsx'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -31,6 +32,10 @@ const router = createBrowserRouter([{
       {
         path: "login",
         element: <Login />
+      },
+      {
+        path: "user/:id",
+        element: <User />
       },
     ],
 }]);

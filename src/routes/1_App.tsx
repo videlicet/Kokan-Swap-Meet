@@ -14,10 +14,10 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [nav, setNav] = useState(['Home', 'Assets', 'Kokans']);
+  const [nav, setNav] = useState([{name: 'Home', route: '/'}, {name: 'Assets', route: '/assets'}, {name: 'Kokans', route: '/kokans'}]);
   const [footer, setFooter] = useState([{name: 'How It Works', route: '/how-it-works'}, {name: 'About', route: '/about'}]);
 
-  const [user, setUser] = useState(mockUserLoggedOut);
+  const [user, setUser] = useState(mockUserLoggedIn);
 
   const getData = ():void => {
     setLoading(true);
@@ -55,8 +55,8 @@ function App() {
                       padding: isActive ? '0 0.8rem' : 0,
                       borderRadius: isActive ? 15 : 0,
                       })} 
-                      to={`td route`}  className="">
-                    {item}
+                      to={item.route}  className="">
+                    {item.name}
                   </NavLink>
               </li>)}
               <li>
@@ -66,7 +66,7 @@ function App() {
                       padding: isActive ? '0 0.8rem' : 0,
                       borderRadius: isActive ? 15 : 0,
                       })} 
-                      to={user.loggedIn == true && `td route` || `/login`} >
+                      to={user.loggedIn == true && `user/1` || `/login`} >
                     <img id='login_icon' src={login_icon} height='50'/>
                     {user.loggedIn == true && 
                     <>

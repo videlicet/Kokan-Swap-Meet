@@ -37,7 +37,7 @@ body {
 
 @media screen and (min-width: 760px) {
   #root {
-    grid-template-columns: 0.5fr 1fr 0.5fr;
+    grid-template-columns: 0.5fr 2fr 0.5fr;
   }
 }
 
