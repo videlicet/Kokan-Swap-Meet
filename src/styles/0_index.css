@@ -1,5 +1,11 @@
 /* general */
 *:root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+
+  box-sizing: border-box;
+
   font-family: "Rubik", Arial, Helvetica, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -22,8 +28,9 @@
 }
 
 body {
-  height: 100vh;
-  width: 100%;
+  margin: 0;
+
+  height: 100%;
 }
 
 #root {
