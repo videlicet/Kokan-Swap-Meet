@@ -1,10 +1,11 @@
-import { useState, useEffect, ChangeEvent, FormEvent, MouseEvent } from 'react';
+import { useState, useEffect, ChangeEvent, FormEvent, MouseEvent } from 'react'
+import { NavLink } from 'react-router-dom'
 import '../styles/1.1_Login.css'
 
-function App() {
+function Login() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [username, setUsername] = useState('sdfsf');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -43,24 +44,24 @@ function App() {
         <>
         <div id='login-container'>
             <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
+            <form className='login-form' onSubmit={handleSubmit}>
                 <div className='text-input'>
-                    <label htmlFor='above'>Username</label><br/>
-                    <input onChange={handleChangeUsername} name='above' type='text' value={username}></input>
+                    <label htmlFor='username'>Username</label>
+                    <input onChange={handleChangeUsername} name='username' type='text' value={username}></input>
                 </div>
                 <div className='text-input'>
-                    <label htmlFor='below'>Password</label><br/>
-                    <input onChange={handleChangePassword} name='below' type='text' value={password}></input><br/>
+                    <label htmlFor='password'>Password</label>
+                    <input onChange={handleChangePassword} name='password' type='text' value={password}></input>
                 </div>
-                <input type='submit' value='REGISTER'></input>
+                <input type='submit' value='login'></input>
             </form>
             <div>
-                <button>SIGN UP</button>
+                <NavLink className='button-like' to='/sign-up'>sing up</NavLink>
             </div>
         </div>
         </>
     )
   }
   
-  export default App
+  export default Login
   

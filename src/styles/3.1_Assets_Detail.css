@@ -1,0 +1,40 @@
+#asset-container {
+    padding: 3rem;
+}
+
+#asset-container .header {
+    display: flex;
+    justify-content: space-between;
+}
+
+#asset-container .title {
+    font-size: xx-large;
+}
+
+#asset-container .kokans {
+    padding: 0.3rem;
+
+    vertical-align: top;
+    background-color: rgba(253,187,45,1);
+    border-radius: 100px;
+    color: black;
+}
+
+#asset-container .licence {
+    padding: 0.5rem 0.5rem;
+    align-self:center;
+    background-color: black;
+    border-radius: 15px;
+
+    font-size: smaller;
+}
+
+#asset-container .tag {
+    margin-right: 1rem;
+    padding: 0.3rem 0.9rem;
+    
+    background-color: black;
+    border-radius: 15px;
+
+    font-size: smaller;
+}

@@ -3,6 +3,8 @@ import '../styles/2_User.css'
 import profile_picture from '../assets/profile_picture.png'
 import brand_icon from '../assets/kokan_icon_w.png'
 
+import { mockAssets } from '../assets/mockAssets'
+
 type mockAsset = {
     name: string;
     kokans: number;
@@ -11,50 +13,6 @@ type mockAsset = {
     licence: string; 
 }
 
-const mockAssets = [
-    {
-        name: 'asset1',
-        kokans: 3,
-        type: ['code', 'web-app'],
-        shortDescription: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta nisi saepe ea ducimus. Commodi quisquam, ullam unde quaerat nesciunt optio accusantium dicta ea quam ex alias nisi quibusdam sint in?',
-        licence: 'MIT'
-    },
-    {
-        name: 'asset2',
-        kokans: 5,
-        type: ['code', 'web-app'],
-        shortDescription: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta nisi saepe ea ducimus. Commodi quisquam, ullam unde quaerat nesciunt optio accusantium dicta ea quam ex alias nisi quibusdam sint in?',
-        licence: 'MIT'
-    },
-    {
-        name: 'asset3',
-        kokans: 1,
-        type: ['code', 'web-app'],
-        shortDescription: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta nisi saepe ea ducimus. Commodi quisquam, ullam unde quaerat nesciunt optio accusantium dicta ea quam ex alias nisi quibusdam sint in?',
-        licence: 'MIT'
-    },
-    {
-        name: 'asset1',
-        kokans: 3,
-        type: ['code', 'web-app'],
-        shortDescription: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta nisi saepe ea ducimus. Commodi quisquam, ullam unde quaerat nesciunt optio accusantium dicta ea quam ex alias nisi quibusdam sint in?',
-        licence: 'MIT'
-    },
-    {
-        name: 'asset2',
-        kokans: 5,
-        type: ['code', 'web-app'],
-        shortDescription: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta nisi saepe ea ducimus. Commodi quisquam, ullam unde quaerat nesciunt optio accusantium dicta ea quam ex alias nisi quibusdam sint in?',
-        licence: 'MIT'
-    },
-    {
-        name: 'asset3',
-        kokans: 1,
-        type: ['code', 'web-app'],
-        shortDescription: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta nisi saepe ea ducimus. Commodi quisquam, ullam unde quaerat nesciunt optio accusantium dicta ea quam ex alias nisi quibusdam sint in?',
-        licence: 'MIT'
-    },
-]
 
 function App() {
     const [loading, setLoading] = useState(false);

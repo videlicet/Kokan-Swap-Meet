@@ -1,15 +1,13 @@
 import { useState, useEffect, ChangeEvent, FormEvent, MouseEvent } from 'react';
-import { NavLink, Outlet } from 'react-router-dom'
-import '../styles/3.1_Assets_Detail.css'
+import '../styles/1.3_SignUp.css'
 
-import { mockAssets } from '../assets/mockAssets'
-
-function AssetsDetail() {
+function SignUp() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [asset, setAsset] = useState(mockAssets[0]);
+    const [email, setEmail] = useState('');
+
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -43,33 +41,33 @@ function AssetsDetail() {
         setPassword(event.target.value);
     }
 
+    function handleChangeEmail(event: ChangeEvent<HTMLInputElement>) {
+        setEmail(event.target.value);
+    }
+
     return (
         <>
-        <div id='asset-container'>
-            <div className='header'>
-                <div> 
-                    <span className='title'>{asset.name}</span>
-                    <span>by <NavLink to='/user/1'>TD_USER</NavLink></span>
+        <div id='login-container'>
+            <h2>Sign Up</h2>
+            <form onSubmit={handleSubmit}>
+                <div className='text-input'>
+                    <label htmlFor='username'>Username</label><br/>
+                    <input onChange={handleChangeUsername} name='username' type='text' value={username}></input>
                 </div>
-                <span className='licence'>{asset.licence}</span>
-            </div>
-            <br/>
-            <div className='description'>
-                <span>TD_LONGDESCRIPTION</span>
-            </div>
-            <br/>
-            <div className='description'>
-                <span><span className='kokans'>{asset.kokans}</span> TD_VALUE</span>
-            </div>
-            <br/>
-            <span>Created: TD_DATE</span>
-            <br/>
-            <br/>
-            <span>Tags: {asset.type.map(item => <span className='tag'>{item}</span>)}</span>
+                <div className='text-input'>
+                    <label htmlFor='password'>Password</label><br/>
+                    <input onChange={handleChangePassword} name='password' type='text' value={password}></input><br/>
+                </div>
+                <div className='text-input'>
+                    <label htmlFor='email'>E-Mail</label><br/>
+                    <input onChange={handleChangeEmail} name='email' type='text' value={email}></input><br/>
+                </div>
+                <input type='submit' value='sign up'></input>
+            </form>
         </div>
         </>
     )
   }
   
-  export default AssetsDetail
+  export default SignUp
   
