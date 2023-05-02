@@ -14,7 +14,7 @@ import About from './routes/5_About.tsx'
 import User from './routes/2_User.tsx'
 import AssetsDetail from './routes/3.1_Assets_Detail.tsx'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root')!);
 
 const router = createBrowserRouter([{
   path: "/",
