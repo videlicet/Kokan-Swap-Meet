@@ -1,24 +1,26 @@
 {
   "compilerOptions": {
-    "target": "ESNext",                                     /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "module": "ESNext",                                     /* Specify what module code is generated. */
-    "esModuleInterop": true,                                /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
-    "skipLibCheck": true,
+    "target": "ESNext",                                   /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],             /* Specify library files to be included in the compilation. */
+
+    "esModuleInterop": true,                              /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
+    "moduleResolution": "bundler",                        /* Specify how TypeScript looks up a file from a given module specifier. */
+    "allowImportingTsExtensions": true,                   /* Allow imports to include TypeScript file extensions. Requires '--moduleResolution bundler' and either '--noEmit' or '--emitDeclarationOnly' to be set. */
+    "resolveJsonModule": true,                            /* Enable importing .json files. */
+    "isolatedModules": true,                              /* Ensure that each file can be safely transpiled without relying on other imports. */
+    "noEmit": true,                                       /* Disable emitting files from a compilation. */
+    "jsx": "react-jsx",                                   /* Specify what JSX code is generated. */
 
     /* Linting */
-    "strict": true,                                          /* Enable all strict type-checking options. */
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "strict": true,                                       /* Enable all strict type-checking options. */
+    "noUnusedLocals": true,                               /* Enable error reporting when local variables aren't read. */
+    "noUnusedParameters": true,                           /* Raise an error when a function parameter isn't read. */
+    "noFallthroughCasesInSwitch": true,                   /* Enable error reporting for fallthrough cases in switch statements. */
+
+    /* Completeness*/
+    "skipLibCheck": true                                  /* Skip type checking all .d.ts files. */
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
