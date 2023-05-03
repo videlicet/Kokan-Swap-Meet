@@ -1,29 +1,25 @@
-import { useState, useEffect, ChangeEvent, FormEvent, MouseEvent } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react'
+import { NavLink } from 'react-router-dom'
 import '../styles/2_User.css'
-import profile_picture from '../assets/profile_picture.png'
 import brand_icon from '../assets/kokan_icon_w.png'
 
+/* import components */
+import ProfileAvatar from '../components/Avatar.tsx'
+import Asset from '../components/Asset.tsx'
+
 import { mockAssets } from '../assets/mockAssets'
-
-type mockAsset = {
-    name: string;
-    kokans: number;
-    type: string[];
-    shortDescription: string;
-    licence: string; 
-}
-
+import { mockUserLoggedIn } from '../assets/mockUsers.tsx'
 
 function App() {
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [username, setUsername] = useState('sdfsf');
-    const [password, setPassword] = useState('');
-    const [userAssets, setUserAssets] = useState(mockAssets);
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const [username, setUsername] = useState('sdfsf')
+  const [password, setPassword] = useState('')
+  const [userAssets, setUserAssets] = useState(mockAssets)
 
-    function handleSubmit(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-        /*axios.post(
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    /*axios.post(
                 "https://api.imgflip.com/caption_image",
                 {
                     form: {
@@ -41,46 +37,40 @@ function App() {
         .catch(function (error) {
             console.log(error);
         });*/
-        setUsername('');
-        setPassword('');
-    }
-
-    function handleChangeUsername(event: ChangeEvent<HTMLInputElement>) {
-        setUsername(event.target.value);
-    }
-  
-    function handleChangePassword(event: ChangeEvent<HTMLInputElement>) {
-        setPassword(event.target.value);
-    }
-
-    return (
-        <>
-        <div id='user-container'>
-            <div id='user-assets'>
-            {userAssets.map((item, index) => 
-                <div className='asset' key={index}>
-                    <div className='header'>
-                        <div> 
-                            <span className='title'>{item.name}</span>
-                            <span className='kokans'>{item.kokans}</span>
-                        </div>
-                        <span className='licence'>{item.licence}</span>
-                    </div>
-                    <div className='description'>
-                        <span>{item.shortDescription}</span>
-                    </div>
-                    <span>{item.type.map(item => <span className='tag'>{item}</span>)}</span>
-                </div>)}
-            </div>
-            <div id='user-info'>
-                <img src={profile_picture} alt='profile-picture' height='150px'/>
-                <span>username</span>
-                <span><img src={brand_icon} alt='kokans' height='20px'/>number of kokans</span>
-            </div>
-        </div>
-        </>
-    )
+    setUsername('')
+    setPassword('')
   }
-  
-  export default App
-  
+
+  function handleChangeUsername(event: ChangeEvent<HTMLInputElement>) {
+    setUsername(event.target.value)
+  }
+
+  function handleChangePassword(event: ChangeEvent<HTMLInputElement>) {
+    setPassword(event.target.value)
+  }
+
+  return (
+    <div id="user-container">
+      <div id="user-assets">
+        {userAssets.map((item, index) => (
+          <NavLink to={`/assets/${item.asset_id}`} className="unstyledLink">
+            <Asset assetProps={item} index={index}></Asset>
+          </NavLink>
+        ))}
+      </div>
+      <div id="user-info">
+        <ProfileAvatar
+          src={mockUserLoggedIn.pictureURL}
+          name={mockUserLoggedIn.name}
+        ></ProfileAvatar>
+        <span>{mockUserLoggedIn.name}</span>
+        <span>
+          <img src={brand_icon} alt="kokans" height="20px" />
+          {mockUserLoggedIn.kokans}
+        </span>
+      </div>
+    </div>
+  )
+}
+
+export default App

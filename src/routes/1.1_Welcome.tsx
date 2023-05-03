@@ -1,13 +1,12 @@
-import { useState, useEffect, ChangeEvent, FormEvent, MouseEvent } from 'react';
-import '../styles/1.3_SignUp.css'
+import { useState, useEffect, ChangeEvent, FormEvent, MouseEvent } from 'react'
+import { NavLink } from 'react-router-dom'
+import '../styles/1.1_Login.css'
 
-function SignUp() {
+function Welcome() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
-
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -29,7 +28,7 @@ function SignUp() {
         .catch(function (error) {
             console.log(error);
         });*/
-        setUsername(''); 
+        setUsername('');
         setPassword('');
     }
 
@@ -41,13 +40,10 @@ function SignUp() {
         setPassword(event.target.value);
     }
 
-    function handleChangeEmail(event: ChangeEvent<HTMLInputElement>) {
-        setEmail(event.target.value);
-    }
-
     return (
-        <div id='signup-container'>
-            <h2>Sign Up</h2>
+        <>
+        <div id='login-container'>
+            <h2>Login</h2>
             <form onSubmit={handleSubmit}>
                 <div className='text-input'>
                     <label htmlFor='username'>Username</label>
@@ -55,17 +51,14 @@ function SignUp() {
                 </div>
                 <div className='text-input'>
                     <label htmlFor='password'>Password</label>
-                    <input onChange={handleChangePassword} name='password' type='text' value={password}></input><br/>
+                    <input onChange={handleChangePassword} name='password' type='text' value={password}></input>
                 </div>
-                <div className='text-input'>
-                    <label htmlFor='email'>E-Mail</label>
-                    <input onChange={handleChangeEmail} name='email' type='text' value={email}></input><br/>
-                </div>
-                <input type='submit' value='sign up'></input>
+                <input type='submit' value='login'></input> <NavLink className='button-like' to='/sign-up'>sing up</NavLink>
             </form>
         </div>
+        </>
     )
   }
   
-  export default SignUp
+  export default Welcome
   

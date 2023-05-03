@@ -1,0 +1,27 @@
+#assets {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 1fr 30fr;
+  row-gap: 0.5rem;
+}
+
+.asset-overview {
+  min-height: 0;
+  height: 100%;
+  overflow: scroll;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto;
+}
+
+.search-bar {
+  width: 100%;
+}
+
+#assets input[type='text'] {
+  padding: 0.5rem 1rem; /*1rem on general input[type='text']*/
+}

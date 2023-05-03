@@ -3,70 +3,7 @@
     padding: 3rem;
 }
 
-.text-input {
-    margin: 0.5rem 0;
-
-    display: flex;
-    flex-direction: column;
-    row-gap: 0.4rem;
-}
-
-.button-like {
-    width: 5rem;
-
-    margin: 0.5rem 0;
-    padding: 0.3rem 0.9rem;
-
-    background-color: black;
-    border: none;
-    border-radius: 15px;
-
-    font-size: smaller;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: white;
-}
-
 .sign-up a:hover {
-    background-color: white;
-    color: black;
-}
-
-button {
-    border: 3px dotted black;
-    border-radius: 15px;
-    background-color: white;
-    padding: 0.3rem 0.6rem;
-    margin: 0.3rem 0.3rem;
-}
-  
-button:hover {
-    background-color: grey;
-}
-
-input[type='text'] {
-    padding: 0.3rem 0.6rem;
-
-    border: none;
-    border-radius: 15px;
-}
-
-input[type='submit'] {
-    width: 5rem;
-
-    margin: 0.5rem 0;
-    padding: 0.3rem 0.6rem;
-
-    background-color: black;
-    border: none;
-    border-radius: 15px;
-    color: white;
-
-    text-transform: uppercase;
-    font-family: "Rubik", Arial, Helvetica, sans-serif;
-}
-
-input[type='submit']:hover {
     background-color: white;
     color: black;
 }

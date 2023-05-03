@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
-
 import '../styles/1_App.css'
 import '@fontsource/rubik/500.css';
+
+/* Import Components */
 
 import login_icon from '../assets/login_icon.png'
 import brand_icon from '../assets/kokan_icon_w.png'

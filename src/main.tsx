@@ -4,8 +4,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './styles/0_index.css'
 
 import App from './routes/1_App.tsx'
+import Welcome from './routes/1.1_Welcome.tsx'
 import ErrorPage from './routes/0_Error_Page.tsx'
-//import Assets from './routes/3_Assets.tsx'
+import Assets from './routes/3_Assets.tsx'
 import Login from './routes/1.1_Login.tsx'
 import Logout from './routes/1.2_Logout.tsx'
 import SignUp from './routes/1.3_SignUp.tsx'
@@ -21,10 +22,10 @@ const router = createBrowserRouter([{
   element: <App />,
   errorElement: <ErrorPage />,
   children: [
-     /* {
+      {
         path: "/",
-        element: <Assets />
-      },*/
+        element: <Welcome />
+      },
       {
         path: "how-it-works",
         element: <HowItWorks />
@@ -48,6 +49,10 @@ const router = createBrowserRouter([{
       {
         path: "user/:id",
         element: <User />
+      },
+      {
+        path: "assets",
+        element: <Assets />
       },
       {
         path: "assets/:id",
