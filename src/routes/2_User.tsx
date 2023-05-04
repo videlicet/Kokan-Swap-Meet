@@ -10,7 +10,7 @@ import Asset from '../components/Asset.tsx'
 import { mockAssets } from '../assets/mockAssets'
 import { mockUserLoggedIn } from '../assets/mockUsers.tsx'
 
-function App() {
+function User(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [username, setUsername] = useState('sdfsf')
@@ -73,4 +73,4 @@ function App() {
   )
 }
 
-export default App
+export default User

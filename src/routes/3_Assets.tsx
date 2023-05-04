@@ -9,13 +9,12 @@ import Asset from '../components/Asset.tsx'
 import { mockAssets } from '../assets/mockAssets'
 // import { mockUserLoggedIn } from '../assets/mockUsers.tsx'
 
-function Assets() {
+function Assets(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [username, setUsername] = useState('sdfsf')
   const [searchTerm, setSearchTerm] = useState('')
   const [userAssets, setUserAssets] = useState(mockAssets)
-
 
   //getData(); make a request to get all of the documents
 
@@ -40,7 +39,7 @@ function Assets() {
         .catch(function (error) {
             console.log(error);
         });*/
-    setSearchTerm('');
+    setSearchTerm('')
   }
 
   function handleChangeSearchTerm(event: ChangeEvent<HTMLInputElement>) {
@@ -50,7 +49,7 @@ function Assets() {
   return (
     <div id="assets">
       <div>
-        <form onSubmit={handleSubmit} className='text-input'>
+        <form onSubmit={handleSubmit} className="text-input">
           <input
             className="search-bar"
             onChange={handleChangeSearchTerm}

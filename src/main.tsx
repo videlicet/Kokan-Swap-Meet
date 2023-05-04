@@ -14,6 +14,7 @@ import HowItWorks from './routes/4_How_It_Works.tsx'
 import About from './routes/5_About.tsx'
 import User from './routes/2_User.tsx'
 import AssetsDetail from './routes/3.1_Assets_Detail.tsx'
+import AssetsNew from './routes/3.2_Assets_New.tsx'
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 
@@ -58,6 +59,10 @@ const router = createBrowserRouter([{
         path: "assets/:id",
         element: <AssetsDetail />
       },
+      {
+        path: "assets/new",     // QQ will this route work or collide with assets/:id
+        element: <AssetsNew />
+      }
     ],
 }]);
 
