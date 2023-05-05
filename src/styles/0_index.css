@@ -23,6 +23,7 @@
   /* custom properties */
   --main-text-color: rgb(221, 213, 207);
   --main-font-style: "Rubik", Arial, Helvetica, sans-serif;
+  --main-color-yellow: rgba(253, 187, 45, 1); 
 }
 
 @media screen and (min-width: 760px) {

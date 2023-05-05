@@ -48,7 +48,7 @@
     padding: 0.3rem;
 
     vertical-align: top;
-    background-color: rgba(253,187,45,1);
+    background-color: var(--main-color-yellow);
     border-radius: 100px;
     color: black;
 }
