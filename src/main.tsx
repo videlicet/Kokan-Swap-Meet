@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './styles/0_index.css'
 
+/* import routes*/
 import App from './routes/1_App.tsx'
 import Welcome from './routes/1.1_Welcome.tsx'
 import ErrorPage from './routes/0_Error_Page.tsx'
@@ -13,6 +14,10 @@ import SignUp from './routes/1.3_SignUp.tsx'
 import HowItWorks from './routes/4_How_It_Works.tsx'
 import About from './routes/5_About.tsx'
 import User from './routes/2_User.tsx'
+import UserSettings from './routes/2.1_User_Settings.tsx'
+import UserAssets from './routes/2.2_User_Assets.tsx'
+import UserRequestsIncoming from './routes/2.2.1_User_Requests_Incoming.tsx'
+import UserRequestsOutgoing from './routes/2.2.2_User_Requests_Outgoing.tsx'
 import AssetsDetail from './routes/3.1_Assets_Detail.tsx'
 import AssetsNew from './routes/3.2_Assets_New.tsx'
 
@@ -49,7 +54,30 @@ const router = createBrowserRouter([{
       },
       {
         path: "user/:id",
-        element: <User />
+        element: <User />,
+        children: [
+          {
+            path: "assets",
+            element: <UserAssets />
+          },
+          {
+            path: "settings",
+            element: <UserSettings />
+          },
+          {
+            path: "requests",
+            children: [
+              {
+                path: "incoming",
+                element: <UserRequestsIncoming />
+              },
+              {
+                path: "outgoing",
+                element: <UserRequestsOutgoing />
+              }
+            ]
+          }         
+        ]
       },
       {
         path: "assets",

@@ -12,9 +12,16 @@
 }
 
 @media screen and (min-width: 760px) {
-    #user-assets {
+    #user-outlet {
         overflow: auto;
 
+        display: grid;
+        row-gap: 1rem;      
+    }
+}
+
+@media screen and (min-width: 760px) {
+    #user-assets {
         display: grid;
         row-gap: 1rem;      
     }
@@ -72,17 +79,21 @@
     font-size: smaller;
 }
 
+#user-info {
+    min-height: 0;
+
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
+    background-color: black;
+    border-radius: 15px;        
+}
+
 @media screen and (min-width: 760px) {
     #user-info {
         min-height: 0;
 
         padding: 1.5rem;
-
-        display: flex;
-        flex-flow: column;
-        align-items: center;
-
-        background-color: black;
-        border-radius: 15px;        
     }
 } 

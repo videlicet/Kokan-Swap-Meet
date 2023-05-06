@@ -43,6 +43,14 @@ input[type='text'], input[type='number'] {
   margin-bottom: 0.5rem;
 }
 
+.fixed-text {
+
+  padding: 0.3rem 1rem;
+
+  background-color: rgb(81, 243, 255, 0.4);
+  border-radius: 15px;
+}
+
 /* header */
 
 #brand_icon {

@@ -1,21 +1,26 @@
 import { useState, ChangeEvent, FormEvent } from 'react'
-import { NavLink, Outlet } from 'react-router-dom'
-import '../styles/2_User.css'
+import { NavLink } from 'react-router-dom'
+import '../styles/2.2.1–2_User_Requests.css'
 import brand_icon from '../assets/kokan_icon_w.png'
 
 /* import components */
-import ProfileAvatar from '../components/Avatar.tsx'
-import Asset from '../components/Asset.tsx'
+import RequestOutgoing from '../components/RequestOutgoing.tsx'
 
-import { mockAssets } from '../assets/mockAssets'
+import { mockRequests } from '../assets/mockRequests.tsx'
 import { mockUserLoggedIn } from '../assets/mockUsers.tsx'
 
-function User(): JSX.Element {
+function UserRequestsIncoming(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [username, setUsername] = useState('sdfsf')
   const [password, setPassword] = useState('')
-  const [userAssets, setUserAssets] = useState(mockAssets)
+  const [requests, setRequests] = useState(
+    mockRequests.filter(
+      (request) =>
+        request.status == 'pending' &&
+        request.requester == mockUserLoggedIn.user_id,
+    ),
+  )
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -50,30 +55,12 @@ function User(): JSX.Element {
   }
 
   return (
-    <div id="user-container">
-      <div id="user-outlet">
-        <Outlet/>
-      </div>
-      <div id="user-info">
-        <ProfileAvatar
-          src={mockUserLoggedIn.pictureURL}
-          name={mockUserLoggedIn.name}
-        ></ProfileAvatar>
-        <span>{mockUserLoggedIn.name}</span>
-        <span>
-          <img src={brand_icon} alt="kokans" height="20px" />
-          {mockUserLoggedIn.kokans}
-        </span>
-      </div>
+    <div id='requests'>
+      {requests.map((item, index) => (
+        <RequestOutgoing requestProps={item} index={index}></RequestOutgoing>
+      ))}
     </div>
   )
 }
 
-export default User
-
-
-// {userAssets.map((item, index) => (
-//   <NavLink to={`/assets/${item.asset_id}`} className="unstyledLink">
-//     <Asset assetProps={item} index={index}></Asset>
-//   </NavLink>
-// ))}
+export default UserRequestsIncoming

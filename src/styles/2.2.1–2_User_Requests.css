@@ -1,0 +1,33 @@
+#requests {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;      
+}
+
+#requests .request {
+    padding: 1rem;
+    
+    margin-right: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    background-color: rgb(0, 0, 0, 0.4);
+    border: 5px solid black;
+    border-radius: 15px;
+}
+
+#requests .header {
+    display: flex;
+    justify-content: space-between;
+}
+
+#requests .title {
+    font-size: xx-large;
+}
+
+#requests button {
+    place-self: end;
+    width: fit-content;
+}
