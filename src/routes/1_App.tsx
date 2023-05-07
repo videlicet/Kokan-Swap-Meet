@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import '../styles/1_App.css'
 import '@fontsource/rubik/500.css'
@@ -8,33 +8,29 @@ import '@fontsource/rubik/500.css'
 import login_icon from '../assets/login_icon.png'
 import brand_icon from '../assets/kokan_icon_w.png'
 import { mockUserLoggedIn, mockUserLoggedOut } from '../assets/mockUsers'
+import { MagnifyingGlassIcon, PersonIcon } from '@radix-ui/react-icons'
+import DropdownMenu from '../components/DropDownMenu.tsx'
+
+/* helpers */
+
+const footerContent = [
+  { name: 'How It Works', route: '/how-it-works' },
+  { name: 'About', route: '/about' },
+]
+
+const navContent = [
+  { name: 'Home', route: '/' },
+  { name: 'Assets', route: '/assets' },
+  { name: 'Kokans', route: '/kokans' },
+]
 
 function App(): JSX.Element {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-
-  const [nav, setNav] = useState([
-    { name: 'Home', route: '/' },
-    { name: 'Assets', route: '/assets' },
-    { name: 'Kokans', route: '/kokans' },
-  ])
-  const [footer, setFooter] = useState([
-    { name: 'How It Works', route: '/how-it-works' },
-    { name: 'About', route: '/about' },
-  ])
-
+  const [searchTerm, setSearchTerm] = useState('')
+  const [nav, setNav] = useState(navContent)
+  const [footer, setFooter] = useState(footerContent)
   const [user, setUser] = useState(mockUserLoggedIn)
-
-  const [style, setStyle] = useState('')
-
-  /** dropdown menu */
-  const toggleDropdown = (): void => {
-    if (style == '') {
-      setStyle('show')
-    } else {
-      setStyle('')
-    }
-  }
 
   /** fetch data */
   const getData = (): void => {
@@ -57,75 +53,65 @@ function App(): JSX.Element {
     getData()
   }, [])
 
+  /* search */
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    console.log('search submitted')
+    /* make a request to the server to get documents with condition x*/
+    setSearchTerm('')
+  }
+
+  function handleChangeSearchTerm(event: ChangeEvent<HTMLInputElement>) {
+    setSearchTerm(event.target.value)
+  }
+
   return (
     <>
       <div className='page-container'>
-        <h1 id='brand'>
-          <img id='brand_icon' src={brand_icon} height='50' />
-          okan
-        </h1>
+        <NavLink to='/'>
+          <h1 id='brand'>
+            <img id='brand_icon' src={brand_icon} height='50' />
+            okan
+          </h1>
+        </NavLink>
 
         <nav id='header'>
-          <ul className='navbar'>
-            {nav.map((item, index) => (
-              <li className='' key={index}>
-                <NavLink
-                  style={({ isActive }) => ({
-                    backgroundColor: isActive ? 'lightgrey' : '',
-                    color: isActive ? 'black' : 'rgb(221, 213, 207)',
-                    padding: isActive ? '0 0.8rem' : 0,
-                    borderRadius: isActive ? 15 : 0,
-                  })}
-                  to={item.route}
-                  className=''
-                >
-                  {item.name}
-                </NavLink>
-              </li>
-            ))}
-            <li>
-              <div className='dropdown'>
-                {user.loggedIn !== true && (
-                  <a href='/login'>
-                    <img id='login_icon' src={login_icon} height='50' />
-                  </a>
-                )}
-                {user.loggedIn == true && (
-                  <img
-                    id='login_icon'
-                    src={login_icon}
-                    height='50'
-                    onClick={toggleDropdown}
-                  />
-                )}
-                {user.loggedIn == true && (
-                  <span onClick={toggleDropdown}>
-                    {user.loggedIn == true && <span>{user.username}</span>}
-                  </span>
-                )}
-
-                <div id='myDropdown' className={`dropdown-content ${style}`}>
-                  <NavLink to='/user/1' onClick={toggleDropdown}>
-                    Profile
-                  </NavLink>
-                  <NavLink to='/settings' onClick={toggleDropdown}>
-                    Settings
-                  </NavLink>
-                  <NavLink to='/logout' onClick={toggleDropdown}>
-                    Logout
-                  </NavLink>
-                </div>
-              </div>
-              {user.loggedIn == true && (
-                <NavLink
-                  style={{ color: 'white', fontWeight: 'bold' }}
-                  to={`td route messages`}
-                >
-                  <span id='newCounter'>{user.newCounter}</span>
-                </NavLink>
+          <div className='navbar'>
+            <form
+              onSubmit={handleSubmit}
+              className='navbar-element'
+              style={{
+                height: '100%',
+                width: '40%',
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              <input
+                className='search-bar'
+                onChange={handleChangeSearchTerm}
+                type='text'
+                value={searchTerm}
+                placeholder='Search assets'
+              ></input>
+              <button type='submit' className='search-submit'>
+                <MagnifyingGlassIcon className='search-icon' />
+              </button>
+            </form>
+            <div id='profile-link' className='navbar-element'>
+              {user.loggedIn !== true && (
+                <a href='/login'>
+                  <PersonIcon />
+                </a>
               )}
-            </li>
-          </ul>
+              {user.loggedIn == true && (
+                <div className='profile-name' >
+                  <DropdownMenu user={user} />
+                </div>
+              )}
+            </div>
+          </div>
         </nav>
 
         <div id='main-container'>
@@ -134,9 +120,9 @@ function App(): JSX.Element {
       </div>
 
       <footer id='footer'>
-        <ul className='navbar'>
-          {footer.map((item, index) => (
-            <li>
+        <div className='navbar'>
+          {footer.map((item) => (
+            <div>
               <NavLink
                 style={({ isActive }) => ({
                   fontWeight: isActive ? 'bold' : '',
@@ -148,12 +134,12 @@ function App(): JSX.Element {
               >
                 {item.name}
               </NavLink>
-            </li>
+            </div>
           ))}
-          <li>
+          <div>
             <span>Kokan © 2023</span>
-          </li>
-        </ul>
+          </div>
+        </div>
       </footer>
     </>
   )
@@ -161,15 +147,30 @@ function App(): JSX.Element {
 
 export default App
 
-/**
- * 
- *                   <NavLink onClick={toggleDropdown} style={({ isActive }) => ({
-                        backgroundColor: isActive ? 'lightgrey' : '',
-                        color: isActive ? 'black' : 'white',
-                        padding: isActive ? '0 0.8rem' : 0,
-                        borderRadius: isActive ? 15 : 0,
-                        })} 
-                        to={user.loggedIn == true && `user/1` || `/login`} >
+/*
+<img
+id='login_icon'
+src={login_icon}
+height='50'
+onClick={toggleDropdown}
+/>
 
-                  </NavLink>
- */
+<div id='myDropdown' className={`dropdown-content ${style}`}>
+<NavLink to='/user/1/assets' onClick={toggleDropdown}>
+  Assets
+</NavLink>
+<NavLink
+  to='/user/1/requests/incoming'
+  onClick={toggleDropdown}
+>
+  Requests
+</NavLink>
+<NavLink to='/user/1/settings' onClick={toggleDropdown}>
+  Settings
+</NavLink>
+<NavLink to='/logout' onClick={toggleDropdown}>
+  Logout
+</NavLink>
+</div>
+
+*/

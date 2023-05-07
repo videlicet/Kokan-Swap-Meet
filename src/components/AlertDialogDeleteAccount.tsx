@@ -1,6 +1,6 @@
 import React from 'react'
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
-import './AlertDialogSwap.css' // change?
+import './AlertDialog.css'
 
 interface deleteRequest {
   portalContainer: HTMLElement | null;
@@ -25,7 +25,7 @@ const AlertDialogSwap: React.FC<deleteRequest> = (props: deleteRequest) => (
             All of your kokans and assets will be deleted.
           </p>
         </AlertDialog.Description>
-        <div style={{ display: 'flex', gap: 25, justifyContent: 'flex-end' }}>
+        <div style={{ display: 'flex', gap: 25, justifyContent: 'space-between' }}>
           <AlertDialog.Cancel asChild>
             <button>Cancel</button>
           </AlertDialog.Cancel>

@@ -18,3 +18,13 @@ export const mockUserLoggedOut = {
     newCounter: 5,
     pictureURL: './profile_picture.png'
   }
+
+  export interface UserInterface {
+    user_id: string,
+    loggedIn: boolean,
+    username: string,
+    name: string,
+    newCounter: number,
+    kokans: number,
+    pictureURL: string
+  }

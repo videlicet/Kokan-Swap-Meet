@@ -1,0 +1,31 @@
+.DropDownMenuContent {
+  position: relative;
+  top: 0.9rem;
+
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 1rem;
+
+  display: inline-block;
+  align-items: center;
+
+  background-color: var(--main-text-color);
+
+  border-radius: 15px;
+
+  text-transform: uppercase;
+}
+
+.DropdownMenuItem {
+  padding: 0.5rem 0;
+  text-align: center;
+}
+
+.DropdownMenuItem a {
+  color: black;
+}
+
+.DropdownMenuItem:focus {
+  outline: none;
+}

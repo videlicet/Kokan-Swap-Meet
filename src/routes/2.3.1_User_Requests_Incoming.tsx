@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, FormEvent } from 'react'
 import { NavLink } from 'react-router-dom'
-import '../styles/2.2.1–2_User_Requests.css'
+import '../styles/2.3.1–2_User_Requests.css'
 import brand_icon from '../assets/kokan_icon_w.png'
 
 /* import components */
@@ -9,6 +9,27 @@ import RequestIncoming from '../components/RequestIncoming.tsx'
 import { mockRequests } from '../assets/mockRequests.tsx'
 import { mockUserLoggedIn } from '../assets/mockUsers.tsx'
 
+const alertDialogRequestContentAccept = {
+  title: 'Please confirm the swap request of your asset',
+  description: 'Your asset will be co-owned by you and the requester.',
+  button: {
+    button: 'accept',
+    confirm: 'accept',
+    cancel: 'cancel'
+  }
+}
+
+const alertDialogRequestContentDecline = {
+  title: 'Please confirm you want to declien this swap request',
+  description: 'The requester may request the asset again.',
+  button: {
+    button: 'decline',
+    confirm: 'decline',
+    cancel: 'cancel'
+  }
+}
+
+/* function component */
 function UserRequestsIncoming(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -57,7 +78,7 @@ function UserRequestsIncoming(): JSX.Element {
   return (
     <div id='requests'>
       {requests.map((item, index) => (
-        <RequestIncoming requestProps={item} index={index}></RequestIncoming>
+        <RequestIncoming requestProps={item} index={index} alertDialogRequestContentAccept={alertDialogRequestContentAccept} alertDialogRequestContentDecline={alertDialogRequestContentDecline}></RequestIncoming>
       ))}
     </div>
   )

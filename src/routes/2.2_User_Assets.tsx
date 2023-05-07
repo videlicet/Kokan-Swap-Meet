@@ -9,6 +9,8 @@ import Asset from '../components/Asset.tsx'
 import { mockAssets } from '../assets/mockAssets'
 import { mockUserLoggedIn } from '../assets/mockUsers.tsx'
 
+
+/* function component */
 function UserAssets(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -36,16 +38,7 @@ function UserAssets(): JSX.Element {
         .catch(function (error) {
             console.log(error);
         });*/
-    setUsername('')
-    setPassword('')
-  }
-
-  function handleChangeUsername(event: ChangeEvent<HTMLInputElement>) {
-    setUsername(event.target.value)
-  }
-
-  function handleChangePassword(event: ChangeEvent<HTMLInputElement>) {
-    setPassword(event.target.value)
+    //setUserAssets([])
   }
 
   return (

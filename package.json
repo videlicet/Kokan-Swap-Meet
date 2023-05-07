@@ -13,6 +13,7 @@
   "dependencies": {
     "@fontsource/rubik": "^4.5.14",
     "@radix-ui/react-avatar": "1.0.2",
+    "@radix-ui/react-dropdown-menu": "^2.0.4",
     "@radix-ui/react-popover": "1.0.5",
     "@radix-ui/react-select": "^1.2.1",
     "@radix-ui/react-tooltip": "^1.0.5",

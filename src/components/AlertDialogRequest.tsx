@@ -2,33 +2,42 @@ import React from 'react'
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import './AlertDialog.css'
 
-interface createNewAsset {
+interface request {
   portalContainer: HTMLElement | null,
-  onSubmitTrigger: any // type?
+  onConfirm: any // type?
+  content: {
+    button: {
+      button: string,
+      confirm: string,
+      cancel: string
+    },
+    title: string,
+    description: string
+  }
 }
 
-const AlertDialogCreateNew: React.FC<createNewAsset> = (props: createNewAsset) => (
+const AlertDialogRequest: React.FC<request> = (props: request) => (
   <AlertDialog.Root className='AlertDialogRoot'>
     <AlertDialog.Trigger asChild>
-      <button className='button-like'>create</button>
+      <button className='button-like'>{props.content.button.button}</button>
     </AlertDialog.Trigger>
     <AlertDialog.Portal container={props.portalContainer}>
       <AlertDialog.Overlay className='AlertDialogOverlay' />
       <AlertDialog.Content className='AlertDialogContent'>
         <AlertDialog.Title className='AlertDialogTitle'>
-          Please confirm you want to publish this asset.
+          {props.content.title}
         </AlertDialog.Title>
         <AlertDialog.Description className='AlertDialogDescription'>
           <p>
-            Create "{'TD_name'}" for {'TD_kokans'} TD_KOKAN.
+            {props.content.description}
           </p>
         </AlertDialog.Description>
         <div style={{ display: 'flex', gap: 25, justifyContent: 'space-between' }}>
           <AlertDialog.Cancel asChild>
-            <button>Cancel</button>
+            <button>{props.content.button.cancel}</button>
           </AlertDialog.Cancel>
           <AlertDialog.Action asChild>
-            <button onClick={props.onSubmitTrigger}>Confirm</button>
+            <button onClick={props.onConfirm}>{props.content.button.confirm}</button>
           </AlertDialog.Action>
         </div>
       </AlertDialog.Content>
@@ -36,4 +45,14 @@ const AlertDialogCreateNew: React.FC<createNewAsset> = (props: createNewAsset) =
   </AlertDialog.Root>
 )
 
-export default AlertDialogCreateNew
+export interface AlertDialogRequestContent {
+  title: string,
+  description: string,
+  button: {
+    button: string,
+    confirm: string,
+    cancel: string
+  }
+}
+
+export default AlertDialogRequest

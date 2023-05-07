@@ -23,11 +23,13 @@ function ErrorPage(): JSX.Element {
   return (
     <>
       <div className='page-container'>
-        <h1 id='brand'>
-          <img id='brand_icon' src={brand_icon} height='50' />
-          okan
-        </h1>
-
+        <NavLink to='/'>
+          <h1 id='brand'>
+            <img id='brand_icon' src={brand_icon} height='50' />
+            okan
+          </h1>
+        </NavLink>
+        
         <div id='main-container'>
           <div id='error-container'>
             <h2>Oops!</h2>

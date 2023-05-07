@@ -1,44 +1,43 @@
 @media screen and (min-width: 760px) {
-    #user-settings {
+  #user-settings {
+    padding: 3rem;
 
-        padding: 3rem;
-        
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-    }
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
 }
 
 #user-settings .info-box {
-    margin-top: 0.5rem;
-    
-    display: flex;
-    gap: 1rem;
+  margin-top: 0.5rem;
+
+  display: flex;
+  gap: 1rem;
 }
 
 #delete-account-box {
-    padding: 2rem;
+  padding: 2rem;
 
-    border: 1px solid red;
-    border-radius: 15px;
+  border: 1px solid red;
+  border-radius: 15px;
 
-}
-
-#delete-account-box:hover {
-    padding: 2rem;
-
-    border: 3px solid red;
-    border-radius: 15px;
-
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgb(0, 0, 0, 0) 0%,
+    rgb(0, 0, 0, 0) 2%,
+    rgb(250, 0, 0, 0.4) 2%,
+    rgb(250, 0, 0, 0.4) 2.5%,
+    rgb(0, 0, 0, 0) 1%
+  );
 }
 
 #delete-account-box button {
-    background-color: rgb(0, 0, 0, 0);
-    border: 1px solid red;
-    
-    color: red;
+  background-color: rgb(0, 0, 0, 1);
+  border: 1px solid red;
+
+  color: red;
 }
 
 #delete-account-box button:hover {
-    color: white;
+  color: white;
 }

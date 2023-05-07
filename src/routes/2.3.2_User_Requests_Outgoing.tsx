@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, FormEvent } from 'react'
 import { NavLink } from 'react-router-dom'
-import '../styles/2.2.1–2_User_Requests.css'
+import '../styles/2.3.1–2_User_Requests.css'
 import brand_icon from '../assets/kokan_icon_w.png'
 
 /* import components */
@@ -9,6 +9,17 @@ import RequestOutgoing from '../components/RequestOutgoing.tsx'
 import { mockRequests } from '../assets/mockRequests.tsx'
 import { mockUserLoggedIn } from '../assets/mockUsers.tsx'
 
+const alertDialogRequestContent = {
+  title: 'Please confirm your withdrawel',
+  description: 'Your swap request will be deleted. You can request the asset again after withdrawel.',
+  button: {
+    button: 'withdraw',
+    confirm: 'withdraw',
+    cancel: 'cancel'
+  }
+}
+
+/* function component */
 function UserRequestsIncoming(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -57,7 +68,7 @@ function UserRequestsIncoming(): JSX.Element {
   return (
     <div id='requests'>
       {requests.map((item, index) => (
-        <RequestOutgoing requestProps={item} index={index}></RequestOutgoing>
+        <RequestOutgoing requestProps={item} index={index} alertDialogRequestContent={alertDialogRequestContent}></RequestOutgoing>
       ))}
     </div>
   )

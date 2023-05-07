@@ -1,6 +1,6 @@
 import React from 'react'
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
-import './AlertDialogSwap.css'
+import './AlertDialog.css'
 
 interface swapRequest {
   portalContainer: HTMLElement | null

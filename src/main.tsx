@@ -16,8 +16,9 @@ import About from './routes/5_About.tsx'
 import User from './routes/2_User.tsx'
 import UserSettings from './routes/2.1_User_Settings.tsx'
 import UserAssets from './routes/2.2_User_Assets.tsx'
-import UserRequestsIncoming from './routes/2.2.1_User_Requests_Incoming.tsx'
-import UserRequestsOutgoing from './routes/2.2.2_User_Requests_Outgoing.tsx'
+import UserRequests from './routes/2.3_User_Requests.tsx'
+import UserRequestsIncoming from './routes/2.3.1_User_Requests_Incoming.tsx'
+import UserRequestsOutgoing from './routes/2.3.2_User_Requests_Outgoing.tsx'
 import AssetsDetail from './routes/3.1_Assets_Detail.tsx'
 import AssetsNew from './routes/3.2_Assets_New.tsx'
 
@@ -66,6 +67,7 @@ const router = createBrowserRouter([{
           },
           {
             path: "requests",
+            element: <UserRequests/>,
             children: [
               {
                 path: "incoming",
@@ -99,17 +101,3 @@ root.render(
     <RouterProvider router={router} />
   </React.StrictMode>
 );
-
-
-/*
-children: [
-         {
-            path: ":menuID",
-            element: <MenuInfo />,
-          },
-          {
-            path: ":menuID/recipes/:recipeID",
-            element: <Recipe />,
-          }
-        ]
- */

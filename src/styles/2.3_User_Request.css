@@ -1,0 +1,21 @@
+#user-requests {
+    margin-top: -1rem;
+}
+
+#user-requests ul {
+    width: fit-content;
+
+    padding: 0.3rem 1rem;
+
+    display: flex;
+
+    list-style: none;
+
+    background-color: black;
+    border-radius: 15px;
+}
+
+#user-requests ul li {
+    margin: 0 1rem;
+    text-transform: uppercase;
+}
