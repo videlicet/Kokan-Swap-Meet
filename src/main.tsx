@@ -82,7 +82,7 @@ const router = createBrowserRouter([{
         ]
       },
       {
-        path: "assets",
+        path: "asssets",
         element: <Assets />
       },
       {

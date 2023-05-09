@@ -7,16 +7,10 @@ import AlertDialogRequest, { AlertDialogRequestContent } from './AlertDialogRequ
 
 /* type */
 
+import { RequestInterface } from '../assets/mockRequests'
+
 interface Request {
-  requestProps: {
-    request_id: number,
-    asset_id : string,
-    requester: string,
-    requestee: string,
-    request_created: string,
-    owners: string[],
-    status: string
-  },
+  requestProps: RequestInterface,
   alertDialogRequestContent: AlertDialogRequestContent,
   index: number
 }

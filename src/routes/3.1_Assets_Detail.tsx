@@ -1,5 +1,7 @@
 import { useState, useEffect, ChangeEvent, FormEvent, MouseEvent } from 'react'
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useParams } from 'react-router-dom'
+import axios from 'axios'
+import serverURL from '../../server_URL.ts'
 import '../styles/3.1_Assets_Detail.css'
 
 /* import components */
@@ -15,11 +17,26 @@ function AssetsDetail(): JSX.Element {
   const [password, setPassword] = useState('')
   const [asset, setAsset] = useState(mockAssets[0])
   const [openSwap, setOpenSwap] = useState(false)
+  let { id } = useParams();
   const [portalContainer, setPortalContainer] = useState(
     document.getElementById('asset-container'),
   )
 
+  async function getData () {
+    try {
+      const { data } = await axios.get(`${serverURL}assets/${id}`);
+      setAsset(data[0])
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log('Axios error: ' + error);
+      } else {
+        console.log('General error: ' + error);
+      }
+    }
+  }
+
   useEffect(() => {
+    getData()
     setPortalContainer(document.getElementById('asset-container'))
   }, [])
 
@@ -97,6 +114,12 @@ function AssetsDetail(): JSX.Element {
             onSwap={onSwap}
           />
         </div>
+        <span>
+          Owned by:{' '}
+          {asset.owners.map((item) => (
+            <span className="tag">{item}</span>
+          ))}
+        </span>
       </div>
     </div>
   )

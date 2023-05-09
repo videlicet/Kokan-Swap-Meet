@@ -43,31 +43,7 @@ function Welcome(): JSX.Element {
   return (
     <>
       <div id='login-container'>
-        <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
-          <div className='text-input'>
-            <label htmlFor='username'>Username</label>
-            <input
-              onChange={handleChangeUsername}
-              name='username'
-              type='text'
-              value={username}
-            ></input>
-          </div>
-          <div className='text-input'>
-            <label htmlFor='password'>Password</label>
-            <input
-              onChange={handleChangePassword}
-              name='password'
-              type='text'
-              value={password}
-            ></input>
-          </div>
-          <input type='submit' value='login'></input>{' '}
-          <NavLink className='button-like' to='/sign-up'>
-            sing up
-          </NavLink>
-        </form>
+        Welcome
       </div>
     </>
   )

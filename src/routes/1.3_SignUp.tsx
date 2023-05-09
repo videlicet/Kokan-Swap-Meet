@@ -1,5 +1,8 @@
 import { useState, useEffect, ChangeEvent, FormEvent, MouseEvent } from 'react'
+import axios from 'axios'
 import '../styles/1.3_SignUp.css'
+
+import serverURL from '../../server_URL'
 
 function SignUp(): JSX.Element {
   const [loading, setLoading] = useState(false)
@@ -8,28 +11,31 @@ function SignUp(): JSX.Element {
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    /*axios.post(
-                "https://api.imgflip.com/caption_image",
-                {
-                    form: {
-                        template_id: '181913649',
-                        username: 'USERNAME',
-                        password: 'PASSWORD',
-                        text0: 'text0',
-                        text1: 'text1',
-                    },
-                }
-            )
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });*/
+    const { elements } = event.target as HTMLFormElement
+    const { value: username } = elements[0] as HTMLInputElement 
+    const { value: password } = elements[1] as HTMLInputElement
+    const { value: email } = elements[2] as HTMLInputElement  
+    try {
+      await axios.post(`${serverURL}users`, {
+        username: username,
+        password: password,
+        email: email,
+        pictureURL: "",
+        kokans: 0,
+        created: new Date
+      });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log('Axios error: ' + error);
+      } else {
+        console.log('General error: ' + error);
+      }
+    }
     setUsername('')
     setPassword('')
+    setEmail('')
   }
 
   function handleChangeUsername(event: ChangeEvent<HTMLInputElement>) {

@@ -22,6 +22,6 @@
     /* Completeness*/
     "skipLibCheck": true                                  /* Skip type checking all .d.ts files. */
   },
-  "include": ["src"],
+  "include": ["src", "server_URL.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

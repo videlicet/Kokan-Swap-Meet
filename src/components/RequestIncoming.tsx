@@ -5,16 +5,12 @@ import { NavLink } from 'react-router-dom'
 
 import AlertDialogRequest, { AlertDialogRequestContent } from './AlertDialogRequest'
 
+/* type */
+
+import { RequestInterface } from '../assets/mockRequests'
+
 interface Request {
-  requestProps: {
-    request_id: number,
-    asset_id : string,
-    requester: string,
-    requestee: string,
-    request_created: string,
-    owners: string[],
-    status: string
-  }
+  requestProps: RequestInterface,
   alertDialogRequestContentAccept: AlertDialogRequestContent,
   alertDialogRequestContentDecline: AlertDialogRequestContent,
   index: number
