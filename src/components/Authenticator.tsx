@@ -1,38 +1,21 @@
-import React, { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
-
-import axios from 'axios'
-
 import serverURL from '../../server_URL'
 
-/* component */
-
-const Authenticator: React.FC = () => {
-  const [loggedIn, setLoggedIn] = useState(false)
-
-  async function hasJWT() {
+const authenticate = async (): Promise<boolean> => {
     let flag = false
 
-
     //check user has JWT token
-    // const requestHeaders: HeadersInit = new Headers()
-    // requestHeaders.set('Content-Type', 'application/json');
-    // requestHeaders.set("Access-Control-Allow-Credentials", true)
-    const res = await fetch(`${serverURL}login`, {
+    const requestHeaders: HeadersInit = new Headers()
+    requestHeaders.set('Content-Type', 'application/json');
+    requestHeaders.set("Access-Control-Allow-Credentials", true) // QQ can't solve this type issue
+    const res = await fetch(`${serverURL}auth`, {
       method: "get",
       credentials: "include",
-    //  headers: requestHeaders
+    headers: requestHeaders
     })
-    console.log(res)
-    
-    //localStorage.getItem('token') ? (flag = true) : (flag = false)
-
+    if (res.status === 200) {
+        return flag = true
+    }
     return flag
-  }
-  // wrap this in a useEffect
-  hasJWT()
-
-  return <div>{loggedIn.toString()}</div>
 }
 
-export default Authenticator
+export default authenticate

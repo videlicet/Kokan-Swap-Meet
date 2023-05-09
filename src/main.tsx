@@ -22,7 +22,7 @@ import UserRequestsOutgoing from './routes/2.3.2_User_Requests_Outgoing.tsx'
 import AssetsDetail from './routes/3.1_Assets_Detail.tsx'
 import AssetsNew from './routes/3.2_Assets_New.tsx'
 
-import Authenticator from './components/Authenticator.tsx'
+import Authenticator from '../trash/Authenticator.tsx'
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 

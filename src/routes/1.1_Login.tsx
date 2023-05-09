@@ -18,7 +18,7 @@ function Login(): JSX.Element {
     const { value: username } = elements[0] as HTMLInputElement
     const { value: password } = elements[1] as HTMLInputElement
     try {
-      const res = await fetch(`${serverURL}login`, {
+      const res = await fetch(`${serverURL}auth`, {
         method: 'POST',
         body: JSON.stringify({
           username: username,

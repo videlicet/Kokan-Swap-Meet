@@ -1,12 +1,23 @@
 import { useState, useEffect, ChangeEvent, FormEvent, MouseEvent } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import '../styles/1.1_Login.css'
+
+import authenticate from '../components/Authenticator'
 
 function Welcome(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [auth, setAuth] = useState(false)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    authenticate().then(flag => {
+      setAuth(flag)
+      navigate('/login')
+    })
+  }, [])
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -43,7 +54,8 @@ function Welcome(): JSX.Element {
   return (
     <>
       <div id='login-container'>
-        Welcome
+        {auth && <span>Welcome</span>}
+
       </div>
     </>
   )
