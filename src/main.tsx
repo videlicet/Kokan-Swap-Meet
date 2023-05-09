@@ -22,6 +22,8 @@ import UserRequestsOutgoing from './routes/2.3.2_User_Requests_Outgoing.tsx'
 import AssetsDetail from './routes/3.1_Assets_Detail.tsx'
 import AssetsNew from './routes/3.2_Assets_New.tsx'
 
+import Authenticator from './components/Authenticator.tsx'
+
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 
 const router = createBrowserRouter([{
@@ -82,7 +84,7 @@ const router = createBrowserRouter([{
         ]
       },
       {
-        path: "asssets",
+        path: "assets",
         element: <Assets />
       },
       {
@@ -90,8 +92,12 @@ const router = createBrowserRouter([{
         element: <AssetsDetail />
       },
       {
-        path: "assets/new",     // QQ will this route work or collide with assets/:id
+        path: "assets/new",     // QQ will this route work or collide with assets/:id, e.g. if there the param is the asset name and the asset called new
         element: <AssetsNew />
+      },
+      {
+        path: "auth",
+        element: <Authenticator/>
       }
     ],
 }]);

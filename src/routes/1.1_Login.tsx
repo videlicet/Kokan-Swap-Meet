@@ -10,26 +10,40 @@ function Login(): JSX.Element {
   const [error, setError] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const navigate  = useNavigate()
+  const navigate = useNavigate()
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const { elements } = event.target as HTMLFormElement
-    const { value: username } = elements[0] as HTMLInputElement 
+    const { value: username } = elements[0] as HTMLInputElement
     const { value: password } = elements[1] as HTMLInputElement
     try {
-      const res = await axios.post(`${serverURL}login`, {
-        username: username,
-        password: password
+      const res = await fetch(`${serverURL}login`, {
+        method: 'POST',
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include'
       })
-      if (res.status == 201) {navigate ('/user/1/assets')}
-      console.log(res);
+      if (res.status == 201) {
+        console.log(res)
+        navigate ('/user/1/assets')}
+      //   const res = await axios.post(`${serverURL}login`, {
+      //     username: username,
+      //     password: password
+      //   })
+      //   if (res.status == 201) {navigate ('/user/1/assets')}
+      //   console.log(res);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.log('Axios error: ' + error);
-      } else {
-        console.log('General error: ' + error);
-      }
+      //   if (axios.isAxiosError(error)) {
+      //     console.log('Axios error: ' + error);
+      //   } else {
+      //     console.log('General error: ' + error);
+      //   }
     }
     setUsername('')
     setPassword('')
@@ -67,7 +81,7 @@ function Login(): JSX.Element {
             ></input>
           </div>
           <input type='submit' value='login'></input>
-          <span> 	&nbsp; 	&nbsp;OR 	&nbsp; 	&nbsp;</span>
+          <span> &nbsp; &nbsp;OR &nbsp; &nbsp;</span>
           <NavLink className='button-like' to='/sign-up'>
             sing up
           </NavLink>
