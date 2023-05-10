@@ -1,18 +1,22 @@
 import React from 'react'
 import * as Avatar from '@radix-ui/react-avatar'
-import './Avatar.css'
+import './ProfileAvatar.css'
 
 interface profilePicture {
-  src: string
-  name: string
+  user: {
+    username: string,
+    first_name: string;
+    last_name: string;
+    pictureURL: string;
+  }
 }
 
 const ProfileAvatar: React.FC<profilePicture> = (props: profilePicture) => (
   <div style={{ display: 'flex', gap: 20 }}>
     <Avatar.Root className='AvatarRoot'>
-      <Avatar.Image className='AvatarImage' src={props.src} alt={props.name} />
+    <Avatar.Image className='AvatarImage' src={props.user.pictureURL} alt={props.user.username} />
       <Avatar.Fallback className='AvatarFallback' delayMs={600}>
-        TD_FALLBACK{/* here abbreviation of firstname and lastname*/}
+       <div>{props.user.first_name[0]+props.user.last_name[0]}</div>
       </Avatar.Fallback>
     </Avatar.Root>
   </div>

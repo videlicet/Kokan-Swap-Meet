@@ -23,3 +23,15 @@
 
     border: 2px black solid;    
 }
+
+#new-asset-container .text-input {
+    display: flex;
+    align-items: start;
+  }
+
+.new-asset-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+

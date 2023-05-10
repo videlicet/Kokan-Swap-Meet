@@ -68,7 +68,7 @@ function SignUp(): JSX.Element {
           <input
             onChange={handleChangePassword}
             name='password'
-            type='text'
+            type='password'
             value={password}
           ></input>
           <br />

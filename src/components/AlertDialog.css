@@ -30,7 +30,7 @@
 
 .AlertDialogTitle {
   margin: 0;
-  color: red;
+  color: var(--main-color-yellow);
   font-size: 17px;
   font-weight: 500;
 }

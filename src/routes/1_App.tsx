@@ -3,12 +3,12 @@ import { NavLink, Outlet } from 'react-router-dom'
 import '../styles/1_App.css'
 import '@fontsource/rubik/500.css'
 
-/* Import Components */
+/* import components */
 
-import login_icon from '../assets/login_icon.png'
+//import login_icon from '../assets/login_icon.png'
 import brand_icon from '../assets/kokan_icon_w.png'
-import { mockUserLoggedIn, mockUserLoggedOut } from '../assets/mockUsers'
-import { MagnifyingGlassIcon, PersonIcon } from '@radix-ui/react-icons'
+//import { mockUserLoggedIn, mockUserLoggedOut } from '../assets/mockUsers'
+import { MagnifyingGlassIcon, PersonIcon, PlusIcon } from '@radix-ui/react-icons'
 import DropdownMenu from '../components/DropDownMenu.tsx'
 
 /* helpers */
@@ -30,23 +30,23 @@ function App(): JSX.Element {
   const [searchTerm, setSearchTerm] = useState('')
   const [nav, setNav] = useState(navContent)
   const [footer, setFooter] = useState(footerContent)
-  const [user, setUser] = useState(mockUserLoggedIn)
+  const [user, setUser] = useState()
 
   /** fetch data */
   const getData = (): void => {
     setLoading(true)
-    fetch('/api/v1')
-      .then((res) => res.json())
-      .then
-      //console.log('Request successful')
-      ()
-      .catch((e) => {
-        console.log(e.message)
-        setError(e.message)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+    // fetch('/api/v1')
+    //   .then((res) => res.json())
+    //   .then
+    //   //console.log('Request successful')
+    //   ()
+    //   .catch((e) => {
+    //     console.log(e.message)
+    //     setError(e.message)
+    //   })
+    //   .finally(() => {
+    //     setLoading(false)
+    //   })
   }
 
   useEffect(() => {
@@ -99,13 +99,16 @@ function App(): JSX.Element {
                 <MagnifyingGlassIcon className='search-icon' />
               </button>
             </form>
+            {user && (<div className='navbar-element'>
+              <NavLink to="assets/new"><PlusIcon style={{position: "relative", top: "0.1rem"}}/>&nbsp;Asset</NavLink>
+            </div>)}
             <div id='profile-link' className='navbar-element'>
-              {user.loggedIn !== true && (
-                <a href='/login'>
-                  <PersonIcon />
-                </a>
+              {!user && (
+                <NavLink to='/login'>
+                  <PersonIcon className='login_icon' style={{top: "0.2rem", left: "0.1rem"}}/>
+                </NavLink>
               )}
-              {user.loggedIn == true && (
+              {user && (
                 <div className='profile-name' >
                   <DropdownMenu user={user} />
                 </div>
@@ -115,7 +118,7 @@ function App(): JSX.Element {
         </nav>
 
         <div id='main-container'>
-          <Outlet context={`td`} />
+          <Outlet context={[user, setUser]} />
         </div>
       </div>
 
@@ -146,31 +149,3 @@ function App(): JSX.Element {
 }
 
 export default App
-
-/*
-<img
-id='login_icon'
-src={login_icon}
-height='50'
-onClick={toggleDropdown}
-/>
-
-<div id='myDropdown' className={`dropdown-content ${style}`}>
-<NavLink to='/user/1/assets' onClick={toggleDropdown}>
-  Assets
-</NavLink>
-<NavLink
-  to='/user/1/requests/incoming'
-  onClick={toggleDropdown}
->
-  Requests
-</NavLink>
-<NavLink to='/user/1/settings' onClick={toggleDropdown}>
-  Settings
-</NavLink>
-<NavLink to='/logout' onClick={toggleDropdown}>
-  Logout
-</NavLink>
-</div>
-
-*/

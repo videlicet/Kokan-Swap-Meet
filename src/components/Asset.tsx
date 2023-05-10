@@ -2,7 +2,7 @@ import React from 'react'
 
 interface Asset {
   assetProps: {
-    name: string
+    title: string
     kokans: number
     creator: string
     created: string
@@ -19,7 +19,7 @@ const Asset: React.FC<Asset> = (props: Asset) => (
   <div className='asset' key={props.index}>
     <div className='header'>
       <div>
-        <span className='title'>{props.assetProps.name}</span>
+        <span className='title'>{props.assetProps.title}</span>
         <span className='kokans'>{props.assetProps.kokans}</span>
       </div>
       <span className='licence'>{props.assetProps.licence}</span>

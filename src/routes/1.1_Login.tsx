@@ -1,5 +1,5 @@
 import { useState, useEffect, ChangeEvent, FormEvent, MouseEvent } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate, useOutletContext } from 'react-router-dom'
 import axios from 'axios'
 import '../styles/1.1_Login.css'
 
@@ -10,6 +10,7 @@ function Login(): JSX.Element {
   const [error, setError] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [user, setUser] = useOutletContext() as any[]
   const navigate = useNavigate()
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -30,20 +31,12 @@ function Login(): JSX.Element {
         credentials: 'include'
       })
       if (res.status == 201) {
-        console.log(res)
-        navigate ('/user/1/assets')}
-      //   const res = await axios.post(`${serverURL}login`, {
-      //     username: username,
-      //     password: password
-      //   })
-      //   if (res.status == 201) {navigate ('/user/1/assets')}
-      //   console.log(res);
+        const user = await res.json()
+        console.log(user)
+        setUser(user)
+        navigate(`/user/${user.username}/assets`)}
     } catch (error) {
-      //   if (axios.isAxiosError(error)) {
-      //     console.log('Axios error: ' + error);
-      //   } else {
-      //     console.log('General error: ' + error);
-      //   }
+      // td
     }
     setUsername('')
     setPassword('')
@@ -76,7 +69,7 @@ function Login(): JSX.Element {
             <input
               onChange={handleChangePassword}
               name='password'
-              type='text'
+              type='password'
               value={password}
             ></input>
           </div>

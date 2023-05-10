@@ -2,7 +2,7 @@ import { useState, useEffect, ChangeEvent, FormEvent, MouseEvent } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import '../styles/1.1_Login.css'
 
-import authenticate from '../components/Authenticator'
+import authenticate from '../modules/Authenticator'
 
 function Welcome(): JSX.Element {
   const [loading, setLoading] = useState(false)
@@ -12,12 +12,12 @@ function Welcome(): JSX.Element {
   const [auth, setAuth] = useState(false)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    authenticate().then(flag => {
-      setAuth(flag)
-      navigate('/login')
-    })
-  }, [])
+  // useEffect(() => {
+  //   authenticate().then(flag => {
+  //     setAuth(flag)
+  //     if (flag === false) {navigate('/login')}
+  //   })
+  // }, [])
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()

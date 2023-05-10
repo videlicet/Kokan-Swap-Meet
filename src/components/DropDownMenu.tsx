@@ -15,7 +15,7 @@ export default (props: propsInterface) => (
     <DropdownMenu.Trigger asChild>
       <div style={{display: "flex", alignItems: "center"}}>
         <PersonIcon className='login_icon' />
-        <span>{props.user.username}</span>
+        <span>{props.user?.username}</span>
         <div id='newCounter'></div> {/* TD Contition to check whether there are new messages */}
       </div>
     </DropdownMenu.Trigger>
@@ -23,13 +23,13 @@ export default (props: propsInterface) => (
     <DropdownMenu.Portal style={{width: '100%'}}>
       <DropdownMenu.Content className='DropDownMenuContent'>
         <DropdownMenu.Item className='DropdownMenuItem'>
-          <NavLink to='/user/1/assets' >Assets</NavLink>
+          <NavLink to={`user/${props.user?.username}/assets`}>Assets</NavLink>
         </DropdownMenu.Item>
         <DropdownMenu.Item className='DropdownMenuItem'>
-          <NavLink to='/user/1/requests/incoming'>Requests</NavLink>
+          <NavLink to={`user/${props.user?.username}/requests/incoming`}>Requests</NavLink>
         </DropdownMenu.Item>
         <DropdownMenu.Item className='DropdownMenuItem'>
-          <NavLink to='/user/1/settings'>Settings</NavLink>
+          <NavLink to={`user/${props.user?.username}/settings`}>Settings</NavLink>
         </DropdownMenu.Item>
         <DropdownMenu.Item className='DropdownMenuItem'>
           <NavLink to='/logout'>Logout</NavLink>

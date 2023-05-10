@@ -1,5 +1,10 @@
 import { useState, useEffect, ChangeEvent, FormEvent, MouseEvent } from 'react'
-import { NavLink, Outlet } from 'react-router-dom'
+import {
+  NavLink,
+  Outlet,
+  useOutletContext,
+  useNavigate,
+} from 'react-router-dom'
 import '../styles/3.2_Assets_New.css'
 
 /* import components */
@@ -8,64 +13,92 @@ import TooltipInfo from '../components/Tooltip.tsx'
 
 import AlertDialogCreateNew from '../components/AlertDialogCreateNew.tsx'
 
-import { mockAssets } from '../assets/mockAssets'
+import serverURL from '../../server_URL'
 
 /* toolTips */
-const tooltipTitle = 'Provide a title. Minimum 10, maximum 50 characters.';
-const tooltipShortDescription = 'Provide a short description for your asset. Minimum 50, maximum 160 characters.';
-const tooltipLongDescription = 'Provide a short description for your asset. Minimum 50, maximum 2000 characters.';
-const tooltipsKokans = 'Choose your kokan value from 1 to 5 Kokans.';
-const tooltipLicence = `Pick a license for your asset. This helps to ensure you and your swap partner know how they can use your asset.`; // ideally, this tooltip contains a link to https://choosealicense.com/
-const tooltipTags = 'Add tags to your asset. They will help other users find your asset.';
-
+const tooltipTitle = 'Provide a title. Minimum 10, maximum 50 characters.'
+const tooltipShortDescription =
+  'Provide a short description for your asset. Minimum 50, maximum 160 characters.'
+const tooltipLongDescription =
+  'Provide a short description for your asset. Minimum 50, maximum 2000 characters.'
+const tooltipsKokans = 'Choose your kokan value from 1 to 5 Kokans.'
+const tooltipLicence = `Pick a license for your asset. This helps to ensure you and your swap partner know how they can use your asset.` // ideally, this tooltip contains a link to https://choosealicense.com/
+const tooltipTags =
+  'Add tags to your asset. They will help other users find your asset.'
 
 function AssetsNew(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [shortDescription, setShortDescription] = useState('')
-  const [longDescription, setLongDescription] = useState('')
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [asset, setAsset] = useState(mockAssets[0])
-  const [openSwap, setOpenSwap] = useState(false)
+  const [user, setUser] = useOutletContext() as any[]
+  const navigate = useNavigate()
+
+  /* alertDialog */
   const [portalContainer, setPortalContainer] = useState(
     document.getElementById('new-asset-container'),
   )
+
+  /* new asset */
+  const [shortDescription, setShortDescription] = useState<string>('')
+  const [longDescription, setLongDescription] = useState<string>('')
+  const [title, setTitle] = useState<string>('')
+  const [kokans, setKokans] = useState<number>(3)
+  const [licence, setLicence] = useState<string>('Licence')
+  const [tags, setTags] = useState('')
 
   useEffect(() => {
     setPortalContainer(document.getElementById('new-asset-container'))
   }, [])
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    console.log(event.target['0'].value) // there is an object with numbers as keys that store the input
-    /*axios.post(
-                "https://api.imgflip.com/caption_image",
-                {
-                    form: {
-                        template_id: '181913649',
-                        username: 'USERNAME',
-                        password: 'PASSWORD',
-                        text0: 'text0',
-                        text1: 'text1',
-                    },
-                }
-            )
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });*/
+    const { elements } = event.target as HTMLFormElement
+    const { value: title } = elements[0] as HTMLInputElement
+    const { value: description_short } = elements[1] as HTMLInputElement
+    const { value: description_long } = elements[2] as HTMLInputElement
+    const { value: kokans } = elements[3] as HTMLInputElement
+    const { value: tags } = elements[4] as HTMLInputElement // tags input field; here element 4 even though last element in view
+    const { value: licence } = elements[5] as HTMLInputElement
+    try {
+      await fetch(`${serverURL}assets`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          title: title,
+          kokans: kokans,
+          description_short: description_short,
+          description_long: description_long,
+          //tag: tags,
+          licence: licence,
+          creator: user._id,
+          owners: [user._id],
+          type: ['code'], // TD change when different types allowed
+          created: new Date(),
+        }),
+      })
+    } catch (error) {
+      //   if (axios.isAxiosError(error)) {
+      //     console.log('Axios error: ' + error);
+      //   } else {
+      //     console.log('General error: ' + error);
+      //   }
+    }
+    // setUsername('')
+    // setPassword('')
+    // setEmail('')
+    navigate(`/user/${user.username}/assets`)
   }
 
-  function handleChangeUsername(event: ChangeEvent<HTMLInputElement>) {
-    setUsername(event.target.value)
+  /* triggers submit of form after confirmation in alert dialog */
+  function onSubmitTrigger() {
+    const form: HTMLFormElement = document.forms.newAsset
+    form.requestSubmit()
   }
 
-  function handleChangePassword(event: ChangeEvent<HTMLInputElement>) {
-    setPassword(event.target.value)
+  function handleChangeText(event: ChangeEvent<HTMLInputElement>) {
+    setTitle(event.target.value)
   }
 
   function handleChangeTextAreaShortDescription(
@@ -80,25 +113,51 @@ function AssetsNew(): JSX.Element {
     setLongDescription(event.target.value)
   }
 
-  function onSubmitTrigger() {
-    console.log('triggered')
-    const form: HTMLFormElement = document.forms.newAsset
-    console.log(form)
-    form.requestSubmit();
+  function handleChangeKokans(event: ChangeEvent<HTMLInputElement>) {
+    setKokans(event.target.value)
+  }
+
+  function handleChangeLicence(event: string) {
+    setLicence(event)
+  }
+
+  function handleChangeTags(event: ChangeEvent<HTMLInputElement>) {
+    setTags(event.target.value)
   }
 
   return (
     <div id='new-asset-container'>
       {' '}
       <h1>Upload New Asset</h1>
-      <form name='newAsset' onSubmit={handleSubmit} noValidate>
+      <form
+        className='new-asset-form'
+        name='newAsset'
+        onSubmit={handleSubmit}
+        noValidate
+      >
         <div className='text-input'>
-          <label htmlFor='title'>Title<TooltipInfo content={tooltipTitle}/></label>
-          <input name='title' className='new-asset' type='text' minLength={10} maxLength={60} placeholder='Title'></input>
+          <label htmlFor='title'>
+            Title
+            <TooltipInfo content={tooltipTitle} />
+          </label>
+          <input
+            onChange={handleChangeText}
+            name='title'
+            className='new-asset'
+            type='text'
+            minLength={10}
+            maxLength={60}
+            placeholder='Title'
+            style={{ width: '30rem', padding: '0.9rem', fontSize: 'medium' }}
+            value={title}
+          ></input>
         </div>
 
         <div className='text-input'>
-          <label htmlFor='short-description'>Short Description<TooltipInfo content={tooltipShortDescription}/></label>
+          <label htmlFor='short-description'>
+            Short Description
+            <TooltipInfo content={tooltipShortDescription} />
+          </label>
           <textarea
             id='short-description'
             name='short-description'
@@ -107,13 +166,17 @@ function AssetsNew(): JSX.Element {
             minLength={50}
             maxLength={160}
             rows={2}
-            cols={50}
-            placeholder='Provide a short description. It will displayed in the assets overview.'
+            style={{ width: '75%' }}
+            placeholder='Provide a short description. It will be displayed in the assets overview.'
+            value={shortDescription}
           />
         </div>
 
         <div className='text-input'>
-          <label htmlFor='title'>Long Description<TooltipInfo content={tooltipLongDescription}/></label>
+          <label htmlFor='long-description'>
+            Long Description
+            <TooltipInfo content={tooltipLongDescription} />
+          </label>
           <textarea
             id='long-description'
             name='long-description'
@@ -122,34 +185,61 @@ function AssetsNew(): JSX.Element {
             minLength={50}
             maxLength={2000}
             rows={8}
-            cols={50}
-            placeholder='Provide a long description. It will displayed in the assets page.'
+            style={{ width: '75%' }}
+            placeholder={`Provide a long description. It will be displayed on your asset's page.`}
+            value={longDescription}
           />
         </div>
 
         <div className='text-input'>
-          <label htmlFor='kokans'>Kokans<TooltipInfo content={tooltipsKokans}/></label>
-          <input name='kokans' className='new-asset' type='number' step='1' min='1' max='5' defaultValue={3}></input>
+          <label htmlFor='kokans'>
+            Kokans
+            <TooltipInfo content={tooltipsKokans} />
+          </label>
+          <input
+            onChange={handleChangeKokans}
+            name='kokans'
+            className='new-asset'
+            type='number'
+            step='1'
+            min='1'
+            max='5'
+            value={kokans}
+          ></input>
         </div>
 
         <div className='text-input'>
-          <label htmlFor='licence'>Licence<TooltipInfo content={tooltipLicence}/></label>
-          <SelectLicence />
-        </div>
-
-        <div className='text-input'>
-          <label htmlFor='tags'>Tags<TooltipInfo content={tooltipTags}/></label>
-          <input name='tags'></input>
-        </div>
-        <AlertDialogCreateNew
-            portalContainer={portalContainer} onSubmitTrigger={onSubmitTrigger}
+          <label htmlFor='licence'>
+            Licence
+            <TooltipInfo content={tooltipLicence} />
+          </label>
+          <SelectLicence
+            handleChangeLicence={handleChangeLicence}
+            licence={licence}
           />
-        
+        </div>
+
+        {!true && (
+          <div className='text-input'>
+            <label htmlFor='tags'>
+              Tags
+              <TooltipInfo content={tooltipTags} />
+            </label>
+            <input onChange={handleChangeTags} name='tags'></input>
+          </div>
+        )}
+
+        <div className='text-input'>
+          <AlertDialogCreateNew
+            portalContainer={portalContainer}
+            onSubmitTrigger={onSubmitTrigger}
+            title={title}
+            kokans={kokans}
+          />
+        </div>
       </form>
     </div>
   )
 }
 
 export default AssetsNew
-
-{/* <input type='submit' value='UPLOAD'></input> */}

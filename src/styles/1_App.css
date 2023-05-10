@@ -1,5 +1,9 @@
 /* general */
 
+*:focus {
+  outline: none;
+}
+
 a {
   text-decoration: none;
   color: var(--main-text-color);
@@ -24,7 +28,7 @@ button:hover, .button-like:hover, input[type='submit']:hover {
     color: black;
 }
 
-input[type='text'], input[type='number'] {
+input[type='text'], input[type='number'],  input[type='password'] {
     padding: 0.3rem 1rem;
 
     box-sizing: border-box;
@@ -49,6 +53,8 @@ input[type='text'], input[type='number'] {
 
   background-color: var(--main-color-blue);
   border-radius: 15px;
+
+  color: black;
 }
 
 /* header */

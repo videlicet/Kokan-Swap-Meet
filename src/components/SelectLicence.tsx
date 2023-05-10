@@ -8,10 +8,15 @@ import {
   ChevronUpIcon,
 } from '@radix-ui/react-icons'
 
-const SelectLicence = () => (
-  <Select.Root>
-    <Select.Trigger className='SelectTrigger' aria-label='license'>
-      <Select.Value placeholder='License' />
+interface propsInterface {
+  handleChangeLicence: any;
+  licence: string;
+}
+
+const SelectLicence = (props: propsInterface) => (
+  <Select.Root onValueChange={props.handleChangeLicence}>
+    <Select.Trigger className='SelectTrigger' aria-label='license' >
+      <Select.Value placeholder={props.licence} />
       <Select.Icon className='SelectIcon'>
         <ChevronDownIcon />
       </Select.Icon>
@@ -23,8 +28,8 @@ const SelectLicence = () => (
           <Select.Group>
             <SelectItem value="Apache License 2.0">Apache license 2.0</SelectItem>
             <SelectItem value="Boost Software License 1.0 ">Boost Software License 1.0 </SelectItem>
-            <SelectItem value={`BSD 2-clause "Simplified" License`}>BSD 2-clause "Simplified" license</SelectItem>
-            <SelectItem value={`BSD 3-clause "New" or "Revised" License`}>BSD 3-clause "New" or "Revised" license</SelectItem>
+            <SelectItem value={`BSD 2-clause "Simplified" License`}>BSD 2-clause "Simplified" License</SelectItem>
+            <SelectItem value={`BSD 3-clause "New" or "Revised" License`}>BSD 3-clause "New" or "Revised" License</SelectItem>
             <SelectItem value="GNU Affero General Public License v3.0">GNU Affero General Public License v3.0</SelectItem>
             <SelectItem value="GNU General Public License v3.0">GNU General Public License v3.0</SelectItem>
             <SelectItem value="GNU Lesser General Public License v3.0 »">GNU Lesser General Public License v3.0 »</SelectItem>

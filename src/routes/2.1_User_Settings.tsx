@@ -1,5 +1,5 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useOutletContext } from 'react-router-dom'
 import '../styles/2.1_User_Settings.css'
 import brand_icon from '../assets/kokan_icon_w.png'
 
@@ -13,7 +13,8 @@ function UserSettings(): JSX.Element {
   const [error, setError] = useState(null)
   const [username, setUsername] = useState('sdfsf')
   const [password, setPassword] = useState('')
-  const [user, setUser] = useState(mockUserLoggedIn)
+  //const [user, setUser] = useState(mockUserLoggedIn)
+  const [user, setUser] = useOutletContext() as any[]
   const [portalContainer, setPortalContainer] = useState(
     document.getElementById('user-settings'),
   )
@@ -59,7 +60,7 @@ function UserSettings(): JSX.Element {
       <form>
         <label>Username</label>
         <div className='info-box'>
-          <span className='fixed-text'>{'TD_username'}</span>
+          <span className='fixed-text'>{user?.username}</span>
           <input type='submit' value='Change' />
         </div>
       </form>
@@ -67,7 +68,7 @@ function UserSettings(): JSX.Element {
       <form>
         <label>Email</label>
         <div className='info-box'>
-          <span className='fixed-text'>{'TD_email'}</span>
+          <span className='fixed-text'>{user?.email}</span>
           <input type='submit' value='Change' />
         </div>
       </form>
@@ -75,7 +76,7 @@ function UserSettings(): JSX.Element {
       <div id='delete-account-box'>
         <AlertDialogDeleteAccount
           portalContainer={portalContainer}
-          username={user.username}
+          username={user?.username}
           onDelete={onDelete}
         />
       </div>
