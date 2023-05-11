@@ -1,48 +1,43 @@
 export const mockRequests = [
     {
-        transaction_id: 1,
+        _id: 1,
         asset_id : 'asset_id',
         requester: 'user_id',
         requestee: 'user_id',
-        transaction_created: 'DD/MM/YYYY',
-        owners: ['user_id'],
+        created: 'DD/MM/YYYY',
         status: 'pending' // 'pending', 'declined', 'accepted'
     },
     {
-        transaction_id: 2,
+        _id: 2,
         asset_id : 'asset_id',
         requester: 'user_id',
         requestee: 'user_id',
-        transaction_created: 'DD/MM/YYYY',
-        owners: ['user_id'],
+        created: 'DD/MM/YYYY',
         status: 'pending' // 'pending', 'declined', 'accepted'
     },
     {
-        transaction_id: 3,
+        _id: 3,
         asset_id : 'asset_id',
         requester: 'user_id',
         requestee: 'user_id',
-        transaction_created: 'DD/MM/YYYY',
-        owners: ['user_id'],
+        created: 'DD/MM/YYYY',
         status: 'declined' // 'pending', 'declined', 'accepted'
     },
     {
-        transaction_id: 4,
+        _id: 4,
         asset_id : 'asset_id',
         requester: 'user_id',
         requestee: 'user_id',
-        transaction_created: 'DD/MM/YYYY',
-        owners: ['user_id'],
+        created: 'DD/MM/YYYY',
         status: 'accept' // 'pending', 'declined', 'accepted'
     }
 ]
 
-export interface RequestInterface {
-    transaction_id: number,
+export interface RequestInterface { //rename
+    _id: number,
     asset_id : string,
     requester: string,
     requestee: string,
-    transaction_created: string,
-    owners: string[],
+    created: string,
     status: string
   }

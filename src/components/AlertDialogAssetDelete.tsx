@@ -4,24 +4,24 @@ import './AlertDialog.css'
 
 interface swapRequest {
   portalContainer: HTMLElement | null
-  price: number
-  onSwap: any // type?
+  title: string
+  onDelete: any // type?
 }
 
-const AlertDialogSwap: React.FC<swapRequest> = (props: swapRequest) => (
+const AlertDialogAssetDelete: React.FC<swapRequest> = (props: swapRequest) => (
   <AlertDialog.Root className='AlertDialogRoot'>
     <AlertDialog.Trigger asChild>
-      <button className='button-like'>swap</button>
+      <button className='button-like'>delete</button>
     </AlertDialog.Trigger>
     <AlertDialog.Portal container={props.portalContainer}>
       <AlertDialog.Overlay className='AlertDialogOverlay' />
       <AlertDialog.Content className='AlertDialogContent'>
         <AlertDialog.Title className='AlertDialogTitle'>
-          Please confirm your request to swap this asset.
+          Please confirm you want to delete this asset.
         </AlertDialog.Title>
         <AlertDialog.Description className='AlertDialogDescription'>
           <p>
-            Kokan balance: <span>{props.price}</span>
+            Delete asset <span style={{color: "red"}}>{props.title}</span>.
           </p>
         </AlertDialog.Description>
         <div style={{ display: 'flex', gap: 25, justifyContent: 'flex-end' }}>
@@ -29,7 +29,7 @@ const AlertDialogSwap: React.FC<swapRequest> = (props: swapRequest) => (
             <button>Cancel</button>
           </AlertDialog.Cancel>
           <AlertDialog.Action asChild>
-            <button onClick={props.onSwap}>Yes, send a swap request!</button>
+            <button onClick={props.onDelete}>Delete</button>
           </AlertDialog.Action>
         </div>
       </AlertDialog.Content>
@@ -37,4 +37,4 @@ const AlertDialogSwap: React.FC<swapRequest> = (props: swapRequest) => (
   </AlertDialog.Root>
 )
 
-export default AlertDialogSwap
+export default AlertDialogAssetDelete

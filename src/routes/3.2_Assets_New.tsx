@@ -74,6 +74,7 @@ function AssetsNew(): JSX.Element {
           licence: licence,
           creator: user._id,
           owners: [user._id],
+          broker: user._id,
           type: ['code'], // TD change when different types allowed
           created: new Date(),
         }),
