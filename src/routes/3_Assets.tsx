@@ -20,7 +20,6 @@ function Assets(): JSX.Element {
   async function getData () {
     try {
       const { data } = await axios.get(`${serverURL}assets`);
-      console.log(data[0].asset_id)
       setUserAssets(data)
     } catch (error) {
       if (axios.isAxiosError(error)) {

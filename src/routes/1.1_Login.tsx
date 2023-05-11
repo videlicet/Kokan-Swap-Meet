@@ -32,7 +32,6 @@ function Login(): JSX.Element {
       })
       if (res.status == 201) {
         const user = await res.json()
-        console.log(user)
         setUser(user)
         navigate(`/user/${user.username}/assets`)}
     } catch (error) {

@@ -36,8 +36,9 @@ export const mockRequests = [
 export interface RequestInterface { //rename
     _id: number,
     asset_id : string,
-    requester: string,
-    requestee: string,
+    requester: string | any, // "any" in case the requestee is overwritten with a fetched object
+    requestee: string | any, // "any" in case the requestee is overwritten with a fetched object 
     created: string,
-    status: string
+    status: string,
+    title: string, // not on db model
   }

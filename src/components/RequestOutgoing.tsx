@@ -1,23 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 /* import components */
 
 import AlertDialogRequest, { AlertDialogRequestContent } from './AlertDialogRequest'
 
-/* type */
+import serverURL from '../../server_URL'
+
+/* import types */
 
 import { RequestInterface } from '../assets/mockRequests'
 
 interface Request {
   requestProps: RequestInterface,
   alertDialogRequestContent: AlertDialogRequestContent,
-  index: number
+  index: number,
+  username: string
 }
 
 /* component */
 
 const RequestOutgoing: React.FC<Request> = (props: Request) => {
+  const navigate = useNavigate()
   const [portalContainer, setPortalContainer] = useState(
     document.getElementById('requests'),
   )
@@ -26,8 +30,22 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
     setPortalContainer(document.getElementById('requests'))
   }, [])
 
-  function onConfirm() {
+  async function onConfirm() {
     console.log('confirm clicked')
+    try {
+      const res = await fetch(`${serverURL}transactions/${props.requestProps._id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include'
+      })
+      if (res.status === 200) {
+        navigate(`/user/${props.username}/assets`)
+      }
+    } catch(err) {
+
+    }
   }
 
   return (

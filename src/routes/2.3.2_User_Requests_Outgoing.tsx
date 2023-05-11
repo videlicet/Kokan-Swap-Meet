@@ -50,8 +50,6 @@ function UserRequestsIncoming(): JSX.Element | undefined {
           }),
         )
 
-        console.log(requestees)
-
         const assets = await Promise.all(
           userRequest.map(async (request: any) => {
             const res = await fetch(`${serverURL}assets/${request.asset_id}`, {
@@ -84,7 +82,7 @@ function UserRequestsIncoming(): JSX.Element | undefined {
   if (requests) return (
     <div id='requests'>
       {requests.map((item: any, index: number) => (
-        <RequestOutgoing requestProps={item} index={index} alertDialogRequestContent={alertDialogRequestContent}></RequestOutgoing>
+        <RequestOutgoing requestProps={item} index={index} alertDialogRequestContent={alertDialogRequestContent} username={user.username}></RequestOutgoing>
       ))}
     </div>
   )

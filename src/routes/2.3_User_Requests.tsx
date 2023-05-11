@@ -17,7 +17,7 @@ function UserRequest(): JSX.Element {
         <ul>
             <li>Requests:</li>
             <li><NavLink style={styleNavBar} to="incoming">incoming</NavLink></li>
-            <li ><NavLink style={styleNavBar} to="outgoing">outgoing</NavLink></li>
+            <li><NavLink style={styleNavBar} to="outgoing">outgoing</NavLink></li>
         </ul>
         <Outlet context={[user, setUser]} />
       </div>

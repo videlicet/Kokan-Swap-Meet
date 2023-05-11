@@ -15,7 +15,7 @@ import AlertDialogAssetDelete from '../components/AlertDialogAssetDelete.tsx'
 
 import { AssetInterface } from '../assets/mockAssets'
 
-function AssetsDetail(): JSX.Element | undefined {
+function AssetsDetail(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [username, setUsername] = useState('')
@@ -33,9 +33,15 @@ function AssetsDetail(): JSX.Element | undefined {
 
   async function getData() {
     try {
-      const res = await fetch(`${serverURL}assets/${id}`)
+      const res = await fetch(`${serverURL}assets/${id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ asset: { _id: id } }),
+      })
       if (res.status == 200) {
-        const [asset] = await res.json()
+        const asset = await res.json()
 
         /* get username from creator id */
         const user = await fetch(`${serverURL}users/${asset.creator}`, {
@@ -79,14 +85,14 @@ function AssetsDetail(): JSX.Element | undefined {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ transaction:
-          {
-            asset_id : asset?._id,
+        body: JSON.stringify({
+          transaction: {
+            asset_id: asset?._id,
             requester: user._id,
             requestee: asset?.broker,
-            created: new Date,
-            status: 'pending'
-        },
+            created: new Date(),
+            status: 'pending',
+          },
         }),
       })
       if (res.status === 201) {
@@ -114,58 +120,62 @@ function AssetsDetail(): JSX.Element | undefined {
     }
   }
 
-  if (asset) return (
+  return (
     <div id='asset-container'>
-      <div className='header'>
-        <div>
-          <span className='title'>{asset.title}</span>
+      {asset && (
+        <>
+          <div className='header'>
+            <div>
+              <span className='title'>{asset.title}</span>
+              <span>
+                &nbsp;&nbsp;by&nbsp;
+                <NavLink to='/user/1'>&nbsp;{asset.creator}</NavLink>
+              </span>
+            </div>
+            <span className='licence'>{asset.licence}</span>
+          </div>
+          <br />
+          <div className='description'>
+            <span>{asset.description_long}</span>
+          </div>
+          <br />
+          <span>Created: {asset.created}</span>
+          <br />
+          <br />
           <span>
-            &nbsp;&nbsp;by&nbsp;
-            <NavLink to='/user/1'>&nbsp;{asset.creator}</NavLink>
+            {/*Tags:{' '}*/}
+            {asset.type.map((item) => (
+              <span className='tag'>{item}</span>
+            ))}
           </span>
-        </div>
-        <span className='licence'>{asset.licence}</span>
-      </div>
-      <br />
-      <div className='description'>
-        <span>{asset.description_long}</span>
-      </div>
-      <br />
-      <span>Created: {asset.created}</span>
-      <br />
-      <br />
-      <span>
-        {/*Tags:{' '}*/}
-        {asset.type.map((item) => (
-          <span className='tag'>{item}</span>
-        ))}
-      </span>
-      <br />
-      <br />
-      <div className='description'>
-        <span>Swap for&nbsp;&nbsp;</span>
-        <span className='kokans'>{asset.kokans}</span>
-        {user && asset.broker !== user._id && (
-          <AlertDialogAssetSwap
-            portalContainer={portalContainer}
-            price={asset.kokans}
-            onSwap={onSwap}
-          />
-        )}
-        {user && asset.broker === user._id  && (
-          <AlertDialogAssetDelete
-            portalContainer={portalContainer}
-            title={asset.title}
-            onDelete={onDelete}
-          />
-        )}
-      </div>
-      <span>
-        Owned by:{' '}
-        {asset.owners.map((item: string) => (
-          <span className='tag'>{item}</span>
-        ))}
-      </span>
+          <br />
+          <br />
+          <div className='description'>
+            <span>Swap for&nbsp;&nbsp;</span>
+            <span className='kokans'>{asset.kokans}</span>
+            {user &&  !asset.owners.includes(user.username)  && (
+              <AlertDialogAssetSwap
+                portalContainer={portalContainer}
+                price={asset?.kokans}
+                onSwap={onSwap}
+              />
+            )}
+            {user && asset.broker == user._id && (
+              <AlertDialogAssetDelete
+                portalContainer={portalContainer}
+                title={asset?.title}
+                onDelete={onDelete}
+              />
+            )}
+          </div>
+          <span>
+            Owned by:{' '}
+            {asset.owners.map((item: string) => (
+              <span className='tag'>{item}</span>
+            ))}
+          </span>
+        </>
+      )}
     </div>
   )
 }

@@ -29,7 +29,6 @@ function User(): JSX.Element | undefined {
 
   useEffect(() => {
     authenticate().then((flag) => {
-      console.log(flag)
       setAuth(flag)
       if (flag === false) {
         navigate('/login')
