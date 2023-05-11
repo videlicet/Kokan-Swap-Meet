@@ -1,13 +1,11 @@
-import { useState, ChangeEvent, FormEvent } from 'react'
-import { NavLink } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useOutletContext } from 'react-router-dom'
 import '../styles/2.3.1–2_User_Requests.css'
-import brand_icon from '../assets/kokan_icon_w.png'
 
 /* import components */
 import RequestOutgoing from '../components/RequestOutgoing.tsx'
 
-import { mockRequests } from '../assets/mockRequests.tsx'
-import { mockUserLoggedIn } from '../assets/mockUsers.tsx'
+import serverURL from '../../server_URL'
 
 const alertDialogRequestContent = {
   title: 'Please confirm your withdrawel',
@@ -20,54 +18,72 @@ const alertDialogRequestContent = {
 }
 
 /* function component */
-function UserRequestsIncoming(): JSX.Element {
+function UserRequestsIncoming(): JSX.Element | undefined {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [username, setUsername] = useState('sdfsf')
-  const [password, setPassword] = useState('')
-  const [requests, setRequests] = useState(
-    mockRequests.filter(
-      (request) =>
-        request.status == 'pending' &&
-        request.requester == mockUserLoggedIn.user_id,
-    ),
-  )
+  const [user, setUser] = useOutletContext() as any[]
+  const [requests, setRequests] = useState<any>()
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    /*axios.post(
-                "https://api.imgflip.com/caption_image",
-                {
-                    form: {
-                        template_id: '181913649',
-                        username: 'USERNAME',
-                        password: 'PASSWORD',
-                        text0: 'text0',
-                        text1: 'text1',
-                    },
-                }
-            )
-        .then(function (response) {
-            console.log(response);
+  async function getData() {
+    try {
+      const res = await fetch(`${serverURL}users/${user.username}/requests`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query: 'requester', user: { _id: user._id } }),
+      })
+      if (res.status == 200) {
+        const userRequest = await res.json()
+
+        /* get usernames from requestee id */
+        const requestees = await Promise.all(
+          userRequest.map(async (request: any) => {
+            const user = await fetch(`${serverURL}users/${request.requestee}`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ user: { _id: request.requestee } }),
+            })
+            return await user.json()
+          }),
+        )
+
+        console.log(requestees)
+
+        const assets = await Promise.all(
+          userRequest.map(async (request: any) => {
+            const res = await fetch(`${serverURL}assets/${request.asset_id}`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ asset: { _id: request.asset_id } }),
+            })
+            const asset = await res.json()
+            return asset
+          }),
+        )
+
+        userRequest.forEach((request: any, index: number) => {
+          userRequest[index].requestee = requestees[index] //is there a way to aggregate the results or should i store the entire info on the value
+          userRequest[index].title = assets[index].title
         })
-        .catch(function (error) {
-            console.log(error);
-        });*/
-    setUsername('')
-    setPassword('')
+        setRequests(userRequest)
+      }
+    } catch (error) {
+      //errorHandling
+    }
   }
 
-  function handleChangeUsername(event: ChangeEvent<HTMLInputElement>) {
-    setUsername(event.target.value)
-  }
+  useEffect(() => {
+    getData()
+  }, [])
 
-  function handleChangePassword(event: ChangeEvent<HTMLInputElement>) {
-    setPassword(event.target.value)
-  }
-
-  return (
+  if (requests) return (
     <div id='requests'>
-      {requests.map((item, index) => (
+      {requests.map((item: any, index: number) => (
         <RequestOutgoing requestProps={item} index={index} alertDialogRequestContent={alertDialogRequestContent}></RequestOutgoing>
       ))}
     </div>

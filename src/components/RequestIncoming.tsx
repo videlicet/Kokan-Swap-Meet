@@ -32,10 +32,10 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
   return (
   <div className='request' key={props.index}>
     <div className='header'>
-        <span className='title'>{props.requestProps.asset_id} requested from {props.requestProps.requester}</span>
+        <span className='title'>{props.requestProps.title} requested from <NavLink to={`/user/${props.requestProps.requester.username}/assets`}>{props.requestProps.requester.username}</NavLink></span>
     </div>
     <div className='description'>
-      <span>User <NavLink to={`user${props.requestProps.requester}`}>{props.requestProps.requester}</NavLink> requests a swap for your asset {props.requestProps.asset_id}.</span>
+      <span>User {props.requestProps.requester.username} requests a swap for your asset {props.requestProps.title}.</span>
     </div>
     <div style={{display: 'flex', justifyContent: 'space-between'}}>
       <AlertDialogRequest portalContainer={portalContainer} content={props.alertDialogRequestContentAccept} onConfirm={onConfirm}/>
