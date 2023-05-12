@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext, ChangeEvent, FormEvent } from 'react'
-import { NavLink, useOutletContext } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import '../styles/2.1_User_Settings.css'
 import brand_icon from '../assets/kokan_icon_w.png'
 
@@ -9,13 +9,16 @@ import AlertDialogDeleteAccount from '../components/AlertDialogDeleteAccount.tsx
 /* context */
 import { UserContext } from './1_App'
 
+import serverURL from '../../server_URL.ts'
+
 function UserSettings(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [username, setUsername] = useState('sdfsf')
   const [password, setPassword] = useState('')
-  //const [user, setUser] = useOutletContext() as any[]
-  const {user, setUser} = useContext<any>(UserContext)
+  const navigate = useNavigate()
+
+  const { user, setUser } = useContext<any>(UserContext)
 
   const [portalContainer, setPortalContainer] = useState(
     document.getElementById('user-settings'),
@@ -27,24 +30,6 @@ function UserSettings(): JSX.Element {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    /*axios.post(
-                "https://api.imgflip.com/caption_image",
-                {
-                    form: {
-                        template_id: '181913649',
-                        username: 'USERNAME',
-                        password: 'PASSWORD',
-                        text0: 'text0',
-                        text1: 'text1',
-                    },
-                }
-            )
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });*/
     setUsername('')
     setPassword('')
   }
@@ -53,8 +38,34 @@ function UserSettings(): JSX.Element {
     setUsername(event.target.value)
   }
 
-  function onDelete() {
-    console.log('delete clicked')
+  async function onDelete() {
+    console.log('onDelete triggered')
+    const res = await fetch(`${serverURL}users/${user._id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ user: { _id: user._id } }),
+    })
+    if (res.status == 200) {
+      /* clear JWT cookie */
+      try {
+        const res = await fetch(`${serverURL}auth`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        })
+        if (res.status === 200) {
+          setUser()
+        }
+      } catch (error) {
+        // TD errorHandling
+      }
+      navigate('/')
+    }
   }
 
   return (

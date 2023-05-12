@@ -105,7 +105,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           }),
         })
 
-        navigate(`/${serverURL}user/${user.username}/requests/incoming`)
+        navigate(`/user/${user.username}/requests/incoming`)
       }
     } catch (err) {
       // TD errHandling

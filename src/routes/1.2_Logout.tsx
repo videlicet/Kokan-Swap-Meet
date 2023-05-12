@@ -23,7 +23,7 @@ function Logout(): JSX.Element {
         },
         credentials: 'include'
       })
-      if (res.status == 201) {
+      if (res.status == 200) {
         navigate ('/')}
     } catch (error) {
     }

@@ -5,7 +5,6 @@ import {
   useParams,
   useOutletContext,
 } from 'react-router-dom'
-import serverURL from '../../server_URL.ts'
 import '../styles/3.1_Assets_Detail.css'
 
 /* import components */
@@ -17,6 +16,8 @@ import { AssetInterface } from '../assets/mockAssets'
 
 /* context */
 import { UserContext } from './1_App'
+
+import serverURL from '../../server_URL.ts'
 
 function AssetsDetail(): JSX.Element {
   const [loading, setLoading] = useState(false)
@@ -48,15 +49,19 @@ function AssetsDetail(): JSX.Element {
         const asset = await res.json()
 
         /* get username from creator id */
-        const user = await fetch(`${serverURL}users/${asset.creator}`, {
+        const creator = await fetch(`${serverURL}users/${asset.creator}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ user: { _id: asset.creator } }),
         })
-        const { username } = await user.json()
-        asset.creator = username
+        if (creator.status === 200) {
+          const { username } = await creator.json()
+          asset.creator = username
+        } else if (creator.status === 404) {
+          asset.creator = 'Deleted User'
+        }
 
         /* get usernames from owner ids */
         asset.owners = await Promise.all(
@@ -118,17 +123,14 @@ function AssetsDetail(): JSX.Element {
       })
       if (res.status === 200) {
         /*delete swap requests relating to this asset*/
-        const res = await fetch(
-          `${serverURL}transactions`,
-          {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            credentials: 'include',
-            body: JSON.stringify({ asset: { _id: asset?._id } })
+        const res = await fetch(`${serverURL}transactions`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
           },
-        )
+          credentials: 'include',
+          body: JSON.stringify({ asset: { _id: asset?._id } }),
+        })
 
         navigate(`/user/${user.username}/assets`)
       }
@@ -146,7 +148,8 @@ function AssetsDetail(): JSX.Element {
               <span className='title'>{asset.title}</span>
               <span>
                 &nbsp;&nbsp;by&nbsp;
-                <NavLink to='/user/1'>&nbsp;{asset.creator}</NavLink>
+                {asset.creator !== 'Deleted User' && <NavLink to={`/user/${asset.creator}`}>{asset.creator}</NavLink> 
+                || asset.creator}
               </span>
             </div>
             <span className='licence'>{asset.licence}</span>

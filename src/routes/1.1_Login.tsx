@@ -20,7 +20,7 @@ function Login(): JSX.Element {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   //const [user, setUser] = useOutletContext() as any[]
-  const {user, setUser} = useContext<any>(UserContext)
+  const { user, setUser } = useContext<any>(UserContext)
   const navigate = useNavigate()
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -61,37 +61,35 @@ function Login(): JSX.Element {
   }
 
   return (
-    <>
-      <div id='login-container'>
-        <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
-          <div className='text-input'>
-            <label htmlFor='username'>Username</label>
-            <input
-              onChange={handleChangeUsername}
-              name='username'
-              type='text'
-              value={username}
-            ></input>
-          </div>
-          <div className='text-input'>
-            <label htmlFor='password'>Password</label>
-            <input
-              onChange={handleChangePassword}
-              name='password'
-              type='password'
-              value={password}
-            ></input>
-          </div>
-          <br/>
-          <input type='submit' value='login'></input>
-          <span> &nbsp; &nbsp;OR &nbsp; &nbsp;</span>
-          <NavLink className='button-like' to='/sign-up'>
-            sing up
-          </NavLink>
-        </form>
-      </div>
-    </>
+    <div id='login-container'>
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
+        <div className='text-input'>
+          <label htmlFor='username'>Username</label>
+          <input
+            onChange={handleChangeUsername}
+            name='username'
+            type='text'
+            value={username}
+          ></input>
+        </div>
+        <div className='text-input'>
+          <label htmlFor='password'>Password</label>
+          <input
+            onChange={handleChangePassword}
+            name='password'
+            type='password'
+            value={password}
+          ></input>
+        </div>
+        <br />
+        <input type='submit' value='login'></input>
+        <span> &nbsp; &nbsp;OR &nbsp; &nbsp;</span>
+        <NavLink className='button-like' to='/sign-up'>
+          sing up
+        </NavLink>
+      </form>
+    </div>
   )
 }
 

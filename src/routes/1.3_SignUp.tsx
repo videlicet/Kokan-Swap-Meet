@@ -1,5 +1,6 @@
 import { useState, useEffect, ChangeEvent, FormEvent, MouseEvent } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 import '../styles/1.3_SignUp.css'
 
 import serverURL from '../../server_URL'
@@ -7,6 +8,8 @@ import serverURL from '../../server_URL'
 function SignUp(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const navigate = useNavigate()
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
@@ -26,6 +29,7 @@ function SignUp(): JSX.Element {
         kokans: 0,
         created: new Date
       });
+      navigate('/login')
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log('Axios error: ' + error);

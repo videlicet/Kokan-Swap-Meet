@@ -33,7 +33,7 @@ function AssetsNew(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   //const [user, setUser] = useOutletContext() as any[]
-  const {user, setUser} = useContext<any>(UserContext)
+  const { user, setUser } = useContext<any>(UserContext)
   const navigate = useNavigate()
 
   /* alertDialog */
@@ -150,7 +150,7 @@ function AssetsNew(): JSX.Element {
           ></input>
         </div>
 
-        <div className='text-input'>
+        <div className='text-input'  style={{ width: '75%' }}>
           <label htmlFor='short-description'>
             Short Description
             <TooltipInfo content={tooltipShortDescription} />
@@ -163,13 +163,13 @@ function AssetsNew(): JSX.Element {
             minLength={50}
             maxLength={160}
             rows={2}
-            style={{ width: '75%' }}
+            style={{ width: '100%' }}
             placeholder='Provide a short description. It will be displayed in the assets overview.'
             value={shortDescription}
           />
         </div>
 
-        <div className='text-input'>
+        <div className='text-input' style={{ width: '75%' }}>
           <label htmlFor='long-description'>
             Long Description
             <TooltipInfo content={tooltipLongDescription} />
@@ -182,7 +182,7 @@ function AssetsNew(): JSX.Element {
             minLength={50}
             maxLength={2000}
             rows={8}
-            style={{ width: '75%' }}
+            style={{ width: '100%' }}
             placeholder={`Provide a long description. It will be displayed on your asset's page.`}
             value={longDescription}
           />
