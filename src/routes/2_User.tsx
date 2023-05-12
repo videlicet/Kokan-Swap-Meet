@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent, FormEvent } from 'react'
+import { useState, useEffect, useContext, ChangeEvent, FormEvent } from 'react'
 import {
   NavLink,
   useNavigate,
@@ -15,14 +15,17 @@ import ProfileAvatar from '../components/ProfileAvatar.tsx'
 /* import modules */
 import authenticate from '../modules/Authenticator'
 
-import { mockAssets } from '../assets/mockAssets'
-//import { mockUserLoggedIn } from '../assets/mockUsers.tsx'
+import { mockAssets } from '../assets/mockAssets' // TD delete?
+
+/* context */
+import { UserContext } from './1_App'
 
 function User(): JSX.Element | undefined {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [userAssets, setUserAssets] = useState(mockAssets)
-  const [user, setUser] = useOutletContext() as any[]
+  //const [user, setUser] = useOutletContext() as any[]
+  const {user, setUser} = useContext<any>(UserContext)
   const [auth, setAuth] = useState(false)
   const navigate = useNavigate()
   const { id } = useParams() as any // throws error without

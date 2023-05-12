@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useOutletContext } from 'react-router-dom'
 import '../styles/2.3.1–2_User_Requests.css'
 
 /* import components */
 import RequestOutgoing from '../components/RequestOutgoing.tsx'
+
+/* context */
+import { UserContext } from './1_App'
 
 import serverURL from '../../server_URL'
 
@@ -21,7 +24,8 @@ const alertDialogRequestContent = {
 function UserRequestsIncoming(): JSX.Element | undefined {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [user, setUser] = useOutletContext() as any[]
+  //const [user, setUser] = useOutletContext() as any[]
+  const {user, setUser} = useContext<any>(UserContext)
   const [requests, setRequests] = useState<any>()
 
   async function getData() {
@@ -50,6 +54,7 @@ function UserRequestsIncoming(): JSX.Element | undefined {
           }),
         )
 
+        /* get assets from asset ids*/
         const assets = await Promise.all(
           userRequest.map(async (request: any) => {
             const res = await fetch(`${serverURL}assets/${request.asset_id}`, {
@@ -66,7 +71,7 @@ function UserRequestsIncoming(): JSX.Element | undefined {
 
         userRequest.forEach((request: any, index: number) => {
           userRequest[index].requestee = requestees[index] //is there a way to aggregate the results or should i store the entire info on the value
-          userRequest[index].title = assets[index].title
+          userRequest[index].asset_id = assets[index]
         })
         setRequests(userRequest)
       }

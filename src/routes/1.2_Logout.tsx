@@ -1,6 +1,9 @@
-import { useState, useEffect, ChangeEvent, FormEvent, MouseEvent } from 'react'
+import { useState, useEffect, useContext, ChangeEvent, FormEvent, MouseEvent } from 'react'
 import { NavLink, useNavigate, useOutletContext } from 'react-router-dom'
 import '../styles/1.2_Logout.css'
+
+/* context */
+import { UserContext } from './1_App'
 
 import serverURL from '../../server_URL'
 
@@ -8,7 +11,8 @@ function Logout(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const navigate = useNavigate()
-  const [user, setUser] = useOutletContext() as any[]
+  //const [user, setUser] = useOutletContext() as any[]
+  const {user, setUser} = useContext<any>(UserContext)
 
   async function logout() {
     try {

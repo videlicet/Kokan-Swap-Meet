@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent, FormEvent } from 'react'
+import { useState, useEffect, useContext, ChangeEvent, FormEvent } from 'react'
 import { NavLink, useOutletContext } from 'react-router-dom'
 import '../styles/2.1_User_Settings.css'
 import brand_icon from '../assets/kokan_icon_w.png'
@@ -6,15 +6,17 @@ import brand_icon from '../assets/kokan_icon_w.png'
 /* import components */
 import AlertDialogDeleteAccount from '../components/AlertDialogDeleteAccount.tsx'
 
-import { mockUserLoggedIn } from '../assets/mockUsers.tsx'
+/* context */
+import { UserContext } from './1_App'
 
 function UserSettings(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [username, setUsername] = useState('sdfsf')
   const [password, setPassword] = useState('')
-  //const [user, setUser] = useState(mockUserLoggedIn)
-  const [user, setUser] = useOutletContext() as any[]
+  //const [user, setUser] = useOutletContext() as any[]
+  const {user, setUser} = useContext<any>(UserContext)
+
   const [portalContainer, setPortalContainer] = useState(
     document.getElementById('user-settings'),
   )

@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent, FormEvent } from 'react'
+import { useState, useEffect, useContext, ChangeEvent, FormEvent } from 'react'
 import { NavLink, useOutletContext } from 'react-router-dom'
 import '../styles/2_User.css'
 import brand_icon from '../assets/kokan_icon_w.png'
@@ -6,13 +6,17 @@ import brand_icon from '../assets/kokan_icon_w.png'
 /* import components */
 import Asset from '../components/Asset.tsx'
 
+/* context */
+import { UserContext } from './1_App'
+
 import serverURL from '../../server_URL'
 
 /* function component */
 function UserAssets(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [user, setUser] = useOutletContext() as any[]
+  //const [user, setUser] = useOutletContext() as any[]
+  const {user, setUser} = useContext<any>(UserContext)
   const [userAssets, setUserAssets] = useState<any>([])
 
   async function getData() {

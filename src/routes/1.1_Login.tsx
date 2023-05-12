@@ -1,7 +1,16 @@
-import { useState, useEffect, ChangeEvent, FormEvent, MouseEvent } from 'react'
+import {
+  useState,
+  useEffect,
+  useContext,
+  ChangeEvent,
+  FormEvent,
+  MouseEvent,
+} from 'react'
 import { NavLink, useNavigate, useOutletContext } from 'react-router-dom'
-import axios from 'axios'
 import '../styles/1.1_Login.css'
+
+/* context */
+import { UserContext } from './1_App'
 
 import serverURL from '../../server_URL'
 
@@ -10,7 +19,8 @@ function Login(): JSX.Element {
   const [error, setError] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [user, setUser] = useOutletContext() as any[]
+  //const [user, setUser] = useOutletContext() as any[]
+  const {user, setUser} = useContext<any>(UserContext)
   const navigate = useNavigate()
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -28,12 +38,13 @@ function Login(): JSX.Element {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include'
+        credentials: 'include',
       })
       if (res.status == 201) {
         const user = await res.json()
         setUser(user)
-        navigate(`/user/${user.username}/assets`)}
+        navigate(`/user/${user.username}/assets`)
+      }
     } catch (error) {
       // td
     }

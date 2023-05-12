@@ -14,7 +14,6 @@ import { mockAssets } from '../assets/mockAssets'
 function Assets(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [username, setUsername] = useState('')
   const [userAssets, setUserAssets] = useState([])
 
   async function getData () {

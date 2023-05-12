@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent, FormEvent, MouseEvent } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import {
   NavLink,
   useNavigate,
@@ -9,11 +9,14 @@ import serverURL from '../../server_URL.ts'
 import '../styles/3.1_Assets_Detail.css'
 
 /* import components */
-
 import AlertDialogAssetSwap from '../components/AlertDialogAssetSwap.tsx'
 import AlertDialogAssetDelete from '../components/AlertDialogAssetDelete.tsx'
 
+/* import types */
 import { AssetInterface } from '../assets/mockAssets'
+
+/* context */
+import { UserContext } from './1_App'
 
 function AssetsDetail(): JSX.Element {
   const [loading, setLoading] = useState(false)
@@ -21,7 +24,8 @@ function AssetsDetail(): JSX.Element {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [asset, setAsset] = useState<AssetInterface>()
-  const [user, setUser] = useOutletContext() as any[]
+  //const [user, setUser] = useOutletContext() as any[]
+  const {user, setUser} = useContext<any>(UserContext)
   const [openSwap, setOpenSwap] = useState(false)
 
   let { id } = useParams()

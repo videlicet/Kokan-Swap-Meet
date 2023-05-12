@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent, FormEvent, MouseEvent } from 'react'
+import { useState, useEffect, useContext, ChangeEvent, FormEvent } from 'react'
 import {
   NavLink,
   Outlet,
@@ -12,6 +12,9 @@ import SelectLicence from '../components/SelectLicence.tsx'
 import TooltipInfo from '../components/Tooltip.tsx'
 
 import AlertDialogCreateNew from '../components/AlertDialogCreateNew.tsx'
+
+/* context */
+import { UserContext } from './1_App'
 
 import serverURL from '../../server_URL'
 
@@ -29,7 +32,8 @@ const tooltipTags =
 function AssetsNew(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [user, setUser] = useOutletContext() as any[]
+  //const [user, setUser] = useOutletContext() as any[]
+  const {user, setUser} = useContext<any>(UserContext)
   const navigate = useNavigate()
 
   /* alertDialog */
