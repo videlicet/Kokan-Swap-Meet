@@ -84,15 +84,8 @@ function AssetsNew(): JSX.Element {
         }),
       })
     } catch (error) {
-      //   if (axios.isAxiosError(error)) {
-      //     console.log('Axios error: ' + error);
-      //   } else {
-      //     console.log('General error: ' + error);
-      //   }
+      // TD errorHandling
     }
-    // setUsername('')
-    // setPassword('')
-    // setEmail('')
     navigate(`/user/${user.username}/assets`)
   }
 
@@ -132,7 +125,6 @@ function AssetsNew(): JSX.Element {
 
   return (
     <div id='new-asset-container'>
-      {' '}
       <h1>Upload New Asset</h1>
       <form
         className='new-asset-form'

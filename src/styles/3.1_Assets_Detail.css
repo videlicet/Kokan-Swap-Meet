@@ -1,5 +1,12 @@
 #asset-container {
+    min-height: 0;
+    height: 100%;
+
     padding: 3rem;
+
+    box-sizing: border-box;
+
+    overflow: scroll;
 }
 
 #asset-container .header {

@@ -25,7 +25,7 @@ function AssetsDetail(): JSX.Element {
   const [password, setPassword] = useState('')
   const [asset, setAsset] = useState<AssetInterface>()
   //const [user, setUser] = useOutletContext() as any[]
-  const {user, setUser} = useContext<any>(UserContext)
+  const { user, setUser } = useContext<any>(UserContext)
   const [openSwap, setOpenSwap] = useState(false)
 
   let { id } = useParams()
@@ -117,6 +117,19 @@ function AssetsDetail(): JSX.Element {
         body: JSON.stringify({ asset: { _id: asset?._id } }),
       })
       if (res.status === 200) {
+        /*delete swap requests relating to this asset*/
+        const res = await fetch(
+          `${serverURL}transactions`,
+          {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+            body: JSON.stringify({ asset: { _id: asset?._id } })
+          },
+        )
+
         navigate(`/user/${user.username}/assets`)
       }
     } catch (err) {
@@ -127,7 +140,7 @@ function AssetsDetail(): JSX.Element {
   return (
     <div id='asset-container'>
       {asset && (
-        <>
+        <div>
           <div className='header'>
             <div>
               <span className='title'>{asset.title}</span>
@@ -146,18 +159,18 @@ function AssetsDetail(): JSX.Element {
           <span>Created: {asset.created}</span>
           <br />
           <br />
-          <span>
+          <div>
             {/*Tags:{' '}*/}
             {asset.type.map((item) => (
               <span className='tag'>{item}</span>
             ))}
-          </span>
+          </div>
           <br />
           <br />
           <div className='description'>
             <span>Swap for&nbsp;&nbsp;</span>
             <span className='kokans'>{asset.kokans}</span>
-            {user &&  !asset.owners.includes(user.username)  && (
+            {user && !asset.owners.includes(user.username) && (
               <AlertDialogAssetSwap
                 portalContainer={portalContainer}
                 price={asset?.kokans}
@@ -172,13 +185,13 @@ function AssetsDetail(): JSX.Element {
               />
             )}
           </div>
-          <span>
-            Owned by:{' '}
+          <span>Owned by:</span>
+          <div style={{ display: 'flex', flexWrap: 'wrap', rowGap: '0.3rem' }}>
             {asset.owners.map((item: string) => (
               <span className='tag'>{item}</span>
             ))}
-          </span>
-        </>
+          </div>
+        </div>
       )}
     </div>
   )

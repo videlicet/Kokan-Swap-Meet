@@ -83,6 +83,7 @@ function Login(): JSX.Element {
               value={password}
             ></input>
           </div>
+          <br/>
           <input type='submit' value='login'></input>
           <span> &nbsp; &nbsp;OR &nbsp; &nbsp;</span>
           <NavLink className='button-like' to='/sign-up'>

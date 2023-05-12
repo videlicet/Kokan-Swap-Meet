@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 
 /* import components */
@@ -6,6 +6,9 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import AlertDialogRequest, {
   AlertDialogRequestContent,
 } from './AlertDialogRequest'
+
+/* context */
+import { UserContext } from '../routes/1_App'
 
 import serverURL from '../../server_URL'
 
@@ -22,6 +25,7 @@ interface Request {
 
 const RequestIncoming: React.FC<Request> = (props: Request) => {
   const navigate = useNavigate()
+  const { user, setUser } = useContext<any>(UserContext)
   const [portalContainer, setPortalContainer] = useState(
     document.getElementById('requests'),
   )
@@ -52,22 +56,20 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         })
 
         /* update requestee kokans */
-
-        await fetch(`${serverURL}users/${props.requestProps.requestee._id}`, {
+        await fetch(`${serverURL}users/${user._id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            user: { _id: props.requestProps.requestee._id },
+            user: { _id: user._id },
             update: {
               kokans:
-                props.requestProps.requestee.kokans +
+                user.kokans +
                 props.requestProps.asset_id.kokans,
             },
           }),
         })
 
         /* update requester kokans  */
-        console.log(`${serverURL}users/${props.requestProps.requester._id}`)
         await fetch(`${serverURL}users/${props.requestProps.requester._id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
@@ -81,8 +83,15 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           }),
         })
 
+        /* update user (aka requestee) state */
+        setUser({
+          ...user,
+          kokans:
+            user.kokans +
+            props.requestProps.asset_id.kokans,
+        })
+
         /* update requester kokans  */
-        console.log(`${serverURL}users/${props.requestProps.requester._id}`)
         await fetch(`${serverURL}users/${props.requestProps.requester._id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
@@ -95,12 +104,15 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
             },
           }),
         })
+
+        navigate(`/${serverURL}user/${user.username}/requests/incoming`)
       }
     } catch (err) {
       // TD errHandling
     }
   }
 
+  /* change style of request depending on status */
   function dynamicRequestStyle(status: string) {
     switch (status) {
       case 'pending':
@@ -122,7 +134,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           <NavLink to={`/assets/${props.requestProps.asset_id._id}`}>
             {props.requestProps.asset_id.title}
           </NavLink>{' '}
-          requested from{' '}
+          requested by{' '}
           <NavLink to={`/user/${props.requestProps.requester.username}/assets`}>
             {props.requestProps.requester.username}
           </NavLink>
