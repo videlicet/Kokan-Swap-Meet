@@ -18,6 +18,31 @@
     border-radius: 15px;
 }
 
+.accepted {
+    opacity: 0.5;
+    background-image: repeating-linear-gradient(
+    135deg,
+    rgb(0, 0, 0, 0) 0%,
+    rgb(0, 0, 0, 0) 2%,
+    rgba(70, 238, 28, 0.4) 2%,
+    rgba(215, 243, 30, 0.4) 2.5%,
+    rgb(0, 0, 0, 0) 1%
+  );
+}
+
+.declined {
+    opacity: 0.5;
+    background-image: repeating-linear-gradient(
+    135deg,
+    rgb(0, 0, 0, 0) 0%,
+    rgb(0, 0, 0, 0) 2%,
+    rgba(238, 74, 28, 0.4) 2%,
+    rgba(222, 104, 7, 0.4) 2.5%,
+    rgb(0, 0, 0, 0) 1%
+  );
+}
+
+
 #requests .header {
     display: flex;
     justify-content: space-between;

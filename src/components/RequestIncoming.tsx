@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 /* import components */
 
@@ -21,6 +21,7 @@ interface Request {
 }
 
 const RequestIncoming: React.FC<Request> = (props: Request) => {
+  const navigate = useNavigate()
   const [portalContainer, setPortalContainer] = useState(
     document.getElementById('requests'),
   )
@@ -40,12 +41,58 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         },
       )
       if (res.status === 200) {
+        /* update ownership of asset */
         await fetch(`${serverURL}assets/${props.requestProps.asset_id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             asset: { asset_id: props.requestProps.asset_id },
-            update: { $push: {owners: props.requestProps.requester._id}}
+            update: { $push: { owners: props.requestProps.requester._id } },
+          }),
+        })
+
+        /* update requestee kokans */
+
+        await fetch(`${serverURL}users/${props.requestProps.requestee._id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            user: { _id: props.requestProps.requestee._id },
+            update: {
+              kokans:
+                props.requestProps.requestee.kokans +
+                props.requestProps.asset_id.kokans,
+            },
+          }),
+        })
+
+        /* update requester kokans  */
+        console.log(`${serverURL}users/${props.requestProps.requester._id}`)
+        await fetch(`${serverURL}users/${props.requestProps.requester._id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            user: { _id: props.requestProps.requester._id },
+            update: {
+              kokans:
+                props.requestProps.requester.kokans -
+                props.requestProps.asset_id.kokans,
+            },
+          }),
+        })
+
+        /* update requester kokans  */
+        console.log(`${serverURL}users/${props.requestProps.requester._id}`)
+        await fetch(`${serverURL}users/${props.requestProps.requester._id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            user: { _id: props.requestProps.requester._id },
+            update: {
+              kokans:
+                props.requestProps.requester.kokans -
+                props.requestProps.asset_id.kokans,
+            },
           }),
         })
       }
@@ -54,11 +101,28 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
     }
   }
 
+  function dynamicRequestStyle(status: string) {
+    switch (status) {
+      case 'pending':
+        return 'request'
+      case 'accepted':
+        return 'request accepted'
+      case 'declined':
+        return 'request declined'
+    }
+  }
+
   return (
-    <div className='request' key={props.index}>
+    <div
+      className={dynamicRequestStyle(props.requestProps.status)}
+      key={props.index}
+    >
       <div className='header'>
         <span className='title'>
-          {props.requestProps.title} requested from{' '}
+          <NavLink to={`/assets/${props.requestProps.asset_id._id}`}>
+            {props.requestProps.asset_id.title}
+          </NavLink>{' '}
+          requested from{' '}
           <NavLink to={`/user/${props.requestProps.requester.username}/assets`}>
             {props.requestProps.requester.username}
           </NavLink>
@@ -67,21 +131,23 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
       <div className='description'>
         <span>
           User {props.requestProps.requester.username} requests a swap for your
-          asset {props.requestProps.title}.
+          asset {props.requestProps.asset_id.title}.
         </span>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <AlertDialogRequest
-          portalContainer={portalContainer}
-          content={props.alertDialogRequestContentAccept}
-          onConfirm={() => onConfirm('accepted')}
-        />
-        <AlertDialogRequest
-          portalContainer={portalContainer}
-          content={props.alertDialogRequestContentDecline}
-          onConfirm={() => onConfirm('declined')}
-        />
-      </div>
+      {props.requestProps.status === 'pending' && (
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <AlertDialogRequest
+            portalContainer={portalContainer}
+            content={props.alertDialogRequestContentAccept}
+            onConfirm={() => onConfirm('accepted')}
+          />
+          <AlertDialogRequest
+            portalContainer={portalContainer}
+            content={props.alertDialogRequestContentDecline}
+            onConfirm={() => onConfirm('declined')}
+          />
+        </div>
+      )}
     </div>
   )
 }

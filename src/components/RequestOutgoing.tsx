@@ -51,10 +51,10 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
   return (
   <div className='request' key={props.index}>
     <div className='header'>
-        <span className='title'>Request for {props.requestProps.title}</span>
+        <span className='title'>Request for {props.requestProps.asset_id.title}</span>
     </div>
     <div className='description'>
-      <span>You requested <NavLink to={`assets/${props.requestProps.asset_id}`}>{props.requestProps.title}</NavLink> from user <NavLink to={`users/${props.requestProps.requestee.username}`}>{props.requestProps.requestee.username}</NavLink>.</span>
+      <span>You requested <NavLink to={`assets/${props.requestProps.asset_id}`}>{props.requestProps.asset_id.title}</NavLink> from user <NavLink to={`users/${props.requestProps.requestee.username}`}>{props.requestProps.requestee.username}</NavLink>.</span>
     </div>
     <AlertDialogRequest portalContainer={portalContainer} content={props.alertDialogRequestContent} onConfirm={onConfirm}/>
   </div>)

@@ -34,7 +34,7 @@ function UserRequestsIncoming(): JSX.Element | undefined {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [user, setUser] = useOutletContext() as any[]
-  const [requests, setRequests] = useState<any>() 
+  const [requests, setRequests] = useState<any>()
 
   async function getData() {
     try {
@@ -48,7 +48,7 @@ function UserRequestsIncoming(): JSX.Element | undefined {
       if (res.status == 200) {
         const userRequest = await res.json()
 
-        /* get usernames from requesters id */
+        /* get requesters from requester ids */
         const requesters = await Promise.all(
           userRequest.map(async (request: any) => {
             const user = await fetch(`${serverURL}users/${request.requester}`, {
@@ -62,6 +62,7 @@ function UserRequestsIncoming(): JSX.Element | undefined {
           }),
         )
 
+        /* get asset titles from asset ids*/
         const assets = await Promise.all(
           userRequest.map(async (request: any) => {
             const res = await fetch(`${serverURL}assets/${request.asset_id}`, {
@@ -78,7 +79,8 @@ function UserRequestsIncoming(): JSX.Element | undefined {
 
         userRequest.forEach((request: any, index: number) => {
           userRequest[index].requester = requesters[index] //is there a way to aggregate the results or should i store the entire info on the value
-          userRequest[index].title = assets[index].title
+          userRequest[index].requestee = user
+          userRequest[index].asset_id = assets[index]
         })
         setRequests(userRequest)
       }
@@ -91,18 +93,19 @@ function UserRequestsIncoming(): JSX.Element | undefined {
     getData()
   }, [])
 
-  if (requests) return (
-    <div id='requests'>
-      {requests.map((item: any, index: number) => (
-        <RequestIncoming
-          requestProps={item}
-          index={index}
-          alertDialogRequestContentAccept={alertDialogRequestContentAccept}
-          alertDialogRequestContentDecline={alertDialogRequestContentDecline}
-        ></RequestIncoming>
-      ))}
-    </div>
-  )
+  if (requests)
+    return (
+      <div id='requests'>
+        {requests.map((item: any, index: number) => (
+          <RequestIncoming
+            requestProps={item}
+            index={index}
+            alertDialogRequestContentAccept={alertDialogRequestContentAccept}
+            alertDialogRequestContentDecline={alertDialogRequestContentDecline}
+          ></RequestIncoming>
+        ))}
+      </div>
+    )
 }
 
 export default UserRequestsIncoming

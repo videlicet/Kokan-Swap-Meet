@@ -12,7 +12,7 @@
 
   /* color-scheme: light dark; ? */
   color: var(  --main-text-color);
-  background: linear-gradient(16deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+  background: var(--main-linear-gradient);
 
   font-synthesis: none; /*?*/
   text-rendering: optimizeLegibility;
@@ -21,6 +21,7 @@
   -webkit-text-size-adjust: 100%;
 
   /* custom properties */
+  --main-linear-gradient: linear-gradient(16deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
   --main-text-color: rgb(221, 213, 207);
   --main-font-style: "Rubik", Arial, Helvetica, sans-serif;
   --main-color-yellow: rgba(253, 187, 45, 1); 
