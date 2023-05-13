@@ -17,21 +17,23 @@ function UserSettings(): JSX.Element {
   const [error, setError] = useState(null)
 
   const { user, setUser } = useContext<any>(UserContext)
-  const [newInfo, setNewInfo] = useState({
-    username: user?.username,
-    email: user?.email,
-    password: user?.password,
-    first_name: user?.first_name,
-    last_name: user?.last_name,
-  })
 
   const navigate = useNavigate()
 
-  const DialogUsername = { title: 'Username', fields: { first: 'Username' } }
-  const DialogPassword = { title: 'Password', fields: { first: 'Password' } }
-  const DialogEmail = { title: 'Email', fields: { first: 'Email' } }
+  const DialogUsername = {
+    title: 'username',
+    fields: { first: 'Username', second: 'none' },
+  }
+  const DialogPassword = {
+    title: 'password',
+    fields: { first: 'Password', second: 'none' },
+  }
+  const DialogEmail = {
+    title: 'email',
+    fields: { first: 'Email', second: 'none' },
+  }
   const DialogName = {
-    title: 'Name',
+    title: 'name',
     fields: { first: 'First Name', second: 'Last Name' },
   }
 
@@ -43,16 +45,44 @@ function UserSettings(): JSX.Element {
     setPortalContainer(document.getElementById('user-settings'))
   }, [])
 
-  function handleSubmit(changes: any) {
-    console.log('submit triggered')
-    console.log(changes)
-    //const { value: username } = elements[0] as HTMLInputElement
-    // setUsername('')
-    // setPassword('')
+  async function handleSubmit(changes: any) {
+
+    let updateReqBody = {}
+
+    /* if first and last names are changed, the update in the req.body must be adapted*/
+    if (changes.type !== 'name') {
+      updateReqBody = {
+        [`${changes.type}`]: changes.changes.first,
+      }
+    } else {
+      updateReqBody = {
+        first_name: changes.changes.first,
+        last_name: changes.changes.second,
+      }
+    }
+
+    const reqBody = {
+      user: { _id: user._id },
+      update: updateReqBody,
+    }
+
+    try {
+      const res = await fetch(`${serverURL}users/${user._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(reqBody),
+      })
+
+      if (res.status === 200) {
+        console.log('successfully updated')
+      }
+    } catch (err) {}
   }
 
   async function onDelete() {
-    console.log('onDelete triggered')
     const res = await fetch(`${serverURL}users/${user._id}`, {
       method: 'DELETE',
       headers: {
@@ -86,10 +116,10 @@ function UserSettings(): JSX.Element {
       <div>
         <label htmlFor='username'>Username</label>
         <div className='info-box'>
-          <span id='username'>{newInfo.username}</span>
+          <span id='username'>{user?.username}</span>
           <DialogSettingsChange
             portalContainer={portalContainer}
-            user={newInfo}
+            user={user}
             content={DialogUsername}
             onSubmit={handleSubmit}
           />
@@ -102,14 +132,21 @@ function UserSettings(): JSX.Element {
           <span> and </span>
           <label htmlFor='last_name'>Last Name</label>
         </div>
-        <div className='info-box' style={{gridTemplateRows: "1fr 1fr"}}>
-          <div style={{display: "grid", gap: "1rem", gridRowStart: "1", gridRowEnd: "3"}}>
-            <span id='first_name'>{newInfo.first_name}</span>
-            <span id='last_name'>{newInfo.last_name}</span>
+        <div className='info-box' style={{ gridTemplateRows: '1fr 1fr' }}>
+          <div
+            style={{
+              display: 'grid',
+              gap: '1rem',
+              gridRowStart: '1',
+              gridRowEnd: '3',
+            }}
+          >
+            <span id='first_name'>{user?.first_name}</span>
+            <span id='last_name'>{user?.last_name}</span>
           </div>
           <DialogSettingsChange
             portalContainer={portalContainer}
-            user={newInfo}
+            user={user}
             content={DialogName}
             onSubmit={handleSubmit}
           />
@@ -119,10 +156,10 @@ function UserSettings(): JSX.Element {
       <div>
         <label htmlFor='email'>Email</label>
         <div className='info-box'>
-          <span id='email'>{newInfo.email}</span>
+          <span id='email'>{user?.email}</span>
           <DialogSettingsChange
             portalContainer={portalContainer}
-            user={newInfo}
+            user={user}
             content={DialogEmail}
             onSubmit={handleSubmit}
           />
@@ -134,7 +171,7 @@ function UserSettings(): JSX.Element {
           <label htmlFor='password'>Password</label>
           <DialogSettingsChange
             portalContainer={portalContainer}
-            user={newInfo}
+            user={user}
             content={DialogPassword}
             onSubmit={handleSubmit}
           />
@@ -153,11 +190,3 @@ function UserSettings(): JSX.Element {
 }
 
 export default UserSettings
-
-/* TRASH 
-  // const [username, setUsername] = useState(user?.username)
-  // const [email, setEmail] = useState(user?.email)
-  // const [password, setPassword] = useState(user?.password)
-  // const [first_name, setfirst_name] = useState(user?.first_name)
-  // const [last_name, setlast_name] = useState(user?.last_name)
-   */

@@ -18,9 +18,13 @@ const DialogSettingsChange: React.FC<settingsChange> = (
   const [changes, setChanges] = useState({ fieldFirst: '', fieldSecond: '' })
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    console.log(event.target.value)
     setChanges({ ...changes, [`${event.target.name}`]: event.target.value })
   }
+
+  const defaultValueFirst = (props?.content?.fields?.second === 'none')
+  ? props.user[`${props.content.title}`]
+  : props.user["first_name"]
+  const defaultValueSecond = props.user.last_name
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
@@ -34,8 +38,11 @@ const DialogSettingsChange: React.FC<settingsChange> = (
             onSubmit={(event) => {
               event.preventDefault()
               props.onSubmit({
-                first: changes.fieldFirst,
-                second: changes.fieldSecond,
+                type: props.content.title,
+                changes: {
+                  first: changes.fieldFirst,
+                  second: changes.fieldSecond,
+                },
               })
               setOpen(false)
             }}
@@ -56,9 +63,10 @@ const DialogSettingsChange: React.FC<settingsChange> = (
                 name={'fieldFirst'}
                 value={changes.fieldFirst}
                 onChange={handleChange}
+                placeholder={props.content.title !== 'password' && defaultValueFirst}
               />
             </fieldset>
-            {props.content.fields.second && (
+            {props.content.fields.second !== 'none' && (
               <fieldset className='Fieldset'>
                 <label className='Label' htmlFor='username'>
                   {props.content.fields.second}
@@ -69,6 +77,7 @@ const DialogSettingsChange: React.FC<settingsChange> = (
                   name={'fieldSecond'}
                   value={changes.fieldSecond}
                   onChange={handleChange}
+                  placeholder={defaultValueSecond}
                 />
               </fieldset>
             )}

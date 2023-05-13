@@ -62,9 +62,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           body: JSON.stringify({
             user: { _id: user._id },
             update: {
-              kokans:
-                user.kokans +
-                props.requestProps.asset_id.kokans,
+              kokans: user.kokans + props.requestProps.asset_id.kokans,
             },
           }),
         })
@@ -86,10 +84,10 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         /* update user (aka requestee) state */
         setUser({
           ...user,
-          kokans:
-            user.kokans +
-            props.requestProps.asset_id.kokans,
+          kokans: user.kokans + props.requestProps.asset_id.kokans,
         })
+
+        // is this double???
 
         /* update requester kokans  */
         await fetch(`${serverURL}users/${props.requestProps.requester._id}`, {
