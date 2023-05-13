@@ -5,6 +5,7 @@ import brand_icon from '../assets/kokan_icon_w.png'
 
 /* import components */
 import AlertDialogDeleteAccount from '../components/AlertDialogDeleteAccount.tsx'
+import DialogSettingsChange from '../components/DialogSettingsChange.tsx'
 
 /* context */
 import { UserContext } from './1_App'
@@ -21,10 +22,18 @@ function UserSettings(): JSX.Element {
     email: user?.email,
     password: user?.password,
     first_name: user?.first_name,
-    last_name: user?.last_name
+    last_name: user?.last_name,
   })
 
   const navigate = useNavigate()
+
+  const DialogUsername = { title: 'Username', fields: { first: 'Username' } }
+  const DialogPassword = { title: 'Password', fields: { first: 'Password' } }
+  const DialogEmail = { title: 'Email', fields: { first: 'Email' } }
+  const DialogName = {
+    title: 'Name',
+    fields: { first: 'First Name', second: 'Last Name' },
+  }
 
   const [portalContainer, setPortalContainer] = useState(
     document.getElementById('user-settings'),
@@ -34,14 +43,21 @@ function UserSettings(): JSX.Element {
     setPortalContainer(document.getElementById('user-settings'))
   }, [])
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
+  function handleSubmit(changes: any) {
+    console.log('submit triggered')
+    console.log(changes)
+    //const { value: username } = elements[0] as HTMLInputElement
     // setUsername('')
     // setPassword('')
   }
 
+  // function handleChange(event: ChangeEvent<HTMLInputElement>) {
+  //   setNewInfo({ ...newInfo, [`${event.target.name}`]: event.target.value })
+  // }
+
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    setNewInfo({...newInfo, [`${event.target.name}`]: event.target.value})
+    console.log(event)
+    //setNewInfo({ ...newInfo, [`${event.target.name}`]: event.target.value })
   }
 
   async function onDelete() {
@@ -76,80 +92,54 @@ function UserSettings(): JSX.Element {
 
   return (
     <div id='user-settings'>
-      <form>
-        <label htmlFor='username'>Username</label>
-        <div className='info-box'>
-          <input
-            id='username'
-            name='username'
-            type='text'
-            value={newInfo.username}
-            onChange={(event: ChangeEvent<HTMLInputElement>) =>
-              handleChange(event)
-            }
-          />
-          <input type='submit' value='Change' />
-        </div>
-      </form>
+      <label htmlFor='username'>Username</label>
+      <div className='info-box'>
+        <span id='username'>{newInfo.username}</span>
+        <DialogSettingsChange
+          portalContainer={portalContainer}
+          user={newInfo}
+          content={DialogUsername}
+          onSubmit={handleSubmit}
+        />
+      </div>
 
-      <form>
+      <div>
         <label htmlFor='first_name'>First Name</label>
         <span> and </span>
         <label htmlFor='last_name'>Last Name</label>
-        <div className='info-box'>
-          <input
-            id='first_name'
-            name='first_name'
-            type='text'
-            value={newInfo.first_name}
-            onChange={(event: ChangeEvent<HTMLInputElement>) =>
-              handleChange(event)
-            }
-          />
-          <input
-            id='last_name'
-            name='last_name'
-            type='text'
-            value={newInfo.last_name}
-            onChange={(event: ChangeEvent<HTMLInputElement>) =>
-              handleChange(event)
-            }
-          />
-          <input type='submit' value='Change' />
-        </div>
-      </form>
+      </div>
+      <div className='info-box'>
+          <span id='first_name'>{newInfo.first_name}</span>
+          <span id='last_name'>{newInfo.last_name}</span>
+        <DialogSettingsChange
+          portalContainer={portalContainer}
+          user={newInfo}
+          content={DialogName}
+          onSubmit={handleSubmit}
+        />
+      </div>
 
-      <form>
-        <label htmlFor='email'>Email</label>
-        <div className='info-box'>
-          <input
-            id='email'
-            name='email'
-            type='text'
-            value={newInfo.email}
-            onChange={(event: ChangeEvent<HTMLInputElement>) =>
-              handleChange(event)
-            }
-          />
-          <input type='submit' value='Change' />
-        </div>
-      </form>
+      <label htmlFor='email'>Email</label>
+      <div className='info-box'>
+        <span id='email'>{newInfo.email}</span>
+        <DialogSettingsChange
+          portalContainer={portalContainer}
+          user={newInfo}
+          content={DialogEmail}
+          onSubmit={handleSubmit}
+        />
+      </div>
 
-      <form>
-        <label htmlFor='password'>Password</label>
-        <div className='info-box'>
-          <input
-            id='password'
-            name='password'
-            type='password'
-            value={newInfo.password}
-            onChange={(event: ChangeEvent<HTMLInputElement>) =>
-              handleChange(event)
-            }
-          />
-          <input type='submit' value='Change' />
-        </div>
-      </form>
+      <label htmlFor='password'>Password</label>
+      <div className='info-box'>
+        <span id='password'>{newInfo.password}</span>
+        <DialogSettingsChange
+          portalContainer={portalContainer}
+          user={newInfo}
+          content={DialogPassword}
+          onSubmit={handleSubmit}
+        />
+      </div>
 
       <div id='delete-account-box'>
         <AlertDialogDeleteAccount
@@ -163,7 +153,6 @@ function UserSettings(): JSX.Element {
 }
 
 export default UserSettings
-
 
 /* TRASH 
   // const [username, setUsername] = useState(user?.username)
