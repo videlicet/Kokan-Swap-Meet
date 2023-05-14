@@ -146,7 +146,6 @@ function AssetsDetail(): JSX.Element {
 
   async function onOffer() {
     try {
-      console.log('triggered')
       let res = await fetch(`${serverURL}assets/${asset?._id}`, {
         method: 'PUT',
         headers: {
