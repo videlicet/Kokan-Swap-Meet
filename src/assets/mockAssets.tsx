@@ -86,9 +86,10 @@ export interface AssetInterface {
     created: string,
     creator: string,
     owners: [string],
-    brokers: [string],
+    onOffer: boolean,
     type: [string],
     description_short: string,
     description_long: string,
-    licence: string
+    licence: string,
+    aliases: {owners: [string], creator: string}
   }

@@ -10,6 +10,7 @@ import '../styles/3.1_Assets_Detail.css'
 /* import components */
 import AlertDialogAssetSwap from '../components/AlertDialogAssetSwap.tsx'
 import AlertDialogAssetDelete from '../components/AlertDialogAssetDelete.tsx'
+import AlertDialogAssetOffer from '../components/AlertDialogAssetOffer.tsx'
 
 /* import types */
 import { AssetInterface } from '../assets/mockAssets'
@@ -47,7 +48,10 @@ function AssetsDetail(): JSX.Element {
       if (res.status == 200) {
         const asset = await res.json()
 
-        /* get username from creator id */
+
+        asset.aliases = {creator: '', owners: []}
+        /* get username aliases from creator id */
+        
         const creator = await fetch(`${serverURL}users/${asset.creator}`, {
           method: 'POST',
           headers: {
@@ -57,13 +61,13 @@ function AssetsDetail(): JSX.Element {
         })
         if (creator.status === 200) {
           const { username } = await creator.json()
-          asset.creator = username
+          asset.aliases.creator = username
         } else if (creator.status === 404) {
-          asset.creator = 'Deleted User'
+          asset.aliases.creator = 'Deleted User'
         }
 
-        /* get usernames from owner ids */
-        asset.owners = await Promise.all(
+        /* get usernames aliases from owner ids */
+        const aliasesOwners = await Promise.all(
           asset.owners.map(async (owner: string) => {
             const user = await fetch(`${serverURL}users/${owner}`, {
               method: 'POST',
@@ -76,6 +80,8 @@ function AssetsDetail(): JSX.Element {
             return username
           }),
         )
+        asset.aliases.owners = aliasesOwners
+
         setAsset(asset)
       }
     } catch (error) {}
@@ -138,6 +144,29 @@ function AssetsDetail(): JSX.Element {
     }
   }
 
+  async function onOffer() {
+    try {
+      console.log('triggered')
+      let res = await fetch(`${serverURL}assets/${asset?._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          asset: {
+            asset_id: asset?._id,
+          },
+          update: { onOffer: true },
+        }),
+      })
+      if (res.status === 200) {
+        navigate(`/assets/${asset?._id}`)
+      }
+    } catch (err) {
+      // TD errorhandling
+    }
+  }
+
   return (
     <div id='asset-container'>
       {asset && (
@@ -147,8 +176,12 @@ function AssetsDetail(): JSX.Element {
               <span className='title'>{asset.title}</span>
               <span>
                 &nbsp;&nbsp;by&nbsp;
-                {asset.creator !== 'Deleted User' && <NavLink to={`/user/${asset.creator}`}>{asset.creator}</NavLink> 
-                || asset.creator}
+                {(asset.aliases.creator !== 'Deleted User' && (
+                  <NavLink to={`/user/${asset.aliases.creator}`}>
+                    {asset.aliases.creator}
+                  </NavLink>
+                )) ||
+                  asset.aliases.creator}
               </span>
             </div>
             <span className='licence'>{asset.licence}</span>
@@ -172,24 +205,31 @@ function AssetsDetail(): JSX.Element {
           <div className='description'>
             <span>Swap for&nbsp;&nbsp;</span>
             <span className='kokans'>{asset.kokans}</span>
-            {user && !asset.owners.includes(user.username) && (
+            {user && !asset.aliases?.owners.includes(user.username) && (
               <AlertDialogAssetSwap
                 portalContainer={portalContainer}
                 price={asset?.kokans}
                 onSwap={onSwap}
               />
             )}
-            {user && asset.creator == user.username && (
+            {user && asset.aliases.creator == user.username && (
               <AlertDialogAssetDelete
                 portalContainer={portalContainer}
                 title={asset?.title}
                 onDelete={onDelete}
               />
             )}
+            {user && !asset.onOffer && (
+              <AlertDialogAssetOffer
+                portalContainer={portalContainer}
+                title={asset?.title}
+                onOffer={onOffer}
+              />
+            )}
           </div>
           <span>Owned by:</span>
           <div style={{ display: 'flex', flexWrap: 'wrap', rowGap: '0.3rem' }}>
-            {asset.owners.map((item: string) => (
+            {asset.aliases?.owners.map((item: string) => (
               <span className='tag'>{item}</span>
             ))}
           </div>

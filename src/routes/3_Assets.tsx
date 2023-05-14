@@ -10,12 +10,13 @@ import Asset from '../components/Asset.tsx'
 function Assets(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [userAssets, setUserAssets] = useState([])
+  const [assets, setAssets] = useState([])
 
   async function getData () {
     try {
       const { data } = await axios.get(`${serverURL}assets`);
-      setUserAssets(data)
+      const onOffer = data.filter((asset: any) => asset.onOffer === true)
+      setAssets(onOffer)
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log('Axios error: ' + error);
@@ -32,7 +33,7 @@ function Assets(): JSX.Element {
   return (
     <div id="assets">
         <div id="user-assets">
-          {userAssets.map((item: any, index) => (
+          {assets.map((item: any, index) => (
             <NavLink to={`/assets/${item._id}`}>
               <Asset assetProps={item} index={index}></Asset>
             </NavLink>
