@@ -11,7 +11,6 @@ function Logout(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const navigate = useNavigate()
-  //const [user, setUser] = useOutletContext() as any[]
   const {user, setUser} = useContext<any>(UserContext)
 
   async function logout() {

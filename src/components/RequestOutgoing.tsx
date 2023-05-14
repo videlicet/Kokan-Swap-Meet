@@ -41,7 +41,6 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
 
   useEffect(() => {
     setPortalContainer(document.getElementById('requests'))
-    console.log(props)
   }, [])
 
   async function onConfirm() {
@@ -85,7 +84,6 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
           <NavLink to={`/user/${props.requestProps.requestee.username}`}>
             {props.requestProps.requestee.username}
           </NavLink>
-          .
         </span>
       </div>
       {props.requestProps.status === 'pending' && (

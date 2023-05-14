@@ -5,7 +5,7 @@ import {
   ChangeEvent,
   FormEvent,
 } from 'react'
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import '../styles/1_App.css'
 import '@fontsource/rubik/500.css'
 
@@ -26,6 +26,8 @@ import { UserInterface } from '../assets/mockUsers.tsx'
 /* context */
 
 export const UserContext = createContext({})
+
+import authenticate from '../modules/Authenticator'
 
 /* helpers */
 
@@ -48,17 +50,23 @@ function App(): JSX.Element {
   const [footer, setFooter] = useState(footerContent)
   const [user, setUser] = useState<any>()
 
+  const navigate = useNavigate();
+
   /** fetch data */
-  const getData = (): void => {
-    setLoading(true)
+  const getUser = async (): Promise<void> => {
+    authenticate().then((res) => {
+      if (res.status === true) {
+        console.log(res)
+        setUser(res.user)
+      } else {navigate('/login')}
+    })
   }
 
   useEffect(() => {
-    getData()
+    getUser()
   }, [])
 
   /* search */
-
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     console.log('search submitted')
@@ -70,8 +78,10 @@ function App(): JSX.Element {
     setSearchTerm(event.target.value)
   }
 
+  console.log('App.js reloaded')
+
   return (
-    <UserContext.Provider value={{user, setUser}}>
+    <UserContext.Provider value={{ user, setUser }}>
       <div className='page-container'>
         <NavLink to='/'>
           <h1 id='brand'>

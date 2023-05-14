@@ -25,7 +25,6 @@ function AssetsDetail(): JSX.Element {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [asset, setAsset] = useState<AssetInterface>()
-  //const [user, setUser] = useOutletContext() as any[]
   const { user, setUser } = useContext<any>(UserContext)
   const [openSwap, setOpenSwap] = useState(false)
 
@@ -98,7 +97,7 @@ function AssetsDetail(): JSX.Element {
           transaction: {
             asset_id: asset?._id,
             requester: user._id,
-            requestee: asset?.broker,
+            requestee: asset?.owners,
             created: new Date(),
             status: 'pending',
           },
@@ -180,7 +179,7 @@ function AssetsDetail(): JSX.Element {
                 onSwap={onSwap}
               />
             )}
-            {user && asset.broker == user._id && (
+            {user && asset.creator == user.username && (
               <AlertDialogAssetDelete
                 portalContainer={portalContainer}
                 title={asset?.title}

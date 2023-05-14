@@ -19,7 +19,6 @@ function Login(): JSX.Element {
   const [error, setError] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  //const [user, setUser] = useOutletContext() as any[]
   const { user, setUser } = useContext<any>(UserContext)
   const navigate = useNavigate()
 

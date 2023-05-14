@@ -24,16 +24,15 @@ function User(): JSX.Element | undefined {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [userAssets, setUserAssets] = useState(mockAssets)
-  //const [user, setUser] = useOutletContext() as any[]
-  const {user, setUser} = useContext<any>(UserContext)
+  const { user, setUser } = useContext<any>(UserContext)
   const [auth, setAuth] = useState(false)
   const navigate = useNavigate()
   const { id } = useParams() as any // throws error without
 
   useEffect(() => {
-    authenticate().then((flag) => {
-      setAuth(flag)
-      if (flag === false) {
+    authenticate().then((res) => {
+      setAuth(res.status)
+      if (res.status === false) {
         navigate('/login')
       }
     })
@@ -47,24 +46,27 @@ function User(): JSX.Element | undefined {
         </div>
         {id === user?.username && (
           <div id='user-info-container'>
-            <ProfileAvatar
-              user={user}
-            ></ProfileAvatar>
-            <div style={{color: "var(--main-color-yellow)"}}>{user?.username}</div>
-            <div id="user-info">
+            <ProfileAvatar user={user}></ProfileAvatar>
+            <div style={{ color: 'var(--main-color-yellow)' }}>
+              {user?.username}
+            </div>
+            <div id='user-info'>
               <div>
-                Current balance: {user?.kokans} 
-                <img src={brand_icon} alt='kokans' height='20px' style={{position: "relative", top: "0.3rem", marginLeft: "0.2rem"}} />
+                Current balance: {user?.kokans}
+                <img
+                  src={brand_icon}
+                  alt='kokans'
+                  height='20px'
+                  style={{
+                    position: 'relative',
+                    top: '0.3rem',
+                    marginLeft: '0.2rem',
+                  }}
+                />
               </div>
-              <div>
-                Assets: TD_sth.length()
-              </div>
-              <div>
-                Incoming requests: TD_sth.length()
-              </div>
-              <div>
-                Outgoing requests: TD_sth.length()
-              </div>
+              <div>Assets: TD_sth.length()</div>
+              <div>Incoming requests: TD_sth.length()</div>
+              <div>Outgoing requests: TD_sth.length()</div>
             </div>
           </div>
         )}

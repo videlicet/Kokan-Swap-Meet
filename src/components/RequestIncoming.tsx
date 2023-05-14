@@ -51,7 +51,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             asset: { asset_id: props.requestProps.asset_id },
-            update: { $push: { owners: props.requestProps.requester._id } },
+            update: { $push: { owners: props.requestProps.requester._id, brokers: props.requestProps.requester._id } },
           }),
         })
 

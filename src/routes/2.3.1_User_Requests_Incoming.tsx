@@ -36,7 +36,6 @@ const alertDialogRequestContentDecline = {
 function UserRequestsIncoming(): JSX.Element | undefined {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  //const [user, setUser] = useOutletContext() as any[]
   const {user, setUser} = useContext<any>(UserContext)
   const [requests, setRequests] = useState<any>()
 
@@ -51,6 +50,7 @@ function UserRequestsIncoming(): JSX.Element | undefined {
       })
       if (res.status == 200) {
         const userRequest = await res.json()
+        console.log(userRequest)
 
         /* get requesters from requester ids */
         const requesters = await Promise.all(
@@ -82,7 +82,7 @@ function UserRequestsIncoming(): JSX.Element | undefined {
         )
 
         userRequest.forEach((request: any, index: number) => {
-          userRequest[index].requester = requesters[index] //is there a way to aggregate the results or should i store the entire info on the value
+          userRequest[index].requester = requesters[index] // QQ is there a way to aggregate the results or should i store the entire info on the value
           userRequest[index].requestee = user
           userRequest[index].asset_id = assets[index]
         })

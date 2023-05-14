@@ -24,7 +24,6 @@ const alertDialogRequestContent = {
 function UserRequestsIncoming(): JSX.Element | undefined {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  //const [user, setUser] = useOutletContext() as any[]
   const {user, setUser} = useContext<any>(UserContext)
   const [requests, setRequests] = useState<any>()
 
@@ -40,7 +39,7 @@ function UserRequestsIncoming(): JSX.Element | undefined {
       if (res.status == 200) {
         const userRequest = await res.json()
 
-        /* get usernames from requestee id */
+        /* get username from requestee id */
         const requestees = await Promise.all(
           userRequest.map(async (request: any) => {
             const user = await fetch(`${serverURL}users/${request.requestee}`, {
@@ -68,9 +67,8 @@ function UserRequestsIncoming(): JSX.Element | undefined {
             return asset
           }),
         )
-
         userRequest.forEach((request: any, index: number) => {
-          userRequest[index].requestee = requestees[index] //is there a way to aggregate the results or should i store the entire info on the value
+          userRequest[index].requestee = requestees[0] // QQ is there a way to aggregate the results or should i store the entire info on the value
           userRequest[index].asset_id = assets[index]
         })
         setRequests(userRequest)

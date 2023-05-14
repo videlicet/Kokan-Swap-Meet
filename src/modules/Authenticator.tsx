@@ -1,21 +1,22 @@
 import serverURL from '../../server_URL'
 
-const authenticate = async (): Promise<boolean> => {
-  let flag = false
-
-  //check user has JWT token
+const authenticate = async (): Promise<
+  { status: boolean; user: any } | { status: boolean }
+> => {
+  /*check user has JWT token*/
   const requestHeaders: HeadersInit = new Headers()
   requestHeaders.set('Content-Type', 'application/json')
   requestHeaders.set('Access-Control-Allow-Credentials', true) // QQ can't solve this type issue
   const res = await fetch(`${serverURL}auth`, {
     method: 'get',
     credentials: 'include',
-    headers: requestHeaders
+    headers: requestHeaders,
   })
   if (res.status === 200) {
-    return (flag = true)
+    const user = await res.json()
+    return { status: true, user: user }
   }
-  return flag
+  return { status: false }
 }
 
 export default authenticate
