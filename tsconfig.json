@@ -22,6 +22,6 @@
     /* Completeness*/
     "skipLibCheck": true                                  /* Skip type checking all .d.ts files. */
   },
-  "include": ["src", "server_URL.ts", "trash/Authenticator.tsx"],
+  "include": ["src", "server_URL.ts", "trash/Authenticator.tsx", "src/routes/1.1_Welcome.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

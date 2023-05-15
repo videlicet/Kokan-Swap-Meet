@@ -5,8 +5,7 @@ import './styles/0_index.css'
 
 /* import routes*/
 import App from './routes/1_App.tsx'
-import Welcome from './routes/1.1_Welcome.tsx'
-import ErrorPage from './routes/0_Error_Page.tsx'
+import Welcome from './routes/1.1_Welcome.tsx' // TD change numbers
 import Assets from './routes/3_Assets.tsx'
 import Login from './routes/1.1_Login.tsx'
 import Logout from './routes/1.2_Logout.tsx'
@@ -21,6 +20,8 @@ import UserRequestsIncoming from './routes/2.3.1_User_Requests_Incoming.tsx'
 import UserRequestsOutgoing from './routes/2.3.2_User_Requests_Outgoing.tsx'
 import AssetsDetail from './routes/3.1_Assets_Detail.tsx'
 import AssetsNew from './routes/3.2_Assets_New.tsx'
+
+import ErrorPage from './routes/0_Error_Page.tsx'
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 

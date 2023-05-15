@@ -58,7 +58,6 @@ function App(): JSX.Element {
   const getUser = async (): Promise<void> => {
     authenticate().then((res) => {
       if (res.status === true) {
-        console.log(res)
         setUser(res.user) // TD typing
       } else {
         navigate('/login')
@@ -73,7 +72,6 @@ function App(): JSX.Element {
   /* search */
   function handleSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    //console.log(event.target.children[0].value) // TD typing
     setSearchTermHandle(event.target.children[0].value)
     navigate('/')
     setSearchTerm('')
@@ -83,7 +81,7 @@ function App(): JSX.Element {
     setSearchTerm(event.target.value)
   }
 
-  console.log('App.js reloaded') // TD console.log
+  console.log('UPDATE: App.js updated') // TD console.log
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
@@ -106,6 +104,7 @@ function App(): JSX.Element {
                   width: '40%',
                   display: 'flex',
                   alignItems: 'center',
+                  paddingRight: 0,
                 }}
               >
                 <input
@@ -117,6 +116,7 @@ function App(): JSX.Element {
                 ></input>
                 <button type='submit' className='search-submit'>
                   <MagnifyingGlassIcon className='search-icon' />
+                  <span className="search-span">search</span>
                 </button>
               </form>
               {user && (

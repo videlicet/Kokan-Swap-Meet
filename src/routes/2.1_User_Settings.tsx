@@ -77,7 +77,7 @@ function UserSettings(): JSX.Element {
       })
 
       if (res.status === 200) {
-        console.log('successfully updated')
+        navigate(`/user/${user.username}/settings`)
       }
     } catch (err) {}
   }

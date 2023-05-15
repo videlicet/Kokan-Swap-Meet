@@ -36,7 +36,7 @@ function AssetsDetail(): JSX.Element {
     document.getElementById('asset-container'),
   )
 
-  async function getData() {
+  async function getAsset() {
     try {
       const res = await fetch(`${serverURL}assets/${id}`, {
         method: 'POST',
@@ -88,7 +88,7 @@ function AssetsDetail(): JSX.Element {
   }
 
   useEffect(() => {
-    getData()
+    getAsset()
     setPortalContainer(document.getElementById('asset-container'))
   }, [])
 

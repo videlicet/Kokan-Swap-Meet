@@ -18,7 +18,6 @@ function Assets(): JSX.Element {
   const { searchTermHandle, setSearchTermHandle } = useContext<any>(AssetContext)
 
   async function getAssets() {
-    console.log(searchTermHandle)
     try {
       const res = await fetch(`${serverURL}assets/search`, {
         method: 'POST',
