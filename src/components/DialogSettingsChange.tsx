@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Cross2Icon } from '@radix-ui/react-icons'
 import './DialogSettingsChange.css'
-import { useRoutes } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
 
 interface settingsChange {
   portalContainer: HTMLElement | null
@@ -16,14 +16,20 @@ const DialogSettingsChange: React.FC<settingsChange> = (
 ) => {
   const [open, setOpen] = useState(false)
   const [changes, setChanges] = useState({ fieldFirst: '', fieldSecond: '' })
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     setChanges({ ...changes, [`${event.target.name}`]: event.target.value })
   }
 
-  const defaultValueFirst = (props?.content?.fields?.second === 'none')
-  ? props.user[`${props.content.title}`]
-  : props.user["first_name"]
+  const defaultValueFirst =
+    props?.content?.fields?.second === 'none'
+      ? props.user[`${props.content.title}`]
+      : props.user['first_name']
   const defaultValueSecond = props.user.last_name
 
   return (
@@ -35,17 +41,17 @@ const DialogSettingsChange: React.FC<settingsChange> = (
         <Dialog.Overlay className='DialogOverlay' />
         <Dialog.Content className='DialogContent'>
           <form
-            onSubmit={(event) => {
-              event.preventDefault()
+            onSubmit={handleSubmit((data) => {
+              console.log(data)
               props.onSubmit({
                 type: props.content.title,
                 changes: {
-                  first: changes.fieldFirst,
-                  second: changes.fieldSecond,
+                  first: data.fieldFirst,
+                  second: data.fieldSecond,
                 },
               })
               setOpen(false)
-            }}
+            })}
           >
             <Dialog.Title className='DialogTitle'>
               Change {props.content.title}
@@ -58,13 +64,23 @@ const DialogSettingsChange: React.FC<settingsChange> = (
                 {props.content.fields.first}
               </label>
               <input
+                {...register('fieldFirst', {
+                  required: true,
+                  minLength: 5,
+                  maxLength: 15,
+                })}
                 className='Input'
                 id={props.content.fields.first}
                 name={'fieldFirst'}
                 value={changes.fieldFirst}
                 onChange={handleChange}
-                placeholder={props.content.title !== 'password' && defaultValueFirst}
+                placeholder={
+                  props.content.title !== 'password' && defaultValueFirst
+                }
               />
+              {errors.fieldFirst && (
+                <p className='validation-error'>Invalid</p>
+              )}
             </fieldset>
             {props.content.fields.second !== 'none' && (
               <fieldset className='Fieldset'>
@@ -72,6 +88,11 @@ const DialogSettingsChange: React.FC<settingsChange> = (
                   {props.content.fields.second}
                 </label>
                 <input
+                  {...register('fieldSecond', {
+                    required: true,
+                    minLength: 5,
+                    maxLength: 15,
+                  })}
                   className='Input'
                   id={props.content.fields.second}
                   name={'fieldSecond'}
@@ -79,6 +100,9 @@ const DialogSettingsChange: React.FC<settingsChange> = (
                   onChange={handleChange}
                   placeholder={defaultValueSecond}
                 />
+                {errors.fieldSecond && (
+                  <p className='validation-error'>Invalid</p>
+                )}
               </fieldset>
             )}
 
@@ -104,3 +128,16 @@ const DialogSettingsChange: React.FC<settingsChange> = (
 }
 
 export default DialogSettingsChange
+
+/* Trash
+              //(event) => {
+              //event.preventDefault()
+              // props.onSubmit({
+              //   type: props.content.title,
+              //   changes: {
+              //     first: changes.fieldFirst,
+              //     second: changes.fieldSecond,
+              //   },
+              // })
+
+*/

@@ -15,7 +15,7 @@ import serverURL from '../../server_URL.ts'
 function UserSettings(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-
+  
   const { user, setUser } = useContext<any>(UserContext)
 
   const navigate = useNavigate()
@@ -46,6 +46,7 @@ function UserSettings(): JSX.Element {
   }, [])
 
   async function handleSubmit(changes: any) {
+    console.log(changes)
 
     let updateReqBody = {}
 

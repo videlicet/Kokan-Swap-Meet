@@ -1,12 +1,10 @@
 import {
   useState,
-  useEffect,
   useContext,
   ChangeEvent,
-  FormEvent,
-  MouseEvent,
 } from 'react'
-import { NavLink, useNavigate, useOutletContext } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { NavLink, useNavigate } from 'react-router-dom'
 import '../styles/1.1_Login.css'
 
 /* context */
@@ -19,14 +17,19 @@ function Login(): JSX.Element {
   const [error, setError] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
   const { user, setUser } = useContext<any>(UserContext)
   const navigate = useNavigate()
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    const { elements } = event.target as HTMLFormElement
-    const { value: username } = elements[0] as HTMLInputElement
-    const { value: password } = elements[1] as HTMLInputElement
+  async function handleFormSubmit(event: any) {
+    console.log(event)
+    const username = event.username;
+    const password = event.password;
     try {
       const res = await fetch(`${serverURL}auth`, {
         method: 'POST',
@@ -62,24 +65,28 @@ function Login(): JSX.Element {
   return (
     <div id='login-container'>
       <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit((data) => handleFormSubmit(data))}>
         <div className='text-input'>
           <label htmlFor='username'>Username</label>
           <input
+            {...register('username', { required: true, minLength: 5, maxLength: 15 })}
             onChange={handleChangeUsername}
             name='username'
             type='text'
             value={username}
           ></input>
+          {errors.username && <p className="validation-error">Username invalid.</p>}
         </div>
         <div className='text-input'>
           <label htmlFor='password'>Password</label>
           <input
+            {...register('password', { required: true, minLength: 8, maxLength: 50 })}
             onChange={handleChangePassword}
             name='password'
             type='password'
             value={password}
           ></input>
+          {errors.password && <p className="validation-error">Password invalid</p>}
         </div>
         <br />
         <input type='submit' value='login'></input>
