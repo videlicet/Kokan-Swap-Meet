@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 
 /* import components */
@@ -46,7 +46,7 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
   async function onConfirm() {
     try {
       const res = await fetch(
-        `${serverURL}transactions/${props.requestProps._id}`,
+        `${serverURL}transactions/${props.requestProps?._id}`,
         {
           method: 'DELETE',
           headers: {
@@ -63,30 +63,30 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
 
   return (
     <div
-      className={dynamicRequestStyle(props.requestProps.status)}
+      className={dynamicRequestStyle(props.requestProps?.status)}
       key={props.index}
     >
       <div className='header'>
         <span className='title'>
           Request for{' '}
-          <NavLink to={`assets/${props.requestProps.asset_id}`}>
-            {props.requestProps.asset_id.title}
+          <NavLink to={`assets/${props.requestProps?.asset_id}`}>
+            {props.requestProps?.asset_id.title}
           </NavLink>
         </span>
       </div>
       <div className='description'>
         <span>
           You requested{' '}
-          <NavLink to={`assets/${props.requestProps.asset_id}`}>
-            {props.requestProps.asset_id.title}
+          <NavLink to={`assets/${props.requestProps?.asset_id}`}>
+            {props.requestProps?.asset_id.title}
           </NavLink>{' '}
           from user{' '}
-          <NavLink to={`/user/${props.requestProps.requestee.username}`}>
-            {props.requestProps.requestee.username}
+          <NavLink to={`/user/${props.requestProps?.requestee.username}`}>
+            {props.requestProps?.requestee.username}
           </NavLink>
         </span>
       </div>
-      {props.requestProps.status === 'pending' && (
+      {props.requestProps?.status === 'pending' && (
         <AlertDialogRequest
           portalContainer={portalContainer}
           content={props.alertDialogRequestContent}

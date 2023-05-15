@@ -39,6 +39,8 @@ function UserRequestsIncoming(): JSX.Element | undefined {
   const {user, setUser} = useContext<any>(UserContext)
   const [requests, setRequests] = useState<any>()
 
+  if (!requests) getData() // assures fetch on page refresh
+
   async function getData() {
     try {
       const res = await fetch(`${serverURL}users/${user.username}/requests`, {
@@ -50,7 +52,6 @@ function UserRequestsIncoming(): JSX.Element | undefined {
       })
       if (res.status == 200) {
         const userRequest = await res.json()
-        console.log(userRequest)
 
         /* get requesters from requester ids */
         const requesters = await Promise.all(

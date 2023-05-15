@@ -13,9 +13,6 @@ function UserRequest(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  //const [user, setUser] = useOutletContext() as any[]
-  //const {user, setUser} = useContext<any>(UserContext)
-
   return (
       <div id="user-requests"> {/* user-requests */}
         <ul>

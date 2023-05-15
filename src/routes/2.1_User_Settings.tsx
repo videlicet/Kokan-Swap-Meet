@@ -26,8 +26,8 @@ function UserSettings(): JSX.Element {
       {
         content: 'Username',
         inputName: 'username',
-        defaultValue: user.username,
-        validation: { required: true, minLength: 5, maxLength: 15 },
+        defaultValue: user?.username,
+        validation: { required: true, minLength: 4, maxLength: 15 },
         pattern: /^[a-z0-9_\-]+$/,
       },
     ],
@@ -49,7 +49,7 @@ function UserSettings(): JSX.Element {
       {
         content: 'Email',
         inputName: 'email',
-        defaultValue: user.email,
+        defaultValue: user?.email,
         validation: {
           required: true,
           minLength: 5,
@@ -65,13 +65,13 @@ function UserSettings(): JSX.Element {
       {
         content: 'First Name',
         inputName: 'first_name',
-        defaultValue: user.first_name,
+        defaultValue: user?.first_name,
         validation: { required: true, maxLength: 30 },
       },
       {
         content: 'Last Name',
         inputName: 'last_name',
-        defaultValue: user.last_name,
+        defaultValue: user?.last_name,
         validation: { required: true, maxLength: 30 },
       },
     ],
@@ -86,15 +86,14 @@ function UserSettings(): JSX.Element {
   }, [])
 
   async function handleSubmit(changes: any) {
-    console.log(changes)
 
     const reqBody = {
-      user: { _id: user._id },
+      user: { _id: user?._id },
       update: changes,
     }
 
     try {
-      const res = await fetch(`${serverURL}users/${user._id}`, {
+      const res = await fetch(`${serverURL}users/${user?._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -104,19 +103,19 @@ function UserSettings(): JSX.Element {
       })
 
       if (res.status === 200) {
-        navigate(`/user/${user.username}/settings`)
+        navigate(`/user/${user?.username}/settings`)
       }
     } catch (err) {}
   }
 
   async function onDelete() {
-    const res = await fetch(`${serverURL}users/${user._id}`, {
+    const res = await fetch(`${serverURL}users/${user?._id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
       credentials: 'include',
-      body: JSON.stringify({ user: { _id: user._id } }),
+      body: JSON.stringify({ user: { _id: user?._id } }),
     })
     if (res.status == 200) {
       /* clear JWT cookie */
@@ -140,78 +139,82 @@ function UserSettings(): JSX.Element {
 
   return (
     <div id='user-settings'>
-      <div>
-        <label htmlFor='username'>Username</label>
-        <div className='info-box'>
-          <span id='username'>{user?.username}</span>
-          <DialogSettingsChange
-            portalContainer={portalContainer}
-            user={user}
-            content={DialogUsername}
-            onSubmit={handleSubmit}
-          />
-        </div>
-      </div>
-
-      <div>
-        <div>
-          <label htmlFor='first_name'>First Name</label>
-          <span> and </span>
-          <label htmlFor='last_name'>Last Name</label>
-        </div>
-        <div className='info-box' style={{ gridTemplateRows: '1fr 1fr' }}>
-          <div
-            style={{
-              display: 'grid',
-              gap: '1rem',
-              gridRowStart: '1',
-              gridRowEnd: '3',
-            }}
-          >
-            <span id='first_name'>{user?.first_name}</span>
-            <span id='last_name'>{user?.last_name}</span>
+      {user && (
+        <>
+          <div>
+            <label htmlFor='username'>Username</label>
+            <div className='info-box'>
+              <span id='username'>{user?.username}</span>
+              <DialogSettingsChange
+                portalContainer={portalContainer}
+                user={user}
+                content={DialogUsername}
+                onSubmit={handleSubmit}
+              />
+            </div>
           </div>
-          <DialogSettingsChange
-            portalContainer={portalContainer}
-            user={user}
-            content={DialogName}
-            onSubmit={handleSubmit}
-          />
-        </div>
-      </div>
 
-      <div>
-        <label htmlFor='email'>Email</label>
-        <div className='info-box'>
-          <span id='email'>{user?.email}</span>
-          <DialogSettingsChange
-            portalContainer={portalContainer}
-            user={user}
-            content={DialogEmail}
-            onSubmit={handleSubmit}
-          />
-        </div>
-      </div>
+          <div>
+            <div>
+              <label htmlFor='first_name'>First Name</label>
+              <span> and </span>
+              <label htmlFor='last_name'>Last Name</label>
+            </div>
+            <div className='info-box' style={{ gridTemplateRows: '1fr 1fr' }}>
+              <div
+                style={{
+                  display: 'grid',
+                  gap: '1rem',
+                  gridRowStart: '1',
+                  gridRowEnd: '3',
+                }}
+              >
+                <span id='first_name'>{user?.first_name}</span>
+                <span id='last_name'>{user?.last_name}</span>
+              </div>
+              <DialogSettingsChange
+                portalContainer={portalContainer}
+                user={user}
+                content={DialogName}
+                onSubmit={handleSubmit}
+              />
+            </div>
+          </div>
 
-      <div>
-        <div className='info-box'>
-          <label htmlFor='password'>Password</label>
-          <DialogSettingsChange
-            portalContainer={portalContainer}
-            user={user}
-            content={DialogPassword}
-            onSubmit={handleSubmit}
-          />
-        </div>
-      </div>
+          <div>
+            <label htmlFor='email'>Email</label>
+            <div className='info-box'>
+              <span id='email'>{user?.email}</span>
+              <DialogSettingsChange
+                portalContainer={portalContainer}
+                user={user}
+                content={DialogEmail}
+                onSubmit={handleSubmit}
+              />
+            </div>
+          </div>
 
-      <div id='delete-account-box'>
-        <AlertDialogDeleteAccount
-          portalContainer={portalContainer}
-          username={user?.username}
-          onDelete={onDelete}
-        />
-      </div>
+          <div>
+            <div className='info-box'>
+              <label htmlFor='password'>Password</label>
+              <DialogSettingsChange
+                portalContainer={portalContainer}
+                user={user}
+                content={DialogPassword}
+                onSubmit={handleSubmit}
+              />
+            </div>
+          </div>
+
+          <div id='delete-account-box'>
+            <AlertDialogDeleteAccount
+              portalContainer={portalContainer}
+              username={user?.username}
+              onDelete={onDelete}
+            />
+          </div>
+        </>
+      )}
     </div>
   )
 }

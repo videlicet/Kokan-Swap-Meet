@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from 'react'
-import { useOutletContext } from 'react-router-dom'
 import '../styles/2.3.1–2_User_Requests.css'
 
 /* import components */
@@ -21,11 +20,13 @@ const alertDialogRequestContent = {
 }
 
 /* function component */
-function UserRequestsIncoming(): JSX.Element | undefined {
+function UserRequestsOutgoing(): JSX.Element | undefined {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const {user, setUser} = useContext<any>(UserContext)
   const [requests, setRequests] = useState<any>()
+
+  if (!requests) getData() // assures fetch on page refresh
 
   async function getData() {
     try {
@@ -67,6 +68,7 @@ function UserRequestsIncoming(): JSX.Element | undefined {
             return asset
           }),
         )
+        
         userRequest.forEach((request: any, index: number) => {
           userRequest[index].requestee = requestees[0] // QQ is there a way to aggregate the results or should i store the entire info on the value
           userRequest[index].asset_id = assets[index]
@@ -91,4 +93,4 @@ function UserRequestsIncoming(): JSX.Element | undefined {
   )
 }
 
-export default UserRequestsIncoming
+export default UserRequestsOutgoing

@@ -27,7 +27,6 @@ function Login(): JSX.Element {
   const navigate = useNavigate()
 
   async function handleFormSubmit(event: any) {
-    console.log(event)
     const username = event.username;
     const password = event.password;
     try {
@@ -69,7 +68,7 @@ function Login(): JSX.Element {
         <div className='text-input'>
           <label htmlFor='username'>Username</label>
           <input
-            {...register('username', { required: true, minLength: 5, maxLength: 15 })}
+            {...register('username', { required: true, minLength: 4, maxLength: 15 })}
             onChange={handleChangeUsername}
             name='username'
             type='text'

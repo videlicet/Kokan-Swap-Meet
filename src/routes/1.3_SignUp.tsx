@@ -20,16 +20,9 @@ function SignUp(): JSX.Element {
   const [email, setEmail] = useState('')
 
   async function handleFormSubmit(event: any) {
-    console.log(event)
-    console.log(event)
     const username = event.username
     const password = event.password
     const email = event.email
-    // event.preventDefault()
-    // const { elements } = event.target as HTMLFormElement
-    // const { value: username } = elements[0] as HTMLInputElement
-    // const { value: password } = elements[1] as HTMLInputElement
-    // const { value: email } = elements[2] as HTMLInputElement
     try {
       await fetch(`${serverURL}users`, {
         method: 'POST',
@@ -76,7 +69,7 @@ function SignUp(): JSX.Element {
           <input
             {...register('username', {
               required: true,
-              minLength: 5,
+              minLength: 4,
               maxLength: 15,
             })}
             onChange={handleChangeUsername}
