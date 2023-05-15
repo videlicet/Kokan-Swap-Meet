@@ -15,26 +15,66 @@ import serverURL from '../../server_URL.ts'
 function UserSettings(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  
+
   const { user, setUser } = useContext<any>(UserContext)
 
   const navigate = useNavigate()
 
   const DialogUsername = {
-    title: 'username',
-    fields: { first: 'Username', second: 'none' },
+    title: 'Username',
+    fields: [
+      {
+        content: 'Username',
+        inputName: 'username',
+        defaultValue: user.username,
+        validation: { required: true, minLength: 5, maxLength: 15 },
+        pattern: /^[a-z0-9_\-]+$/,
+      },
+    ],
   }
   const DialogPassword = {
     title: 'password',
-    fields: { first: 'Password', second: 'none' },
+    fields: [
+      {
+        content: 'Password',
+        inputName: 'password',
+        defaultValue: '',
+        validation: { required: true, minLength: 8, maxLength: 50 },
+      },
+    ],
   }
   const DialogEmail = {
-    title: 'email',
-    fields: { first: 'Email', second: 'none' },
+    title: 'Email',
+    fields: [
+      {
+        content: 'Email',
+        inputName: 'email',
+        defaultValue: user.email,
+        validation: {
+          required: true,
+          minLength: 5,
+          maxLength: 320,
+          pattern: /^(.+)@(.+)$/,
+        },
+      },
+    ],
   }
   const DialogName = {
-    title: 'name',
-    fields: { first: 'First Name', second: 'Last Name' },
+    title: 'Name',
+    fields: [
+      {
+        content: 'First Name',
+        inputName: 'first_name',
+        defaultValue: user.first_name,
+        validation: { required: true, maxLength: 30 },
+      },
+      {
+        content: 'Last Name',
+        inputName: 'last_name',
+        defaultValue: user.last_name,
+        validation: { required: true, maxLength: 30 },
+      },
+    ],
   }
 
   const [portalContainer, setPortalContainer] = useState(
@@ -48,23 +88,9 @@ function UserSettings(): JSX.Element {
   async function handleSubmit(changes: any) {
     console.log(changes)
 
-    let updateReqBody = {}
-
-    /* if first and last names are changed, the update in the req.body must be adapted*/
-    if (changes.type !== 'name') {
-      updateReqBody = {
-        [`${changes.type}`]: changes.changes.first,
-      }
-    } else {
-      updateReqBody = {
-        first_name: changes.changes.first,
-        last_name: changes.changes.second,
-      }
-    }
-
     const reqBody = {
       user: { _id: user._id },
-      update: updateReqBody,
+      update: changes,
     }
 
     try {
