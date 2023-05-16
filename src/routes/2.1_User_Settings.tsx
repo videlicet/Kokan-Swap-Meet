@@ -1,11 +1,13 @@
 import { useState, useEffect, useContext, ChangeEvent, FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Cloudinary } from '@cloudinary/url-gen'
 import '../styles/2.1_User_Settings.css'
 import brand_icon from '../assets/kokan_icon_w.png'
 
 /* import components */
 import AlertDialogDeleteAccount from '../components/AlertDialogDeleteAccount.tsx'
 import DialogSettingsChange from '../components/DialogSettingsChange.tsx'
+import { cloudinary_URL, cloudinary_cloud } from '../../cloudinary_URL.ts'
 
 /* context */
 import { UserContext } from './1_App'
@@ -19,6 +21,8 @@ function UserSettings(): JSX.Element {
   const { user, setUser } = useContext<any>(UserContext)
 
   const navigate = useNavigate()
+
+  const cldInstance = new Cloudinary({ cloud: { cloudName: cloudinary_cloud } })
 
   const DialogUsername = {
     title: 'Username',
@@ -86,7 +90,6 @@ function UserSettings(): JSX.Element {
   }, [])
 
   async function handleSubmit(changes: any) {
-
     const reqBody = {
       user: { _id: user?._id },
       update: changes,
@@ -134,6 +137,59 @@ function UserSettings(): JSX.Element {
         // TD errorHandling
       }
       navigate('/')
+    }
+  }
+
+  async function handleImageUpload(event: any) {
+    // TD type
+    event.preventDefault()
+
+    /* get uploaded image */
+    const inputElement = document?.getElementById('user-image')?.files[0]
+    if (event.target.elements[0].baseURI) {
+
+      /* send image to cloudinary */
+      const formData = new FormData()
+      formData.append('file', inputElement)
+      formData.append('upload_preset', 'dbyolvcf')
+
+      try {
+        const image = await fetch(
+          `https://api.cloudinary.com/v1_1/${cloudinary_cloud}/upload`,
+          {
+            method: 'POST',
+            body: formData,
+          },
+        )
+
+        if (image) {
+
+          /* update profile picture URL for user in DB  */
+          const { secure_url: image_URL } = await image.json()
+
+          const reqBody = {
+            user: { _id: user?._id },
+            update: { changes: { pictureURL: image_URL } },
+          }
+
+          try {
+            const res = await fetch(`${serverURL}users/${user?._id}`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              credentials: 'include',
+              body: JSON.stringify(reqBody),
+            })
+
+            if (res.status === 200) {
+              navigate(`/user/${user?.username}/settings`)
+            }
+          } catch (err) {}
+        }
+      } catch (err) {
+        // TD errorHandling
+      }
     }
   }
 
@@ -203,6 +259,21 @@ function UserSettings(): JSX.Element {
                 content={DialogPassword}
                 onSubmit={handleSubmit}
               />
+            </div>
+          </div>
+
+          <div>
+            <div className='info-box'>
+              <form onSubmit={handleImageUpload}>
+                <label htmlFor='user-image'>User Image</label>
+                <input
+                  name='user-image'
+                  type='file'
+                  id='user-image'
+                  accept='.png,.jpg,.jpeg'
+                />
+                <button type='submit'>Upload</button>
+              </form>
             </div>
           </div>
 

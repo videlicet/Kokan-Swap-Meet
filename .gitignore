@@ -29,5 +29,8 @@ bfg-1.14.0.jar
 # Server URL
 server_URL.ts
 
+# Cloudinary URL
+cloudinary_URL.ts
+
 # Trash
 trash
