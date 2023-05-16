@@ -25,7 +25,7 @@
   --main-text-color: rgb(221, 213, 207);
   --main-font-style: "Rubik", Arial, Helvetica, sans-serif;
   --main-color-yellow: rgba(253, 187, 45, 1); 
-  --main-color-blue: rgba(34,193,195, 1); 
+  --main-color-blue: rgba(34,193,195, 0.8); 
   --main-color-green: rgb(91, 128, 73, 1);
 }
 

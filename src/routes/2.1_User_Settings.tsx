@@ -201,85 +201,87 @@ function UserSettings(): JSX.Element {
     <div id='user-settings'>
       {user && (
         <>
-          <div>
-            <label htmlFor='username'>Username</label>
-            <div className='info-box'>
-              <span id='username'>{user?.username}</span>
-              <DialogSettingsChange
-                portalContainer={portalContainer}
-                user={user}
-                content={DialogUsername}
-                onSubmit={handleSubmit}
-              />
-            </div>
-          </div>
-
-          <div>
-            <div>
-              <label htmlFor='first_name'>First Name</label>
-              <span> and </span>
-              <label htmlFor='last_name'>Last Name</label>
-            </div>
-            <div className='info-box' style={{ gridTemplateRows: '1fr 1fr' }}>
-              <div
-                style={{
-                  display: 'grid',
-                  gap: '1rem',
-                  gridRowStart: '1',
-                  gridRowEnd: '3',
-                }}
-              >
-                <span id='first_name'>{user?.first_name}</span>
-                <span id='last_name'>{user?.last_name}</span>
+          <div id='user-settings-container'>
+            <div className='setting-containter'>
+              <label htmlFor='username'>Username</label>
+              <div className='info-box'>
+                <span id='username'>{user?.username}</span>
+                <DialogSettingsChange
+                  portalContainer={portalContainer}
+                  user={user}
+                  content={DialogUsername}
+                  onSubmit={handleSubmit}
+                />
               </div>
-              <DialogSettingsChange
-                portalContainer={portalContainer}
-                user={user}
-                content={DialogName}
-                onSubmit={handleSubmit}
-              />
+            </div>
+
+            <div className='setting-containter'>
+              <div>
+                <label htmlFor='first_name'>First Name</label>
+                <span> and </span>
+                <label htmlFor='last_name'>Last Name</label>
+              </div>
+              <div className='info-box' style={{ gridTemplateRows: '1fr 1fr' }}>
+                <div
+                  style={{
+                    display: 'grid',
+                    gap: '1rem',
+                    gridRowStart: '1',
+                    gridRowEnd: '3',
+                  }}
+                >
+                  <span id='first_name'>{user?.first_name}</span>
+                  <span id='last_name'>{user?.last_name}</span>
+                </div>
+                <DialogSettingsChange
+                  portalContainer={portalContainer}
+                  user={user}
+                  content={DialogName}
+                  onSubmit={handleSubmit}
+                />
+              </div>
+            </div>
+
+            <div className='setting-containter'>
+              <label htmlFor='email'>Email</label>
+              <div className='info-box'>
+                <span id='email'>{user?.email}</span>
+                <DialogSettingsChange
+                  portalContainer={portalContainer}
+                  user={user}
+                  content={DialogEmail}
+                  onSubmit={handleSubmit}
+                />
+              </div>
+            </div>
+
+            <form onSubmit={handleImageUpload} className='setting-containter'>
+              <label htmlFor='user-image'>User Image</label>
+              <div className='info-box'>
+                <input
+                  name='user-image'
+                  type='file'
+                  id='user-image'
+                  accept='.png,.jpg,.jpeg'
+                />
+                <button type='submit'>Upload</button>
+              </div>
+            </form>
+
+            <div className='setting-containter'>
+              <div className='info-box'>
+                <label htmlFor='password'>Password</label>
+                <DialogSettingsChange
+                  portalContainer={portalContainer}
+                  user={user}
+                  content={DialogPassword}
+                  onSubmit={handleSubmit}
+                />
+              </div>
             </div>
           </div>
 
-          <div>
-            <label htmlFor='email'>Email</label>
-            <div className='info-box'>
-              <span id='email'>{user?.email}</span>
-              <DialogSettingsChange
-                portalContainer={portalContainer}
-                user={user}
-                content={DialogEmail}
-                onSubmit={handleSubmit}
-              />
-            </div>
-          </div>
-
-          <div>
-            <div className='info-box'>
-              <label htmlFor='password'>Password</label>
-              <DialogSettingsChange
-                portalContainer={portalContainer}
-                user={user}
-                content={DialogPassword}
-                onSubmit={handleSubmit}
-              />
-            </div>
-          </div>
-
-          <form onSubmit={handleImageUpload}>
-            <label htmlFor='user-image'>User Image</label>
-            <div className='info-box'>
-              <input
-                name='user-image'
-                type='file'
-                id='user-image'
-                accept='.png,.jpg,.jpeg'
-              />
-              <button type='submit'>Upload</button>
-            </div>
-          </form>
-
-          <div id='delete-account-box'>
+          <div id='delete-account-box' className='setting-containter'>
             <AlertDialogDeleteAccount
               portalContainer={portalContainer}
               username={user?.username}

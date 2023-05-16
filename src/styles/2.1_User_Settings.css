@@ -1,15 +1,29 @@
 @media screen and (min-width: 760px) {
   #user-settings {
     padding: 3rem;
-
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
   }
 }
 
+#user-settings-container {
+  margin-bottom: 2rem;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.setting-containter {
+  padding: 0.5rem;
+  border-right: 1px solid black;
+}
+
+.setting-containter:last-child {
+  padding: 0.5rem;
+  border-right: none}
+
+
 #user-settings .info-box {
-  width: 50%;
+  width: 90%;
 
   margin-top: 0.5rem;
 
@@ -32,6 +46,7 @@
   border-radius: 15px;
 
   color: var(--main-font-color);
+  font-size: smaller;
 }
 
 input[type='file'] {
@@ -45,7 +60,7 @@ input[type='file'] {
 }
 
 .info-box input::file-selector-button {
-  padding: 0.6rem 0.9rem;
+  padding: 0.4rem 0.9rem;
   margin-right: 1rem;
 
   background-color: rgb(0, 0, 0, 0.4);
