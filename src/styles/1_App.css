@@ -28,7 +28,7 @@ button:hover, .button-like:hover, input[type='submit']:hover {
     color: black;
 }
 
-input[type='text'], input[type='number'],  input[type='password'] {
+input[type='text'], input[type='number'],  input[type='password']  {
     padding: 0.3rem 1rem;
 
     box-sizing: border-box;
@@ -47,6 +47,7 @@ input[type='text'], input[type='number'],  input[type='password'] {
   row-gap: 0.4rem;
   margin-bottom: 0.5rem;
 }
+
 
 .fixed-text {
 
@@ -136,9 +137,13 @@ input[type='text'], input[type='number'],  input[type='password'] {
 }
 
 .search-submit {
+  z-index: 0;
   display: flex;
-  line-height: 1;
   padding-left: 0.3rem;
+
+  border-radius: 15px 15px 15px 0;
+
+  line-height: 1;
 }
 
 .search-icon {

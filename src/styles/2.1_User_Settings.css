@@ -18,7 +18,9 @@
   gap: 1rem;
 }
 
-.info-box input[type="text"], .info-box input[type="password"], .info-box span {
+.info-box input[type='text'],
+.info-box input[type='password'],
+.info-box span {
   padding: 0.3rem 0.6rem;
 
   background-color: rgb(0, 0, 0, 0.3);
@@ -28,8 +30,38 @@
 
   border: 2px black solid;
   border-radius: 15px;
-  
+
   color: var(--main-font-color);
+}
+
+input[type='file'] {
+  background-color: rgb(0, 0, 0, 0.3);
+  font-family: var(--main-font-style);
+
+  resize: none;
+
+  border: 2px black solid;
+  border-radius: 15px;
+}
+
+.info-box input::file-selector-button {
+  padding: 0.6rem 0.9rem;
+  margin-right: 1rem;
+
+  background-color: rgb(0, 0, 0, 0.4);
+
+  border-radius: 0 15px 0 0;
+  border: none;
+
+  color: var(--main-text-color);
+
+  font-family: var(--main-font-style);
+}
+
+.info-box input::file-selector-button:hover {
+  background-color: var(--main-text-color);
+
+  color: black;
 }
 
 #delete-account-box {

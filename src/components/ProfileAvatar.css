@@ -1,34 +1,34 @@
 .AvatarRoot {
-  display: inline-flex;
+  display: föe;
   align-items: center;
   justify-content: center;
   vertical-align: middle;
   overflow: hidden;
   user-select: none;
-  aspect-ratio: 1 / 1;
-  width: 40%;
+  width: 70%;
+  aspect-ratio: 1/1;
   border-radius: 100%;
+  background-color: var(--main-color-blue);
+  border: 3px solid black;
 }
 
 @media screen and (min-width: 760px) {
   .AvatarRoot {
-    width: 100%;
+
   }
 } 
 
 .AvatarImage {
-  width: 50%;
-  height: 50%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  object-position: 50% 50%;
   border-radius: inherit;
 }
 
 @media screen and (min-width: 760px) {
   .AvatarImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: inherit;
+
   }
 } 
 

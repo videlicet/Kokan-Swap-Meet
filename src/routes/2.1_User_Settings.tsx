@@ -1,4 +1,11 @@
-import { useState, useEffect, useContext, ChangeEvent, FormEvent } from 'react'
+import {
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+  ChangeEvent,
+  FormEvent,
+} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Cloudinary } from '@cloudinary/url-gen'
 import '../styles/2.1_User_Settings.css'
@@ -17,12 +24,11 @@ import serverURL from '../../server_URL.ts'
 function UserSettings(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [file, setFile] = useState(null)
 
   const { user, setUser } = useContext<any>(UserContext)
 
   const navigate = useNavigate()
-
-  const cldInstance = new Cloudinary({ cloud: { cloudName: cloudinary_cloud } })
 
   const DialogUsername = {
     title: 'Username',
@@ -147,11 +153,10 @@ function UserSettings(): JSX.Element {
     /* get uploaded image */
     const inputElement = document?.getElementById('user-image')?.files[0]
     if (event.target.elements[0].baseURI) {
-
       /* send image to cloudinary */
       const formData = new FormData()
       formData.append('file', inputElement)
-      formData.append('upload_preset', 'dbyolvcf')
+      formData.append('upload_preset', 'profile-pictures')
 
       try {
         const image = await fetch(
@@ -163,7 +168,6 @@ function UserSettings(): JSX.Element {
         )
 
         if (image) {
-
           /* update profile picture URL for user in DB  */
           const { secure_url: image_URL } = await image.json()
 
@@ -262,20 +266,18 @@ function UserSettings(): JSX.Element {
             </div>
           </div>
 
-          <div>
+          <form onSubmit={handleImageUpload}>
+            <label htmlFor='user-image'>User Image</label>
             <div className='info-box'>
-              <form onSubmit={handleImageUpload}>
-                <label htmlFor='user-image'>User Image</label>
-                <input
-                  name='user-image'
-                  type='file'
-                  id='user-image'
-                  accept='.png,.jpg,.jpeg'
-                />
-                <button type='submit'>Upload</button>
-              </form>
+              <input
+                name='user-image'
+                type='file'
+                id='user-image'
+                accept='.png,.jpg,.jpeg'
+              />
+              <button type='submit'>Upload</button>
             </div>
-          </div>
+          </form>
 
           <div id='delete-account-box'>
             <AlertDialogDeleteAccount
