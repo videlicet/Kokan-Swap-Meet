@@ -55,7 +55,6 @@ function AssetsNew(): JSX.Element {
   } = useForm()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  //const [user, setUser] = useOutletContext() as any[]
   const { user, setUser } = useContext<any>(UserContext)
   const navigate = useNavigate()
 

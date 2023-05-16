@@ -1,8 +1,4 @@
-import {
-  useState,
-  useContext,
-  ChangeEvent,
-} from 'react'
+import { useState, useContext, ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import { NavLink, useNavigate } from 'react-router-dom'
 import '../styles/1.1_Login.css'
@@ -26,9 +22,8 @@ function Login(): JSX.Element {
   const { user, setUser } = useContext<any>(UserContext)
   const navigate = useNavigate()
 
-  async function handleFormSubmit(event: any) {
-    const username = event.username;
-    const password = event.password;
+  async function handleFormSubmit(data: any) {
+    const { username, password } = data
     try {
       const res = await fetch(`${serverURL}auth`, {
         method: 'POST',
@@ -68,24 +63,36 @@ function Login(): JSX.Element {
         <div className='text-input'>
           <label htmlFor='username'>Username</label>
           <input
-            {...register('username', { required: true, minLength: 4, maxLength: 15 })}
+            {...register('username', {
+              required: true,
+              minLength: 4,
+              maxLength: 15,
+            })}
             onChange={handleChangeUsername}
             name='username'
             type='text'
             value={username}
           ></input>
-          {errors.username && <p className="validation-error">Username invalid.</p>}
+          {errors.username && (
+            <p className='validation-error'>Username invalid.</p>
+          )}
         </div>
         <div className='text-input'>
           <label htmlFor='password'>Password</label>
           <input
-            {...register('password', { required: true, minLength: 8, maxLength: 50 })}
+            {...register('password', {
+              required: true,
+              minLength: 8,
+              maxLength: 50,
+            })}
             onChange={handleChangePassword}
             name='password'
             type='password'
             value={password}
           ></input>
-          {errors.password && <p className="validation-error">Password invalid</p>}
+          {errors.password && (
+            <p className='validation-error'>Password invalid</p>
+          )}
         </div>
         <br />
         <input type='submit' value='login'></input>

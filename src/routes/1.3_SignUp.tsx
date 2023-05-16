@@ -19,10 +19,8 @@ function SignUp(): JSX.Element {
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
 
-  async function handleFormSubmit(event: any) {
-    const username = event.username
-    const password = event.password
-    const email = event.email
+  async function handleFormSubmit(data: any) {
+    const { username, password, email } = data
     try {
       await fetch(`${serverURL}users`, {
         method: 'POST',

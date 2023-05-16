@@ -3,7 +3,6 @@ import { NavLink, Outlet, useOutletContext } from 'react-router-dom'
 import '../styles/2.3_User_Request.css'
 
 /* context */
-import { UserContext } from './1_App'
 
 const styleNavBar = ({ isActive }: any) => ({
     color: isActive ? ' rgb(221, 213, 207)' : 'grey',
