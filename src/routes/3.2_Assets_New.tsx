@@ -149,7 +149,7 @@ function AssetsNew(): JSX.Element {
         onSubmit={handleSubmit((data) => handleFormSubmit(data))}
         noValidate
       >
-        <div className='text-input'>
+        <div className='text-input'   style={{ width: '75%' }}>
           <label htmlFor='title'>
             Title
             <TooltipInfo content={tooltipTitle} />
@@ -167,10 +167,19 @@ function AssetsNew(): JSX.Element {
             minLength={10}
             maxLength={60}
             placeholder='Title'
-            style={{ width: '30rem', padding: '0.9rem', fontSize: 'medium' }}
+            style={{ width: '100%', padding: '0.9rem', fontSize: 'medium' }}
             value={title}
-          ></input>
-          {errors.title && <p className='validation-error'>Title invalid.</p>}
+          />
+          <div>
+            {title && 10 - title.length > 0 && (
+              <span className='validation-error'>
+                {10 - title.length} more characters.{' '}
+              </span>
+            )}
+            {errors.title && (
+              <span className='validation-error'>Title invalid.</span>
+            )}
+          </div>
         </div>
 
         <div className='text-input' style={{ width: '75%' }}>
@@ -191,14 +200,21 @@ function AssetsNew(): JSX.Element {
             className='text-area'
             minLength={50}
             maxLength={160}
-            rows={2}
+            rows={3}
             style={{ width: '100%' }}
             placeholder='Provide a short description. It will be displayed in the assets overview.'
             value={shortDescription}
           />
-          {errors.descriptionShort && (
-            <p className='validation-error'>Short description invalid.</p>
-          )}
+          <div>
+            {shortDescription && 50 - shortDescription.length > 0 && (
+              <span className='validation-error'>
+                {50 - shortDescription.length} more characters.{' '}
+              </span>
+            )}
+            {errors.descriptionShort && (
+              <p className='validation-error'>Short description invalid.</p>
+            )}
+          </div>
         </div>
 
         <div className='text-input' style={{ width: '75%' }}>
@@ -224,9 +240,16 @@ function AssetsNew(): JSX.Element {
             placeholder={`Provide a long description. It will be displayed on your asset's page.`}
             value={longDescription}
           />
-          {errors.descriptionLong && (
-            <p className='validation-error'>Long description invalid.</p>
-          )}
+          <div>
+            {longDescription && 50 - longDescription.length > 0 && (
+              <span className='validation-error'>
+                {50 - longDescription.length} more characters.{' '}
+              </span>
+            )}
+            {errors.descriptionLong && (
+              <p className='validation-error'>Long description invalid.</p>
+            )}
+          </div>
         </div>
 
         <div className='text-input'>
@@ -289,7 +312,6 @@ function AssetsNew(): JSX.Element {
 }
 
 export default AssetsNew
-
 
 /**
  * 

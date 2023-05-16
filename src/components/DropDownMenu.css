@@ -20,6 +20,7 @@
 .DropdownMenuItem {
   padding: 0.5rem 0;
   text-align: center;
+  color: rgba(0, 0, 0, 1)
 }
 
 .DropdownMenuItem a {
