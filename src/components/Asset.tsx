@@ -1,5 +1,6 @@
 import React from 'react'
 import { useLinkClickHandler, useLocation } from 'react-router-dom'
+import * as Separator from '@radix-ui/react-separator'
 
 interface Asset {
   assetProps: {
@@ -32,12 +33,18 @@ const Asset: React.FC<Asset> = (props: Asset) => {
       <div className='description'>
         <span>{props.assetProps.description_short}</span>
       </div>
-      <span>
+      <Separator.Root
+        className='SeparatorRoot'
+      />
+      <div className='asset-footer'>
         {props.assetProps.type.map((item) => (
           <span className='tag'>{item}</span>
         ))}
-      </span>
-      {pathname !== '/assets' && props.assetProps.onOffer && <div className="on-offer">ON OFFER</div>}
+
+        {pathname !== '/assets' && props.assetProps.onOffer && (
+          <span className='on-offer'>ON OFFER</span>
+        )}
+      </div>
     </div>
   )
 }

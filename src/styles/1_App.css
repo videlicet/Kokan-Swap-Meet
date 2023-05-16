@@ -138,6 +138,7 @@ input[type='text'], input[type='number'],  input[type='password'] {
 .search-submit {
   display: flex;
   line-height: 1;
+  padding-left: 0.3rem;
 }
 
 .search-icon {

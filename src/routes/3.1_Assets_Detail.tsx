@@ -5,6 +5,7 @@ import {
   useParams,
   useOutletContext,
 } from 'react-router-dom'
+import * as Separator from '@radix-ui/react-separator'
 import '../styles/3.1_Assets_Detail.css'
 
 /* import components */
@@ -48,10 +49,9 @@ function AssetsDetail(): JSX.Element {
       if (res.status == 200) {
         const asset = await res.json()
 
-
-        asset.aliases = {creator: '', owners: []}
+        asset.aliases = { creator: '', owners: [] }
         /* get username aliases from creator id */
-        
+
         const creator = await fetch(`${serverURL}users/${asset.creator}`, {
           method: 'POST',
           headers: {
@@ -166,6 +166,12 @@ function AssetsDetail(): JSX.Element {
     }
   }
 
+  const assetCreated = [
+    asset?.created.slice(0, 4),
+    asset?.created.slice(5, 7),
+    asset?.created.slice(8, 10),
+  ].join('/')
+
   return (
     <div id='asset-container'>
       {asset && (
@@ -173,6 +179,7 @@ function AssetsDetail(): JSX.Element {
           <div className='header'>
             <div>
               <span className='title'>{asset.title}</span>
+              <span className='kokans'>{asset.kokans}</span>
               <span>
                 &nbsp;&nbsp;by&nbsp;
                 {(asset.aliases.creator !== 'Deleted User' && (
@@ -182,6 +189,7 @@ function AssetsDetail(): JSX.Element {
                 )) ||
                   asset.aliases.creator}
               </span>
+              <div style={{ color: 'grey' }}> {assetCreated}</div>
             </div>
             <span className='licence'>{asset.licence}</span>
           </div>
@@ -189,21 +197,7 @@ function AssetsDetail(): JSX.Element {
           <div className='description'>
             <span>{asset.description_long}</span>
           </div>
-          <br />
-          <span>Created: {asset.created}</span>
-          <br />
-          <br />
           <div>
-            {/*Tags:{' '}*/}
-            {asset.type.map((item) => (
-              <span className='tag'>{item}</span>
-            ))}
-          </div>
-          <br />
-          <br />
-          <div className='description'>
-            <span>Swap for&nbsp;&nbsp;</span>
-            <span className='kokans'>{asset.kokans}</span>
             {user && !asset.aliases?.owners.includes(user.username) && (
               <AlertDialogAssetSwap
                 portalContainer={portalContainer}
@@ -226,11 +220,24 @@ function AssetsDetail(): JSX.Element {
               />
             )}
           </div>
-          <span>Owned by:</span>
-          <div style={{ display: 'flex', flexWrap: 'wrap', rowGap: '0.3rem' }}>
-            {asset.aliases?.owners.map((item: string) => (
-              <span className='tag'>{item}</span>
-            ))}
+          <Separator.Root className='SeparatorRoot' />
+          <div
+            className='asset-footer'
+            style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+          >
+            <div className='additional-info'>
+              <span className='info-type'>Tags:</span>
+              {asset.type.map((item) => (
+                <span className='info'>{item}</span>
+              ))}
+            </div>
+
+            <div className='additional-info'>
+              <span className='info-type'>Owners:</span>
+              {asset.aliases?.owners.map((item: string) => (
+                <span className='info'>{item}</span>
+              ))}
+            </div>
           </div>
         </div>
       )}

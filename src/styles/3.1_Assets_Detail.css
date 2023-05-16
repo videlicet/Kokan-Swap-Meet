@@ -45,3 +45,45 @@
 
     font-size: smaller;
 }
+
+.SeparatorRoot {
+    height: 2px;
+    width: 100%;
+
+    margin: 1rem 0;
+    
+    background-color: rgb(0, 0, 0, 0.5);
+}
+
+.asset-footer {
+    display: flex;
+    justify-content: space-between;
+
+    font-size: small;
+}
+
+.additional-info {
+    width: fit-content;
+    
+    display: flex; 
+    flex-wrap: wrap; 
+
+    padding-right: 0.6rem;
+
+    background-color: rgb(0, 0, 0, 0.4);
+
+    border-radius: 15px;
+}
+
+.info-type {
+    padding: 0.6rem 0.9rem;
+    margin-right: 0.5rem;
+
+    background-color: rgb(0, 0, 0, 0.4);
+
+    border-radius: 15px;
+}
+
+.additional-info .info {
+    padding: 0.6rem 0.9rem;
+}
