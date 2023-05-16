@@ -5,10 +5,11 @@ import {
   useOutletContext,
   useNavigate,
 } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
 import '../styles/3.2_Assets_New.css'
 
 /* import components */
-import SelectLicence from '../components/SelectLicence.tsx'
+import SelectLicence from '../components/SelectLicense.tsx'
 import TooltipInfo from '../components/Tooltip.tsx'
 
 import AlertDialogCreateNew from '../components/AlertDialogCreateNew.tsx'
@@ -24,12 +25,34 @@ const tooltipShortDescription =
   'Provide a short description for your asset. Minimum 50, maximum 160 characters.'
 const tooltipLongDescription =
   'Provide a short description for your asset. Minimum 50, maximum 2000 characters.'
-const tooltipsKokans = 'Choose your kokan value from 1 to 5 Kokans.'
-const tooltipLicence = `Pick a license for your asset. This helps to ensure you and your swap partner know how they can use your asset.` // ideally, this tooltip contains a link to https://choosealicense.com/
+const tooltipsKokans = 'Choose your Kokan value from 1 to 5 Kokans.'
+const tooltipLicense = `Pick a license for your asset.
+This helps to ensure you and your swap partner know how they can use your asset.` // TD ideally, this tooltip contains a link to https://choosealicense.com/
 const tooltipTags =
   'Add tags to your asset. They will help other users find your asset.'
 
+/* licenseTypes */
+const licenseTypes = [
+  'Apache License 2.0',
+  'Boost Software License 1.0',
+  'BSD 2-clause "Simplified" License',
+  'BSD 3-clause "New" or "Revised" License',
+  'GNU Affero General Public License v3.0',
+  'GNU General Public License v3.0',
+  'GNU Lesser General Public License v3.0',
+  'MIT',
+  'Mozilla Public License 2.0',
+  'Open Software License 3.0',
+  'The Unlicense',
+]
+
 function AssetsNew(): JSX.Element {
+  const {
+    register,
+    trigger,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   //const [user, setUser] = useOutletContext() as any[]
@@ -46,22 +69,15 @@ function AssetsNew(): JSX.Element {
   const [longDescription, setLongDescription] = useState<string>('')
   const [title, setTitle] = useState<string>('')
   const [kokans, setKokans] = useState<number>(3)
-  const [licence, setLicence] = useState<string>('Licence')
+  const [license, setLicense] = useState<string>('License')
   const [tags, setTags] = useState('')
 
   useEffect(() => {
     setPortalContainer(document.getElementById('new-asset-container'))
   }, [])
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    const { elements } = event.target as HTMLFormElement
-    const { value: title } = elements[0] as HTMLInputElement
-    const { value: description_short } = elements[1] as HTMLInputElement
-    const { value: description_long } = elements[2] as HTMLInputElement
-    const { value: kokans } = elements[3] as HTMLInputElement
-    const { value: tags } = elements[4] as HTMLInputElement // tags input field; here element 4 even though last element in view
-    const { value: licence } = elements[5] as HTMLInputElement
+  async function handleFormSubmit(data: any) {
+    const { title, description_short, description_long, kokans, license } = data
     try {
       await fetch(`${serverURL}assets`, {
         method: 'POST',
@@ -75,7 +91,7 @@ function AssetsNew(): JSX.Element {
           description_short: description_short,
           description_long: description_long,
           //tag: tags,
-          licence: licence,
+          licence: license,
           creator: user._id,
           owners: [user._id],
           onOffer: false,
@@ -112,11 +128,12 @@ function AssetsNew(): JSX.Element {
   }
 
   function handleChangeKokans(event: ChangeEvent<HTMLInputElement>) {
-    setKokans(event.target.value)
+    setKokans(Number(event.target.value))
   }
 
-  function handleChangeLicence(event: string) {
-    setLicence(event)
+  function handleChangeLicense(event: string) {
+    console.log(event)
+    if (event !== '') setLicense(event)
   }
 
   function handleChangeTags(event: ChangeEvent<HTMLInputElement>) {
@@ -129,7 +146,7 @@ function AssetsNew(): JSX.Element {
       <form
         className='new-asset-form'
         name='newAsset'
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit((data) => handleFormSubmit(data))}
         noValidate
       >
         <div className='text-input'>
@@ -138,6 +155,11 @@ function AssetsNew(): JSX.Element {
             <TooltipInfo content={tooltipTitle} />
           </label>
           <input
+            {...register('title', {
+              required: true,
+              minLength: 9,
+              maxLength: 60,
+            })}
             onChange={handleChangeText}
             name='title'
             className='new-asset'
@@ -148,16 +170,23 @@ function AssetsNew(): JSX.Element {
             style={{ width: '30rem', padding: '0.9rem', fontSize: 'medium' }}
             value={title}
           ></input>
+          {errors.title && <p className='validation-error'>Title invalid.</p>}
         </div>
 
-        <div className='text-input'  style={{ width: '75%' }}>
-          <label htmlFor='short-description'>
+        <div className='text-input' style={{ width: '75%' }}>
+          <label htmlFor='descriptionShort'>
             Short Description
             <TooltipInfo content={tooltipShortDescription} />
           </label>
           <textarea
-            id='short-description'
-            name='short-description'
+            {...register('descriptionShort', {
+              required: true,
+              minLength: 50,
+              maxLength: 160,
+            })}
+            id='descriptionShort'
+            name='descriptionShort'
+            form='newAsset'
             onChange={handleChangeTextAreaShortDescription}
             className='text-area'
             minLength={50}
@@ -167,16 +196,25 @@ function AssetsNew(): JSX.Element {
             placeholder='Provide a short description. It will be displayed in the assets overview.'
             value={shortDescription}
           />
+          {errors.descriptionShort && (
+            <p className='validation-error'>Short description invalid.</p>
+          )}
         </div>
 
         <div className='text-input' style={{ width: '75%' }}>
-          <label htmlFor='long-description'>
+          <label htmlFor='descriptionLong'>
             Long Description
             <TooltipInfo content={tooltipLongDescription} />
           </label>
           <textarea
-            id='long-description'
-            name='long-description'
+            {...register('descriptionLong', {
+              required: true,
+              minLength: 50,
+              maxLength: 2000,
+            })}
+            id='descriptionLong'
+            name='descriptionLong'
+            form='newAsset'
             onChange={handleChangeTextAreaLongDescription}
             className='text-area'
             minLength={50}
@@ -186,6 +224,9 @@ function AssetsNew(): JSX.Element {
             placeholder={`Provide a long description. It will be displayed on your asset's page.`}
             value={longDescription}
           />
+          {errors.descriptionLong && (
+            <p className='validation-error'>Long description invalid.</p>
+          )}
         </div>
 
         <div className='text-input'>
@@ -194,6 +235,11 @@ function AssetsNew(): JSX.Element {
             <TooltipInfo content={tooltipsKokans} />
           </label>
           <input
+            {...register('kokans', {
+              required: true,
+              valueAsNumber: true,
+              validate: (value) => value > 0 && value < 6,
+            })}
             onChange={handleChangeKokans}
             name='kokans'
             className='new-asset'
@@ -203,16 +249,18 @@ function AssetsNew(): JSX.Element {
             max='5'
             value={kokans}
           ></input>
+          {errors.kokans && <p className='validation-error'>Kokans invalid.</p>}
         </div>
 
         <div className='text-input'>
           <label htmlFor='licence'>
-            Licence
-            <TooltipInfo content={tooltipLicence} />
+            License
+            <TooltipInfo content={tooltipLicense} />
           </label>
           <SelectLicence
-            handleChangeLicence={handleChangeLicence}
-            licence={licence}
+            handleChangeLicence={handleChangeLicense}
+            licenseTypes={licenseTypes}
+            license={license}
           />
         </div>
 
@@ -232,6 +280,7 @@ function AssetsNew(): JSX.Element {
             onSubmitTrigger={onSubmitTrigger}
             title={title}
             kokans={kokans}
+            trigger={trigger}
           />
         </div>
       </form>
@@ -240,3 +289,17 @@ function AssetsNew(): JSX.Element {
 }
 
 export default AssetsNew
+
+
+/**
+ * 
+         onClick={async () => {
+            const result = await trigger([
+              'title',
+              'descriptionLong',
+              'descriptionShort',
+              'kokans',
+              'license',
+            ])
+          }}
+ */

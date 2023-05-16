@@ -22,6 +22,7 @@ Looking to exchange your digital assets with other users? Whether you have code,
 ## Acknowledgements
 
 Kokan Icon: sudheep b, CC Attribution | Color changed 
+
 Login Icons: Squarecup LTD, CC Attribution | Color changed 
 
 ## Miscellaneous
