@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 
 /* import components */
-
 import AlertDialogRequest, {
   AlertDialogRequestContent,
 } from './AlertDialogRequest'
@@ -10,14 +9,17 @@ import AlertDialogRequest, {
 import serverURL from '../../server_URL'
 
 /* import types */
-
 import { RequestInterface } from '../assets/mockRequests'
+
+/* import context */
+import { PortalContext } from '../routes/1_App'
 
 interface Request {
   requestProps: RequestInterface
   alertDialogRequestContent: AlertDialogRequestContent
   index: number
   username: string
+  portalContainer: any // TD type
 }
 
 /* change style of request depending on status */
@@ -35,13 +37,7 @@ function dynamicRequestStyle(status: string) {
 /* component */
 const RequestOutgoing: React.FC<Request> = (props: Request) => {
   const navigate = useNavigate()
-  const [portalContainer, setPortalContainer] = useState(
-    document.getElementById('requests'),
-  )
-
-  useEffect(() => {
-    setPortalContainer(document.getElementById('requests'))
-  }, [])
+  const { portalContainer } = useContext<any>(PortalContext) 
 
   async function onConfirm() {
     try {

@@ -15,7 +15,7 @@ import TooltipInfo from '../components/Tooltip.tsx'
 import AlertDialogCreateNew from '../components/AlertDialogCreateNew.tsx'
 
 /* context */
-import { UserContext } from './1_App'
+import { PortalContext, UserContext } from './1_App'
 
 import serverURL from '../../server_URL'
 
@@ -56,12 +56,8 @@ function AssetsNew(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const { user, setUser } = useContext<any>(UserContext)
+  const { portalContainer } = useContext<any>(PortalContext)
   const navigate = useNavigate()
-
-  /* alertDialog */
-  const [portalContainer, setPortalContainer] = useState(
-    document.getElementById('new-asset-container'),
-  )
 
   /* new asset */
   const [shortDescription, setShortDescription] = useState<string>('')
@@ -71,9 +67,6 @@ function AssetsNew(): JSX.Element {
   const [license, setLicense] = useState<string>('License')
   const [tags, setTags] = useState('')
 
-  useEffect(() => {
-    setPortalContainer(document.getElementById('new-asset-container'))
-  }, [])
 
   async function handleFormSubmit(data: any) {
     const { title, description_short, description_long, kokans, license } = data

@@ -5,7 +5,7 @@ import './DialogSettingsChange.css'
 import { useForm } from 'react-hook-form'
 
 interface settingsChange {
-  portalContainer: HTMLElement | null
+  portalContainer?: HTMLElement | null
   user: any
   onSubmit: any // TD type
   content: {

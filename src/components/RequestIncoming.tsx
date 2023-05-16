@@ -1,19 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useRef} from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 
 /* import components */
-
 import AlertDialogRequest, {
   AlertDialogRequestContent,
 } from './AlertDialogRequest'
 
-/* context */
-import { UserContext } from '../routes/1_App'
+/* import context */
+import { UserContext, PortalContext } from '../routes/1_App'
 
 import serverURL from '../../server_URL'
 
 /* import types */
-
 import { RequestInterface } from '../assets/mockRequests'
 
 interface Request {
@@ -24,16 +22,12 @@ interface Request {
 }
 
 const RequestIncoming: React.FC<Request> = (props: Request) => {
+
   const navigate = useNavigate()
   const { user, setUser } = useContext<any>(UserContext)
-  const [portalContainer, setPortalContainer] = useState(
-    document.getElementById('requests'),
-  )
+  const { portalContainer } = useContext<any>(PortalContext) 
 
-  useEffect(() => {
-    setPortalContainer(document.getElementById('requests'))
-  }, [])
-
+  
   async function onConfirm(reaction: string) {
     try {
       const res = await fetch(

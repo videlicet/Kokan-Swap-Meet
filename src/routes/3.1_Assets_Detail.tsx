@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext, useRef } from 'react'
 import {
   NavLink,
   useNavigate,
@@ -14,10 +14,10 @@ import AlertDialogAssetDelete from '../components/AlertDialogAssetDelete.tsx'
 import AlertDialogAssetOffer from '../components/AlertDialogAssetOffer.tsx'
 
 /* import types */
-import { AssetInterface } from '../assets/mockAssets'
+import { AssetInterface} from '../assets/mockAssets'
 
 /* context */
-import { UserContext } from './1_App'
+import { UserContext, PortalContext } from './1_App'
 
 import serverURL from '../../server_URL.ts'
 
@@ -28,14 +28,11 @@ function AssetsDetail(): JSX.Element {
   const [password, setPassword] = useState('')
   const [asset, setAsset] = useState<AssetInterface>()
   const { user, setUser } = useContext<any>(UserContext)
+  const {portalContainer} = useContext<any>(PortalContext)
   const [openSwap, setOpenSwap] = useState(false)
 
   let { id } = useParams()
   const navigate = useNavigate()
-
-  const [portalContainer, setPortalContainer] = useState(
-    document.getElementById('asset-container'),
-  )
 
   async function getAsset() {
     try {
@@ -89,7 +86,6 @@ function AssetsDetail(): JSX.Element {
 
   useEffect(() => {
     getAsset()
-    setPortalContainer(document.getElementById('asset-container'))
   }, [])
 
   async function onSwap() {

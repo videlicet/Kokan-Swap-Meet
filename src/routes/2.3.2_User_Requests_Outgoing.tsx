@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext, useRef } from 'react'
 import '../styles/2.3.1–2_User_Requests.css'
 
 /* import components */
@@ -25,6 +25,7 @@ function UserRequestsOutgoing(): JSX.Element | undefined {
   const [error, setError] = useState(null)
   const {user, setUser} = useContext<any>(UserContext)
   const [requests, setRequests] = useState<any>()
+  const portalContainer = useRef(document.getElementById('requests'))
 
   if (!requests) getData() // assures fetch on page refresh
 
@@ -87,7 +88,7 @@ function UserRequestsOutgoing(): JSX.Element | undefined {
   if (requests) return (
     <div id='requests'>
       {requests.map((item: any, index: number) => (
-        <RequestOutgoing requestProps={item} index={index} alertDialogRequestContent={alertDialogRequestContent} username={user.username}></RequestOutgoing>
+        <RequestOutgoing portalContainer={portalContainer} requestProps={item} index={index} alertDialogRequestContent={alertDialogRequestContent} username={user.username}></RequestOutgoing>
       ))}
     </div>
   )

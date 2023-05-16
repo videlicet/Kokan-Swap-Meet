@@ -4,6 +4,7 @@ import {
   createContext,
   ChangeEvent,
   FormEvent,
+  useRef
 } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import '../styles/1_App.css'
@@ -27,6 +28,7 @@ import { UserInterface } from '../assets/mockUsers.tsx'
 
 export const UserContext = createContext({})
 export const AssetContext = createContext({})
+export const PortalContext = createContext({})
 
 import authenticate from '../modules/Authenticator'
 
@@ -51,6 +53,7 @@ function App(): JSX.Element {
   const [nav, setNav] = useState(navContent)
   const [footer, setFooter] = useState(footerContent)
   const [user, setUser] = useState<any>()
+  const portal = useRef(null)
 
   const navigate = useNavigate()
 
@@ -86,6 +89,7 @@ function App(): JSX.Element {
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <AssetContext.Provider value={{ searchTermHandle, setSearchTermHandle }}>
+      <PortalContext.Provider value={{ portal }}>
         <div className='page-container'>
           <NavLink to='/'>
             <h1 id='brand'>
@@ -145,7 +149,7 @@ function App(): JSX.Element {
             </div>
           </nav>
 
-          <div id='main-container'>
+          <div id='main-container' ref={portal}>
             <Outlet />
           </div>
         </div>
@@ -172,6 +176,7 @@ function App(): JSX.Element {
             </div>
           </div>
         </footer>
+        </PortalContext.Provider>
       </AssetContext.Provider>
     </UserContext.Provider>
   )

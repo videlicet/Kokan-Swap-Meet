@@ -17,7 +17,7 @@ import DialogSettingsChange from '../components/DialogSettingsChange.tsx'
 import { cloudinary_URL, cloudinary_cloud } from '../../cloudinary_URL.ts'
 
 /* context */
-import { UserContext } from './1_App'
+import { UserContext, PortalContext } from './1_App'
 
 import serverURL from '../../server_URL.ts'
 
@@ -25,10 +25,11 @@ function UserSettings(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [file, setFile] = useState(null)
-
   const { user, setUser } = useContext<any>(UserContext)
+  const { portalContainer } = useContext<any>(PortalContext) 
 
   const navigate = useNavigate()
+
 
   const DialogUsername = {
     title: 'Username',
@@ -87,13 +88,6 @@ function UserSettings(): JSX.Element {
     ],
   }
 
-  const [portalContainer, setPortalContainer] = useState(
-    document.getElementById('user-settings'),
-  )
-
-  useEffect(() => {
-    setPortalContainer(document.getElementById('user-settings'))
-  }, [])
 
   async function handleSubmit(changes: any) {
     const reqBody = {
