@@ -119,6 +119,12 @@ input[type='text'], input[type='number'],  input[type='password']  {
   background-color: black;
 }
 
+#header .hover:hover {
+  background-color: var(--main-text-color);
+  color: black;
+}
+
+
 .navbar a {
   text-decoration: none;
 }
