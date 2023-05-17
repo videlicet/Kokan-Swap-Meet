@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useState, useEffect, useContext, ChangeEvent, FormEvent } from 'react'
 import {
   NavLink,

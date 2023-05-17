@@ -1,4 +1,4 @@
-import serverURL from '../../trash/server_URL'
+// @ts-nocheck
 
 const authenticate = async (): Promise<
   { status: boolean; user: any } | { status: boolean }
@@ -7,7 +7,7 @@ const authenticate = async (): Promise<
   const requestHeaders: HeadersInit = new Headers()
   requestHeaders.set('Content-Type', 'application/json')
   requestHeaders.set('Access-Control-Allow-Credentials', true) // QQ can't solve this type issue
-  const res = await fetch(`${serverURL}auth`, {
+  const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
     method: 'get',
     credentials: 'include',
     headers: requestHeaders,

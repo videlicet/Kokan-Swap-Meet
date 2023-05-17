@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from 'react'
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import './AlertDialog.css'

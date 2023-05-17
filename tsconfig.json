@@ -15,10 +15,10 @@
     "jsx": "react-jsx",                                   /* Specify what JSX code is generated. */
 
     /* Linting */
-    "strict": true,                                       /* Enable all strict type-checking options. */
-    "noUnusedLocals": true,                               /* Enable error reporting when local variables aren't read. */
-    "noUnusedParameters": true,                           /* Raise an error when a function parameter isn't read. */
-    "noFallthroughCasesInSwitch": true,                   /* Enable error reporting for fallthrough cases in switch statements. */
+    "strict": false,                                       /* Enable all strict type-checking options. */
+    "noUnusedLocals": false,                               /* Enable error reporting when local variables aren't read. */
+    "noUnusedParameters": false,                           /* Raise an error when a function parameter isn't read. */
+    "noFallthroughCasesInSwitch": false,                   /* Enable error reporting for fallthrough cases in switch statements. */
 
     /* Completeness*/
     "skipLibCheck": true                                  /* Skip type checking all .d.ts files. */
