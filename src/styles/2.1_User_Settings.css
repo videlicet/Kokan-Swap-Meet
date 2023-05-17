@@ -17,10 +17,13 @@
   border-right: 1px solid black;
 }
 
+.setting-containter:nth-child(2n) {
+  border-right: none;
+}
+
 .setting-containter:last-child {
   padding: 0.5rem;
   border-right: none}
-
 
 #user-settings .info-box {
   width: 90%;
@@ -103,5 +106,5 @@ input[type='file'] {
 }
 
 #delete-account-box button:hover {
-  color: white;
+  color: var(--main-text-color);
 }

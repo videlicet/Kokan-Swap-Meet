@@ -1,8 +1,9 @@
 .DropDownMenuContent {
   position: relative;
-  top: 0.9rem;
+  top: 1rem;
+  right: 2.1rem;
 
-  width: 100%;
+  width: 160%;
   box-sizing: border-box;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 1rem;

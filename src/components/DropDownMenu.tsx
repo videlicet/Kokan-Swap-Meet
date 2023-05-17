@@ -24,8 +24,8 @@ export default (props: propsInterface) => {
         </div>
       </DropdownMenu.Trigger>
 
-      <DropdownMenu.Portal style={{ width: '100%' }}>
-        <DropdownMenu.Content className='DropDownMenuContent'>
+      <DropdownMenu.Portal>
+        <DropdownMenu.Content className='DropDownMenuContent' arrowPadding={800}> {/* setting arrowPadding this high makes the arrow disppear, there seems to be no other way to style it*/}
           <DropdownMenu.Item
             className='DropdownMenuItem'
             onSelect={(e) => navigate(`user/${props.user?.username}/assets`)}
