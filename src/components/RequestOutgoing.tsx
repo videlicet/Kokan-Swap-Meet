@@ -6,8 +6,6 @@ import AlertDialogRequest, {
   AlertDialogRequestContent,
 } from './AlertDialogRequest'
 
-import serverURL from '../../server_URL'
-
 /* import types */
 import { RequestInterface } from '../assets/mockRequests'
 
@@ -42,7 +40,7 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
   async function onConfirm() {
     try {
       const res = await fetch(
-        `${serverURL}transactions/${props.requestProps?._id}`,
+        `${import.meta.env.VITE_SERVER_URL}transactions/${props.requestProps?._id}`,
         {
           method: 'DELETE',
           headers: {

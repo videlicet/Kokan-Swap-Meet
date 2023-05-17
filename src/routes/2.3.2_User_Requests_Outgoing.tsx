@@ -7,8 +7,6 @@ import RequestOutgoing from '../components/RequestOutgoing.tsx'
 /* context */
 import { UserContext } from './1_App'
 
-import serverURL from '../../server_URL'
-
 const alertDialogRequestContent = {
   title: 'Please confirm your withdrawel',
   description: 'Your swap request will be deleted. You can request the asset again after withdrawel.',
@@ -31,7 +29,7 @@ function UserRequestsOutgoing(): JSX.Element | undefined {
 
   async function getData() {
     try {
-      const res = await fetch(`${serverURL}users/${user.username}/requests`, {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${user.username}/requests`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,7 +42,7 @@ function UserRequestsOutgoing(): JSX.Element | undefined {
         /* get username from requestee id */
         const requestees = await Promise.all(
           userRequest.map(async (request: any) => {
-            const user = await fetch(`${serverURL}users/${request.requestee}`, {
+            const user = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${request.requestee}`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -58,7 +56,7 @@ function UserRequestsOutgoing(): JSX.Element | undefined {
         /* get assets from asset ids*/
         const assets = await Promise.all(
           userRequest.map(async (request: any) => {
-            const res = await fetch(`${serverURL}assets/${request.asset_id}`, {
+            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}assets/${request.asset_id}`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

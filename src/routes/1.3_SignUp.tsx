@@ -3,8 +3,6 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import '../styles/1.3_SignUp.css'
 
-import serverURL from '../../server_URL'
-
 function SignUp(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -22,7 +20,7 @@ function SignUp(): JSX.Element {
   async function handleFormSubmit(data: any) {
     const { username, password, email } = data
     try {
-      await fetch(`${serverURL}users`, {
+      await fetch(`${import.meta.env.VITE_SERVER_URL}users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

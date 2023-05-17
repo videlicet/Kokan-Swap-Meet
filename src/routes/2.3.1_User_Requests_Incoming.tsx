@@ -10,8 +10,6 @@ import { RequestInterface } from '../assets/mockRequests.tsx'
 /* context */
 import { UserContext } from './1_App'
 
-import serverURL from '../../server_URL'
-
 const alertDialogRequestContentAccept = {
   title: 'Please confirm the swap request of your asset',
   description: 'Your asset will be co-owned by you and the requester.',
@@ -43,7 +41,7 @@ function UserRequestsIncoming(): JSX.Element | undefined {
 
   async function getData() {
     try {
-      const res = await fetch(`${serverURL}users/${user.username}/requests`, {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${user.username}/requests`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,7 +54,7 @@ function UserRequestsIncoming(): JSX.Element | undefined {
         /* get requesters from requester ids */
         const requesters = await Promise.all(
           userRequest.map(async (request: any) => {
-            const user = await fetch(`${serverURL}users/${request.requester}`, {
+            const user = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${request.requester}`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -70,7 +68,7 @@ function UserRequestsIncoming(): JSX.Element | undefined {
         /* get assets from asset ids*/
         const assets = await Promise.all(
           userRequest.map(async (request: any) => {
-            const res = await fetch(`${serverURL}assets/${request.asset_id}`, {
+            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}assets/${request.asset_id}`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

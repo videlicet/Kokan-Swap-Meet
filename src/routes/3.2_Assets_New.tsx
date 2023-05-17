@@ -17,8 +17,6 @@ import AlertDialogCreateNew from '../components/AlertDialogCreateNew.tsx'
 /* context */
 import { PortalContext, UserContext } from './1_App'
 
-import serverURL from '../../server_URL'
-
 /* toolTips */
 const tooltipTitle = 'Provide a title. Minimum 10, maximum 50 characters.'
 const tooltipShortDescription =
@@ -71,7 +69,7 @@ function AssetsNew(): JSX.Element {
   async function handleFormSubmit(data: any) {
     const { title, description_short, description_long, kokans, license } = data
     try {
-      await fetch(`${serverURL}assets`, {
+      await fetch(`${import.meta.env.VITE_SERVER_URL}assets`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

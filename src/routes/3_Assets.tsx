@@ -1,13 +1,11 @@
 import { useState, useContext, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import '../styles/3_Assets.css'
-import serverURL from '../../server_URL.ts'
 
 /* import components */
 import Asset from '../components/Asset.tsx'
 
 /* import context */
-
 import { AssetContext } from './1_App'
 
 function Assets(): JSX.Element {
@@ -19,7 +17,7 @@ function Assets(): JSX.Element {
 
   async function getAssets() {
     try {
-      const res = await fetch(`${serverURL}assets/search`, {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}assets/search`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

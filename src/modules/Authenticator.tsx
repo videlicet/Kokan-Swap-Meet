@@ -1,4 +1,4 @@
-import serverURL from '../../server_URL'
+import serverURL from '../../trash/server_URL'
 
 const authenticate = async (): Promise<
   { status: boolean; user: any } | { status: boolean }

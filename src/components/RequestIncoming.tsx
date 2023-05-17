@@ -9,8 +9,6 @@ import AlertDialogRequest, {
 /* import context */
 import { UserContext, PortalContext } from '../routes/1_App'
 
-import serverURL from '../../server_URL'
-
 /* import types */
 import { RequestInterface } from '../assets/mockRequests'
 
@@ -31,7 +29,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
   async function onConfirm(reaction: string) {
     try {
       const res = await fetch(
-        `${serverURL}transactions/${props.requestProps._id}`,
+        `${import.meta.env.VITE_SERVER_URL}transactions/${props.requestProps._id}`,
         {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
@@ -40,7 +38,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
       )
       if (res.status === 200) {
         /* update ownership of asset */
-        await fetch(`${serverURL}assets/${props.requestProps.asset_id}`, {
+        await fetch(`${import.meta.env.VITE_SERVER_URL}assets/${props.requestProps.asset_id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -50,7 +48,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         })
 
         /* update requestee kokans */
-        await fetch(`${serverURL}users/${user._id}`, {
+        await fetch(`${import.meta.env.VITE_SERVER_URL}users/${user._id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -62,7 +60,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         })
 
         /* update requester kokans  */
-        await fetch(`${serverURL}users/${props.requestProps.requester._id}`, {
+        await fetch(`${import.meta.env.VITE_SERVER_URL}users/${props.requestProps.requester._id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -84,7 +82,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         // is this double???
 
         /* update requester kokans  */
-        await fetch(`${serverURL}users/${props.requestProps.requester._id}`, {
+        await fetch(`${import.meta.env.VITE_SERVER_URL}users/${props.requestProps.requester._id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

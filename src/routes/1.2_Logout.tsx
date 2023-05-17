@@ -5,8 +5,6 @@ import '../styles/1.2_Logout.css'
 /* context */
 import { UserContext } from './1_App'
 
-import serverURL from '../../server_URL'
-
 function Logout(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -15,7 +13,7 @@ function Logout(): JSX.Element {
 
   async function logout() {
     try {
-      const res = await fetch(`${serverURL}auth`, {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

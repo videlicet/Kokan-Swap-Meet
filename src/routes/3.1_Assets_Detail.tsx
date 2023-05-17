@@ -3,7 +3,6 @@ import {
   NavLink,
   useNavigate,
   useParams,
-  useOutletContext,
 } from 'react-router-dom'
 import * as Separator from '@radix-ui/react-separator'
 import '../styles/3.1_Assets_Detail.css'
@@ -19,8 +18,6 @@ import { AssetInterface} from '../assets/mockAssets'
 /* context */
 import { UserContext, PortalContext } from './1_App'
 
-import serverURL from '../../server_URL.ts'
-
 function AssetsDetail(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -33,10 +30,10 @@ function AssetsDetail(): JSX.Element {
 
   let { id } = useParams()
   const navigate = useNavigate()
-
+  
   async function getAsset() {
     try {
-      const res = await fetch(`${serverURL}assets/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}assets/${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -47,9 +44,9 @@ function AssetsDetail(): JSX.Element {
         const asset = await res.json()
 
         asset.aliases = { creator: '', owners: [] }
-        /* get username aliases from creator id */
 
-        const creator = await fetch(`${serverURL}users/${asset.creator}`, {
+        /* get username aliases from creator id */
+        const creator = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${asset.creator}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -66,7 +63,7 @@ function AssetsDetail(): JSX.Element {
         /* get usernames aliases from owner ids */
         const aliasesOwners = await Promise.all(
           asset.owners.map(async (owner: string) => {
-            const user = await fetch(`${serverURL}users/${owner}`, {
+            const user = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${owner}`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -90,7 +87,7 @@ function AssetsDetail(): JSX.Element {
 
   async function onSwap() {
     try {
-      let res = await fetch(`${serverURL}transactions`, {
+      let res = await fetch(`${import.meta.env.VITE_SERVER_URL}transactions`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -115,7 +112,7 @@ function AssetsDetail(): JSX.Element {
 
   async function onDelete() {
     try {
-      let res = await fetch(`${serverURL}assets/${asset?._id}`, {
+      let res = await fetch(`${import.meta.env.VITE_SERVER_URL}assets/${asset?._id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -124,7 +121,7 @@ function AssetsDetail(): JSX.Element {
       })
       if (res.status === 200) {
         /*delete swap requests relating to this asset*/
-        const res = await fetch(`${serverURL}transactions`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}transactions`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -142,7 +139,7 @@ function AssetsDetail(): JSX.Element {
 
   async function onOffer() {
     try {
-      let res = await fetch(`${serverURL}assets/${asset?._id}`, {
+      let res = await fetch(`${import.meta.env.VITE_SERVER_URL}assets/${asset?._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

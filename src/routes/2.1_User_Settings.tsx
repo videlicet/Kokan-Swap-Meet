@@ -7,19 +7,15 @@ import {
   FormEvent,
 } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Cloudinary } from '@cloudinary/url-gen'
 import '../styles/2.1_User_Settings.css'
 import brand_icon from '../assets/kokan_icon_w.png'
 
 /* import components */
 import AlertDialogDeleteAccount from '../components/AlertDialogDeleteAccount.tsx'
 import DialogSettingsChange from '../components/DialogSettingsChange.tsx'
-import { cloudinary_URL, cloudinary_cloud } from '../../cloudinary_URL.ts'
 
 /* context */
 import { UserContext, PortalContext } from './1_App'
-
-import serverURL from '../../server_URL.ts'
 
 function UserSettings(): JSX.Element {
   const [loading, setLoading] = useState(false)
@@ -29,7 +25,6 @@ function UserSettings(): JSX.Element {
   const { portalContainer } = useContext<any>(PortalContext) 
 
   const navigate = useNavigate()
-
 
   const DialogUsername = {
     title: 'Username',
@@ -96,7 +91,7 @@ function UserSettings(): JSX.Element {
     }
 
     try {
-      const res = await fetch(`${serverURL}users/${user?._id}`, {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${user?._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -112,7 +107,7 @@ function UserSettings(): JSX.Element {
   }
 
   async function onDelete() {
-    const res = await fetch(`${serverURL}users/${user?._id}`, {
+    const res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${user?._id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -123,7 +118,7 @@ function UserSettings(): JSX.Element {
     if (res.status == 200) {
       /* clear JWT cookie */
       try {
-        const res = await fetch(`${serverURL}auth`, {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -154,7 +149,7 @@ function UserSettings(): JSX.Element {
 
       try {
         const image = await fetch(
-          `https://api.cloudinary.com/v1_1/${cloudinary_cloud}/upload`,
+          `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD}/upload`,
           {
             method: 'POST',
             body: formData,
@@ -171,7 +166,7 @@ function UserSettings(): JSX.Element {
           }
 
           try {
-            const res = await fetch(`${serverURL}users/${user?._id}`, {
+            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${user?._id}`, {
               method: 'PUT',
               headers: {
                 'Content-Type': 'application/json',

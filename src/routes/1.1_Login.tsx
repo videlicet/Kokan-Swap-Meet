@@ -6,8 +6,6 @@ import '../styles/1.1_Login.css'
 /* context */
 import { UserContext } from './1_App'
 
-import serverURL from '../../server_URL'
-
 function Login(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -25,7 +23,7 @@ function Login(): JSX.Element {
   async function handleFormSubmit(data: any) {
     const { username, password } = data
     try {
-      const res = await fetch(`${serverURL}auth`, {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
         method: 'POST',
         body: JSON.stringify({
           username: username,

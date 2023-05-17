@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "ESNext",                                   /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "module": "ESnext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],             /* Specify library files to be included in the compilation. */
 
     "esModuleInterop": true,                              /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
@@ -22,6 +23,6 @@
     /* Completeness*/
     "skipLibCheck": true                                  /* Skip type checking all .d.ts files. */
   },
-  "include": ["src", "server_URL.ts", "trash/Authenticator.tsx", "src/routes/1.1_Welcome.tsx"],
+  "include": ["src", "trash/server_URL.ts", "trash/Authenticator.tsx", "src/routes/1.1_Welcome.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

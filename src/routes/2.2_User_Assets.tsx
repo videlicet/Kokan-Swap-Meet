@@ -9,8 +9,6 @@ import Asset from '../components/Asset.tsx'
 /* context */
 import { UserContext } from './1_App'
 
-import serverURL from '../../server_URL'
-
 /* function component */
 function UserAssets(): JSX.Element {
   const [loading, setLoading] = useState(false)
@@ -20,7 +18,7 @@ function UserAssets(): JSX.Element {
 
   async function getData() {
     try {
-      const res = await fetch(`${serverURL}users/${user.username}/assets`, {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${user.username}/assets`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
