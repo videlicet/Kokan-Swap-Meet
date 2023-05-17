@@ -9,8 +9,6 @@ import { UserContext } from './1_App'
 function Login(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
 
   const {
     register,
@@ -25,7 +23,6 @@ function Login(): JSX.Element {
     const { username, password } = data
 
     try {
-      console.log('tried')
       const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
         method: 'POST',
         body: JSON.stringify({
@@ -46,20 +43,10 @@ function Login(): JSX.Element {
         setLoading(false)
         setError(true)
       }
-      setUsername('')
-      setPassword('')
     } catch (error) {
       // td
       console.log('error')
     }
-  }
-
-  function handleChangeUsername(event: ChangeEvent<HTMLInputElement>) {
-    setUsername(event.target.value)
-  }
-
-  function handleChangePassword(event: ChangeEvent<HTMLInputElement>) {
-    setPassword(event.target.value)
   }
 
   return (
@@ -76,10 +63,8 @@ function Login(): JSX.Element {
                   minLength: 4,
                   maxLength: 15,
                 })}
-                onChange={handleChangeUsername}
                 name='username'
                 type='text'
-                value={username}
               ></input>
               {errors.username && (
                 <p className='validation-error'>Username invalid.</p>
@@ -92,10 +77,8 @@ function Login(): JSX.Element {
                   minLength: 7,
                   maxLength: 50,
                 })}
-                onChange={handleChangePassword}
                 name='password'
                 type='password'
-                value={password}
               ></input>
               {errors.password && (
                 <p className='validation-error'>Password invalid.</p>

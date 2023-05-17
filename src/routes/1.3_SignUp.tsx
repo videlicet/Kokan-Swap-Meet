@@ -1,7 +1,10 @@
-import { useState, useEffect, ChangeEvent, FormEvent, MouseEvent } from 'react'
+import { useState, ChangeEvent, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import '../styles/1.3_SignUp.css'
+
+/* context */
+import { UserContext } from './1_App'
 
 function SignUp(): JSX.Element {
   const [loading, setLoading] = useState(false)
@@ -11,13 +14,11 @@ function SignUp(): JSX.Element {
     handleSubmit,
     formState: { errors },
   } = useForm()
+  const { user, setUser } = useContext<any>(UserContext)
   const navigate = useNavigate()
 
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [email, setEmail] = useState('')
-
   async function handleFormSubmit(data: any) {
+    setLoading(true)
     const { username, password, email } = data
     try {
       await fetch(`${import.meta.env.VITE_SERVER_URL}users`, {
@@ -35,25 +36,34 @@ function SignUp(): JSX.Element {
           created: new Date(),
         }),
       })
-      navigate('/login')
+
+      try {
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
+          method: 'POST',
+          body: JSON.stringify({
+            username: username,
+            password: password,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        })
+        if (res.status === 200) {
+          const user = await res.json()
+          setUser(user)
+          setLoading(false)
+          navigate(`/user/${user?.username}/assets`)
+        } else {
+          setLoading(false)
+          setError(true)
+        }}
+      catch(err) {
+        // errorHandling
+      }
     } catch (error) {
       // TD errorHandling
     }
-    setUsername('')
-    setPassword('')
-    setEmail('')
-  }
-
-  function handleChangeUsername(event: ChangeEvent<HTMLInputElement>) {
-    setUsername(event.target.value)
-  }
-
-  function handleChangePassword(event: ChangeEvent<HTMLInputElement>) {
-    setPassword(event.target.value)
-  }
-
-  function handleChangeEmail(event: ChangeEvent<HTMLInputElement>) {
-    setEmail(event.target.value)
   }
 
   return (
@@ -68,10 +78,8 @@ function SignUp(): JSX.Element {
               minLength: 4,
               maxLength: 15,
             })}
-            onChange={handleChangeUsername}
             name='username'
             type='text'
-            value={username}
           ></input>
           {errors.username && <p className='validation-error'>Username invalid.</p>}
         </div>
@@ -83,10 +91,8 @@ function SignUp(): JSX.Element {
               minLength: 8,
               maxLength: 50,
             })}
-            onChange={handleChangePassword}
             name='password'
             type='password'
-            value={password}
           ></input>
           {errors.password && (
             <p className='validation-error'>Password invalid.</p>
@@ -102,10 +108,8 @@ function SignUp(): JSX.Element {
               maxLength: 320,
               pattern: /^(.+)@(.+)$/
             })}
-            onChange={handleChangeEmail}
             name='email'
             type='text'
-            value={email}
           ></input>
           {errors.email && <p className='validation-error'>Email invalid.</p>}
           <br />
