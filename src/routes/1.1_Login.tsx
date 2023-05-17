@@ -1,4 +1,4 @@
-import { useState, useContext, ChangeEvent } from 'react'
+import { useState, useContext, ChangeEvent, CSSProperties } from 'react'
 import { useForm } from 'react-hook-form'
 import { NavLink, useNavigate } from 'react-router-dom'
 import '../styles/1.1_Login.css'
@@ -23,10 +23,10 @@ function Login(): JSX.Element {
   async function handleFormSubmit(data: any) {
     setLoading(true)
     const { username, password } = data
-    
+
     try {
       console.log('tried')
-       const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
         method: 'POST',
         body: JSON.stringify({
           username: username,
@@ -41,10 +41,13 @@ function Login(): JSX.Element {
         const user = await res.json()
         setUser(user)
         setLoading(false)
-        setUsername('')
-        setPassword('')
         navigate(`/user/${user?.username}/assets`)
+      } else {
+        setLoading(false)
+        setError(true)
       }
+      setUsername('')
+      setPassword('')
     } catch (error) {
       // td
       console.log('error')
@@ -61,50 +64,54 @@ function Login(): JSX.Element {
 
   return (
     <div id='login-container'>
-      {loading && <span>Loading</span>}
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit((data) => handleFormSubmit(data))}>
-        <div className='text-input'>
-          <label htmlFor='username'>Username</label>
-          <input
-            {...register('username', {
-              required: true,
-              minLength: 4,
-              maxLength: 15,
-            })}
-            onChange={handleChangeUsername}
-            name='username'
-            type='text'
-            value={username}
-          ></input>
-          {errors.username && (
-            <p className='validation-error'>Username invalid.</p>
-          )}
-        </div>
-        <div className='text-input'>
-          <label htmlFor='password'>Password</label>
-          <input
-            {...register('password', {
-              required: true,
-              minLength: 8,
-              maxLength: 50,
-            })}
-            onChange={handleChangePassword}
-            name='password'
-            type='password'
-            value={password}
-          ></input>
-          {errors.password && (
-            <p className='validation-error'>Password invalid</p>
-          )}
-        </div>
-        <br />
-        <input type='submit' value='login'></input>
-        <span> &nbsp; &nbsp;OR &nbsp; &nbsp;</span>
-        <NavLink className='button-like' to='/sign-up'>
-          sing up
-        </NavLink>
-      </form>
+      {!loading ? (
+        <>
+          <h2>Login</h2>
+          <form onSubmit={handleSubmit((data) => handleFormSubmit(data))}>
+            <div className='text-input'>
+              <label htmlFor='username'>Username</label>
+              <input
+                {...register('username', {
+                  required: true,
+                  minLength: 4,
+                  maxLength: 15,
+                })}
+                onChange={handleChangeUsername}
+                name='username'
+                type='text'
+                value={username}
+              ></input>
+              {errors.username && (
+                <p className='validation-error'>Username invalid.</p>
+              )}
+
+              <label htmlFor='password'>Password</label>
+              <input
+                {...register('password', {
+                  required: true,
+                  minLength: 7,
+                  maxLength: 50,
+                })}
+                onChange={handleChangePassword}
+                name='password'
+                type='password'
+                value={password}
+              ></input>
+              {errors.password && (
+                <p className='validation-error'>Password invalid.</p>
+              )}
+            </div>
+            {error && <p className="validation-error">Username or Password incorrect.</p>}
+            <br />
+            <input type='submit' value='login'></input>
+            <span> &nbsp; &nbsp;OR &nbsp; &nbsp;</span>
+            <NavLink className='button-like' to='/sign-up'>
+              sing up
+            </NavLink>
+          </form>
+        </>
+      ) : ( <span>Loading</span>
+      )}
     </div>
   )
 }
