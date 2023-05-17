@@ -6,7 +6,7 @@ import {
   useOutletContext,
   useNavigate,
 } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import '../styles/3.2_Assets_New.css'
 
 /* import components */
@@ -50,6 +50,8 @@ function AssetsNew(): JSX.Element {
     register,
     trigger,
     handleSubmit,
+    watch,
+    control,
     formState: { errors },
   } = useForm()
   const [loading, setLoading] = useState(false)
@@ -57,15 +59,6 @@ function AssetsNew(): JSX.Element {
   const { user, setUser } = useContext<any>(UserContext)
   const { portalContainer } = useContext<any>(PortalContext)
   const navigate = useNavigate()
-
-  /* new asset */
-  const [shortDescription, setShortDescription] = useState<string>('')
-  const [longDescription, setLongDescription] = useState<string>('')
-  const [title, setTitle] = useState<string>('')
-  const [kokans, setKokans] = useState<number>(3)
-  const [license, setLicense] = useState<string>('License')
-  const [tags, setTags] = useState('')
-
 
   async function handleFormSubmit(data: any) {
     const { title, description_short, description_long, kokans, license } = data
@@ -98,37 +91,8 @@ function AssetsNew(): JSX.Element {
 
   /* triggers submit of form after confirmation in alert dialog */
   function onSubmitTrigger() {
-    const form: HTMLFormElement = document.forms.newAsset
+    const form: HTMLFormElement = document.forms.newAsset // TD type
     form.requestSubmit()
-  }
-
-  function handleChangeText(event: ChangeEvent<HTMLInputElement>) {
-    setTitle(event.target.value)
-  }
-
-  function handleChangeTextAreaShortDescription(
-    event: ChangeEvent<HTMLTextAreaElement>,
-  ) {
-    setShortDescription(event.target.value)
-  }
-
-  function handleChangeTextAreaLongDescription(
-    event: ChangeEvent<HTMLTextAreaElement>,
-  ) {
-    setLongDescription(event.target.value)
-  }
-
-  function handleChangeKokans(event: ChangeEvent<HTMLInputElement>) {
-    setKokans(Number(event.target.value))
-  }
-
-  function handleChangeLicense(event: string) {
-    console.log(event)
-    if (event !== '') setLicense(event)
-  }
-
-  function handleChangeTags(event: ChangeEvent<HTMLInputElement>) {
-    setTags(event.target.value)
   }
 
   return (
@@ -140,7 +104,7 @@ function AssetsNew(): JSX.Element {
         onSubmit={handleSubmit((data) => handleFormSubmit(data))}
         noValidate
       >
-        <div className='text-input'   style={{ width: '75%' }}>
+        <div className='text-input' style={{ width: '75%' }}>
           <label htmlFor='title'>
             Title
             <TooltipInfo content={tooltipTitle} />
@@ -151,7 +115,6 @@ function AssetsNew(): JSX.Element {
               minLength: 9,
               maxLength: 60,
             })}
-            onChange={handleChangeText}
             name='title'
             className='new-asset'
             type='text'
@@ -159,12 +122,11 @@ function AssetsNew(): JSX.Element {
             maxLength={60}
             placeholder='Title'
             style={{ width: '100%', padding: '0.9rem', fontSize: 'medium' }}
-            value={title}
           />
           <div>
-            {title && 10 - title.length > 0 && (
+            {watch('title') && 10 - watch('title').length > 0 && (
               <span className='validation-error'>
-                {10 - title.length} more characters.{' '}
+                {10 - watch('title').length} more characters.{' '}
               </span>
             )}
             {errors.title && (
@@ -187,21 +149,20 @@ function AssetsNew(): JSX.Element {
             id='descriptionShort'
             name='descriptionShort'
             form='newAsset'
-            onChange={handleChangeTextAreaShortDescription}
             className='text-area'
             minLength={50}
             maxLength={160}
             rows={3}
             style={{ width: '100%' }}
             placeholder='Provide a short description. It will be displayed in the assets overview.'
-            value={shortDescription}
           />
           <div>
-            {shortDescription && 50 - shortDescription.length > 0 && (
-              <span className='validation-error'>
-                {50 - shortDescription.length} more characters.{' '}
-              </span>
-            )}
+            {watch('descriptionShort') &&
+              50 - watch('descriptionShort').length > 0 && (
+                <span className='validation-error'>
+                  {50 - watch('descriptionShort').length} more characters.{' '}
+                </span>
+              )}
             {errors.descriptionShort && (
               <p className='validation-error'>Short description invalid.</p>
             )}
@@ -222,21 +183,20 @@ function AssetsNew(): JSX.Element {
             id='descriptionLong'
             name='descriptionLong'
             form='newAsset'
-            onChange={handleChangeTextAreaLongDescription}
             className='text-area'
             minLength={50}
             maxLength={2000}
             rows={8}
             style={{ width: '100%' }}
             placeholder={`Provide a long description. It will be displayed on your asset's page.`}
-            value={longDescription}
           />
           <div>
-            {longDescription && 50 - longDescription.length > 0 && (
-              <span className='validation-error'>
-                {50 - longDescription.length} more characters.{' '}
-              </span>
-            )}
+            {watch('descriptionLong') &&
+              50 - watch('descriptionLong').length > 0 && (
+                <span className='validation-error'>
+                  {50 - watch('descriptionLong').length} more characters.{' '}
+                </span>
+              )}
             {errors.descriptionLong && (
               <p className='validation-error'>Long description invalid.</p>
             )}
@@ -254,46 +214,48 @@ function AssetsNew(): JSX.Element {
               valueAsNumber: true,
               validate: (value) => value > 0 && value < 6,
             })}
-            onChange={handleChangeKokans}
             name='kokans'
             className='new-asset'
             type='number'
             step='1'
             min='1'
             max='5'
-            value={kokans}
+            defaultValue={3}
           ></input>
           {errors.kokans && <p className='validation-error'>Kokans invalid.</p>}
         </div>
 
         <div className='text-input'>
-          <label htmlFor='licence'>
+          <label htmlFor='license'>
             License
             <TooltipInfo content={tooltipLicense} />
           </label>
-          <SelectLicence
-            handleChangeLicence={handleChangeLicense}
-            licenseTypes={licenseTypes}
-            license={license}
-          />
-        </div>
 
-        {!true && (
-          <div className='text-input'>
-            <label htmlFor='tags'>
-              Tags
-              <TooltipInfo content={tooltipTags} />
-            </label>
-            <input onChange={handleChangeTags} name='tags'></input>
-          </div>
-        )}
+          <Controller
+            name='license'
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { onChange, value, ref, ...props } }) => (
+              <SelectLicence
+                onValueChange={onChange}
+                value={value}
+                forwardedRef={ref}
+                licenseTypes={licenseTypes}
+                license={watch('license')}
+              />
+            )}
+          />
+          {errors.license && (
+            <p className='validation-error'>License invalid.</p>
+          )}
+        </div>
 
         <div className='text-input'>
           <AlertDialogCreateNew
             portalContainer={portalContainer}
             onSubmitTrigger={onSubmitTrigger}
-            title={title}
-            kokans={kokans}
+            title={watch('title')}
+            kokans={watch('kokans')}
             trigger={trigger}
           />
         </div>
@@ -303,16 +265,3 @@ function AssetsNew(): JSX.Element {
 }
 
 export default AssetsNew
-
-/**
- * 
-         onClick={async () => {
-            const result = await trigger([
-              'title',
-              'descriptionLong',
-              'descriptionShort',
-              'kokans',
-              'license',
-            ])
-          }}
- */

@@ -1,19 +1,23 @@
-import React from 'react'
+// @ts-nocheck
+import React, {forwardRef} from 'react'
 import * as Select from '@radix-ui/react-select'
 import './SelectLicense.css'
-import classnames from 'classnames'
 import { CheckIcon, ChevronDownIcon } from '@radix-ui/react-icons'
 
 interface propsInterface {
-  handleChangeLicence: any
   licenseTypes: string[]
-  license: string
+  license: string,
+  value: string,
+  forwardedRef: any // TD
+  onValueChange: (...event: any[]) => void
 }
 
-const SelectLicence = (props: propsInterface) => (
-  <Select.Root onValueChange={props.handleChangeLicence}>
-    <Select.Trigger className='SelectTrigger' aria-label='license'>
-      <Select.Value placeholder={props.license} />
+const SelectLicence = forwardRef(({ ...props}: propsInterface , forwardedRef,) => (
+  <Select.Root value={props.value} onValueChange={props.onValueChange}>
+    <Select.Trigger className='SelectTrigger' ref={forwardedRef} aria-label='license'> {/* TD type */}
+      <Select.Value>
+      <span>{props.value ?? "Select license"}</span>
+      </Select.Value>
       <Select.Icon className='SelectIcon'>
         <ChevronDownIcon />
       </Select.Icon>
@@ -41,6 +45,6 @@ const SelectLicence = (props: propsInterface) => (
       </Select.Content>
     </Select.Portal>
   </Select.Root>
-)
+))
 
 export default SelectLicence
