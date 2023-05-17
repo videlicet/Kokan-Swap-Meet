@@ -16,6 +16,8 @@ button, .button-like, input[type='submit'] {
   border: none;
   border-radius: 15px;
 
+  cursor: pointer;
+
   font-size: smaller;
   font-family: var(--main-font-style);
   text-transform: uppercase;
@@ -122,6 +124,7 @@ input[type='text'], input[type='number'],  input[type='password']  {
 #header .hover:hover {
   background-color: var(--main-text-color);
   color: black;
+  cursor: pointer;
 }
 
 

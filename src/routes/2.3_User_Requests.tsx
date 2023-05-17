@@ -6,6 +6,7 @@ import '../styles/2.3_User_Request.css'
 
 const styleNavBar = ({ isActive }: any) => ({
     color: isActive ? ' rgb(221, 213, 207)' : 'grey',
+    textDecoration: isActive ? 'underline' : 'none',
   })
 
 function UserRequest(): JSX.Element {
