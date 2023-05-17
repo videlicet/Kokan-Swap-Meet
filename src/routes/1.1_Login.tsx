@@ -21,9 +21,12 @@ function Login(): JSX.Element {
   const navigate = useNavigate()
 
   async function handleFormSubmit(data: any) {
+    setLoading(true)
     const { username, password } = data
+    
     try {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
+      console.log('tried')
+       const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
         method: 'POST',
         body: JSON.stringify({
           username: username,
@@ -34,16 +37,18 @@ function Login(): JSX.Element {
         },
         credentials: 'include',
       })
-      if (res.status == 201) {
+      if (res.status === 200) {
         const user = await res.json()
         setUser(user)
-        navigate(`/user/${user.username}/assets`)
+        setLoading(false)
+        setUsername('')
+        setPassword('')
+        navigate(`/user/${user?.username}/assets`)
       }
     } catch (error) {
       // td
+      console.log('error')
     }
-    setUsername('')
-    setPassword('')
   }
 
   function handleChangeUsername(event: ChangeEvent<HTMLInputElement>) {
@@ -56,6 +61,7 @@ function Login(): JSX.Element {
 
   return (
     <div id='login-container'>
+      {loading && <span>Loading</span>}
       <h2>Login</h2>
       <form onSubmit={handleSubmit((data) => handleFormSubmit(data))}>
         <div className='text-input'>
