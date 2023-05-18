@@ -19,22 +19,26 @@ function Login(): JSX.Element {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const queryString = window.location.search;
+    const queryString = window.location.search
     const urlParams = new URLSearchParams(queryString)
     const codeParam = urlParams.get('code')
-    if (codeParam && (localStorage.getItem('accessToken') !== null)) { // TD send http only cookie
-      console.log(`${import.meta.env.VITE_SERVER_URL}auth/gitHub?code=${codeParam}`)
+    if (codeParam && localStorage.getItem('accessToken') === null) {
+      // TD send http only cookie
+      console.log(
+        `${import.meta.env.VITE_SERVER_URL}auth/gitHub?code=${codeParam}`,
+      )
       getAccessToken()
       async function getAccessToken() {
-        let res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth/gitHub?code=${codeParam}`)
+        let res = await fetch(
+          `${import.meta.env.VITE_SERVER_URL}auth/gitHub?code=${codeParam}`,
+        )
         let accessToken = await res.json()
-        console.log("accessToken: ")
+        console.log('accessToken: ')
         console.log(accessToken)
         if (accessToken.access_token) {
-          localStorage.setItem('accessToken', accessToken.access_token)  // TD send http only cookie
+          localStorage.setItem('accessToken', accessToken.access_token) // TD send http only cookie
         }
       }
-
     }
   }, [])
 
@@ -69,13 +73,31 @@ function Login(): JSX.Element {
     }
   }
 
-  /* GitHub Authentication */
+  /* GitHub */
   function loginWithGithub() {
     window.location.assign(
       `https://github.com/login/oauth/authorize?client_id=${
         import.meta.env.VITE_GITHUB_CLIENT_ID
-      }`,
+      }&scope=repo`, // scope: https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps#requested-scopes-and-granted-scopes
     )
+  }
+
+  async function addCollaborator() { // TD wrap in try/catch
+    let res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth/gitHub/addCollaborator`,{
+      method: "POST",
+      body: JSON.stringify({
+        access_token: localStorage.getItem('accessToken')
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',      
+    })
+    if (res.status === 200) {
+      console.log('add successful')
+      const collaborators = await res.json()
+      console.log(collaborators)
+    } else console.log('add failed') // TD else action
   }
 
   return (
@@ -133,6 +155,11 @@ function Login(): JSX.Element {
       <div>
         <h3>Authenticate</h3>
         <button onClick={loginWithGithub}>GitHub AUTHENTICATION</button>
+      </div>
+
+      <div>
+        <h3>Add to repo</h3>
+        <button onClick={addCollaborator}>Add to Repo</button>
       </div>
     </div>
   )
