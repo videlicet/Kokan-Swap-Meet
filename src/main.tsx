@@ -98,7 +98,7 @@ const router = createBrowserRouter([{
 }]);
 
 root.render(
-  <React.StrictMode>
+  //<React.StrictMode> // TD enable after finding workaround for refresh
     <RouterProvider router={router} />
-  </React.StrictMode>
+  //</React.StrictMode>
 );

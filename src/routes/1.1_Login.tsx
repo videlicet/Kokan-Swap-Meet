@@ -1,4 +1,4 @@
-import { useState, useContext, ChangeEvent, CSSProperties } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { NavLink, useNavigate } from 'react-router-dom'
 import '../styles/1.1_Login.css'
@@ -17,6 +17,26 @@ function Login(): JSX.Element {
   } = useForm()
   const { user, setUser } = useContext<any>(UserContext)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString)
+    const codeParam = urlParams.get('code')
+    if (codeParam && (localStorage.getItem('accessToken') !== null)) { // TD send http only cookie
+      console.log(`${import.meta.env.VITE_SERVER_URL}auth/gitHub?code=${codeParam}`)
+      getAccessToken()
+      async function getAccessToken() {
+        let res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth/gitHub?code=${codeParam}`)
+        let accessToken = await res.json()
+        console.log("accessToken: ")
+        console.log(accessToken)
+        if (accessToken.access_token) {
+          localStorage.setItem('accessToken', accessToken.access_token)  // TD send http only cookie
+        }
+      }
+
+    }
+  }, [])
 
   async function handleFormSubmit(data: any) {
     setLoading(true)
@@ -47,6 +67,15 @@ function Login(): JSX.Element {
       // td
       console.log('error')
     }
+  }
+
+  /* GitHub Authentication */
+  function loginWithGithub() {
+    window.location.assign(
+      `https://github.com/login/oauth/authorize?client_id=${
+        import.meta.env.VITE_GITHUB_CLIENT_ID
+      }`,
+    )
   }
 
   return (
@@ -84,7 +113,11 @@ function Login(): JSX.Element {
                 <p className='validation-error'>Password invalid.</p>
               )}
             </div>
-            {error && <p className="validation-error">Username or Password incorrect.</p>}
+            {error && (
+              <p className='validation-error'>
+                Username or Password incorrect.
+              </p>
+            )}
             <br />
             <input type='submit' value='login'></input>
             <span> &nbsp; &nbsp;OR &nbsp; &nbsp;</span>
@@ -93,8 +126,14 @@ function Login(): JSX.Element {
             </NavLink>
           </form>
         </>
-      ) : ( <span>Loading</span>
+      ) : (
+        <span>Loading</span>
       )}
+
+      <div>
+        <h3>Authenticate</h3>
+        <button onClick={loginWithGithub}>GitHub AUTHENTICATION</button>
+      </div>
     </div>
   )
 }
