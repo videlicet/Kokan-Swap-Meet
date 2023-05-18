@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef} from 'react'
+import React, { useState, useEffect, useContext, useRef } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 
 /* import components */
@@ -20,16 +20,16 @@ interface Request {
 }
 
 const RequestIncoming: React.FC<Request> = (props: Request) => {
-
   const navigate = useNavigate()
   const { user, setUser } = useContext<any>(UserContext)
-  const { portalContainer } = useContext<any>(PortalContext) 
+  const { portalContainer } = useContext<any>(PortalContext)
 
-  
   async function onConfirm(reaction: string) {
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}transactions/${props.requestProps._id}`,
+        `${import.meta.env.VITE_SERVER_URL}transactions/${
+          props.requestProps._id
+        }`,
         {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
@@ -38,14 +38,24 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
       )
       if (res.status === 200) {
         /* update ownership of asset */
-        await fetch(`${import.meta.env.VITE_SERVER_URL}assets/${props.requestProps.asset_id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            asset: { asset_id: props.requestProps.asset_id },
-            update: { $push: { owners: props.requestProps.requester._id, brokers: props.requestProps.requester._id } },
-          }),
-        })
+        await fetch(
+          `${import.meta.env.VITE_SERVER_URL}assets/${
+            props.requestProps.asset_id
+          }`,
+          {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              asset: { asset_id: props.requestProps.asset_id },
+              update: {
+                $push: {
+                  owners: props.requestProps.requester._id,
+                  brokers: props.requestProps.requester._id,
+                },
+              },
+            }),
+          },
+        )
 
         /* update requestee kokans */
         await fetch(`${import.meta.env.VITE_SERVER_URL}users/${user._id}`, {
@@ -54,24 +64,33 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           body: JSON.stringify({
             user: { _id: user._id },
             update: {
-              kokans: user.kokans + props.requestProps.asset_id.kokans,
+              changes: {
+                kokans: user.kokans + props.requestProps.asset_id.kokans,
+              },
             },
           }),
         })
 
         /* update requester kokans  */
-        await fetch(`${import.meta.env.VITE_SERVER_URL}users/${props.requestProps.requester._id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            user: { _id: props.requestProps.requester._id },
-            update: {
-              kokans:
-                props.requestProps.requester.kokans -
-                props.requestProps.asset_id.kokans,
-            },
-          }),
-        })
+        await fetch(
+          `${import.meta.env.VITE_SERVER_URL}users/${
+            props.requestProps.requester._id
+          }`,
+          {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              user: { _id: props.requestProps.requester._id },
+              update: {
+                changes: {
+                  kokans:
+                    props.requestProps.requester.kokans -
+                    props.requestProps.asset_id.kokans,
+                },
+              },
+            }),
+          },
+        )
 
         /* update user (aka requestee) state */
         setUser({
@@ -79,21 +98,8 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           kokans: user.kokans + props.requestProps.asset_id.kokans,
         })
 
-        // TD is this double???
-
-        /* update requester kokans  */
-        await fetch(`${import.meta.env.VITE_SERVER_URL}users/${props.requestProps.requester._id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            user: { _id: props.requestProps.requester._id },
-            update: {
-              kokans:
-                props.requestProps.requester.kokans -
-                props.requestProps.asset_id.kokans,
-            },
-          }),
-        })
+        /* add requester as GitHub collaborator on repo */
+        addCollaborator('videlicet', 'und-uebriges', 'test-add-collab') // TD parameters to github names
 
         navigate(`/user/${user.username}/requests/incoming`)
       }
@@ -112,6 +118,35 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
       case 'declined':
         return 'request declined'
     }
+  }
+
+  /* add requester as GitHub collaborator on repo */
+  async function addCollaborator(
+    requesteeGitHub: string,
+    requesterGitHub: string,
+    gitHubRepo: string,
+  ) {
+    // TD wrap in try/catch
+    let res = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}auth/gitHub/addCollaborator`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          requesteeGitHub: requesteeGitHub,
+          requesterGitHub: requesterGitHub,
+          gitHubRepo: gitHubRepo,
+        }),
+      },
+    )
+    if (res.status === 200) {
+      console.log('add successful')
+      const collaborators = await res.json()
+      console.log(collaborators)
+    } else console.log('add failed') // TD else action
   }
 
   return (

@@ -94,7 +94,6 @@ function UserRequestsIncoming(): JSX.Element {
 
   useEffect(() => {
     getData()
-    console.log(requests)
   }, [])
 
     return (

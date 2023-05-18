@@ -69,39 +69,6 @@ function Login(): JSX.Element {
     }
   }
 
-  /* GitHub */
-  function loginWithGithub() {
-    setLoading(true)
-    window.location.assign(
-      `https://github.com/login/oauth/authorize?client_id=${
-        import.meta.env.VITE_GITHUB_CLIENT_ID
-      }&scope=repo`, // scope: https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps#requested-scopes-and-granted-scopes
-    )
-    setLoading(false)
-  }
-
-  async function addCollaborator() {
-    // TD wrap in try/catch
-    let res = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}auth/gitHub/addCollaborator`,
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          access_token: localStorage.getItem('accessToken'),
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-      },
-    )
-    if (res.status === 200) {
-      console.log('add successful')
-      const collaborators = await res.json()
-      console.log(collaborators)
-    } else console.log('add failed') // TD else action
-  }
-
   return (
     <div id='login-container'>
       {!loading ? (
@@ -153,16 +120,6 @@ function Login(): JSX.Element {
       ) : (
         <span>Loading</span>
       )}
-
-      <div>
-        <h3>Authenticate</h3>
-        <button onClick={loginWithGithub}>GitHub AUTHENTICATION</button>
-      </div>
-
-      <div>
-        <h3>Add to repo</h3>
-        <button onClick={addCollaborator}>Add to Repo</button>
-      </div>
     </div>
   )
 }

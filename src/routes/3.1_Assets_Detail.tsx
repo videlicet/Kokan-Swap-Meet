@@ -1,9 +1,5 @@
 import { useState, useEffect, useContext, useRef } from 'react'
-import {
-  NavLink,
-  useNavigate,
-  useParams,
-} from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import * as Separator from '@radix-ui/react-separator'
 import '../styles/3.1_Assets_Detail.css'
 
@@ -13,7 +9,7 @@ import AlertDialogAssetDelete from '../components/AlertDialogAssetDelete.tsx'
 import AlertDialogAssetOffer from '../components/AlertDialogAssetOffer.tsx'
 
 /* import types */
-import { AssetInterface} from '../assets/mockAssets'
+import { AssetInterface } from '../assets/mockAssets'
 
 /* context */
 import { UserContext, PortalContext } from './1_App'
@@ -25,34 +21,40 @@ function AssetsDetail(): JSX.Element {
   const [password, setPassword] = useState('')
   const [asset, setAsset] = useState<AssetInterface>()
   const { user, setUser } = useContext<any>(UserContext)
-  const {portalContainer} = useContext<any>(PortalContext)
+  const { portalContainer } = useContext<any>(PortalContext)
   const [openSwap, setOpenSwap] = useState(false)
 
   let { id } = useParams()
   const navigate = useNavigate()
-  
+
   async function getAsset() {
     try {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}assets/${id}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}assets/${id}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ asset: { _id: id } }),
         },
-        body: JSON.stringify({ asset: { _id: id } }),
-      })
+      )
       if (res.status == 200) {
         const asset = await res.json()
 
         asset.aliases = { creator: '', owners: [] }
 
         /* get username aliases from creator id */
-        const creator = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${asset.creator}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+        const creator = await fetch(
+          `${import.meta.env.VITE_SERVER_URL}users/${asset.creator}`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ user: { _id: asset.creator } }),
           },
-          body: JSON.stringify({ user: { _id: asset.creator } }),
-        })
+        )
         if (creator.status === 200) {
           const { username } = await creator.json()
           asset.aliases.creator = username
@@ -63,13 +65,16 @@ function AssetsDetail(): JSX.Element {
         /* get usernames aliases from owner ids */
         const aliasesOwners = await Promise.all(
           asset.owners.map(async (owner: string) => {
-            const user = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${owner}`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
+            const user = await fetch(
+              `${import.meta.env.VITE_SERVER_URL}users/${owner}`,
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ user: { _id: owner } }),
               },
-              body: JSON.stringify({ user: { _id: owner } }),
-            })
+            )
             const { username } = await user.json()
             return username
           }),
@@ -112,23 +117,29 @@ function AssetsDetail(): JSX.Element {
 
   async function onDelete() {
     try {
-      let res = await fetch(`${import.meta.env.VITE_SERVER_URL}assets/${asset?._id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ asset: { _id: asset?._id } }),
-      })
-      if (res.status === 200) {
-        /*delete swap requests relating to this asset*/
-        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}transactions`, {
+      let res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}assets/${asset?._id}`,
+        {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
           },
-          credentials: 'include',
           body: JSON.stringify({ asset: { _id: asset?._id } }),
-        })
+        },
+      )
+      if (res.status === 200) {
+        /*delete swap requests relating to this asset*/
+        const res = await fetch(
+          `${import.meta.env.VITE_SERVER_URL}transactions`,
+          {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+            body: JSON.stringify({ asset: { _id: asset?._id } }),
+          },
+        )
 
         navigate(`/user/${user.username}/assets`)
       }
@@ -139,18 +150,21 @@ function AssetsDetail(): JSX.Element {
 
   async function onOffer() {
     try {
-      let res = await fetch(`${import.meta.env.VITE_SERVER_URL}assets/${asset?._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          asset: {
-            asset_id: asset?._id,
+      let res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}assets/${asset?._id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
           },
-          update: { onOffer: true },
-        }),
-      })
+          body: JSON.stringify({
+            asset: {
+              asset_id: asset?._id,
+            },
+            update: { onOffer: true },
+          }),
+        },
+      )
       if (res.status === 200) {
         navigate(`/assets/${asset?._id}`)
       }
@@ -164,6 +178,37 @@ function AssetsDetail(): JSX.Element {
     asset?.created.slice(5, 7),
     asset?.created.slice(8, 10),
   ].join('/')
+
+  /* GitHub */
+  function loginWithGithub() {
+    setLoading(true)
+    window.location.assign(
+      `https://github.com/login/oauth/authorize?client_id=${
+        import.meta.env.VITE_GITHUB_CLIENT_ID
+      }&scope=repo`, // scope: https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps#requested-scopes-and-granted-scopes
+    )
+    setLoading(false)
+  }
+
+  /* TD delete this after successful migration of addCollaborator to request */
+  async function addCollaborator() {
+    // TD wrap in try/catch
+    let res = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}auth/gitHub/addCollaborator`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      },
+    )
+    if (res.status === 200) {
+      console.log('add successful')
+      const collaborators = await res.json()
+      console.log(collaborators)
+    } else console.log('add failed') // TD else action
+  }
 
   return (
     <div id='asset-container'>
@@ -212,6 +257,16 @@ function AssetsDetail(): JSX.Element {
                 onOffer={onOffer}
               />
             )}
+
+            <div>
+              <span>Please authenticate your GitHub account before requesting this asset.</span>
+              <button onClick={loginWithGithub}>AUTHENTICATE</button>
+            </div>
+
+            <div>
+              <h3>Add to repo</h3>
+              <button onClick={addCollaborator}>Add to Repo</button>
+            </div>
           </div>
           <Separator.Root className='SeparatorRoot' />
           <div
