@@ -40,11 +40,17 @@ function UserAssets(): JSX.Element {
 
   return (
     <div id='user-assets'>
-      {userAssets.map((item: any, index: number) => (
+      {userAssets?.length !== 0 ? userAssets.map((item: any, index: number) => (
         <NavLink to={`/assets/${item._id}`} className='unstyledLink'>
           <Asset assetProps={item} index={index}></Asset>
         </NavLink>
-      ))}
+      ))
+      : (
+        <div className='asset'>
+          <NavLink to={`/assets/new`} className='unstyledLink'>Create your first asset.</NavLink>
+        </div>
+      )
+      }
     </div>
   )
 }

@@ -31,7 +31,7 @@ const alertDialogRequestContentDecline = {
 }
 
 /* function component */
-function UserRequestsIncoming(): JSX.Element | undefined {
+function UserRequestsIncoming(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const {user, setUser} = useContext<any>(UserContext)
@@ -94,19 +94,21 @@ function UserRequestsIncoming(): JSX.Element | undefined {
 
   useEffect(() => {
     getData()
+    console.log(requests)
   }, [])
 
-  if (requests)
     return (
       <div id='requests'>
-        {requests.map((item: any, index: number) => (
+        {requests?.length !== 0 ? requests?.map((item: any, index: number) => (
           <RequestIncoming
             requestProps={item}
             index={index}
             alertDialogRequestContentAccept={alertDialogRequestContentAccept}
             alertDialogRequestContentDecline={alertDialogRequestContentDecline}
           ></RequestIncoming>
-        ))}
+        ))
+      : <div className="request">No incoming requests.</div>
+      }
       </div>
     )
 }

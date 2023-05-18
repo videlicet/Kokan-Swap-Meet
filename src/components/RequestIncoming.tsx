@@ -79,7 +79,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           kokans: user.kokans + props.requestProps.asset_id.kokans,
         })
 
-        // is this double???
+        // TD is this double???
 
         /* update requester kokans  */
         await fetch(`${import.meta.env.VITE_SERVER_URL}users/${props.requestProps.requester._id}`, {
