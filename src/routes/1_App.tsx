@@ -60,8 +60,10 @@ function App(): JSX.Element {
 
   /** fetch data */
   const getUser = async (): Promise<void> => {
+    console.log('auth triggered')
     authenticate().then((res) => {
       if (res.status === true) {
+        console.log('userauthentiasdfasdf')
         setUser(res.user) // TD typing
       } else {
         navigate('/login')
