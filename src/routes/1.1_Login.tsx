@@ -119,32 +119,8 @@ function Login(): JSX.Element {
     setLoading(false)
   }
 
-  async function aggregateTransactions() {
-    console.log('aggregateTransactions triggered')
-    try {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}transactions/test/users`, { // TD remove "test"
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({test: 'test'
-        }),
-      })
-      console.log("res: ")
-      console.log(res)
-      let aggregatedTransaction = await res.json()
-      console.log("aggregatedTransaction:")
-      console.log(aggregatedTransaction)
-
-    } catch(err) {
-      console.log('Aggregation failed')
-    }
-  } 
-
   return (
     <div id='login-container'>
-      <button onClick={aggregateTransactions}>AGGREGATE</button>
       {!loading ? (
         <>
           <h2>Login</h2>

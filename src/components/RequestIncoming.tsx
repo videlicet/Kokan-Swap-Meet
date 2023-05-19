@@ -98,8 +98,14 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           kokans: user.kokans + props.requestProps.asset_id.kokans,
         })
 
+        /* aggregate a transaction with the relevant usernames of requester and requestees and the gitHub repo name*/
+        const aggregatedTransactions = await aggregateTransactions(
+          props.requestProps._id,
+        )
+        console.log(aggregatedTransactions)
+
         /* add requester as GitHub collaborator on repo */
-        addCollaborator('videlicet', 'und-uebriges', 'test-add-collab') // TD parameters to github names
+        //addCollaborator(user.username, aggregatedTransactions.requester_username, 'test-add-collab') // TD parameters to github names
 
         navigate(`/user/${user.username}/requests/incoming`)
       }
@@ -117,6 +123,30 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         return 'request accepted'
       case 'declined':
         return 'request declined'
+    }
+  }
+
+  /* aggregate a transaction with the relevant usernames of requester and requestees and the gitHub repo name*/
+  async function aggregateTransactions(transaction_id: any) {
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}transactions/test/users`,
+        {
+          // TD remove "test"
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify({ transaction_id: transaction_id }),
+        },
+      )
+      let aggregatedTransaction = await res.json()
+      console.log('aggregatedTransaction:')
+      console.log(aggregatedTransaction)
+      return aggregatedTransaction
+    } catch (err) {
+      console.log('Aggregation failed')
     }
   }
 
