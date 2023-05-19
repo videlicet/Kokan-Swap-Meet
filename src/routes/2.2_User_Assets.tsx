@@ -13,21 +13,24 @@ import { UserContext } from './1_App'
 function UserAssets(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const {user, setUser} = useContext<any>(UserContext)
+  const { user, setUser } = useContext<any>(UserContext)
   const [userAssets, setUserAssets] = useState<any>([])
 
   async function getData() {
     try {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${user.username}/assets`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}users/${user.username}/assets`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ owner: user._id }),
         },
-        body: JSON.stringify({owner: user._id}),
-      })
+      )
       if (res.status == 200) {
         const userAssets = await res.json()
-        setUserAssets(userAssets);
+        setUserAssets(userAssets)
       }
     } catch (error) {
       //errorHandling
@@ -40,17 +43,22 @@ function UserAssets(): JSX.Element {
 
   return (
     <div id='user-assets'>
-      {userAssets?.length !== 0 ? userAssets.map((item: any, index: number) => (
-        <NavLink to={`/assets/${item._id}`} className='unstyledLink'>
-          <Asset assetProps={item} index={index}></Asset>
-        </NavLink>
-      ))
-      : (
+      {userAssets?.length !== 0 ? (
+        userAssets.map((item: any, index: number) => (
+          <NavLink to={`/assets/${item._id}`} className='unstyledLink'>
+            <Asset assetProps={item} index={index}></Asset>
+          </NavLink>
+        ))
+      ) : (
         <div className='asset'>
-          <NavLink to={`/assets/new`} className='unstyledLink'>Create your first asset.</NavLink>
+          <div style={{ marginLeft: '1rem' }}>
+            <p>No assets yet.</p>
+            <NavLink to={`/assets/new`} className='unstyledLink'>
+              <p>Link your first GitHub asset.</p>
+            </NavLink>
+          </div>
         </div>
-      )
-      }
+      )}
     </div>
   )
 }

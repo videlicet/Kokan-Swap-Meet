@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import { useOutletContext } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import '../styles/2.3.1–2_User_Requests.css'
 
 /* import components */
@@ -34,33 +34,39 @@ const alertDialogRequestContentDecline = {
 function UserRequestsIncoming(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const {user, setUser} = useContext<any>(UserContext)
+  const { user, setUser } = useContext<any>(UserContext)
   const [requests, setRequests] = useState<any>()
 
   if (!requests) getData() // assures fetch on page refresh
 
   async function getData() {
     try {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${user.username}/requests`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}users/${user.username}/requests`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ query: 'requestee', user: { _id: user._id } }),
         },
-        body: JSON.stringify({ query: 'requestee', user: { _id: user._id } }),
-      })
+      )
       if (res.status == 200) {
         const userRequest = await res.json()
 
         /* get requesters from requester ids */
         const requesters = await Promise.all(
           userRequest.map(async (request: any) => {
-            const user = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${request.requester}`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
+            const user = await fetch(
+              `${import.meta.env.VITE_SERVER_URL}users/${request.requester}`,
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ user: { _id: request.requester } }),
               },
-              body: JSON.stringify({ user: { _id: request.requester } }),
-            })
+            )
             return await user.json()
           }),
         )
@@ -68,13 +74,16 @@ function UserRequestsIncoming(): JSX.Element {
         /* get assets from asset ids*/
         const assets = await Promise.all(
           userRequest.map(async (request: any) => {
-            const res = await fetch(`${import.meta.env.VITE_SERVER_URL}assets/${request.asset_id}`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
+            const res = await fetch(
+              `${import.meta.env.VITE_SERVER_URL}assets/${request.asset_id}`,
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ asset: { _id: request.asset_id } }),
               },
-              body: JSON.stringify({ asset: { _id: request.asset_id } }),
-            })
+            )
             const asset = await res.json()
             return asset
           }),
@@ -96,9 +105,10 @@ function UserRequestsIncoming(): JSX.Element {
     getData()
   }, [])
 
-    return (
-      <div id='requests'>
-        {requests?.length !== 0 ? requests?.map((item: any, index: number) => (
+  return (
+    <div id='requests'>
+      {requests?.length !== 0 ? (
+        requests?.map((item: any, index: number) => (
           <RequestIncoming
             requestProps={item}
             index={index}
@@ -106,10 +116,15 @@ function UserRequestsIncoming(): JSX.Element {
             alertDialogRequestContentDecline={alertDialogRequestContentDecline}
           ></RequestIncoming>
         ))
-      : <div className="request">No incoming requests.</div>
-      }
-      </div>
-    )
+      ) : (
+        <div className='request'>
+          <div style={{ marginLeft: '1rem' }}>
+            <p>No incoming swap requests yet.</p>
+          </div>
+        </div>
+      )}
+    </div>
+  )
 }
 
 export default UserRequestsIncoming

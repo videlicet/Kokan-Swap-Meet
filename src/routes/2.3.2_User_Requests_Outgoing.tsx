@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext, useRef } from 'react'
+import { NavLink } from 'react-router-dom'
 import '../styles/2.3.1–2_User_Requests.css'
 
 /* import components */
@@ -107,7 +108,12 @@ function UserRequestsOutgoing(): JSX.Element {
         ))
       ) : (
         <div className='request'>
-          No outgoing requests yet.
+          <div style={{ marginLeft: '1rem' }}>
+            <p>No outgoing swap requests yet.</p>
+            <NavLink to={`/assets`} className='unstyledLink'>
+              <p>Browse kokan assets.</p>
+            </NavLink>
+          </div>
         </div>
       )}
     </div>
