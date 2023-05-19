@@ -29,6 +29,8 @@ const tooltipLicense = `Pick a license for your asset.
 This helps to ensure you and your swap partner know how they can use your asset.` // TD ideally, this tooltip contains a link to https://choosealicense.com/
 const tooltipTags =
   'Add tags to your asset. They will help other users find your asset.'
+const tooltipsRepo = 'Provide the name of the GitHub repository you want to link to your Kokan account.'
+
 
 /* licenseTypes */
 const licenseTypes = [
@@ -61,7 +63,7 @@ function AssetsNew(): JSX.Element {
   const navigate = useNavigate()
 
   async function handleFormSubmit(data: any) {
-    const { title, description_short, description_long, kokans, license } = data
+    const { repo, title, description_short, description_long, kokans, license } = data
     try {
       await fetch(`${import.meta.env.VITE_SERVER_URL}assets`, {
         method: 'POST',
@@ -70,11 +72,11 @@ function AssetsNew(): JSX.Element {
         },
         credentials: 'include',
         body: JSON.stringify({
+          gitHub_repo: repo,
           title: title,
           kokans: kokans,
           description_short: description_short,
           description_long: description_long,
-          //tag: tags,
           licence: license,
           creator: user._id,
           owners: [user._id],
@@ -97,7 +99,7 @@ function AssetsNew(): JSX.Element {
 
   return (
     <div id='new-asset-container'>
-      <h1>Upload New Asset</h1>
+      <h1>Link New Asset</h1>
       <form
         className='new-asset-form'
         name='newAsset'
@@ -105,8 +107,32 @@ function AssetsNew(): JSX.Element {
         noValidate
       >
         <div className='text-input' style={{ width: '75%' }}>
+          <label htmlFor='repo'>
+            GitHub Repository
+            <TooltipInfo content={tooltipsRepo} />
+          </label>
+          <input
+            {...register('repo', {
+              required: true,
+              minLength: 1,
+              maxLength: 100,
+            })}
+            name='repo'
+            className='new-asset'
+            type='text'
+            placeholder='GitHub Repository'
+            style={{ width: '100%', padding: '0.9rem', fontSize: 'medium' }}
+          />
+          <div>
+            {errors.title && (
+              <span className='validation-error'>GitHub Repository name invalid.</span>
+            )}
+          </div>
+        </div>
+
+        <div className='text-input' style={{ width: '75%' }}>
           <label htmlFor='title'>
-            Title
+            Asset Title
             <TooltipInfo content={tooltipTitle} />
           </label>
           <input
@@ -118,8 +144,6 @@ function AssetsNew(): JSX.Element {
             name='title'
             className='new-asset'
             type='text'
-            minLength={10}
-            maxLength={60}
             placeholder='Title'
             style={{ width: '100%', padding: '0.9rem', fontSize: 'medium' }}
           />
@@ -150,8 +174,6 @@ function AssetsNew(): JSX.Element {
             name='descriptionShort'
             form='newAsset'
             className='text-area'
-            minLength={50}
-            maxLength={160}
             rows={3}
             style={{ width: '100%' }}
             placeholder='Provide a short description. It will be displayed in the assets overview.'
@@ -184,8 +206,6 @@ function AssetsNew(): JSX.Element {
             name='descriptionLong'
             form='newAsset'
             className='text-area'
-            minLength={50}
-            maxLength={2000}
             rows={8}
             style={{ width: '100%' }}
             placeholder={`Provide a long description. It will be displayed on your asset's page.`}
@@ -218,8 +238,6 @@ function AssetsNew(): JSX.Element {
             className='new-asset'
             type='number'
             step='1'
-            min='1'
-            max='5'
             defaultValue={3}
           ></input>
           {errors.kokans && <p className='validation-error'>Kokans invalid.</p>}

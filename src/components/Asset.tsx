@@ -1,6 +1,6 @@
 import React from 'react'
-import { useLinkClickHandler, useLocation } from 'react-router-dom'
-import * as Separator from '@radix-ui/react-separator'
+import { useLocation } from 'react-router-dom'
+import '../styles/3.1_Assets_Detail.css'
 
 interface Asset {
   assetProps: {
@@ -23,24 +23,29 @@ const Asset: React.FC<Asset> = (props: Asset) => {
 
   return (
     <div className='asset' key={props.index}>
-      <div className='header'>
-        <div>
-          <span className='title'>{props.assetProps.title}</span>
-          <span className='kokans'>{props.assetProps.kokans}</span>
+      <div>
+        <div className='header'>
+          <div>
+            <span className='title'>{props.assetProps.title}</span>
+            <span className='kokans'>{props.assetProps.kokans}</span>
+          </div>
         </div>
-        <span className='licence'>{props.assetProps.licence}</span>
+        <div className='description' style={{marginBottom: "1rem"}}>
+          <span>{props.assetProps.description_short}</span>
+        </div>
       </div>
-      <div className='description'>
-        <span>{props.assetProps.description_short}</span>
-      </div>
-      <Separator.Root
-        className='SeparatorRoot'
-      />
-      <div className='asset-footer'>
-        {props.assetProps.type.map((item) => (
-          <span className='tag'>{item}</span>
-        ))}
 
+      <div className='asset-footer' style={{ marginTop: '0' }}>
+        <div className='additional-info'>
+          <span className='info-type'>Type</span>
+          {props.assetProps.type.map((item) => (
+            <span className='info'>{item}</span>
+          ))}
+        </div>
+        <div className='additional-info'>
+          <span className='info-type'>License</span>
+          <span className='info'>{props.assetProps.licence}</span>
+        </div>
         {pathname !== '/assets' && props.assetProps.onOffer && (
           <span className='on-offer'>ON OFFER</span>
         )}

@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext, useRef } from 'react'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
-import * as Separator from '@radix-ui/react-separator'
 import '../styles/3.1_Assets_Detail.css'
 
 /* import components */
@@ -198,53 +197,57 @@ function AssetsDetail(): JSX.Element {
               </span>
               <div style={{ color: 'grey' }}> {assetCreated}</div>
             </div>
-            <span className='licence'>{asset.licence}</span>
+            <div>
+              {user && !asset.aliases?.owners.includes(user.username) && (
+                <AlertDialogAssetSwap
+                  portalContainer={portalContainer}
+                  price={asset?.kokans}
+                  onSwap={onSwap}
+                />
+              )}
+              {user && asset.aliases.creator == user.username && (
+                <AlertDialogAssetDelete
+                  portalContainer={portalContainer}
+                  title={asset?.title}
+                  onDelete={onDelete}
+                />
+              )}
+              {user && !asset.onOffer && (
+                <AlertDialogAssetOffer
+                  portalContainer={portalContainer}
+                  title={asset?.title}
+                  onOffer={onOffer}
+                />
+              )}
+            </div>
           </div>
           <br />
           <div className='description'>
             <span>{asset.description_long}</span>
           </div>
-          <div>
-            {user && !asset.aliases?.owners.includes(user.username) && (
-              <AlertDialogAssetSwap
-                portalContainer={portalContainer}
-                price={asset?.kokans}
-                onSwap={onSwap}
-              />
-            )}
-            {user && asset.aliases.creator == user.username && (
-              <AlertDialogAssetDelete
-                portalContainer={portalContainer}
-                title={asset?.title}
-                onDelete={onDelete}
-              />
-            )}
-            {user && !asset.onOffer && (
-              <AlertDialogAssetOffer
-                portalContainer={portalContainer}
-                title={asset?.title}
-                onOffer={onOffer}
-              />
-            )}
 
-          </div>
-          <Separator.Root className='SeparatorRoot' />
           <div
             className='asset-footer'
             style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
           >
             <div className='additional-info'>
-              <span className='info-type'>Tags:</span>
+              <span className='info-type'>License</span>
+              <span className='info'>{asset.licence}</span>
+            </div>
+            <div className='additional-info'>
+              <span className='info-type'>Type</span>
               {asset.type.map((item) => (
                 <span className='info'>{item}</span>
               ))}
             </div>
 
             <div className='additional-info'>
-              <span className='info-type'>Owners:</span>
-              {asset.aliases?.owners.map((item: string) => (
-                <span className='info'>{item}</span>
-              ))}
+              <span className='info-type'>Owners</span>
+              <div style={{display: "flex"}}>
+                {asset.aliases?.owners.map((item: string) => (
+                  <span className='info'>{item}</span>
+                ))}
+              </div>
             </div>
           </div>
         </div>

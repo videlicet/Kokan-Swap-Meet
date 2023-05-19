@@ -56,19 +56,35 @@
 }
 
 .asset-footer {
+    margin-top: 2rem;
+    
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    gap: 1rem;
+
+    border-radius: 15px;
 
     font-size: small;
+}
+
+.asset-footer-overview {
+    height: fit-content;
+    
+    margin-top: 1.5rem;
+
+    background-color: red;
+    
+    font-size: smaller
 }
 
 .additional-info {
     width: fit-content;
     
-    display: flex; 
-    flex-wrap: wrap; 
-
     padding-right: 0.6rem;
+    
+    display: grid;
+    grid-template-columns: 1fr auto; 
 
     background-color: rgb(0, 0, 0, 0.4);
 
@@ -76,14 +92,21 @@
 }
 
 .info-type {
+    width: 3rem;
+
     padding: 0.6rem 0.9rem;
     margin-right: 0.5rem;
 
-    background-color: rgb(0, 0, 0, 0.4);
+    background-color: rgb(0, 0, 0, 1);
 
     border-radius: 15px;
 }
 
-.additional-info .info {
+.asset-footer .info {    
     padding: 0.6rem 0.9rem;
+    
+    overflow: hidden;
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
 }

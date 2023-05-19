@@ -34,7 +34,8 @@
     margin-right: 1rem;
 
     display: grid;
-    grid-template-rows: auto auto auto;
+    grid-template-columns: auto 20%;
+    gap: 3rem;
 
     align-items: center;
 
