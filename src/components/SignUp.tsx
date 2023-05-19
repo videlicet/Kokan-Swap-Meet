@@ -1,12 +1,19 @@
 import { useState, ChangeEvent, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import '../styles/1.3_SignUp.css'
+import { CheckCircledIcon } from '@radix-ui/react-icons'
+import './SignUp.css'
 
 /* context */
-import { UserContext } from './1_App'
+import { UserContext } from '../routes/1_App'
 
-function SignUp(): JSX.Element {
+interface Props {
+  gitHubUser: any // TD typing
+  // setLoading: any // TD typing
+  // setUser: any // TD typing
+}
+
+function SignUp(props: Props): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const {
@@ -19,7 +26,7 @@ function SignUp(): JSX.Element {
 
   async function handleFormSubmit(data: any) {
     setLoading(true)
-    const { username, password, email } = data
+    const { password, email } = data
     try {
       await fetch(`${import.meta.env.VITE_SERVER_URL}users`, {
         method: 'POST',
@@ -28,11 +35,11 @@ function SignUp(): JSX.Element {
         },
         credentials: 'include',
         body: JSON.stringify({
-          username: username,
+          username: props.gitHubUser.login,
           password: password,
           email: email,
-          pictureURL: '',
-          kokans: 0,
+          pictureURL: props.gitHubUser.avatar_url,
+          kokans: 1,
           created: new Date(),
         }),
       })
@@ -41,7 +48,7 @@ function SignUp(): JSX.Element {
         const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
           method: 'POST',
           body: JSON.stringify({
-            username: username,
+            username: props.gitHubUser.login,
             password: password,
           }),
           headers: {
@@ -57,8 +64,8 @@ function SignUp(): JSX.Element {
         } else {
           setLoading(false)
           setError(true)
-        }}
-      catch(err) {
+        }
+      } catch (err) {
         // errorHandling
       }
     } catch (error) {
@@ -67,21 +74,20 @@ function SignUp(): JSX.Element {
   }
 
   return (
-    <div id='signup-container'>
-      <h2>Sign Up</h2>
+    <>
+      <h3 style={{ color: 'grey' }}>
+        1. GitHub Account <CheckCircledIcon />
+      </h3>
+      <h3>2. Kokan Account: Sign Up</h3>
       <form onSubmit={handleSubmit((data) => handleFormSubmit(data))}>
         <div className='text-input'>
           <label htmlFor='username'>Username</label>
           <input
-            {...register('username', {
-              required: true,
-              minLength: 4,
-              maxLength: 15,
-            })}
             name='username'
             type='text'
+            defaultValue={props.gitHubUser.login}
+            disabled={true}
           ></input>
-          {errors.username && <p className='validation-error'>Username invalid.</p>}
         </div>
         <div className='text-input'>
           <label htmlFor='password'>Password</label>
@@ -106,7 +112,7 @@ function SignUp(): JSX.Element {
               required: true,
               minLength: 5,
               maxLength: 320,
-              pattern: /^(.+)@(.+)$/
+              pattern: /^(.+)@(.+)$/,
             })}
             name='email'
             type='text'
@@ -116,7 +122,7 @@ function SignUp(): JSX.Element {
         </div>
         <input type='submit' value='sign up'></input>
       </form>
-    </div>
+    </>
   )
 }
 

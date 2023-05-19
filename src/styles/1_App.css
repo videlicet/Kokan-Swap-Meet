@@ -42,6 +42,11 @@ input[type='text'], input[type='number'],  input[type='password']  {
     font-family: var(--main-font-style);
 }
 
+input:disabled {
+  opacity: 0.5;
+  color:
+}
+
 .text-input {
   width: fit-content;
   display: flex;

@@ -1,72 +1,122 @@
 import { useState, useContext, useEffect } from 'react'
-import { useForm } from 'react-hook-form'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import '../styles/1.1_Login.css'
+import { CheckCircledIcon } from '@radix-ui/react-icons'
 
 /* context */
 import { UserContext } from './1_App'
 
-function Login(): JSX.Element {
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+/* components */
+import LoginComponent from '../components/Login'
+import SignUp from '../components/SignUp'
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm()
+function Login(): JSX.Element {
+  const [loading, setLoading] = useState<boolean>(false)
+  const [gitHubAuth, setGitHubAuth] = useState<boolean>(false)
+  const [login, setLogin] = useState<boolean>(false)
+  const [signup, setSignup] = useState<boolean>(false)
+  const [usernameHandle, setUsernameHandle] = useState<string>('')
+  const [gitHubUser, setGitHubUser] = useState<any>({}) // TD typing
   const { user, setUser } = useContext<any>(UserContext)
-  const navigate = useNavigate()
 
   useEffect(() => {
     const queryString = window.location.search
     const urlParams = new URLSearchParams(queryString)
     const codeParam = urlParams.get('code')
     if (codeParam) {
-      async function getAccessToken() {
-        await fetch(
-          `${import.meta.env.VITE_SERVER_URL}auth/gitHub?code=${codeParam}`,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            credentials: 'include',
-          },
-        )
+      /* get GitHub access_token */
+      async function gitHubAuthenticate() {
+        async function getAccessToken() {
+          console.log('GitHub authentication:')
+          try {
+            let res = await fetch(
+              `${import.meta.env.VITE_SERVER_URL}auth/gitHub?code=${codeParam}`,
+              {
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+              },
+            )
+            if (res.status === 200) {
+              console.log('–– GitHub authentication succeeded')
+              setGitHubAuth(true)
+            } else {
+              console.log('–– GitHub authentication failed')
+            }
+            return res
+          } catch (err) {
+            console.log('– GitHub authentication failed')
+            // TD error Handling what if failed -> create gitHub Account
+          }
+        }
+        let res = await getAccessToken()
+        if (res.status === 200) {
+          /* get GitHub user information */
+          async function getGitHubUser() {
+            try {
+              let userRes = await fetch(
+                `${import.meta.env.VITE_SERVER_URL}auth/gitHub/user`,
+                {
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  credentials: 'include',
+                },
+              )
+              if (userRes.status === 200) {
+                let user = await userRes.json()
+                console.log(user)
+                setGitHubUser(user)
+                return user
+              }
+            } catch (err) {
+              console.log('No GitHub user found')
+              window.location.assign(`https://github.com/join`)
+            }
+          }
+          let user = await getGitHubUser()
+          /*look in DB for user with GitHub username*/
+          try {
+            const res = await fetch(
+              `${import.meta.env.VITE_SERVER_URL}users/${user.login}`,
+              {
+                method: 'POST',
+                body: JSON.stringify({
+                  username: user.login,
+                }),
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+              },
+            )
+            if (res.status === 200) {
+              //const userDB = await res.json()
+              setLogin(true)
+            } else if (res.status === 404) {
+              setSignup(true)
+            }
+            setLoading(false)
+          } catch (err) {
+            console.log('No GitHub user found')
+          }
+        }
+        return
       }
-      getAccessToken()
+      gitHubAuthenticate()
     }
   }, [])
 
-  async function handleFormSubmit(data: any) {
+  /* GitHub */
+  function loginWithGithub() {
     setLoading(true)
-    const { username, password } = data
-
-    try {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
-        method: 'POST',
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-      })
-      if (res.status === 200) {
-        const user = await res.json()
-        setUser(user)
-        setLoading(false)
-        navigate(`/user/${user?.username}/assets`)
-      } else {
-        setLoading(false)
-        setError(true)
-      }
-    } catch (error) {
-      // td
-      console.log('error')
-    }
+    window.location.assign(
+      `https://github.com/login/oauth/authorize?client_id=${
+        import.meta.env.VITE_GITHUB_CLIENT_ID
+      }&scope=repo`, // scope: https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps#requested-scopes-and-granted-scopes
+    )
+    setLoading(false)
   }
 
   return (
@@ -74,48 +124,34 @@ function Login(): JSX.Element {
       {!loading ? (
         <>
           <h2>Login</h2>
-          <form onSubmit={handleSubmit((data) => handleFormSubmit(data))}>
-            <div className='text-input'>
-              <label htmlFor='username'>Username</label>
-              <input
-                {...register('username', {
-                  required: true,
-                  minLength: 4,
-                  maxLength: 15,
-                })}
-                name='username'
-                type='text'
-              ></input>
-              {errors.username && (
-                <p className='validation-error'>Username invalid.</p>
-              )}
-
-              <label htmlFor='password'>Password</label>
-              <input
-                {...register('password', {
-                  required: true,
-                  minLength: 7,
-                  maxLength: 50,
-                })}
-                name='password'
-                type='password'
-              ></input>
-              {errors.password && (
-                <p className='validation-error'>Password invalid.</p>
-              )}
-            </div>
-            {error && (
-              <p className='validation-error'>
-                Username or Password incorrect.
-              </p>
-            )}
-            <br />
-            <input type='submit' value='login'></input>
-            <span> &nbsp; &nbsp;OR &nbsp; &nbsp;</span>
-            <NavLink className='button-like' to='/sign-up'>
-              sing up
-            </NavLink>
-          </form>
+          {(!gitHubAuth && (
+            <>
+              <h3>1. GitHub Account</h3>
+              <div style={{ paddingLeft: '1rem' }}>
+                <p>
+                  Please authenticate your GitHub account before proceeding.
+                </p>
+                <button onClick={loginWithGithub}>Authenticate</button>
+                <span> &nbsp; &nbsp;OR &nbsp; &nbsp;</span>
+                <button
+                  onClick={() => {
+                    window.location.assign(`https://github.com/join`)
+                  }}
+                >
+                  Sign Up
+                </button>
+              </div>
+              <h3 style={{ color: 'grey' }}>2. Kokan Account</h3>
+            </>
+          )) ||
+            (login && (
+              <LoginComponent
+                usernameHandle={gitHubUser.login}
+                setLoading={setLoading}
+                setUser={setUser}
+              />
+            )) ||
+            (signup && <SignUp gitHubUser={gitHubUser} />)}
         </>
       ) : (
         <span>Loading</span>
@@ -125,3 +161,4 @@ function Login(): JSX.Element {
 }
 
 export default Login
+
