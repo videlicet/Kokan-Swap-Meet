@@ -99,13 +99,18 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         })
 
         /* aggregate a transaction with the relevant usernames of requester and requestees and the gitHub repo name*/
-        const aggregatedTransactions = await aggregateTransactions(
+        const [aggregatedTransactions] = await aggregateTransactions(
           props.requestProps._id,
         )
-        console.log(aggregatedTransactions)
+        const { requester_username, requestee_username, asset_gitHub_repo } =
+          aggregatedTransactions
+        console.log(requestee_username)
+        console.log(requester_username)
+        console.log(asset_gitHub_repo)
+
 
         /* add requester as GitHub collaborator on repo */
-        //addCollaborator(user.username, aggregatedTransactions.requester_username, 'test-add-collab') // TD parameters to github names
+        addCollaborator(user.username, requester_username, asset_gitHub_repo) // TD parameters to github names
 
         navigate(`/user/${user.username}/requests/incoming`)
       }

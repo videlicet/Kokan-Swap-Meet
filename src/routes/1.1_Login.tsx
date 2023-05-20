@@ -66,7 +66,6 @@ function Login(): JSX.Element {
               )
               if (userRes.status === 200) {
                 let user = await userRes.json()
-                console.log(user)
                 setGitHubUser(user)
                 return user
               }

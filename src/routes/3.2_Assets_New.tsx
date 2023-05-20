@@ -63,7 +63,8 @@ function AssetsNew(): JSX.Element {
   const navigate = useNavigate()
 
   async function handleFormSubmit(data: any) {
-    const { repo, title, description_short, description_long, kokans, license } = data
+    const { repo, title, descriptionShort, descriptionLong, kokans, license } = data
+    console.log(data)
     try {
       await fetch(`${import.meta.env.VITE_SERVER_URL}assets`, {
         method: 'POST',
@@ -75,8 +76,8 @@ function AssetsNew(): JSX.Element {
           gitHub_repo: repo,
           title: title,
           kokans: kokans,
-          description_short: description_short,
-          description_long: description_long,
+          description_short: descriptionShort,
+          description_long: descriptionLong,
           licence: license,
           creator: user._id,
           owners: [user._id],
