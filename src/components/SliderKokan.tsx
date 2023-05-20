@@ -13,9 +13,9 @@ const SliderKokan = (props: Props) => (
     <Slider.Root
       className='SliderRoot'
       {...(props as any)}
-      defaultValue={[3]}
       min={1}
       max={5}
+      defaultValue={[3]}
       step={1}
       onValueChange={(value) => props.handleKokans(value)}
     >

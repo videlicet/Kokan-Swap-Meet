@@ -1,5 +1,4 @@
 /* general */
-
 *:focus {
   outline: none;
 }
@@ -47,8 +46,8 @@ input:disabled {
 }
 
 .text-input {
-  width: fit-content;
   display: flex;
+  width: fit-content;
   flex-direction: column;
   row-gap: 0.4rem;
   margin-bottom: 0.5rem;
@@ -89,9 +88,9 @@ input:disabled {
 
 @media screen and (min-width: 760px) {
   #brand {
-    padding: 0.3rem;
 
     display: flex;
+    padding: 0.3rem;
 
     background-color: black;
     border-radius: 15px;
@@ -103,9 +102,9 @@ input:disabled {
 }
 
 .navbar {
-  height: 100%;
 
   display: flex;
+  height: 100%;
   justify-content: space-between;
   align-items: center;
 
@@ -113,11 +112,11 @@ input:disabled {
 }
 
 #header .navbar-element {
+
+  display: flex;
   height: 100%;
 
   padding: 0 1rem;
-
-  display: flex;
   align-items: center;
   
   border-radius: 15px;
@@ -148,8 +147,8 @@ input:disabled {
 }
 
 .search-submit {
-  z-index: 0;
   display: flex;
+  z-index: 0;
   padding-left: 0.3rem;
 
   border-radius: 15px 15px 15px 0;

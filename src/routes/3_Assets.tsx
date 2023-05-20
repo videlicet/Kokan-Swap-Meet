@@ -40,14 +40,12 @@ function Assets(): JSX.Element {
   }, [])
 
   return (
-    <div id='assets'>
-      <div id='user-assets'>
+    <div id='assets' className="asset-overview">
         {assets.map((item: any, index) => (
           <NavLink to={`/assets/${item._id}`}>
             <Asset assetProps={item} index={index} user_kokans={user?.kokans}></Asset>
           </NavLink>
         ))}
-      </div>
     </div>
   )
 }

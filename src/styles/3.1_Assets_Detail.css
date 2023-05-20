@@ -1,12 +1,10 @@
 #asset-container {
     min-height: 0;
     height: 100%;
-
-    padding: 3rem;
-
+    width: 100%;
     box-sizing: border-box;
-
     overflow: scroll;
+    padding: 3rem;
 }
 
 #asset-container .header {
@@ -16,80 +14,61 @@
 
 #asset-container .title {
     font-size: xx-large;
+    overflow-wrap: anywhere;
 }
 
 #asset-container .kokans {
-    padding: 0.3rem;
-
-
-    background-color: rgba(253,187,45,1);
-
     border-radius: 100px;
-
-    color: black; 
+    background-color: rgba(253,187,45,1);
+    padding: 0.3rem; 
     vertical-align: top;
+    color: black;
 }
 
 .interaction {
-    height: fit-content;
-
     display: flex;
-    gap: 1rem;
-
-    background-color: rgb(0, 0, 0, 0.4);
     border-radius: 10px;
+    background-color: rgb(0, 0, 0, 0.4);
+    height: fit-content;
+    gap: 1rem;
 }
 
 .asset-footer {
-    margin-top: 2rem;
-    
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 1rem;
-
+    margin-top: 2rem;
     font-size: small;
+    gap: 1rem;
 }
 
 .asset-footer-overview {
-    height: fit-content;
-    
     margin-top: 1.5rem;
-
     background-color: red;
-    
-    font-size: smaller
+    height: fit-content;
+    font-size: smaller;
 }
 
 .additional-info {
-    width: fit-content;
-    
-    padding-right: 0.6rem;
-    
     display: grid;
-    grid-template-columns: 1fr auto; 
-
+    grid-template-columns: 1fr auto;
+    border-radius: 10px; 
     background-color: rgb(0, 0, 0, 0.4);
-
-    border-radius: 10px;
+    width: fit-content;
+    padding-right: 0.6rem;
 }
 
 .info-type {
-    width: 3rem;
-
-    padding: 0.5rem 0.9rem;
-    margin-right: 0.5rem;
-
-    background-color: rgb(0, 0, 0, 1);
-
     border-radius: 10px;
+    margin-right: 0.5rem;
+    background-color: rgb(0, 0, 0, 1);
+    width: 3rem;
+    padding: 0.5rem 0.9rem;
 }
 
-.asset-footer .info {    
+.asset-footer .info {
+    overflow: hidden;    
     padding: 0.5rem 0.9rem;
-    
-    overflow: hidden;
-    white-space: nowrap;
-
     text-overflow: ellipsis;
+    white-space: nowrap;
 }

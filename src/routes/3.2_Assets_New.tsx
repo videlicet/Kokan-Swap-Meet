@@ -247,6 +247,7 @@ function AssetsNew(): JSX.Element {
             from="newAsset"
             type='number'
             step='1'
+            defaultValue={3}
             style={{ display: 'none' }}
           />
           <SliderKokan handleKokans={handleKokans} kokans={watch('kokans')}/>

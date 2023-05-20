@@ -3,16 +3,12 @@
 }
 
 #user-requests ul {
-    width: fit-content;
-
-    padding: 0.3rem 1rem;
-
     display: flex;
-
-    list-style: none;
-
-    background-color: black;
     border-radius: 15px;
+    background-color: black;
+    width: fit-content;
+    padding: 0.3rem 1rem;
+    list-style: none;
 }
 
 #user-requests ul li {

@@ -1,12 +1,11 @@
 #assets {
-  height: 100%;
-  min-height: 0;
-
-  overflow: scroll;
-
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 1fr 30fr;
+  grid-template-rows: 1fr;
+  min-height: 0;
+  height: 100%;
+  overflow: scroll;
+  padding-right: 1rem;
   row-gap: 0.5rem;
 }
 
