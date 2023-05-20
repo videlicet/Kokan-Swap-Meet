@@ -138,10 +138,10 @@ function App(): JSX.Element {
                 )}
                 <div id='profile-link' className='navbar-element hover'>
                   {!user && (
-                    <NavLink to='/login'>
+                    <NavLink to='/login' style={{height: "1rem", width: "2rem"}} className="hover" /* this styling is necessary because the hover effect is blocked by the NavLink tag */>
                       <PersonIcon
                         className='login_icon'
-                        style={{ top: '0.2rem', left: '0.1rem' }}
+                        style={{top: '-0.8rem', left: '-1rem', width:"4rem", height: "2.6rem", padding: "0.6rem"}} /* this styling is necessary because the hover effect is blocked by the NavLink tag */
                       />
                     </NavLink>
                   )}

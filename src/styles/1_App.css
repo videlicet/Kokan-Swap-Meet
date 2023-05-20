@@ -44,7 +44,6 @@ input[type='text'], input[type='number'],  input[type='password']  {
 
 input:disabled {
   opacity: 0.5;
-  color:
 }
 
 .text-input {
@@ -126,6 +125,10 @@ input:disabled {
   background-color: black;
 }
 
+.hover {
+
+}
+
 #header .hover:hover {
   background-color: var(--main-text-color);
   color: black;
@@ -195,7 +198,6 @@ input:disabled {
 .profile-name {
   margin-right: 0.2rem;
 }
-
 
 #newCounter {
   position: relative;
