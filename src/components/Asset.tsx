@@ -15,11 +15,18 @@ interface Asset {
     description_long: string
     licence: string
   }
+  user_kokans: number
   index: number
 }
 
 const Asset: React.FC<Asset> = (props: Asset) => {
   const { pathname } = useLocation()
+
+  const pricey = pathname === "/assets" && (props.user_kokans < props.assetProps.kokans) ? {
+    backgroundColor: "grey",
+  } : undefined 
+
+  console.log(pathname)
 
   return (
     <div className='asset' key={props.index}>
@@ -27,7 +34,7 @@ const Asset: React.FC<Asset> = (props: Asset) => {
         <div className='header'>
           <div>
             <span className='title'>{props.assetProps.title}</span>
-            <span className='kokans'>{props.assetProps.kokans}</span>
+            <span className='kokans' style={pricey}>{props.assetProps.kokans}</span>
           </div>
         </div>
         <div className='description' style={{marginBottom: "1rem"}}>

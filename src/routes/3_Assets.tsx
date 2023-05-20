@@ -6,13 +6,14 @@ import '../styles/3_Assets.css'
 import Asset from '../components/Asset.tsx'
 
 /* import context */
-import { AssetContext } from './1_App'
+import { AssetContext, UserContext } from './1_App'
 
 function Assets(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [assets, setAssets] = useState([])
-
+  
+  const { user, setUser } = useContext<any>(UserContext)
   const { searchTermHandle, setSearchTermHandle } = useContext<any>(AssetContext)
 
   async function getAssets() {
@@ -43,7 +44,7 @@ function Assets(): JSX.Element {
       <div id='user-assets'>
         {assets.map((item: any, index) => (
           <NavLink to={`/assets/${item._id}`}>
-            <Asset assetProps={item} index={index}></Asset>
+            <Asset assetProps={item} index={index} user_kokans={user?.kokans}></Asset>
           </NavLink>
         ))}
       </div>

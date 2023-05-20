@@ -121,7 +121,7 @@ function App(): JSX.Element {
                     value={searchTerm}
                     placeholder='Search assets'
                   ></input>
-                  <button type='submit' className='search-submit'>
+                  <button type='submit' className='search-submit' style={{padding: "0.3rem 0.9rem"}}>
                     <MagnifyingGlassIcon className='search-icon' />
                     <span className='search-span'>search</span>
                   </button>

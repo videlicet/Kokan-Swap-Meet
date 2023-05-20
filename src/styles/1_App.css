@@ -10,11 +10,11 @@ a {
 }
 
 button, .button-like, input[type='submit'] {
-  padding: 0.3rem 0.9rem;
+  padding: 0.6rem 0.9rem;
 
   background-color: black;
   border: none;
-  border-radius: 15px;
+  border-radius: 10px;
 
   cursor: pointer;
 
@@ -73,7 +73,6 @@ input:disabled {
 }
 
 /* header */
-
 #brand_icon {
   padding-right: 0.1rem;
 }
@@ -125,16 +124,11 @@ input:disabled {
   background-color: black;
 }
 
-.hover {
-
-}
-
 #header .hover:hover {
   background-color: var(--main-text-color);
   color: black;
   cursor: pointer;
 }
-
 
 .navbar a {
   text-decoration: none;
@@ -177,6 +171,7 @@ input:disabled {
 .search-span {
   position: relative; 
   top: 0.5rem;
+
   font-size:medium;
 }
 
@@ -212,11 +207,10 @@ input:disabled {
   background-color: red;
   border-radius: 100%;
 
-  font-size:x-small;
+  font-size: x-small;
 }
 
 /* main container */
-
 #main-container {
   min-height: 0;
   height: 100%;
@@ -233,7 +227,6 @@ input:disabled {
 }
 
 /* footer */
-
 #footer {
   
   grid-area: 3 / 0 / 4 / 0 ;

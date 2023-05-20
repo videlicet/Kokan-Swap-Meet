@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useRef } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import '../styles/3.1_Assets_Detail.css'
 
@@ -16,12 +16,9 @@ import { UserContext, PortalContext } from './1_App'
 function AssetsDetail(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
   const [asset, setAsset] = useState<AssetInterface>()
   const { user, setUser } = useContext<any>(UserContext)
   const { portalContainer } = useContext<any>(PortalContext)
-  const [openSwap, setOpenSwap] = useState(false)
 
   let { id } = useParams()
   const navigate = useNavigate()
@@ -178,6 +175,10 @@ function AssetsDetail(): JSX.Element {
     asset?.created.slice(8, 10),
   ].join('/')
 
+  const pricey = (user?.kokans < asset?.kokans) ? {
+    backgroundColor: "grey",
+  } : undefined 
+
   return (
     <div id='asset-container'>
       {asset && (
@@ -185,7 +186,7 @@ function AssetsDetail(): JSX.Element {
           <div className='header'>
             <div>
               <span className='title'>{asset.title}</span>
-              <span className='kokans'>{asset.kokans}</span>
+              <span className='kokans' style={pricey}>{asset.kokans}</span>
               <span>
                 &nbsp;&nbsp;by&nbsp;
                 {(asset.aliases.creator !== 'Deleted User' && (
@@ -197,14 +198,17 @@ function AssetsDetail(): JSX.Element {
               </span>
               <div style={{ color: 'grey' }}> {assetCreated}</div>
             </div>
-            <div>
-              {user && !asset.aliases?.owners.includes(user.username) && (
-                <AlertDialogAssetSwap
-                  portalContainer={portalContainer}
-                  price={asset?.kokans}
-                  onSwap={onSwap}
-                />
-              )}
+            <div className='interaction'>
+              {user &&
+                !asset.aliases?.owners.includes(user.username) &&
+                (
+                  <AlertDialogAssetSwap
+                    portalContainer={portalContainer}
+                    price={asset?.kokans}
+                    onSwap={onSwap}
+                    disabled={user.kokans < asset.kokans ? true : false}
+                  />
+                )}
               {user && asset.aliases.creator == user.username && (
                 <AlertDialogAssetDelete
                   portalContainer={portalContainer}
@@ -243,7 +247,7 @@ function AssetsDetail(): JSX.Element {
 
             <div className='additional-info'>
               <span className='info-type'>Owners</span>
-              <div style={{display: "flex"}}>
+              <div style={{ display: 'flex' }}>
                 {asset.aliases?.owners.map((item: string) => (
                   <span className='info'>{item}</span>
                 ))}

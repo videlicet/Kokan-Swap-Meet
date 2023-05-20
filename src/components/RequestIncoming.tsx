@@ -23,6 +23,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
   const navigate = useNavigate()
   const { user, setUser } = useContext<any>(UserContext)
   const { portalContainer } = useContext<any>(PortalContext)
+  console.log(props)
 
   async function onConfirm(reaction: string) {
     try {

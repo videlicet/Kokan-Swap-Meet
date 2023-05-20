@@ -46,7 +46,7 @@ function UserAssets(): JSX.Element {
       {userAssets?.length !== 0 ? (
         userAssets.map((item: any, index: number) => (
           <NavLink to={`/assets/${item._id}`} className='unstyledLink'>
-            <Asset assetProps={item} index={index}></Asset>
+            <Asset assetProps={item} index={index} user_kokans={user?.kokans}></Asset>
           </NavLink>
         ))
       ) : (
