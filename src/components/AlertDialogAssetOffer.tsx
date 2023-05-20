@@ -6,7 +6,7 @@ import './AlertDialog.css'
 interface offerRequest {
   portalContainer: HTMLElement | null
   title: string
-  onOffer: any // type?
+  onOffer: () => Promise<void>
   removeable: boolean
 }
 

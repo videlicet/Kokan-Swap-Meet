@@ -1,9 +1,10 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, NavLink } from 'react-router-dom'
 import '../styles/3.1_Assets_Detail.css'
 
 interface Asset {
   assetProps: {
+    _id: string
     title: string
     kokans: number
     creator: string
@@ -22,22 +23,32 @@ interface Asset {
 const Asset: React.FC<Asset> = (props: Asset) => {
   const { pathname } = useLocation()
 
-  const pricey = pathname === "/assets" && (props.user_kokans < props.assetProps.kokans) ? {
-    backgroundColor: "grey",
-  } : undefined 
+  const pricey =
+    pathname === '/assets' && props.user_kokans < props.assetProps.kokans
+      ? {
+          backgroundColor: 'grey',
+        }
+      : undefined
 
   console.log(pathname)
 
   return (
     <div className='asset' key={props.index}>
-      <div>
-        <div className='header'>
-          <div>
-            <span className='title'>{props.assetProps.title}</span>
-            <span className='kokans' style={pricey}>{props.assetProps.kokans}</span>
-          </div>
+      <div className='left'>
+        <div>
+          <NavLink
+            to={`/assets/${props.assetProps._id}`}
+            className='unstyledLink'
+          >
+            <p>
+              <span className='title'>{props.assetProps.title}</span>
+              <span className='kokans' style={pricey}>
+                {props.assetProps.kokans}
+              </span>
+            </p>
+          </NavLink>
         </div>
-        <div className='description' style={{marginBottom: "1rem"}}>
+        <div className='description' style={{ marginBottom: '1rem' }}>
           <span>{props.assetProps.description_short}</span>
         </div>
       </div>

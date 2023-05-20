@@ -100,7 +100,7 @@ function AssetsNew(): JSX.Element {
 
   return (
     <div id='new-asset-container'>
-      <h1>Link New Asset</h1>
+      <h2>Link New Asset</h2>
       <form
         className='new-asset-form'
         name='newAsset'
