@@ -216,11 +216,12 @@ function AssetsDetail(): JSX.Element {
                   onDelete={onDelete}
                 />
               )}
-              {user && !asset.onOffer && (
+              {user && (asset.owners.includes(user._id)) && (
                 <AlertDialogAssetOffer
                   portalContainer={portalContainer}
                   title={asset?.title}
                   onOffer={onOffer}
+                  removeable={asset.onOffer ? true : false}
                 />
               )}
             </div>
