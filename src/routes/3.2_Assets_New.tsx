@@ -1,17 +1,13 @@
 // @ts-nocheck
-import { useState, useEffect, useContext, ChangeEvent, FormEvent } from 'react'
-import {
-  NavLink,
-  Outlet,
-  useOutletContext,
-  useNavigate,
-} from 'react-router-dom'
+import { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useForm, Controller } from 'react-hook-form'
 import '../styles/3.2_Assets_New.css'
 
 /* import components */
 import SelectLicence from '../components/SelectLicense.tsx'
 import TooltipInfo from '../components/Tooltip.tsx'
+import SliderKokan from '../components/SliderKokan.tsx'
 
 import AlertDialogCreateNew from '../components/AlertDialogCreateNew.tsx'
 
@@ -29,8 +25,8 @@ const tooltipLicense = `Pick a license for your asset.
 This helps to ensure you and your swap partner know how they can use your asset.` // TD ideally, this tooltip contains a link to https://choosealicense.com/
 const tooltipTags =
   'Add tags to your asset. They will help other users find your asset.'
-const tooltipsRepo = 'Provide the name of the GitHub repository you want to link to your Kokan account.'
-
+const tooltipsRepo =
+  'Provide the name of the GitHub repository you want to link to your Kokan account.'
 
 /* licenseTypes */
 const licenseTypes = [
@@ -53,17 +49,20 @@ function AssetsNew(): JSX.Element {
     trigger,
     handleSubmit,
     watch,
+    setValue,
     control,
     formState: { errors },
   } = useForm()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [kokans, setKokans] = useState<number>(3)
   const { user, setUser } = useContext<any>(UserContext)
   const { portalContainer } = useContext<any>(PortalContext)
   const navigate = useNavigate()
 
   async function handleFormSubmit(data: any) {
-    const { repo, title, descriptionShort, descriptionLong, kokans, license } = data
+    const { repo, title, descriptionShort, descriptionLong, kokans, license } =
+      data
     console.log(data)
     try {
       await fetch(`${import.meta.env.VITE_SERVER_URL}assets`, {
@@ -98,6 +97,12 @@ function AssetsNew(): JSX.Element {
     form.requestSubmit()
   }
 
+  /* kokan change helper (SliderKokan component can't use react hook forms) */
+  function handleKokans(value: number[]) {
+    setKokans(value[0])
+    setValue('kokans', value[0])
+  }
+
   return (
     <div id='new-asset-container'>
       <h2>Link New Asset</h2>
@@ -126,7 +131,9 @@ function AssetsNew(): JSX.Element {
           />
           <div>
             {errors.title && (
-              <span className='validation-error'>GitHub Repository name invalid.</span>
+              <span className='validation-error'>
+                GitHub Repository name invalid.
+              </span>
             )}
           </div>
         </div>
@@ -228,19 +235,21 @@ function AssetsNew(): JSX.Element {
           <label htmlFor='kokans'>
             Kokans
             <TooltipInfo content={tooltipsKokans} />
-          </label>
+          </label>          
           <input
             {...register('kokans', {
               required: true,
               valueAsNumber: true,
-              validate: (value) => value > 0 && value < 6,
+              validate: (value) => value > 0 && value <= 5,
             })}
             name='kokans'
             className='new-asset'
+            from="newAsset"
             type='number'
             step='1'
-            defaultValue={3}
-          ></input>
+            style={{ display: 'none' }}
+          />
+          <SliderKokan handleKokans={handleKokans} kokans={watch('kokans')}/>
           {errors.kokans && <p className='validation-error'>Kokans invalid.</p>}
         </div>
 
