@@ -11,6 +11,7 @@ import Login from './routes/1.1_Login.tsx'
 import Logout from './routes/1.2_Logout.tsx'
 import HowItWorks from './routes/4_How_It_Works.tsx'
 import About from './routes/5_About.tsx'
+import EmailVerfication from './routes/6_Verification.tsx'
 import User from './routes/2_User.tsx'
 import UserSettings from './routes/2.1_User_Settings.tsx'
 import UserAssets from './routes/2.2_User_Assets.tsx'
@@ -40,6 +41,10 @@ const router = createBrowserRouter([{
       {
         path: "about",
         element: <About />
+      },
+      {
+        path: "/email-verification",
+        element: <EmailVerfication />
       },
       {
         path: "login",

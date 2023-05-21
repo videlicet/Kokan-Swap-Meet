@@ -21,7 +21,6 @@ function Login(): JSX.Element {
     const queryString = window.location.search
     const urlParams = new URLSearchParams(queryString)
     const gitHubParam = urlParams.get('code')
-    const verificationCodeParam = urlParams.get('vcode')
     if (gitHubParam) {
       setLoading(true)
       /* get GitHub access_token */
@@ -105,12 +104,6 @@ function Login(): JSX.Element {
       }
       gitHubAuthenticate()
     }
-    else if (verificationCodeParam) {
-      console.log(verificationCode)
-      if(verificationCode.toString() === verificationCodeParam) {
-        console.log(verificationCodeParam)
-      }
-    }
   }, [])
 
   /* GitHub */
@@ -139,30 +132,6 @@ function Login(): JSX.Element {
       })
       if (res.status === 200) {
         // show sth that the email was sent
-        // const verificationCodeRes = await res.json()
-        // console.log(verificationCodeRes)
-        // verificationCode = verificationCodeRes
-      }
-    } catch (err) {
-      // TD errorHandling
-    }
-  }
-
-  async function getVerficationCode() {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth/email/verification`, {
-        method: 'POST',
-        body: JSON.stringify({
-          username: "videlicet", // TD user.username
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-      })
-      if (res.status === 200) {
-        const { success } = await res.json()
-        console.log(success)
       }
     } catch (err) {
       // TD errorHandling
@@ -171,8 +140,6 @@ function Login(): JSX.Element {
 
   return (
     <div id='login-container'>
-      <button onClick={sendVerificationEmail}>Send Email</button>
-      <button onClick={getVerficationCode}>Get Verfication Code</button>
       {!loading ? (
         <>
           <h2>Login</h2>
@@ -203,7 +170,7 @@ function Login(): JSX.Element {
                 setUser={setUser}
               />
             )) ||
-            (signup && <SignUp gitHubUser={gitHubUser} />)}
+            (signup && <SignUp gitHubUser={gitHubUser} setSignup={setSignup} setLogin={setLogin}/>)}
         </>
       ) : (
         <span>Loading</span>
