@@ -1,5 +1,5 @@
-import { useState, useEffect, useContext, ChangeEvent, FormEvent, MouseEvent } from 'react'
-import { NavLink, useNavigate, useOutletContext } from 'react-router-dom'
+import { useState, useEffect, useContext } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
 import '../styles/1.2_Logout.css'
 
 /* context */
@@ -9,7 +9,7 @@ function Logout(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const navigate = useNavigate()
-  const {user, setUser} = useContext<any>(UserContext)
+  const { user, setUser } = useContext<any>(UserContext)
 
   async function logout() {
     try {
@@ -18,12 +18,12 @@ function Logout(): JSX.Element {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include'
+        credentials: 'include',
       })
       if (res.status == 200) {
-        navigate ('/')}
-    } catch (error) {
-    }
+        navigate('/')
+      }
+    } catch (error) {}
   }
 
   useEffect(() => {
@@ -32,15 +32,15 @@ function Logout(): JSX.Element {
   }, [])
 
   return (
-      <div id='login-container'>
-        <h2>Logout</h2>
-        <p>You have been logged out.</p>
-        <div>
-          <NavLink className='button-like' to='/login'>
-            log in
-          </NavLink>
-        </div>
+    <div id='login-container'>
+      <h2>Logout</h2>
+      <p>You have been logged out.</p>
+      <div>
+        <NavLink className='button-like' to='/login'>
+          log in
+        </NavLink>
       </div>
+    </div>
   )
 }
 

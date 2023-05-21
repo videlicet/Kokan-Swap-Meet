@@ -12,7 +12,6 @@ import '../styles/1_App.css'
 import '@fontsource/rubik/500.css'
 
 /* import components */
-
 import brand_icon from '../assets/kokan_icon_w.png'
 import {
   MagnifyingGlassIcon,
@@ -22,19 +21,17 @@ import {
 import DropdownMenu from '../components/DropDownMenu.tsx'
 
 /* import types */
-
 import { UserInterface } from '../assets/mockUsers.tsx'
 
 /* context */
-
 export const UserContext = createContext({})
 export const AssetContext = createContext({})
 export const PortalContext = createContext({})
 
-import authenticate from '../modules/Authenticator'
+/*modules*/
+import { getUser } from '../modules/Authenticator'
 
 /* helpers */
-
 const footerContent = [
   { name: 'How It Works', route: '/how-it-works' },
   { name: 'About', route: '/about' },
@@ -51,28 +48,14 @@ function App(): JSX.Element {
   const [error, setError] = useState(null)
   const [searchTerm, setSearchTerm] = useState<string>()
   const [searchTermHandle, setSearchTermHandle] = useState('')
-  const [nav, setNav] = useState(navContent)
   const [footer, setFooter] = useState(footerContent)
   const [user, setUser] = useState<any>()
   const portal = useRef(null)
 
   const navigate = useNavigate()
 
-  /** fetch data */
-  const getUser = async (): Promise<void> => {
-    console.log('auth triggered')
-    authenticate().then((res) => {
-      if (res.status === true) {
-        console.log('userauthentiasdfasdf')
-        setUser(res.user) // TD typing
-      } else {
-        navigate('/login')
-      }
-    })
-  }
-
   useEffect(() => {
-    getUser()
+    getUser(setUser)
   }, [])
 
   /* search */
@@ -121,7 +104,11 @@ function App(): JSX.Element {
                     value={searchTerm}
                     placeholder='Search assets'
                   ></input>
-                  <button type='submit' className='search-submit' style={{padding: "0.3rem 0.9rem"}}>
+                  <button
+                    type='submit'
+                    className='search-submit'
+                    style={{ padding: '0.3rem 0.9rem' }}
+                  >
                     <MagnifyingGlassIcon className='search-icon' />
                     <span className='search-span'>search</span>
                   </button>
@@ -138,10 +125,20 @@ function App(): JSX.Element {
                 )}
                 <div id='profile-link' className='navbar-element hover'>
                   {!user && (
-                    <NavLink to='/login' style={{height: "1rem", width: "2rem"}} className="hover" /* this styling is necessary because the hover effect is blocked by the NavLink tag */>
+                    <NavLink
+                      to='/login'
+                      style={{ height: '1rem', width: '2rem' }}
+                      className='hover' /* this styling is necessary because the hover effect is blocked by the NavLink tag */
+                    >
                       <PersonIcon
                         className='login_icon'
-                        style={{top: '-0.8rem', left: '-1rem', width:"4rem", height: "2.6rem", padding: "0.6rem"}} /* this styling is necessary because the hover effect is blocked by the NavLink tag */
+                        style={{
+                          top: '-0.8rem',
+                          left: '-1rem',
+                          width: '4rem',
+                          height: '2.6rem',
+                          padding: '0.6rem',
+                        }} /* this styling is necessary because the hover effect is blocked by the NavLink tag */
                       />
                     </NavLink>
                   )}

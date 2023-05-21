@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-const authenticate = async (): Promise<
+export const authenticate = async (): Promise<
   { status: boolean; user: any } | { status: boolean }
 > => {
   /*check user has JWT token*/
@@ -16,7 +16,18 @@ const authenticate = async (): Promise<
     const user = await res.json()
     return { status: true, user: user }
   }
-  return { status: false }
+  throw new Error('User not authenticated.') // TD test
 }
 
-export default authenticate
+export const getUser = async (setUser: any, navigate: any): Promise<void> => { // TD typing
+  console.log('User authentication:')
+  authenticate().then((res) => {
+    if (res.status === true) {
+      console.log('– User authenticated.')
+      setUser(res.user) // TD typing
+    } else {
+      console.log('– User not authenticated.')
+      navigate('/login')
+    }
+  })
+}

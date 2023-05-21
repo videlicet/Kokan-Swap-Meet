@@ -1,11 +1,5 @@
-import { useState, useEffect, useContext, ChangeEvent, FormEvent } from 'react'
-import {
-  NavLink,
-  useNavigate,
-  Outlet,
-  useOutletContext,
-  useParams,
-} from 'react-router-dom'
+import { useState, useEffect, useContext } from 'react'
+import { useNavigate, Outlet, useParams } from 'react-router-dom'
 import '../styles/2_User.css'
 import brand_icon from '../assets/kokan_icon_w.png'
 
@@ -13,9 +7,7 @@ import brand_icon from '../assets/kokan_icon_w.png'
 import ProfileAvatar from '../components/ProfileAvatar.tsx'
 
 /* import modules */
-import authenticate from '../modules/Authenticator'
-
-import { mockAssets } from '../assets/mockAssets' // TD delete?
+import { authenticate } from '../modules/Authenticator'
 
 /* context */
 import { UserContext } from './1_App'
@@ -23,19 +15,27 @@ import { UserContext } from './1_App'
 function User(): JSX.Element | undefined {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [userAssets, setUserAssets] = useState(mockAssets)
   const { user, setUser } = useContext<any>(UserContext)
   const [auth, setAuth] = useState(false)
   const navigate = useNavigate()
   const { id } = useParams() as any // throws error without
 
+  // TH in this useeffect, first the user.username and the param should be compared ...
+  // if they are not the same => query other user info and set that as a proxy for assets
+  // if they are the same => authenticate
+  // the requests/settings pages should redirect or show an 404 or so error page
   useEffect(() => {
-    authenticate().then((res) => {
-      setAuth(res.status)
-      if (res.status === false) {
+    authenticate()
+      .then((res) => {
+        setAuth(res.status)
+        if (res.status === false) {
+          navigate('/login')
+        }
+      })
+      .catch((err) => {
+        console.log(err)
         navigate('/login')
-      }
-    })
+      })
   }, [])
 
   if (auth === true)

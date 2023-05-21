@@ -35,12 +35,14 @@ function dynamicRequestStyle(status: string) {
 /* component */
 const RequestOutgoing: React.FC<Request> = (props: Request) => {
   const navigate = useNavigate()
-  const { portalContainer } = useContext<any>(PortalContext) 
+  const { portalContainer } = useContext<any>(PortalContext)
 
   async function onConfirm() {
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}transactions/${props.requestProps?._id}`,
+        `${import.meta.env.VITE_SERVER_URL}transactions/${
+          props.requestProps?._id
+        }`,
         {
           method: 'DELETE',
           headers: {
@@ -50,7 +52,7 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
         },
       )
       if (res.status === 200) {
-        navigate(`/user/${props.username}/assets`)
+        navigate(`/user/${props.username}/requests/outgoing`)
       }
     } catch (err) {}
   }
@@ -63,7 +65,7 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
       <div className='header'>
         <span className='title'>
           Request for{' '}
-          <NavLink to={`assets/${props.requestProps?.asset_id}`}>
+          <NavLink to={`/assets/${props.requestProps?.asset_id._id}`}>
             {props.requestProps?.asset_id.title}
           </NavLink>
         </span>
@@ -71,7 +73,7 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
       <div className='description'>
         <span>
           You requested{' '}
-          <NavLink to={`assets/${props.requestProps?.asset_id}`}>
+          <NavLink to={`/assets/${props.requestProps?.asset_id._id}`}>
             {props.requestProps?.asset_id.title}
           </NavLink>{' '}
           from user{' '}

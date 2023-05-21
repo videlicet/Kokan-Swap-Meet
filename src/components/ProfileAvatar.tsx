@@ -19,7 +19,7 @@ const ProfileAvatar: React.FC<profilePicture> = (props: profilePicture) => (
         src={props.user.pictureURL}
         alt={props.user.username}
       />
-      <Avatar.Fallback className='AvatarFallback' delayMs={600}>
+      <Avatar.Fallback className='AvatarFallback' >
         <div>{props.user.first_name[0] + props.user.last_name[0]}</div>
       </Avatar.Fallback>
     </Avatar.Root>

@@ -2,8 +2,8 @@
     position: relative;
     display: flex;
     align-items: center;
-    height: 20px;
-    width: 200px;
+    height: 1.5rem;
+    width: 10rem;
     user-select: none;
     touch-action: none;
   }
@@ -19,19 +19,19 @@
   .SliderRange {
     position: absolute;
     border-radius: 9999px;
-    background-color: white;
+    background-color: var(--main-color-yellow);
     height: 100%;
   }
   
   .SliderThumb {
     display: block;
-    border-radius: 10px;
-    background-color: white;
+    border-radius: 15px;
+    background-color: rgb(25, 25, 25);
     height: 20px;
     width: 20px;
   }
   .SliderThumb:hover {
-    background-color: var(--main-color-yellow);
+    filter: grayscale(70%);
   }
   .SliderThumb:focus {
     outline: none;

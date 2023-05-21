@@ -9,19 +9,16 @@ a {
 }
 
 button, .button-like, input[type='submit'] {
-  padding: 0.6rem 0.9rem;
-
-  background-color: black;
   border: none;
   border-radius: 10px;
-
-  cursor: pointer;
-
-  font-size: smaller;
-  font-family: var(--main-font-style);
-  text-transform: uppercase;
+  background-color: black;
+  padding: 0.6rem 0.9rem;
   text-decoration: none;
-  color: var(--main-text-color);;
+  text-transform: uppercase;
+  font-family: var(--main-font-style);
+  font-size: smaller;
+  color: var(--main-text-color);
+  cursor: pointer;;
 }
   
 button:hover, .button-like:hover, input[type='submit']:hover {
@@ -30,15 +27,13 @@ button:hover, .button-like:hover, input[type='submit']:hover {
 }
 
 input[type='text'], input[type='number'],  input[type='password']  {
-    padding: 0.3rem 1rem;
-
-    box-sizing: border-box;
-
     border: none;
     border-radius: 15px;
-    color: var(--main-text-color);
     background-color: black;
+    box-sizing: border-box;
+    padding: 0.3rem 1rem;
     font-family: var(--main-font-style);
+    color: var(--main-text-color);
 }
 
 input:disabled {
@@ -47,28 +42,24 @@ input:disabled {
 
 .text-input {
   display: flex;
-  width: fit-content;
   flex-direction: column;
-  row-gap: 0.4rem;
   margin-bottom: 0.5rem;
+  width: fit-content;
+  row-gap: 0.4rem;
 }
 
-
 .fixed-text {
-
-  padding: 0.3rem 1rem;
-
-  background-color: var(--main-color-blue);
   border-radius: 15px;
-
+  background-color: var(--main-color-blue);
+  padding: 0.3rem 1rem;
   color: black;
 }
 
 .validation-error {
-  padding: 0;
   margin: 0;
-  color: red;
+  padding: 0;
   font-size: small;
+  color: red;
 }
 
 /* header */
@@ -80,20 +71,17 @@ input:disabled {
   display: none;
   justify-content: center;
   align-content: center;
-
-  text-align: center;
   text-transform: uppercase;
   line-height: 1.6;
+  text-align: center;
 }
 
 @media screen and (min-width: 760px) {
   #brand {
-
     display: flex;
-    padding: 0.3rem;
-
-    background-color: black;
     border-radius: 15px;
+    background-color: black;
+    padding: 0.3rem;
   }
 }
 
@@ -102,25 +90,20 @@ input:disabled {
 }
 
 .navbar {
-
   display: flex;
-  height: 100%;
   justify-content: space-between;
   align-items: center;
-
+  height: 100%;
   text-transform: uppercase;
 }
 
 #header .navbar-element {
-
   display: flex;
-  height: 100%;
-
-  padding: 0 1rem;
   align-items: center;
-  
   border-radius: 15px;
   background-color: black;
+  height: 100%;
+  padding: 0 1rem;
 }
 
 #header .hover:hover {
@@ -140,49 +123,39 @@ input:disabled {
 .navbar input {
   height: 100%;
   width: 100%;
-
   padding: 0.7rem 0 0.7rem 1rem;
-  
   font-size: medium;
 }
 
 .search-submit {
-  display: flex;
   z-index: 0;
-  padding-left: 0.3rem;
-
+  display: flex;
   border-radius: 15px 15px 15px 0;
-
+  padding-left: 0.3rem;
   line-height: 1;
 }
 
 .search-icon {
   position: relative;
-  
-  width: 2rem;
   height: 2rem;
-
-  padding: 0.3rem;
-
+  width: 2rem;
   box-sizing: border-box;
+  padding: 0.3rem;
 }
 
 .search-span {
   position: relative; 
   top: 0.5rem;
-
   font-size:medium;
 }
 
 .login_icon {
   position: relative;
-  width: 2rem;
-  height: 2rem;
-
-  padding: 0.3rem 0;
   margin-right: 0.2rem;
-
+  height: 2rem;
+  width: 2rem;
   box-sizing: border-box;
+  padding: 0.3rem 0;
 }
 
 #profile-link {
@@ -196,27 +169,22 @@ input:disabled {
 #newCounter {
   position: relative;
   top: -0.3rem;
-
+  border-radius: 100%;
+  margin-left: 0.2rem;
+  background-color: red;
   height: 0.1rem;
   width: 0.1rem;
-
   padding: 0.3rem;
-  margin-left: 0.2rem;
-
-  background-color: red;
-  border-radius: 100%;
-
   font-size: x-small;
 }
 
 /* main container */
-#main-container {
-  min-height: 0;
-  height: 100%;
-
-  background-color: rgba(0, 0, 0, 0.6);;
+#main-container {;
   border: 5px solid black;
   border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.6);
+  min-height: 0;
+  height: 100%;
 }
 
 @media screen and (min-width: 760px) {
@@ -227,12 +195,9 @@ input:disabled {
 
 /* footer */
 #footer {
-  
-  grid-area: 3 / 0 / 4 / 0 ;
-
   padding: 1.5rem 9rem;
-
   color: grey;
+  grid-area: 3 / 0 / 4 / 0 ;
 }
 
 @media screen and (min-width: 760px) {

@@ -1,7 +1,5 @@
 import { useState, useContext, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import '../styles/1.1_Login.css'
-import { CheckCircledIcon } from '@radix-ui/react-icons'
 
 /* context */
 import { UserContext } from './1_App'
@@ -15,7 +13,6 @@ function Login(): JSX.Element {
   const [gitHubAuth, setGitHubAuth] = useState<boolean>(false)
   const [login, setLogin] = useState<boolean>(false)
   const [signup, setSignup] = useState<boolean>(false)
-  const [usernameHandle, setUsernameHandle] = useState<string>('')
   const [gitHubUser, setGitHubUser] = useState<any>({}) // TD typing
   const { user, setUser } = useContext<any>(UserContext)
 
@@ -24,6 +21,7 @@ function Login(): JSX.Element {
     const urlParams = new URLSearchParams(queryString)
     const codeParam = urlParams.get('code')
     if (codeParam) {
+      setLoading(true)
       /* get GitHub access_token */
       async function gitHubAuthenticate() {
         async function getAccessToken() {

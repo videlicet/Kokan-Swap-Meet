@@ -22,6 +22,7 @@ const DialogSettingsChange: React.FC<settingsChange> = (
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm()
 
@@ -46,6 +47,7 @@ const DialogSettingsChange: React.FC<settingsChange> = (
               })
               setOpen(false)
               setChanges({})
+              reset()
             })}
           >
             <Dialog.Title className='DialogTitle'>

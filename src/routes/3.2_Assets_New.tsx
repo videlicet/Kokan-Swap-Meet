@@ -23,8 +23,6 @@ const tooltipLongDescription =
 const tooltipsKokans = 'Choose your Kokan value from 1 to 5 Kokans.'
 const tooltipLicense = `Pick a license for your asset.
 This helps to ensure you and your swap partner know how they can use your asset.` // TD ideally, this tooltip contains a link to https://choosealicense.com/
-const tooltipTags =
-  'Add tags to your asset. They will help other users find your asset.'
 const tooltipsRepo =
   'Provide the name of the GitHub repository you want to link to your Kokan account.'
 
@@ -127,7 +125,7 @@ function AssetsNew(): JSX.Element {
             className='new-asset'
             type='text'
             placeholder='GitHub Repository'
-            style={{ width: '100%', padding: '0.9rem', fontSize: 'medium' }}
+            style={{ width: '100%', padding: '0.9rem', fontSize: 'medium', boxSizing: "content-box" }}
           />
           <div>
             {errors.title && (
@@ -153,7 +151,7 @@ function AssetsNew(): JSX.Element {
             className='new-asset'
             type='text'
             placeholder='Title'
-            style={{ width: '100%', padding: '0.9rem', fontSize: 'medium' }}
+            style={{ width: '100%', padding: '0.9rem', fontSize: 'medium', boxSizing: "content-box" }}
           />
           <div>
             {watch('title') && 10 - watch('title').length > 0 && (

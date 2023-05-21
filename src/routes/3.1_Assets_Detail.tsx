@@ -14,13 +14,13 @@ import { AssetInterface } from '../assets/mockAssets'
 import { UserContext, PortalContext } from './1_App'
 
 function AssetsDetail(): JSX.Element {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState(null)
   const [asset, setAsset] = useState<AssetInterface>()
   const { user, setUser } = useContext<any>(UserContext)
   const { portalContainer } = useContext<any>(PortalContext)
 
-  let { id } = useParams()
+  let { id } = useParams<string>()
   const navigate = useNavigate()
 
   async function getAsset() {
@@ -104,7 +104,7 @@ function AssetsDetail(): JSX.Element {
         }),
       })
       if (res.status === 201) {
-        navigate(`/user/${user.username}/assets`)
+        navigate(`/user/${user.username}/requests/outgoing`)
       }
     } catch (err) {
       // TD errorhandling
