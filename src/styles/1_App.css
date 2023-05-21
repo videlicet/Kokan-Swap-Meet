@@ -179,7 +179,7 @@ input:disabled {
 }
 
 /* main container */
-#main-container {;
+#main-container {
   border: 5px solid black;
   border-radius: 15px;
   background-color: rgba(0, 0, 0, 0.6);

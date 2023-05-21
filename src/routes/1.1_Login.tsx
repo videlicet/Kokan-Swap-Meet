@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect, useRef } from 'react'
 import '../styles/1.1_Login.css'
 
 /* context */
@@ -15,20 +15,22 @@ function Login(): JSX.Element {
   const [signup, setSignup] = useState<boolean>(false)
   const [gitHubUser, setGitHubUser] = useState<any>({}) // TD typing
   const { user, setUser } = useContext<any>(UserContext)
+  let verificationCode = useRef<number>()
 
   useEffect(() => {
     const queryString = window.location.search
     const urlParams = new URLSearchParams(queryString)
-    const codeParam = urlParams.get('code')
-    if (codeParam) {
+    const gitHubParam = urlParams.get('code')
+    const verificationCodeParam = urlParams.get('vcode')
+    if (gitHubParam) {
       setLoading(true)
       /* get GitHub access_token */
       async function gitHubAuthenticate() {
         async function getAccessToken() {
           console.log('GitHub authentication:')
           try {
-            let res = await fetch(
-              `${import.meta.env.VITE_SERVER_URL}auth/gitHub?code=${codeParam}`,
+            const res = await fetch(
+              `${import.meta.env.VITE_SERVER_URL}auth/gitHub?code=${gitHubParam}`,
               {
                 headers: {
                   'Content-Type': 'application/json',
@@ -103,6 +105,12 @@ function Login(): JSX.Element {
       }
       gitHubAuthenticate()
     }
+    else if (verificationCodeParam) {
+      console.log(verificationCode)
+      if(verificationCode.toString() === verificationCodeParam) {
+        console.log(verificationCodeParam)
+      }
+    }
   }, [])
 
   /* GitHub */
@@ -116,8 +124,55 @@ function Login(): JSX.Element {
     setLoading(false)
   }
 
+  async function sendVerificationEmail() {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth/email`, {
+        method: 'POST',
+        body: JSON.stringify({
+          username: "videlicet", // TD user.username
+          email: 'info@c-bornemann.eu', // TD user.email
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      })
+      if (res.status === 200) {
+        // show sth that the email was sent
+        // const verificationCodeRes = await res.json()
+        // console.log(verificationCodeRes)
+        // verificationCode = verificationCodeRes
+      }
+    } catch (err) {
+      // TD errorHandling
+    }
+  }
+
+  async function getVerficationCode() {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth/email/verification`, {
+        method: 'POST',
+        body: JSON.stringify({
+          username: "videlicet", // TD user.username
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      })
+      if (res.status === 200) {
+        const { success } = await res.json()
+        console.log(success)
+      }
+    } catch (err) {
+      // TD errorHandling
+    }
+  }
+
   return (
     <div id='login-container'>
+      <button onClick={sendVerificationEmail}>Send Email</button>
+      <button onClick={getVerficationCode}>Get Verfication Code</button>
       {!loading ? (
         <>
           <h2>Login</h2>
@@ -158,4 +213,3 @@ function Login(): JSX.Element {
 }
 
 export default Login
-
