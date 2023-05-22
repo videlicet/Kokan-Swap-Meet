@@ -10,7 +10,12 @@ interface settingsChange {
   onSubmit: any // TD type
   content: {
     title: string
-    fields: { content: string; defaultValue: string; inputName: string, validation: any }[]
+    fields: {
+      content: string
+      defaultValue: string
+      inputName: string
+      validation: any
+    }[]
   } // TD type
 }
 
@@ -18,17 +23,13 @@ const DialogSettingsChange: React.FC<settingsChange> = (
   props: settingsChange,
 ) => {
   const [open, setOpen] = useState(false)
-  const [changes, setChanges] = useState<any>({}) // TD type
   const {
     register,
     handleSubmit,
+    watch,
     reset,
     formState: { errors },
   } = useForm()
-
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    setChanges([...changes, event.target.value])
-  }
 
   const fields = props.content?.fields
 
@@ -43,10 +44,9 @@ const DialogSettingsChange: React.FC<settingsChange> = (
           <form
             onSubmit={handleSubmit((data) => {
               props.onSubmit({
-                changes: data
+                data,
               })
               setOpen(false)
-              setChanges({})
               reset()
             })}
           >
@@ -56,38 +56,36 @@ const DialogSettingsChange: React.FC<settingsChange> = (
             <Dialog.Description className='DialogDescription'>
               Make changes to your profile here. Click save when you're done.
             </Dialog.Description>
-              {fields.map((field, index: number) => {
-                return (
-                  <fieldset className='Fieldset'>
-                    <label className='Label' htmlFor={field.content}>
-                      {field.content}
-                    </label>
-                    <input
-                      {...register(field.inputName, field.validation)}
-                      className='Input'
-                      id={field.content}
-                      name={field.inputName}
-                      value={changes[index]}
-                      onChange={handleChange}
-                      placeholder={field?.defaultValue}
-                    />
-                    {errors[`${field.inputName}`] && (
-                      <p className='validation-error'>
-                        {field.content} invalid.{' '}
-                      </p>
-                    )}
-                  </fieldset>
-                )
-              })}
-              <div
-                style={{
-                  display: 'flex',
-                  marginTop: 25,
-                  justifyContent: 'flex-end',
-                }}
-              >
-                <button type='submit'>Save changes</button>
-              </div>
+            {fields.map((field, index: number) => {
+              return (
+                <fieldset className='Fieldset'>
+                  <label className='Label' htmlFor={field.content}>
+                    {field.content}
+                  </label>
+                  <input
+                    {...register(field.inputName, field.validation)}
+                    className='Input'
+                    id={field.content}
+                    name={field.inputName}
+                    placeholder={field?.defaultValue}
+                  />
+                  {errors[`${field.inputName}`] && (
+                    <p className='validation-error'>
+                      {field.content} invalid.{' '}
+                    </p>
+                  )}
+                </fieldset>
+              )
+            })}
+            <div
+              style={{
+                display: 'flex',
+                marginTop: 25,
+                justifyContent: 'flex-end',
+              }}
+            >
+              <button type='submit'>Save changes</button>
+            </div>
             <Dialog.Close asChild>
               <button className='IconButton' aria-label='Close'>
                 <Cross2Icon />

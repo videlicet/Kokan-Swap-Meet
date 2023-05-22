@@ -74,11 +74,12 @@ function UserSettings(): JSX.Element {
     ],
   }
 
-  async function handleSubmit(changes: any) {
+  async function handleSubmit(data: any) {
     setLoading(true)
+    const { data: changes } = data
     const reqBody = {
       user: { _id: user?._id },
-      update: changes,
+      update: {changes: changes},
     }
 
     try {

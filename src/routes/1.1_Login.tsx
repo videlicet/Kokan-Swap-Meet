@@ -15,7 +15,6 @@ function Login(): JSX.Element {
   const [signup, setSignup] = useState<boolean>(false)
   const [gitHubUser, setGitHubUser] = useState<any>({}) // TD typing
   const { user, setUser } = useContext<any>(UserContext)
-  let verificationCode = useRef<number>()
 
   useEffect(() => {
     const queryString = window.location.search
@@ -70,7 +69,7 @@ function Login(): JSX.Element {
               }
             } catch (err) {
               console.log('No GitHub user found')
-              window.location.assign(`https://github.com/join`)
+              setLoading(false)
             }
           }
           let user = await getGitHubUser()
@@ -100,7 +99,8 @@ function Login(): JSX.Element {
             console.log('No GitHub user found')
           }
         }
-        return
+        setLoading(false)
+        return console.log("– GitHub authentication failed")
       }
       gitHubAuthenticate()
     }
@@ -115,27 +115,6 @@ function Login(): JSX.Element {
       }&scope=repo`, // scope: https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps#requested-scopes-and-granted-scopes
     )
     setLoading(false)
-  }
-
-  async function sendVerificationEmail() {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth/email`, {
-        method: 'POST',
-        body: JSON.stringify({
-          username: "videlicet", // TD user.username
-          email: 'info@c-bornemann.eu', // TD user.email
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-      })
-      if (res.status === 200) {
-        // show sth that the email was sent
-      }
-    } catch (err) {
-      // TD errorHandling
-    }
   }
 
   return (
