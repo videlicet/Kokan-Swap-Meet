@@ -1,5 +1,5 @@
-import { useState, useEffect, useContext, ChangeEvent, FormEvent } from 'react'
-import { NavLink, useOutletContext } from 'react-router-dom'
+import { useState, useEffect, useContext } from 'react'
+import { NavLink } from 'react-router-dom'
 import '../styles/2_User.css'
 import brand_icon from '../assets/kokan_icon_w.png'
 

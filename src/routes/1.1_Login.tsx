@@ -28,7 +28,9 @@ function Login(): JSX.Element {
           console.log('GitHub authentication:')
           try {
             const res = await fetch(
-              `${import.meta.env.VITE_SERVER_URL}auth/gitHub?code=${gitHubParam}`,
+              `${
+                import.meta.env.VITE_SERVER_URL
+              }auth/gitHub?code=${gitHubParam}`,
               {
                 headers: {
                   'Content-Type': 'application/json',
@@ -96,7 +98,7 @@ function Login(): JSX.Element {
             }
             setLoading(false)
           } catch (err) {
-             console.log('No GitHub user found')
+            console.log('No GitHub user found')
           }
         }
         return setLoading(false)
@@ -148,7 +150,13 @@ function Login(): JSX.Element {
                 setUser={setUser}
               />
             )) ||
-            (signup && <SignUp gitHubUser={gitHubUser} setSignup={setSignup} setLogin={setLogin}/>)}
+            (signup && (
+              <SignUp
+                gitHubUser={gitHubUser}
+                setSignup={setSignup}
+                setLogin={setLogin}
+              />
+            ))}
         </>
       ) : (
         <span>Loading</span>

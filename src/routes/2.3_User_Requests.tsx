@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { NavLink, Outlet, useOutletContext } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
 import '../styles/2.3_User_Request.css'
 
 /* context */
