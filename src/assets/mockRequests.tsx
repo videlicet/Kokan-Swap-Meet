@@ -41,6 +41,6 @@ export interface RequestInterface { //rename
     created: string,
     status: string,
     requestees_username: string[],
-    rqeuester_username: string,
+    requester_username: string,
     asset_data: any // TD typing
   }

@@ -2,9 +2,7 @@ import React, { useState, useEffect, useContext, useRef } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 
 /* import components */
-import AlertDialogRequest, {
-  AlertDialogRequestContent,
-} from './AlertDialogRequest'
+import AlertDialogRequest from './AlertDialogRequest'
 
 /* import context */
 import { UserContext, PortalContext } from '../routes/1_App'
@@ -12,10 +10,14 @@ import { UserContext, PortalContext } from '../routes/1_App'
 /* import types */
 import { RequestInterface } from '../assets/mockRequests'
 
+/* import request dialog content */
+import {
+  alertDialogRequestContentAccept,
+  alertDialogRequestContentDecline,
+} from '../components/RequestDialogs.tsx'
+
 interface Request {
   requestProps: RequestInterface
-  alertDialogRequestContentAccept: AlertDialogRequestContent
-  alertDialogRequestContentDecline: AlertDialogRequestContent
   index: number
 }
 
@@ -23,7 +25,6 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
   const navigate = useNavigate()
   const { user, setUser } = useContext<any>(UserContext)
   const { portalContainer } = useContext<any>(PortalContext)
-  console.log(props.requestProps)
 
   async function onConfirm(reaction: string) {
     try {
@@ -41,7 +42,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         /* update ownership of asset */
         await fetch(
           `${import.meta.env.VITE_SERVER_URL}assets/${
-            props.requestProps.asset_id
+            props.requestProps.asset_data
           }`,
           {
             method: 'PUT',
@@ -110,7 +111,6 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         console.log(requester_username)
         console.log(asset_gitHub_repo)
 
-
         /* add requester as GitHub collaborator on repo */
         addCollaborator(user.username, requester_username, asset_gitHub_repo) // TD parameters to github names
 
@@ -153,7 +153,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
       console.log(aggregatedTransaction)
       return aggregatedTransaction
     } catch (err) {
-      console.log('Aggregation failed')
+      console.log('Aggregation failed.')
     }
   }
 
@@ -188,36 +188,38 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
 
   return (
     <div
-      className={dynamicRequestStyle(props.requestProps.status)}
+      className={dynamicRequestStyle(props.requestProps?.status)}
       key={props.index}
     >
       <div className='header'>
         <span className='title'>
-          <NavLink to={`/assets/${props.requestProps.asset_id._id}`}>
-            {props.requestProps.asset_id.title}
+          <NavLink to={`/assets/${props.requestProps?.asset_data._id}`}>
+            {props.requestProps?.asset_data.title}
           </NavLink>{' '}
           requested by{' '}
-          <NavLink to={`/user/${props.requestProps.requester.username}/assets`}>
-            {props.requestProps.requester.username}
+          <NavLink
+            to={`/user/${props.requestProps?.requester_username}/assets`}
+          >
+            {props.requestProps?.requester_username}
           </NavLink>
         </span>
       </div>
       <div className='description'>
         <span>
-          User {props.requestProps.requester.username} requests a swap for your
-          asset {props.requestProps.asset_id.title}.
+          User {props.requestProps?.requester_username} requests a swap for your
+          asset {props.requestProps?.asset_data.title}.
         </span>
       </div>
-      {props.requestProps.status === 'pending' && (
+      {props.requestProps?.status === 'pending' && (
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <AlertDialogRequest
             portalContainer={portalContainer}
-            content={props.alertDialogRequestContentAccept}
+            content={alertDialogRequestContentAccept}
             onConfirm={() => onConfirm('accepted')}
           />
           <AlertDialogRequest
             portalContainer={portalContainer}
-            content={props.alertDialogRequestContentDecline}
+            content={alertDialogRequestContentDecline}
             onConfirm={() => onConfirm('declined')}
           />
         </div>

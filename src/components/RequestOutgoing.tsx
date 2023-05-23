@@ -12,12 +12,15 @@ import { RequestInterface } from '../assets/mockRequests'
 /* import context */
 import { PortalContext } from '../routes/1_App'
 
+/* import request dialog content */
+import {
+  alertDialogRequestContentDelete
+} from '../components/RequestDialogs.tsx'
+
 interface Request {
   requestProps: RequestInterface
-  alertDialogRequestContent: AlertDialogRequestContent
   index: number
   username: string
-  portalContainer: any // TD type
 }
 
 /* change style of request depending on status */
@@ -85,7 +88,7 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
       {props.requestProps?.status === 'pending' && (
         <AlertDialogRequest
           portalContainer={portalContainer}
-          content={props.alertDialogRequestContent}
+          content={alertDialogRequestContentDelete}
           onConfirm={onConfirm}
         />
       )}
