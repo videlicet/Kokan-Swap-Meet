@@ -76,10 +76,10 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
           <NavLink to={`/assets/${props.requestProps?.asset_id._id}`}>
             {props.requestProps?.asset_id.title}
           </NavLink>{' '}
-          from user{' '}
-          <NavLink to={`/user/${props.requestProps?.requestee.username}`}>
-            {props.requestProps?.requestee.username}
-          </NavLink>
+          from users:{' '}
+          {props.requestProps?.requestees_username.map((username: string, index: number) => (
+            <NavLink to={`/user/${username}`}>{username}{index+1 !== props.requestProps?.requestees_username.length ? ", " : "."}</NavLink>
+          ))}
         </span>
       </div>
       {props.requestProps?.status === 'pending' && (

@@ -96,11 +96,10 @@ function Login(): JSX.Element {
             }
             setLoading(false)
           } catch (err) {
-            console.log('No GitHub user found')
+             console.log('No GitHub user found')
           }
         }
-        setLoading(false)
-        return console.log("– GitHub authentication failed")
+        return setLoading(false)
       }
       gitHubAuthenticate()
     }

@@ -38,6 +38,7 @@ function AssetsDetail(): JSX.Element {
       if (res.status == 200) {
         const asset = await res.json()
 
+        /* set aliases for usernames */
         asset.aliases = { creator: '', owners: [] }
 
         /* get username aliases from creator id */
@@ -52,7 +53,8 @@ function AssetsDetail(): JSX.Element {
           },
         )
         if (creator.status === 200) {
-          const { username } = await creator.json()
+          const [user] = await creator.json()
+          const { username } = user
           asset.aliases.creator = username
         } else if (creator.status === 404) {
           asset.aliases.creator = 'Deleted User'
@@ -60,18 +62,19 @@ function AssetsDetail(): JSX.Element {
 
         /* get usernames aliases from owner ids */
         const aliasesOwners = await Promise.all(
-          asset.owners.map(async (owner: string) => {
-            const user = await fetch(
-              `${import.meta.env.VITE_SERVER_URL}users/${owner}`,
+          asset.owners.map(async (user: string) => {
+            const res = await fetch(
+              `${import.meta.env.VITE_SERVER_URL}users/${user}`,
               {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ user: { _id: owner } }),
+                body: JSON.stringify({ user: { _id: user } }),
               },
             )
-            const { username } = await user.json()
+            const [ owner ] = await res.json()
+            const { username } = owner
             return username
           }),
         )
@@ -175,9 +178,12 @@ function AssetsDetail(): JSX.Element {
     asset?.created.slice(8, 10),
   ].join('/')
 
-  const pricey = (user?.kokans < asset?.kokans) ? {
-    backgroundColor: "grey",
-  } : undefined 
+  const pricey =
+    user?.kokans < asset?.kokans
+      ? {
+          backgroundColor: 'grey',
+        }
+      : undefined
 
   return (
     <div id='asset-container'>
@@ -186,7 +192,9 @@ function AssetsDetail(): JSX.Element {
           <div className='header'>
             <div>
               <span className='title'>{asset.title}</span>
-              <span className='kokans' style={pricey}>{asset.kokans}</span>
+              <span className='kokans' style={pricey}>
+                {asset.kokans}
+              </span>
               <span>
                 &nbsp;&nbsp;by&nbsp;
                 {(asset.aliases.creator !== 'Deleted User' && (
@@ -199,16 +207,14 @@ function AssetsDetail(): JSX.Element {
               <div style={{ color: 'grey' }}> {assetCreated}</div>
             </div>
             <div className='interaction'>
-              {user &&
-                !asset.aliases?.owners.includes(user.username) &&
-                (
-                  <AlertDialogAssetSwap
-                    portalContainer={portalContainer}
-                    price={asset?.kokans}
-                    onSwap={onSwap}
-                    disabled={user.kokans < asset.kokans ? true : false}
-                  />
-                )}
+              {user && !asset.aliases?.owners.includes(user.username) && (
+                <AlertDialogAssetSwap
+                  portalContainer={portalContainer}
+                  price={asset?.kokans}
+                  onSwap={onSwap}
+                  disabled={user.kokans < asset.kokans ? true : false}
+                />
+              )}
               {user && asset.aliases.creator == user.username && (
                 <AlertDialogAssetDelete
                   portalContainer={portalContainer}
@@ -216,7 +222,7 @@ function AssetsDetail(): JSX.Element {
                   onDelete={onDelete}
                 />
               )}
-              {user && (asset.owners.includes(user._id)) && (
+              {user && asset.owners.includes(user._id) && (
                 <AlertDialogAssetOffer
                   portalContainer={portalContainer}
                   title={asset?.title}

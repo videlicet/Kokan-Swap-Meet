@@ -47,20 +47,23 @@
   width: 100%;
 }
 
-#user-assets .title, #assets .title {
+#user-assets .title,
+#assets .title {
   font-size: xx-large;
   overflow-wrap: anywhere;
 }
 
-#user-assets .kokans, #assets .kokans {
+#user-assets .kokans,
+#assets .kokans {
   border-radius: 100px;
   background-color: var(--main-color-yellow);
   padding: 0.3rem;
-  vertical-align: top; 
+  vertical-align: top;
   color: rgb(0, 0, 0);
 }
 
-#user-assets .licence, #assets .licence  {
+#user-assets .licence,
+#assets .licence {
   border-radius: 15px;
   background-color: black;
   padding: 0.5rem 0.5rem;
@@ -99,5 +102,6 @@
   align-items: left;
   margin: 1rem 0;
   width: 100%;
+  font-size: small;
   gap: 1rem;
 }

@@ -64,9 +64,17 @@ function User(): JSX.Element | undefined {
                   }}
                 />
               </div>
-              <div>Assets: TD_sth.length()</div>
-              <div>Incoming requests: TD_sth.length()</div>
-              <div>Outgoing requests: TD_sth.length()</div>
+              <div>Total assets: {user?.asset_count}</div>
+              <div>Assets on offer: {user?.asset_count}</div>
+              <div>
+                Pending incoming requests:{' '}
+                {user?.requests_incoming_count_pending}
+              </div>
+              <div>
+                Pending Outgoing requests:{' '}
+                {user?.requests_outgoing_count_pending}
+              </div>
+              <div>Memmber since: {user.created}</div>
             </div>
           </div>
         )}

@@ -103,9 +103,9 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         const [aggregatedTransactions] = await aggregateTransactions(
           props.requestProps._id,
         )
-        const { requester_username, requestee_username, asset_gitHub_repo } =
+        const { requester_username, requestees_username, asset_gitHub_repo } =
           aggregatedTransactions
-        console.log(requestee_username)
+        console.log(requestees_username)
         console.log(requester_username)
         console.log(asset_gitHub_repo)
 

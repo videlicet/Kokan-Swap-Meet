@@ -1,7 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { CheckCircledIcon } from '@radix-ui/react-icons'
+import { getUser } from '../modules/Authenticator'
+
+/* context */
+import { UserContext } from '../routes/1_App'
 
 interface Props {
   usernameHandle: string
@@ -11,6 +15,7 @@ interface Props {
 
 function LoginComponent(props: Props): JSX.Element {
   const [error, setError] = useState(null)
+  const { user, setUser } = useContext<any>(UserContext)
   const navigate = useNavigate()
   const {
     register,
@@ -35,17 +40,16 @@ function LoginComponent(props: Props): JSX.Element {
         credentials: 'include',
       })
       if (res.status === 200) {
-        const user = await res.json()
-        props.setUser(user)
-        props.setLoading(false)
-        navigate(`/user/${user?.username}/assets`)
+        await getUser(setUser, navigate, 'dashboard').then(() => {
+          props.setLoading(false)
+        })
       } else {
         props.setLoading(false)
         setError(true)
       }
-    } catch (error) {
-      // td
-      console.log('error')
+    } catch (err) {
+      console.log('Login failed.')
+      console.log(err)
     }
   }
 

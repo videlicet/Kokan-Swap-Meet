@@ -15,8 +15,6 @@ function EmailVerfication(): JSX.Element {
     const urlParams = new URLSearchParams(queryString)
     const verificationCodeParam = urlParams.get('vcode')
     const userCodeParam = urlParams.get('user')
-    console.log(verificationCodeParam)
-    console.log(userCodeParam)
     if (verificationCodeParam && userCodeParam) {
       try {
         const res = await fetch(

@@ -30,8 +30,6 @@ const Asset: React.FC<Asset> = (props: Asset) => {
         }
       : undefined
 
-  console.log(pathname)
-
   return (
     <div className='asset' key={props.index}>
       <div className='left'>

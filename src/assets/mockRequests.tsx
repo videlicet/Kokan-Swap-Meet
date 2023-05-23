@@ -39,5 +39,7 @@ export interface RequestInterface { //rename
     requester: string | any, // "any" in case the requester is overwritten with a fetched object
     requestee: string | any, // "any" in case the requestee is overwritten with a fetched object 
     created: string,
-    status: string
+    status: string,
+    requestees_username: string[],
+    rqeuester_username: string
   }
