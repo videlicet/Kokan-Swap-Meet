@@ -23,7 +23,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
   const navigate = useNavigate()
   const { user, setUser } = useContext<any>(UserContext)
   const { portalContainer } = useContext<any>(PortalContext)
-  console.log(props)
+  console.log(props.requestProps)
 
   async function onConfirm(reaction: string) {
     try {
@@ -100,6 +100,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         })
 
         /* aggregate a transaction with the relevant usernames of requester and requestees and the gitHub repo name*/
+        // TH this should be done on the parent component, right?
         const [aggregatedTransactions] = await aggregateTransactions(
           props.requestProps._id,
         )

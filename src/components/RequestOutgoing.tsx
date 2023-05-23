@@ -65,16 +65,16 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
       <div className='header'>
         <span className='title'>
           Request for{' '}
-          <NavLink to={`/assets/${props.requestProps?.asset_id._id}`}>
-            {props.requestProps?.asset_id.title}
+          <NavLink to={`/assets/${props.requestProps?.asset_data._id}`}>
+            {props.requestProps?.asset_data.title}
           </NavLink>
         </span>
       </div>
       <div className='description'>
         <span>
           You requested{' '}
-          <NavLink to={`/assets/${props.requestProps?.asset_id._id}`}>
-            {props.requestProps?.asset_id.title}
+          <NavLink to={`/assets/${props.requestProps?.asset_data._id}`}>
+            {props.requestProps?.asset_data.title}
           </NavLink>{' '}
           from users:{' '}
           {props.requestProps?.requestees_username.map((username: string, index: number) => (
