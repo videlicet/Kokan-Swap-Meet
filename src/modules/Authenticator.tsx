@@ -38,3 +38,24 @@ export const getUser = async (
     }
   })
 }
+
+export const redirectDashboard = (username: any, navigate: any) => {
+  navigate(`/user/${username}`)
+}
+
+export const fetchOtherUser = async (id: string) => {
+  let res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${id}`, {
+    method: 'POST',
+    body: JSON.stringify({
+      username: id,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+  })
+  if (res.status === 200) {
+    let otherUser = await res.json()
+    return otherUser
+  }
+}

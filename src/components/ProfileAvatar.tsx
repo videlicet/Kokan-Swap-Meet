@@ -3,7 +3,8 @@ import * as Avatar from '@radix-ui/react-avatar'
 import './ProfileAvatar.css'
 
 interface profilePicture {
-  user: {
+  otherUser?: any
+  user?: {
     username: string
     first_name: string
     last_name: string
@@ -16,11 +17,14 @@ const ProfileAvatar: React.FC<profilePicture> = (props: profilePicture) => (
     <Avatar.Root className='AvatarRoot'>
       <Avatar.Image
         className='AvatarImage'
-        src={props.user.pictureURL}
-        alt={props.user.username}
+        src={props.otherUser?.pictureURL || props.user?.pictureURL}
+        alt={props.otherUser?.username || props.user?.username}
       />
-      <Avatar.Fallback className='AvatarFallback' >
-        <div>{props.user.first_name[0] + props.user.last_name[0]}</div>
+      <Avatar.Fallback className='AvatarFallback'>
+        <div>
+          {props.otherUser?.first_name[0] + props.otherUser?.last_name[0] ||
+            props.user?.first_name[0] + props.user?.last_name[0]}
+        </div>
       </Avatar.Fallback>
     </Avatar.Root>
   </div>

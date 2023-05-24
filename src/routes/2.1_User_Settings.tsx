@@ -1,6 +1,6 @@
-// @ts-nocheck
+/** // @ts-nocheck */
 import { useState, useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useOutletContext, useParams } from 'react-router-dom'
 import '../styles/2.1_User_Settings.css'
 
 /* import components */
@@ -19,15 +19,21 @@ const tooltipProfilePicture =
   'Kokan uses your GitHub profile picture by default. You can upload a different profile picture here.'
 
 /*modules*/
-import { getUser } from '../modules/Authenticator'
+import { getUser, redirectDashboard } from '../modules/Authenticator'
 
 function UserSettings(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const { user, setUser } = useContext<any>(UserContext)
   const { portalContainer } = useContext<any>(PortalContext)
+  const {id} = useParams();
 
   const navigate = useNavigate()
+
+  console.log("id")
+  console.log(id)
+
+  if (id !== user?.username) redirectDashboard(id, navigate)
 
   const DialogPassword = {
     title: 'password',
@@ -139,6 +145,7 @@ function UserSettings(): JSX.Element {
     event.preventDefault()
 
     /* get uploaded image */
+    // @ts-ignore // TD typing
     const inputElement = document?.getElementById('profile-picture')?.files[0]
     if (event.target.elements[0].baseURI) {
       /* send image to cloudinary */

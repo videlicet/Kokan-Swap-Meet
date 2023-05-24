@@ -7,8 +7,8 @@ export interface UserInterface {
   kokans: number
   pictureURL: string
   created: string
-  asset_count: 3
-  assets_count_pending: number
+  assets_count: number
+  assets_count_offered: number
   requests_incoming_count_pending: number
   requests_outgoing_count_pending: number
 }

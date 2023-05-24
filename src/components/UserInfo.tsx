@@ -1,9 +1,10 @@
 import { useState, useContext } from 'react'
-import { useNavigate, useOutletContext } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import '../styles/2_User.css'
 import brand_icon from '../assets/kokan_icon_w.png'
 
 /* import components */
+import { ExternalLinkIcon } from '@radix-ui/react-icons'
 import ProfileAvatar from '../components/ProfileAvatar'
 
 /* context */
@@ -18,12 +19,22 @@ function UserInfo(props?: Props): JSX.Element {
   const [error, setError] = useState(null)
   const { user, setUser } = useContext<any>(UserContext)
   const navigate = useNavigate()
+  const otherUser = props.otherUser
 
   return (
     <div id='user-info-container'>
-
+      <ProfileAvatar user={otherUser || user}></ProfileAvatar>
       <div style={{ color: 'var(--main-color-yellow)' }}>
         {props.otherUser?.username || user?.username}
+        <a
+          href={`https://github.com/${
+            props.otherUser?.username || user?.username
+          }`}
+          target='_blank'
+        >
+          &nbsp;
+          <ExternalLinkIcon />
+        </a>
       </div>
       <div id='user-info'>
         {!props.otherUser && (
@@ -42,22 +53,24 @@ function UserInfo(props?: Props): JSX.Element {
           </div>
         )}
         <div>
-          Total assets: {props.otherUser?.asset_count || user?.asset_count}
+          <span>
+            Assets:{' '}
+            {props.otherUser?.assets_count_offered ||
+              user?.assets_count_offered}
+            {!props.otherUser && <span>/{user?.assets_count}</span>}{' '}
+            (offered{!props.otherUser && <span>/total</span>})
+          </span>
         </div>
-        <div>
-          Assets on offer:{' '}
-          {props.otherUser?.asset_count_pending || user?.asset_count_pending}
-        </div>
-        <div>
-          Pending incoming requests:{' '}
-          {props.otherUser?.requests_incoming_count_pending ||
-            user?.requests_incoming_count_pending}
-        </div>
-        <div>
-          Pending Outgoing requests:{' '}
-          {props.otherUser?.requests_outgoing_count_pending ||
-            user?.requests_outgoing_count_pending}
-        </div>
+        {!props.otherUser && (
+          <div>
+            Pending incoming requests: {user?.requests_incoming_count_pending}
+          </div>
+        )}
+        {!props.otherUser && (
+          <div>
+            Pending Outgoing requests: {user?.requests_outgoing_count_pending}
+          </div>
+        )}
         <div>Memmber since: {user?.created || user?.created}</div>
       </div>
     </div>
@@ -67,5 +80,5 @@ function UserInfo(props?: Props): JSX.Element {
 export default UserInfo
 
 /*
-      <ProfileAvatar user={props.otherUser || user}></ProfileAvatar>
+
 */
