@@ -15,12 +15,13 @@ function User(): JSX.Element | undefined {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const { user, setUser } = useContext<any>(UserContext)
-  let otherUser = useRef<any>() //
+  const [otherUser, setOtherUser] = useState()
   const [auth, setAuth] = useState(false)
   const navigate = useNavigate()
-  const { id } = useParams() as any // throws error without
+  const { id } = useParams<string>() //as any // throws error without
 
   useEffect(() => {
+    console.log('useEffect')
     setLoading(true)
     authenticate()
       .then((res) => {
@@ -31,20 +32,22 @@ function User(): JSX.Element | undefined {
         /* fetch info about other user if 
         url param (id) and username differs */
         if (id !== user?.username) {
+
           fetchOtherUser(id).then((res) => {
             const [userD] = res
             console.log(userD)
-            otherUser.current = userD
+            setOtherUser(userD)
           })
         }
+        navigate(`assets`)
       })
       .catch((err) => {
         console.log(err)
         navigate('/login')
       })
     setLoading(false)
+
     // TD move this function to a utils
-    
     async function fetchOtherUser(id: string) {
       let res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${id}`, {
         method: 'POST',
@@ -63,25 +66,22 @@ function User(): JSX.Element | undefined {
     }
   }, [])
 
-  console.log('otherUser:::')
-  console.log(otherUser?.current)
-
   if (auth === true)
     return (
       <div id='user-container'>
         {!loading && (
           <>
             <div id='user-outlet'>
-              {id === user?.username ? (
+              {id === user?.username ? ( // TD can't his be combined?
                 <Outlet />
               ) : (
-                <Outlet context={[otherUser?.current]} />
+                <Outlet context={[otherUser]} />
               )}
             </div>
-            {id === user?.username ? (
+            {id === user?.username ? ( // TD can't his be combined?
               <UserInfo />
             ) : (
-              <UserInfo otherUser={otherUser?.current} />
+              <UserInfo otherUser={otherUser} />
             )}
           </>
         )}

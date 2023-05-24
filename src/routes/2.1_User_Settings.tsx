@@ -1,6 +1,5 @@
-/** // @ts-nocheck */
 import { useState, useContext } from 'react'
-import { useNavigate, useOutletContext, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import '../styles/2.1_User_Settings.css'
 
 /* import components */
@@ -27,11 +26,7 @@ function UserSettings(): JSX.Element {
   const { user, setUser } = useContext<any>(UserContext)
   const { portalContainer } = useContext<any>(PortalContext)
   const {id} = useParams();
-
   const navigate = useNavigate()
-
-  console.log("id")
-  console.log(id)
 
   if (id !== user?.username) redirectDashboard(id, navigate)
 

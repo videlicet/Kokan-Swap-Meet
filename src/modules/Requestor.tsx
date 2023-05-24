@@ -10,11 +10,9 @@ export async function getUserRequests(
   /* getUserRequests is used by two client functions that query different documents */
   switch (criterion) {
     case 'requester':
-      console.log('requester')
       query = { query: 'requester', user: { _id: user._id } }
       break
     case 'requestee':
-      console.log('requestee')
       query = { query: 'requestee', user: { _id: user._id } }
       break
   }

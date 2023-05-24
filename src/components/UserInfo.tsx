@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../styles/2_User.css'
 import brand_icon from '../assets/kokan_icon_w.png'
@@ -19,7 +19,12 @@ function UserInfo(props?: Props): JSX.Element {
   const [error, setError] = useState(null)
   const { user, setUser } = useContext<any>(UserContext)
   const navigate = useNavigate()
+  const [renderTrigger, setRenderTrigger] = useState(false)
   const otherUser = props.otherUser
+
+  useEffect(() => {
+    setRenderTrigger(!renderTrigger)
+  }, [])
 
   return (
     <div id='user-info-container'>
@@ -39,7 +44,7 @@ function UserInfo(props?: Props): JSX.Element {
       <div id='user-info'>
         {!props.otherUser && (
           <div>
-            Current balance: {user?.kokans}
+            Kokans: {user?.kokans}
             <img
               src={brand_icon}
               alt='kokans'
@@ -48,6 +53,7 @@ function UserInfo(props?: Props): JSX.Element {
                 position: 'relative',
                 top: '0.3rem',
                 marginLeft: '0.2rem',
+                zIndex: 0
               }}
             />
           </div>
@@ -57,21 +63,22 @@ function UserInfo(props?: Props): JSX.Element {
             Assets:{' '}
             {props.otherUser?.assets_count_offered ||
               user?.assets_count_offered}
-            {!props.otherUser && <span>/{user?.assets_count}</span>}{' '}
-            (offered{!props.otherUser && <span>/total</span>})
+            {!props.otherUser && <span>/{user?.assets_count}</span>}
+            <span style={{ color: 'grey' }}>
+              {' '}
+              (offered
+              {!props.otherUser && <span>/total</span>})
+            </span>
           </span>
         </div>
         {!props.otherUser && (
-          <div>
-            Pending incoming requests: {user?.requests_incoming_count_pending}
-          </div>
+          <span>
+            Pending requests: {user?.requests_incoming_count_pending}/
+            {user?.requests_outgoing_count_pending}{' '}
+            <span style={{ color: 'grey' }}>(incoming/outgoing)</span>
+          </span>
         )}
-        {!props.otherUser && (
-          <div>
-            Pending Outgoing requests: {user?.requests_outgoing_count_pending}
-          </div>
-        )}
-        <div>Memmber since: {user?.created || user?.created}</div>
+        <div>Member since {user?.created || user?.created}</div>
       </div>
     </div>
   )
