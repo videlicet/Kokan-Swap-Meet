@@ -1,5 +1,4 @@
 import { useState, useContext, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import '../styles/2_User.css'
 import brand_icon from '../assets/kokan_icon_w.png'
 
@@ -18,7 +17,6 @@ function UserInfo(props?: Props): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const { user, setUser } = useContext<any>(UserContext)
-  const navigate = useNavigate()
   const [renderTrigger, setRenderTrigger] = useState(false)
   const otherUser = props.otherUser
 

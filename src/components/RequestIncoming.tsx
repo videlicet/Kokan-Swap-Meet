@@ -105,14 +105,10 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         const [aggregatedTransactions] = await aggregateTransactions(
           props.requestProps._id,
         )
-        const { requester_username, requestees_username, asset_gitHub_repo } =
-          aggregatedTransactions
-        console.log(requestees_username)
-        console.log(requester_username)
-        console.log(asset_gitHub_repo)
+        console.log(aggregatedTransactions)
 
         /* add requester as GitHub collaborator on repo */
-        addCollaborator(user.username, requester_username, asset_gitHub_repo) // TD parameters to github names
+        addCollaborator(user.username, aggregatedTransactions.requester_username, aggregatedTransactions.asset_data.gitHub_repo) // TD parameters to github names
 
         navigate(`/user/${user.username}/requests/incoming`)
       }
@@ -163,6 +159,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
     requesterGitHub: string,
     gitHubRepo: string,
   ) {
+    console.log(requesteeGitHub, requesterGitHub, gitHubRepo)
     // TD wrap in try/catch
     let res = await fetch(
       `${import.meta.env.VITE_SERVER_URL}auth/gitHub/addCollaborator`,
