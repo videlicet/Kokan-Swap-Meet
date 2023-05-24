@@ -3,6 +3,10 @@
   outline: none;
 }
 
+.aasdf {
+  width: fit-content;
+}
+
 a {
   text-decoration: none;
   color: var(--main-text-color);
@@ -28,7 +32,7 @@ button:hover, .button-like:hover, input[type='submit']:hover {
 
 input[type='text'], input[type='number'],  input[type='password']  {
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
     background-color: black;
     box-sizing: border-box;
     padding: 0.3rem 1rem;
@@ -100,7 +104,7 @@ input:disabled {
 #header .navbar-element {
   display: flex;
   align-items: center;
-  border-radius: 15px;
+  border-radius: 10px;
   background-color: black;
   height: 100%;
   padding: 0 1rem;
@@ -130,7 +134,7 @@ input:disabled {
 .search-submit {
   z-index: 0;
   display: flex;
-  border-radius: 15px 15px 15px 0;
+  border-radius: 10px 9px 9px 0;
   padding-left: 0.3rem;
   line-height: 1;
 }

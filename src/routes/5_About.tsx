@@ -12,7 +12,7 @@ function About(): JSX.Element {
           necessitatibus voluptatum! Dolor, officia sapiente voluptate animi
           eius quos delectus quasi atque!
         </p>
-        <a>
+        <a href='https://github.com/videlicet/Kokan-Swap-Meet' target='_blank'>
           <ExternalLinkIcon />
           &nbsp;GitHub Repository
         </a>

@@ -86,33 +86,37 @@ function App(): JSX.Element {
 
             <nav id='header'>
               <div className='navbar'>
-                <form
-                  onSubmit={handleSearch}
-                  className='navbar-element'
-                  style={{
-                    height: '100%',
-                    width: '40%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    paddingRight: 0,
-                  }}
+                <div
+                  style={{ display: 'flex', gap: '1rem'}}
                 >
-                  <input
-                    className='search-bar'
-                    onChange={handleChangeSearchTerm}
-                    type='text'
-                    value={searchTerm}
-                    placeholder='Search assets'
-                  ></input>
-                  <button
-                    type='submit'
-                    className='search-submit'
-                    style={{ padding: '0.3rem 0.9rem' }}
+                  <button style={{ fontSize: 'medium' }}>Swap-Meet</button>
+                  
+                  <form
+                    onSubmit={handleSearch}
+                    className='navbar-element'
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      paddingRight: 0,
+                    }}
                   >
-                    <MagnifyingGlassIcon className='search-icon' />
-                    <span className='search-span'>search</span>
-                  </button>
-                </form>
+                    <input
+                      onChange={handleChangeSearchTerm}
+                      style={{width: "25rem"}}
+                      type='text'
+                      value={searchTerm}
+                      placeholder='Search assets'
+                    ></input>
+                    <button
+                      type='submit'
+                      className='search-submit'
+                      style={{ padding: '0.3rem 0.9rem' }}
+                    >
+                      <MagnifyingGlassIcon className='search-icon' />
+                      <span className='search-span'>search</span>
+                    </button>
+                  </form>
+                </div>
                 {user && (
                   <div className='navbar-element hover'>
                     <NavLink to='assets/new' style={{ color: 'inherit' }}>

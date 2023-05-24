@@ -91,7 +91,6 @@ function Login(): JSX.Element {
               },
             )
             if (res.status === 200) {
-              //const userDB = await res.json()
               setLogin(true)
             } else if (res.status === 404) {
               setSignup(true)

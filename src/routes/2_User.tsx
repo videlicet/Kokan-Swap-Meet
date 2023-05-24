@@ -21,7 +21,6 @@ function User(): JSX.Element | undefined {
   const { id } = useParams<string>() //as any // throws error without
 
   useEffect(() => {
-    console.log('useEffect')
     setLoading(true)
     authenticate()
       .then((res) => {
@@ -35,7 +34,6 @@ function User(): JSX.Element | undefined {
 
           fetchOtherUser(id).then((res) => {
             const [userD] = res
-            console.log(userD)
             setOtherUser(userD)
           })
         }
