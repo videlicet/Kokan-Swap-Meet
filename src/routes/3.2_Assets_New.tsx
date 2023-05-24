@@ -1,10 +1,11 @@
 // @ts-nocheck
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm, Controller } from 'react-hook-form'
 import '../styles/3.2_Assets_New.css'
 
 /* import components */
+import { CheckIcon, Cross1Icon } from '@radix-ui/react-icons'
 import SelectLicence from '../components/SelectLicense.tsx'
 import TooltipInfo from '../components/Tooltip.tsx'
 import SliderKokan from '../components/SliderKokan.tsx'
@@ -15,6 +16,8 @@ import AlertDialogCreateNew from '../components/AlertDialogCreateNew.tsx'
 import { PortalContext, UserContext } from './1_App'
 
 /* toolTips */
+const tooltipsRepo =
+  'Provide the name of the GitHub repository you want to link to your Kokan account. You will need to check if that repo exists before creating your asset.'
 const tooltipTitle = 'Provide a title. Minimum 10, maximum 50 characters.'
 const tooltipShortDescription =
   'Provide a short description for your asset. Minimum 50, maximum 160 characters.'
@@ -23,8 +26,6 @@ const tooltipLongDescription =
 const tooltipsKokans = 'Choose your Kokan value from 1 to 5 Kokans.'
 const tooltipLicense = `Pick a license for your asset.
 This helps to ensure you and your swap partner know how they can use your asset.` // TD ideally, this tooltip contains a link to https://choosealicense.com/
-const tooltipsRepo =
-  'Provide the name of the GitHub repository you want to link to your Kokan account.'
 
 /* licenseTypes */
 const licenseTypes = [
@@ -51,12 +52,17 @@ function AssetsNew(): JSX.Element {
     control,
     formState: { errors },
   } = useForm()
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState()
   const [error, setError] = useState(null)
   const [kokans, setKokans] = useState<number>(3)
   const { user, setUser } = useContext<any>(UserContext)
   const { portalContainer } = useContext<any>(PortalContext)
+  const [repoConfirmed, setRepoConfirmed] = useState<string>('pending')
   const navigate = useNavigate()
+
+  useEffect(() => {
+    setRepoConfirmed('pending')
+  }, [watch('repo')])
 
   async function handleFormSubmit(data: any) {
     const { repo, title, descriptionShort, descriptionLong, kokans, license } =
@@ -101,6 +107,36 @@ function AssetsNew(): JSX.Element {
     setValue('kokans', value[0])
   }
 
+  /* check existense of repository */
+  async function checkRepository() {
+    console.log('checkRepository')
+
+    try {
+      let res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}auth/gitHub/repository`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify({
+            owner: user?.username,
+            repository: watch('repo'),
+          }),
+        },
+      )
+      if (res.status === 200) {
+        setRepoConfirmed('confirmed')
+      } else {
+        setRepoConfirmed('rejected')
+        console.log('This repository does not exist on your account.')
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <div id='new-asset-container'>
       <h2>Link New Asset</h2>
@@ -110,33 +146,70 @@ function AssetsNew(): JSX.Element {
         onSubmit={handleSubmit((data) => handleFormSubmit(data))}
         noValidate
       >
-        <div className='text-input' style={{ width: '75%' }}>
+        <div className='text-input' style={{ width: '80%' }}>
           <label htmlFor='repo'>
             GitHub Repository
             <TooltipInfo content={tooltipsRepo} />
           </label>
-          <input
-            {...register('repo', {
-              required: true,
-              minLength: 1,
-              maxLength: 100,
-            })}
-            name='repo'
-            className='new-asset'
-            type='text'
-            placeholder='GitHub Repository'
-            style={{ width: '100%', padding: '0.9rem', fontSize: 'medium', boxSizing: "content-box" }}
-          />
+          <div style={{ display: 'flex', width: '100%', gap: '1rem' }}>
+            <input
+              {...register('repo', {
+                required: {
+                  value: true,
+                  message: 'GitHub Repository name invalid.',
+                },
+                minLength: 1,
+                maxLength: 100,
+                validate: {
+                  checkConfirmed: () =>
+                    repoConfirmed === 'confirmed' ||
+                    (repoConfirmed === 'rejected'
+                      ? 'This repository apparently does not exist on your GitHub account.'
+                      : 'Please verify whether this repository exists on your account.'),
+                },
+              })}
+              name='repo'
+              className='new-asset'
+              type='text'
+              placeholder='GitHub Repository'
+              style={{
+                width: '100%',
+                padding: '0.9rem',
+                fontSize: 'medium',
+                boxSizing: 'border-box',
+              }}
+            />
+            <button
+              onClick={checkRepository}
+              type='button'
+              style={
+                repoConfirmed === 'confirmed'
+                  ? {
+                      backgroundColor: 'var(--main-color-green)',
+                    }
+                  : repoConfirmed === 'rejected'
+                  ? {
+                      backgroundColor: 'var(--main-color-red)',
+                    }
+                  : {}
+              }
+              disabled={
+                repoConfirmed === 'rejected' || repoConfirmed === 'confirmed'
+                  ? true
+                  : false
+              }
+            >
+              {repoConfirmed !== 'rejected' ? <CheckIcon /> : <Cross1Icon />}
+            </button>
+          </div>
           <div>
-            {errors.title && (
-              <span className='validation-error'>
-                GitHub Repository name invalid.
-              </span>
+            {errors.repo && (
+              <span className='validation-error'>{errors.repo?.message}</span>
             )}
           </div>
         </div>
 
-        <div className='text-input' style={{ width: '75%' }}>
+        <div className='text-input' style={{ width: '80%' }}>
           <label htmlFor='title'>
             Asset Title
             <TooltipInfo content={tooltipTitle} />
@@ -151,7 +224,12 @@ function AssetsNew(): JSX.Element {
             className='new-asset'
             type='text'
             placeholder='Title'
-            style={{ width: '100%', padding: '0.9rem', fontSize: 'medium', boxSizing: "content-box" }}
+            style={{
+              width: '100%',
+              padding: '0.9rem',
+              fontSize: 'medium',
+              boxSizing: 'border-box',
+            }}
           />
           <div>
             {watch('title') && 10 - watch('title').length > 0 && (
@@ -165,7 +243,7 @@ function AssetsNew(): JSX.Element {
           </div>
         </div>
 
-        <div className='text-input' style={{ width: '75%' }}>
+        <div className='text-input' style={{ width: '80%' }}>
           <label htmlFor='descriptionShort'>
             Short Description
             <TooltipInfo content={tooltipShortDescription} />
@@ -181,7 +259,7 @@ function AssetsNew(): JSX.Element {
             form='newAsset'
             className='text-area'
             rows={3}
-            style={{ width: '100%' }}
+            style={{ width: '100%', boxSizing: 'border-box' }}
             placeholder='Provide a short description. It will be displayed in the assets overview.'
           />
           <div>
@@ -197,7 +275,7 @@ function AssetsNew(): JSX.Element {
           </div>
         </div>
 
-        <div className='text-input' style={{ width: '75%' }}>
+        <div className='text-input' style={{ width: '80%' }}>
           <label htmlFor='descriptionLong'>
             Long Description
             <TooltipInfo content={tooltipLongDescription} />
@@ -213,7 +291,7 @@ function AssetsNew(): JSX.Element {
             form='newAsset'
             className='text-area'
             rows={8}
-            style={{ width: '100%' }}
+            style={{ width: '100%', boxSizing: 'border-box' }}
             placeholder={`Provide a long description. It will be displayed on your asset's page.`}
           />
           <div>
@@ -233,7 +311,7 @@ function AssetsNew(): JSX.Element {
           <label htmlFor='kokans'>
             Kokans
             <TooltipInfo content={tooltipsKokans} />
-          </label>          
+          </label>
           <input
             {...register('kokans', {
               required: true,
@@ -242,13 +320,13 @@ function AssetsNew(): JSX.Element {
             })}
             name='kokans'
             className='new-asset'
-            from="newAsset"
+            from='newAsset'
             type='number'
             step='1'
             defaultValue={3}
             style={{ display: 'none' }}
           />
-          <SliderKokan handleKokans={handleKokans} kokans={watch('kokans')}/>
+          <SliderKokan handleKokans={handleKokans} kokans={watch('kokans')} />
           {errors.kokans && <p className='validation-error'>Kokans invalid.</p>}
         </div>
 

@@ -26,6 +26,7 @@ const AlertDialogCreateNew: React.FC<createNewAsset> = (
           'descriptionLong',
           'descriptionShort',
           'kokans',
+          'repo',
           'license',
         ])
         setValid(result)

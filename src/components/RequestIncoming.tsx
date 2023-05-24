@@ -27,6 +27,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
   const { portalContainer } = useContext<any>(PortalContext)
 
   async function onConfirm(reaction: string) {
+    console.log("triggered")
     try {
       const res = await fetch(
         `${import.meta.env.VITE_SERVER_URL}transactions/${
@@ -180,7 +181,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
       console.log('add successful')
       const collaborators = await res.json()
       console.log(collaborators)
-    } else console.log('add failed') // TD else action
+    } else console.log('Inviting collaborator failed.') // TD else action
   }
 
   return (

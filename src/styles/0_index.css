@@ -8,6 +8,7 @@
   --main-color-yellow: rgba(253, 187, 45, 1); 
   --main-color-blue: rgba(34,193,195, 0.8); 
   --main-color-green: rgb(91, 128, 73, 1);
+  --main-color-red: rgb(190, 53, 11);
   margin: 0;
   background: var(--main-linear-gradient);
   height: 100%;
