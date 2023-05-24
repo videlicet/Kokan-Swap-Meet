@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useState, useContext } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import '../styles/2.1_User_Settings.css'
@@ -6,6 +7,7 @@ import '../styles/2.1_User_Settings.css'
 import AlertDialogDeleteAccount from '../components/AlertDialogDeleteAccount.tsx'
 import DialogSettingsChange from '../components/DialogSettingsChange.tsx'
 import TooltipInfo from '../components/Tooltip.tsx'
+import AlertDialogImageUpload from '../components/AlertDialogImageUpload.tsx'
 
 /* context */
 import { UserContext, PortalContext } from './1_App'
@@ -25,7 +27,7 @@ function UserSettings(): JSX.Element {
   const [error, setError] = useState(null)
   const { user, setUser } = useContext<any>(UserContext)
   const { portalContainer } = useContext<any>(PortalContext)
-  const {id} = useParams();
+  const { id } = useParams()
   const navigate = useNavigate()
 
   if (id !== user?.username) redirectDashboard(id, navigate)
@@ -75,12 +77,12 @@ function UserSettings(): JSX.Element {
     ],
   }
 
-  async function handleSubmit(data: any) {
+  async function handleSettingsChange(data: any) {
     setLoading(true)
     const { data: changes } = data
     const reqBody = {
       user: { _id: user?._id },
-      update: {changes: changes},
+      update: { changes: changes },
     }
 
     try {
@@ -96,7 +98,6 @@ function UserSettings(): JSX.Element {
         },
       )
       getUser(setUser, navigate)
-
     } catch (err) {
       // TD errorHandling
     }
@@ -135,19 +136,17 @@ function UserSettings(): JSX.Element {
     }
   }
 
-  async function handleImageUpload(event: any) {
+  async function handleImageUpload() {
     // TD type
-    event.preventDefault()
-
     /* get uploaded image */
-    // @ts-ignore // TD typing
-    const inputElement = document?.getElementById('profile-picture')?.files[0]
-    if (event.target.elements[0].baseURI) {
+    const inputElement = document?.getElementById('profile-picture')
+    const file = inputElement?.files[0]
+    if (1 === 1) {
+      // TD logic
       /* send image to cloudinary */
       const formData = new FormData()
-      formData.append('file', inputElement)
+      formData.append('file', file)
       formData.append('upload_preset', 'profile-pictures')
-
       try {
         const image = await fetch(
           `https://api.cloudinary.com/v1_1/${
@@ -158,16 +157,13 @@ function UserSettings(): JSX.Element {
             body: formData,
           },
         )
-
         if (image) {
           /* update profile picture URL for user in DB  */
           const { secure_url: image_URL } = await image.json()
-
           const reqBody = {
             user: { _id: user?._id },
             update: { changes: { pictureURL: image_URL } },
           }
-
           try {
             const res = await fetch(
               `${import.meta.env.VITE_SERVER_URL}users/${user?._id}`,
@@ -180,9 +176,9 @@ function UserSettings(): JSX.Element {
                 body: JSON.stringify(reqBody),
               },
             )
-
             if (res.status === 200) {
-              navigate(`/user/${user?.username}/settings`)
+              inputElement.value = ''
+              getUser(setUser, navigate)
             }
           } catch (err) {}
         }
@@ -229,7 +225,7 @@ function UserSettings(): JSX.Element {
                         portalContainer={portalContainer}
                         user={user}
                         content={DialogName}
-                        onSubmit={handleSubmit}
+                        onSubmit={handleSettingsChange}
                       />
                     </div>
                   </div>
@@ -245,7 +241,7 @@ function UserSettings(): JSX.Element {
                         portalContainer={portalContainer}
                         user={user}
                         content={DialogEmail}
-                        onSubmit={handleSubmit}
+                        onSubmit={handleSettingsChange}
                       />
                     </div>
                   </div>
@@ -263,15 +259,12 @@ function UserSettings(): JSX.Element {
                         portalContainer={portalContainer}
                         user={user}
                         content={DialogPassword}
-                        onSubmit={handleSubmit}
+                        onSubmit={handleSettingsChange}
                       />
                     </div>
                   </div>
 
-                  <form
-                    onSubmit={handleImageUpload}
-                    className='setting-containter'
-                  >
+                  <form id='image-upload' className='setting-containter'>
                     <label htmlFor='profile-picture'>
                       Profile Picture
                       <TooltipInfo content={tooltipProfilePicture} />
@@ -283,7 +276,7 @@ function UserSettings(): JSX.Element {
                         id='profile-picture'
                         accept='.png,.jpg,.jpeg'
                       />
-                      <button type='submit'>Upload</button>
+                      <AlertDialogImageUpload onConfirm={handleImageUpload} />
                     </div>
                   </form>
                 </div>

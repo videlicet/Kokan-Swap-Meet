@@ -145,7 +145,6 @@ function Login(): JSX.Element {
             (login && (
               <LoginComponent
                 usernameHandle={gitHubUser.login}
-                setLoading={setLoading}
                 setUser={setUser}
               />
             )) ||

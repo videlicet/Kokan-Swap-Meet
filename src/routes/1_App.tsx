@@ -47,7 +47,7 @@ function App(): JSX.Element {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [searchTerm, setSearchTerm] = useState<string>()
-  const [searchTermHandle, setSearchTermHandle] = useState('')
+  const [searchTermHandle, setSearchTermHandle] = useState<string>('')
   const [footer, setFooter] = useState(footerContent)
   const [user, setUser] = useState<any>()
   const portal = useRef(null)
@@ -63,7 +63,6 @@ function App(): JSX.Element {
     event.preventDefault()
     setSearchTermHandle(event.target.children[0].value)
     navigate('/')
-    setSearchTerm('')
   }
 
   function handleChangeSearchTerm(event: ChangeEvent<HTMLInputElement>) {
@@ -77,7 +76,13 @@ function App(): JSX.Element {
       <AssetContext.Provider value={{ searchTermHandle, setSearchTermHandle }}>
         <PortalContext.Provider value={{ portal }}>
           <div className='page-container'>
-            <NavLink to='/'>
+            <NavLink
+              to='/'
+              onClick={() => {
+                setSearchTermHandle('')
+                setSearchTerm('')
+              }}
+            >
               <h1 id='brand'>
                 <img id='brand_icon' src={brand_icon} height='50' />
                 okan
@@ -86,11 +91,18 @@ function App(): JSX.Element {
 
             <nav id='header'>
               <div className='navbar'>
-                <div
-                  style={{ display: 'flex', gap: '1rem'}}
-                >
-                  <button style={{ fontSize: 'medium' }}>Swap-Meet</button>
-                  
+                <div style={{ display: 'flex', gap: '1rem', height:"100%"}}>
+                <NavLink className='navbar-element'
+                    to="/"
+                    style={{ fontSize: 'medium' }}
+                    onClick={() => {
+                      setSearchTermHandle('')
+                      setSearchTerm('')
+                    }}
+                  >
+                    Swap-Meet
+                  </NavLink>
+
                   <form
                     onSubmit={handleSearch}
                     className='navbar-element'
@@ -102,7 +114,7 @@ function App(): JSX.Element {
                   >
                     <input
                       onChange={handleChangeSearchTerm}
-                      style={{width: "25rem"}}
+                      style={{ width: '25rem' }}
                       type='text'
                       value={searchTerm}
                       placeholder='Search assets'

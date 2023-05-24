@@ -13,8 +13,8 @@ function Assets(): JSX.Element {
   const [error, setError] = useState(null)
   const [assets, setAssets] = useState([])
   
-  const { user, setUser } = useContext<any>(UserContext)
-  const { searchTermHandle, setSearchTermHandle } = useContext<any>(AssetContext)
+  const { user } = useContext<any>(UserContext)
+  const { searchTermHandle } = useContext<any>(AssetContext)
 
   async function getAssets() {
     try {
@@ -37,15 +37,16 @@ function Assets(): JSX.Element {
 
   useEffect(() => {
     getAssets()
-  }, [])
+  }, [searchTermHandle])
 
   return (
     <div id='assets' className="asset-overview">
-        {assets.map((item: any, index) => (
+      {loading && 'render'}
+        {assets.length > 0 && assets.map((item: any, index) => (
           <NavLink to={`/assets/${item._id}`}>
             <Asset assetProps={item} index={index} user_kokans={user?.kokans}></Asset>
           </NavLink>
-        ))}
+        )) || <div className="asset" style={{height: "5rem"}}>No matching assets.</div>}
     </div>
   )
 }

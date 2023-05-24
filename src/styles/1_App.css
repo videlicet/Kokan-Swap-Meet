@@ -134,7 +134,7 @@ input:disabled {
 .search-submit {
   z-index: 0;
   display: flex;
-  border-radius: 10px 9px 9px 0;
+  border-radius: 10px 9px 9px 10px;
   padding-left: 0.3rem;
   line-height: 1;
 }

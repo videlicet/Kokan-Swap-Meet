@@ -26,7 +26,6 @@ const DialogSettingsChange: React.FC<settingsChange> = (
   const {
     register,
     handleSubmit,
-    watch,
     reset,
     formState: { errors },
   } = useForm()
