@@ -47,7 +47,7 @@ export async function getUserRequests(
   }
 }
 
-async function aggregateTransactions(transaction_id: any) {
+export async function aggregateTransactions(transaction_id: any) { // TD type
   try {
     const res = await fetch(
       `${import.meta.env.VITE_SERVER_URL}transactions/test/users`,

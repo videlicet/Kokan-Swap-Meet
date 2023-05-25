@@ -23,7 +23,7 @@ function UserRequest(): JSX.Element {
   if (id !== user?.username) redirectDashboard(id, navigate)
 
   return (
-      <div id="user-requests"> {/* user-requests */}
+      <div id="user-requests">
         <ul>
             <li>Requests:</li>
             <li><NavLink style={styleNavBar} to="incoming">incoming</NavLink></li>

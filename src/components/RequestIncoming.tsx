@@ -10,6 +10,9 @@ import { UserContext, PortalContext } from '../routes/1_App'
 /* import types */
 import { RequestInterface } from '../assets/mockRequests'
 
+/* import utils */
+import { aggregateTransactions } from '../modules/Requestor.tsx'
+
 /* import request dialog content */
 import {
   alertDialogRequestContentAccept,
@@ -27,7 +30,6 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
   const { portalContainer } = useContext<any>(PortalContext)
 
   async function onConfirm(reaction: string) {
-    console.log("triggered")
     try {
       const res = await fetch(
         `${import.meta.env.VITE_SERVER_URL}transactions/${
@@ -53,12 +55,18 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
               update: {
                 $push: {
                   owners: props.requestProps.requester._id,
-                  brokers: props.requestProps.requester._id,
+                  brokers: props.requestProps.requester._id, //necessary?
                 },
               },
             }),
           },
         )
+        /* new kokan balances */
+        const newRequesteeKokans =
+          user.kokans + props.requestProps.asset_data.kokans
+        const newRequesterKokans =
+          props.requestProps.requester_kokans -
+          props.requestProps.asset_data.kokans
 
         /* update requestee kokans */
         await fetch(`${import.meta.env.VITE_SERVER_URL}users/${user._id}`, {
@@ -68,7 +76,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
             user: { _id: user._id },
             update: {
               changes: {
-                kokans: user.kokans + props.requestProps.asset_id.kokans,
+                kokans: newRequesteeKokans,
               },
             },
           }),
@@ -77,18 +85,16 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         /* update requester kokans  */
         await fetch(
           `${import.meta.env.VITE_SERVER_URL}users/${
-            props.requestProps.requester._id
+            props.requestProps.requester
           }`,
           {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              user: { _id: props.requestProps.requester._id },
+              user: { _id: props.requestProps.requester },
               update: {
                 changes: {
-                  kokans:
-                    props.requestProps.requester.kokans -
-                    props.requestProps.asset_id.kokans,
+                  kokans: newRequesterKokans,
                 },
               },
             }),
@@ -98,18 +104,15 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         /* update user (aka requestee) state */
         setUser({
           ...user,
-          kokans: user.kokans + props.requestProps.asset_id.kokans,
+          kokans: newRequesteeKokans,
         })
 
-        /* aggregate a transaction with the relevant usernames of requester and requestees and the gitHub repo name*/
-        // TH this should be done on the parent component, right?
-        const [aggregatedTransactions] = await aggregateTransactions(
-          props.requestProps._id,
-        )
-        console.log(aggregatedTransactions)
-
         /* add requester as GitHub collaborator on repo */
-        addCollaborator(user.username, aggregatedTransactions.requester_username, aggregatedTransactions.asset_data.gitHub_repo) // TD parameters to github names
+        addCollaborator(
+          user.username,
+          props.requestProps.requester_username,
+          props.requestProps.asset_data.gitHub_repo,
+        )
 
         navigate(`/user/${user.username}/requests/incoming`)
       }
@@ -118,48 +121,13 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
     }
   }
 
-  /* change style of request depending on status */
-  function dynamicRequestStyle(status: string) {
-    switch (status) {
-      case 'pending':
-        return 'request'
-      case 'accepted':
-        return 'request accepted'
-      case 'declined':
-        return 'request declined'
-    }
-  }
-
-  /* aggregate a transaction with the relevant usernames of requester and requestees and the gitHub repo name*/
-  async function aggregateTransactions(transaction_id: any) {
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}transactions/test/users`,
-        {
-          // TD remove "test"
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          credentials: 'include',
-          body: JSON.stringify({ transaction_id: transaction_id }),
-        },
-      )
-      let aggregatedTransaction = await res.json()
-      console.log('aggregatedTransaction:')
-      console.log(aggregatedTransaction)
-      return aggregatedTransaction
-    } catch (err) {
-      console.log('Aggregation failed.')
-    }
-  }
-
+  
   /* add requester as GitHub collaborator on repo */
   async function addCollaborator(
     requesteeGitHub: string,
     requesterGitHub: string,
     gitHubRepo: string,
-  ) {
+    ) {
     console.log(requesteeGitHub, requesterGitHub, gitHubRepo)
     // TD wrap in try/catch
     let res = await fetch(
@@ -176,18 +144,30 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           gitHubRepo: gitHubRepo,
         }),
       },
-    )
+      )
     if (res.status === 200) {
       console.log('add successful')
       const collaborators = await res.json()
       console.log(collaborators)
     } else console.log('Inviting collaborator failed.') // TD else action
   }
-
+  
+  /* change style of request depending on status */
+  function dynamicRequestStyle(status: string) {
+    switch (status) {
+      case 'pending':
+        return 'request'
+      case 'accepted':
+        return 'request accepted'
+      case 'declined':
+        return 'request declined'
+    }
+  }
+  
   return (
     <div
-      className={dynamicRequestStyle(props.requestProps?.status)}
-      key={props.index}
+    className={dynamicRequestStyle(props.requestProps?.status)}
+    key={props.index}
     >
       <div className='header'>
         <span className='title'>
