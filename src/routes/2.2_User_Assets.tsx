@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import '../styles/2_User.css'
 
 /* import components */
@@ -14,8 +14,10 @@ function UserAssets(): JSX.Element {
   const [error, setError] = useState(null)
   const { user, setUser } = useContext<any>(UserContext)
   const [userAssets, setUserAssets] = useState<any>([])
+  const { id } = useParams()
+  const [idCurrent, setIdCurrent] = useState<string>()
 
-  async function getData() {
+  async function getUserAssets() {
     try {
       const res = await fetch(
         `${import.meta.env.VITE_SERVER_URL}users/${user.username}/assets`,
@@ -24,7 +26,7 @@ function UserAssets(): JSX.Element {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ owner: user._id }),
+          body: JSON.stringify({ owner: id }),
         },
       )
       if (res.status == 200) {
@@ -37,7 +39,7 @@ function UserAssets(): JSX.Element {
   }
 
   useEffect(() => {
-    getData()
+    getUserAssets()
   }, [])
 
   return (

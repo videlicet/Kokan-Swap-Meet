@@ -117,7 +117,7 @@ function UserSettings(): JSX.Element {
       },
     )
     if (res.status == 200) {
-      /* clear JWT cookie */
+      /* delete user */
       try {
         const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
           method: 'DELETE',
@@ -128,6 +128,8 @@ function UserSettings(): JSX.Element {
         })
         if (res.status === 200) {
           setUser()
+          /* clear JWT cookie */
+          // TD clear cookie
         }
       } catch (error) {
         // TD errorHandling

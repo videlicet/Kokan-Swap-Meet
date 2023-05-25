@@ -31,13 +31,12 @@ function User(): JSX.Element | undefined {
         /* fetch info about other user if 
         url param (id) and username differs */
         if (id !== user?.username) {
-
           fetchOtherUser(id).then((res) => {
             const [userD] = res
             setOtherUser(userD)
+            navigate(`assets`)
           })
         }
-        navigate(`assets`)
       })
       .catch((err) => {
         console.log(err)

@@ -11,8 +11,6 @@ interface Props {
   gitHubUser: any // TD typing
   setSignup: any // TD typing
   setLogin: any // TD typing
-  // setLoading: any // TD typing
-  // setUser: any // TD typing
 }
 
 function SignUp(props: Props): JSX.Element {
@@ -40,41 +38,14 @@ function SignUp(props: Props): JSX.Element {
           username: props.gitHubUser.login,
           password: password,
           email: email,
-          email_verified: false,
           pictureURL: props.gitHubUser.avatar_url,
           kokans: 1,
-          created: new Date(),
         }),
       })
       props.setLogin(true)
       props.setSignup(false)
       navigate('/login')
       sendVerificationEmail(props.gitHubUser.login, email)
-
-      // try {
-      //   const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
-      //     method: 'POST',
-      //     body: JSON.stringify({
-      //       username: props.gitHubUser.login,
-      //       password: password,
-      //     }),
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //     },
-      //     credentials: 'include',
-      //   })
-      //   if (res.status === 200) {
-      //     const user = await res.json()
-      //     setUser(user)
-      //     setLoading(false)
-      //     navigate(`/user/${user?.username}/assets`)
-      //   } else {
-      //     setLoading(false)
-      //     setError(true)
-      //   }
-      // } catch (err) {
-      //   // errorHandling
-      // }
     } catch (error) {
       // TD errorHandling
     }

@@ -39,7 +39,7 @@ function UserRequestsOutgoing(): JSX.Element {
           <div style={{ marginLeft: '1rem' }}>
             <p>No outgoing swap requests yet.</p>
             <NavLink to={`/assets`} className='unstyledLink'>
-              <p>Browse kokan assets.</p>
+              <p>Browse the swap-meet.</p>
             </NavLink>
           </div>
         </div>

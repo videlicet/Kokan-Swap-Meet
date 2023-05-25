@@ -40,6 +40,7 @@ function EmailVerfication(): JSX.Element {
           }
           /* update email_verfied status in DB */
           try {
+            // TD fail logic
             const res = await fetch(
               `${import.meta.env.VITE_SERVER_URL}users/${userCodeParam}`,
               {

@@ -24,7 +24,7 @@ const Asset: React.FC<Asset> = (props: Asset) => {
   const { pathname } = useLocation()
 
   const pricey =
-    pathname === '/assets' && props.user_kokans < props.assetProps.kokans
+    (pathname === '/assets' || pathname.includes('/user')) && props.user_kokans < props.assetProps.kokans
       ? {
           backgroundColor: 'grey',
         }
