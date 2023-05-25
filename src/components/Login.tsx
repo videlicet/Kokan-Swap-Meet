@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { CheckCircledIcon } from '@radix-ui/react-icons'
@@ -15,7 +15,7 @@ interface Props {
 function LoginComponent(props: Props): JSX.Element {
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
-  const { user, setUser } = useContext<any>(UserContext)
+  const { setUser } = useContext<any>(UserContext)
   const navigate = useNavigate()
   const {
     register,

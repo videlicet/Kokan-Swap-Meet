@@ -3,10 +3,6 @@
   outline: none;
 }
 
-.aasdf {
-  width: fit-content;
-}
-
 a {
   text-decoration: none;
   color: var(--main-text-color);
@@ -22,7 +18,7 @@ button, .button-like, input[type='submit'] {
   font-family: var(--main-font-style);
   font-size: smaller;
   color: var(--main-text-color);
-  cursor: pointer;;
+  cursor: pointer;
 }
   
 button:hover, .button-like:hover, input[type='submit']:hover {
@@ -31,13 +27,13 @@ button:hover, .button-like:hover, input[type='submit']:hover {
 }
 
 input[type='text'], input[type='number'],  input[type='password']  {
-    border: none;
-    border-radius: 10px;
-    background-color: black;
-    box-sizing: border-box;
-    padding: 0.3rem 1rem;
-    font-family: var(--main-font-style);
-    color: var(--main-text-color);
+  border: none;
+  border-radius: 10px;
+  background-color: black;
+  box-sizing: border-box;
+  padding: 0.3rem 1rem;
+  font-family: var(--main-font-style);
+  color: var(--main-text-color);
 }
 
 input:disabled {
