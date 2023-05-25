@@ -19,8 +19,10 @@ export default (props: propsInterface) => {
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <PersonIcon className='login_icon' />
           <span>{props.user?.username}</span>
-          <div id='newCounter'></div>{' '}
-          {/* TD Contition to check whether there are new messages */}
+          {(props.user?.requests_incoming_count_pending > 0 ||
+            props.user?.requests_outgoing_count_pending > 0) && (
+            <div id='newCounter'></div>
+          )}
         </div>
       </DropdownMenu.Trigger>
 
