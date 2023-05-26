@@ -18,7 +18,7 @@ function UserInfo(props?: Props): JSX.Element {
   const [error, setError] = useState(null)
   const { user, setUser } = useContext<any>(UserContext)
   const [renderTrigger, setRenderTrigger] = useState(false)
-  const otherUser = props.otherUser
+  const otherUser = props?.otherUser
 
   useEffect(() => {
     setRenderTrigger(!renderTrigger)
@@ -28,10 +28,10 @@ function UserInfo(props?: Props): JSX.Element {
     <div id='user-info-container'>
       <ProfileAvatar user={otherUser || user}></ProfileAvatar>
       <div style={{ color: 'var(--main-color-yellow)' }}>
-        {props.otherUser?.username || user?.username}
+        {otherUser?.username || user?.username}
         <a
           href={`https://github.com/${
-            props.otherUser?.username || user?.username
+            otherUser?.username || user?.username
           }`}
           target='_blank'
         >
@@ -40,7 +40,7 @@ function UserInfo(props?: Props): JSX.Element {
         </a>
       </div>
       <div id='user-info'>
-        {!props.otherUser && (
+        {!otherUser && (
           <div>
             Kokans: {user?.kokans}
             <img
@@ -59,24 +59,24 @@ function UserInfo(props?: Props): JSX.Element {
         <div>
           <span>
             Assets:{' '}
-            {props.otherUser?.assets_count_offered ||
+            {otherUser?.assets_count_offered ||
               user?.assets_count_offered}
-            {!props.otherUser && <span>/{user?.assets_count}</span>}
+            {!otherUser && <span>/{user?.assets_count}</span>}
             <span style={{ color: 'grey' }}>
               {' '}
               (offered
-              {!props.otherUser && <span>/total</span>})
+              {!otherUser && <span>/total</span>})
             </span>
           </span>
         </div>
-        {!props.otherUser && (
+        {!otherUser && (
           <span>
             Pending requests: {user?.requests_incoming_count_pending}/
             {user?.requests_outgoing_count_pending}{' '}
             <span style={{ color: 'grey' }}>(incoming/outgoing)</span>
           </span>
         )}
-        <div>Member since {user?.created || user?.created}</div>
+        <div>Member since {otherUser?.created || user?.created}</div>
       </div>
     </div>
   )

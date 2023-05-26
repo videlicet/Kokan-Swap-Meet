@@ -5,8 +5,9 @@ import '../styles/2_User.css'
 /* import components */
 import Asset from '../components/Asset.tsx'
 
-/* context */
+/* import context */
 import { UserContext } from './1_App'
+
 
 /* function component */
 function UserAssets(): JSX.Element {
@@ -15,12 +16,17 @@ function UserAssets(): JSX.Element {
   const { user, setUser } = useContext<any>(UserContext)
   const [userAssets, setUserAssets] = useState<any>([])
   const { id } = useParams()
-  const [idCurrent, setIdCurrent] = useState<string>()
+  const [idCurrent, setIdCurrent] = useState<string>(id)
+
+  if (idCurrent !== id) {
+    setIdCurrent(id)
+    getUserAssets()
+  }
 
   async function getUserAssets() {
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}users/${user.username}/assets`,
+        `${import.meta.env.VITE_SERVER_URL}users/${id}/assets`,
         {
           method: 'POST',
           headers: {
@@ -39,19 +45,34 @@ function UserAssets(): JSX.Element {
   }
 
   useEffect(() => {
+    setIdCurrent(id)
     getUserAssets()
   }, [])
 
   return (
     <div id='user-assets'>
       {userAssets?.length !== 0 ? (
-        userAssets.map((item: any, index: number) => (
-          <Asset
-            assetProps={item}
-            index={index}
-            user_kokans={user?.kokans}
-          ></Asset>
-        ))
+        userAssets.map((item: any, index: number) => {
+          if (id === user?.username) {
+            return (
+              <Asset
+                assetProps={item}
+                index={index}
+                user_kokans={user?.kokans}
+              ></Asset>
+            )
+          } else {
+            if (item.onOffer === true) {
+              return (
+                <Asset
+                  assetProps={item}
+                  index={index}
+                  user_kokans={user?.kokans}
+                ></Asset>
+              )
+            }
+          }
+        })
       ) : (
         <div className='asset'>
           <div style={{ marginLeft: '1rem' }}>

@@ -23,69 +23,23 @@ function Login(): JSX.Element {
     if (gitHubParam) {
       setLoading(true)
       /* get GitHub access_token */
+      gitHubAuthenticate()
       async function gitHubAuthenticate() {
-        async function getAccessToken() {
-          console.log('GitHub authentication:')
-          try {
-            const res = await fetch(
-              `${
-                import.meta.env.VITE_SERVER_URL
-              }auth/gitHub?code=${gitHubParam}`,
-              {
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                credentials: 'include',
-              },
-            )
-            if (res.status === 200) {
-              console.log('–– GitHub authentication succeeded')
-              setGitHubAuth(true)
-            } else {
-              console.log('–– GitHub authentication failed')
-            }
-            return res
-          } catch (err) {
-            console.log('– GitHub authentication failed')
-            // TD error Handling what if failed -> create gitHub Account
-          }
-        }
-        let res = await getAccessToken()
+        const res = await getAccessToken(gitHubParam)
         if (res.status === 200) {
           /* get GitHub user information */
-          async function getGitHubUser() {
-            try {
-              let userRes = await fetch(
-                `${import.meta.env.VITE_SERVER_URL}auth/gitHub/user`,
-                {
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  credentials: 'include',
-                },
-              )
-              if (userRes.status === 200) {
-                let user = await userRes.json()
-                setGitHubUser(user)
-                return user
-              }
-            } catch (err) {
-              console.log('No GitHub user found')
-              setLoading(false)
-            }
-          }
-          let user = await getGitHubUser()
+          const gitHubuser = await getGitHubUser()
           /*look in DB for user with GitHub username*/
-          // USER-ROUTE
           try {
             const res = await fetch(
-              `${import.meta.env.VITE_SERVER_URL}users/${user.login}`,
+              `${import.meta.env.VITE_SERVER_URL}users/${gitHubuser.login}`,
               {
                 method: 'POST',
                 body: JSON.stringify({
-                  username: user.login,
+                  username: gitHubuser.login,
                 }),
                 headers: {
+                  Accept: 'application/json',
                   'Content-Type': 'application/json',
                 },
                 credentials: 'include',
@@ -98,12 +52,11 @@ function Login(): JSX.Element {
             }
             setLoading(false)
           } catch (err) {
-            console.log('No GitHub user found')
+            console.log('No user found')
           }
         }
         return setLoading(false)
       }
-      gitHubAuthenticate()
     }
   }, [])
 
@@ -116,6 +69,58 @@ function Login(): JSX.Element {
       }&scope=repo`, // scope: https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/scopes-for-oauth-apps#requested-scopes-and-granted-scopes
     )
     setLoading(false)
+  }
+
+  async function getAccessToken(gitHubParam: string) {
+    console.log('Get GitHub access token:')
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}auth/gitHub?code=${gitHubParam}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': 'true',
+          },
+          credentials: 'include',
+        },
+      )
+      if (res.status === 200) {
+        console.log('–– Got GitHub access token.')
+        setGitHubAuth(true)
+      } else {
+        console.log('–X Got no GitHub access Token.')
+      }
+      return res
+    } catch (err) {
+      console.log('X Get GitHub acces token failed.')
+      // TD error Handling what if failed -> create gitHub Account
+    }
+  }
+
+  async function getGitHubUser() {
+    console.log('Get GitHub user:')
+    try {
+      let userRes = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}auth/gitHub/user`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        },
+      )
+      if (userRes.status === 200) {
+        console.log('– GitHub user found.')
+        let user = await userRes.json()
+        setGitHubUser(user)
+        return user
+      } else {
+        console.log('–X No GitHub user found.')
+      }
+    } catch (err) {
+      console.log('X Get GitHub user failed.')
+      setLoading(false)
+    }
   }
 
   return (

@@ -64,28 +64,26 @@ function EmailVerfication(): JSX.Element {
   }
 
   return (
-    <>
-      <div id='about-container'>
-        <h2>Email Verfication</h2>
-        <p>Thank you for varifying your E-Mail.</p>
-        <p>You can now log in to your Kokan account.</p>
-        <button
-          onClick={() => {
-            navigate('/login')
-          }}
-        >
-          Login
-        </button>
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <button
-          onClick={() => {
-            window.close()
-          }}
-        >
-          Close Tab
-        </button>
-      </div>
-    </>
+    <div id='about-container'>
+      <h2>Email Verfication</h2>
+      <p>Thank you for varifying your E-Mail.</p>
+      <p>You can now log in to your Kokan account.</p>
+      <button
+        onClick={() => {
+          navigate('/login')
+        }}
+      >
+        Login
+      </button>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <button
+        onClick={() => {
+          window.close()
+        }}
+      >
+        Close Tab
+      </button>
+    </div>
   )
 }
 

@@ -12,7 +12,7 @@ import { authenticate } from '../modules/Authenticator'
 import { UserContext } from './1_App'
 
 /* import modules */
-import { fetchOtherUser } from '../modules/Authenticator'
+import { fetchOtherUser, getUser } from '../modules/Authenticator'
 
 function User(): JSX.Element | undefined {
   const [loading, setLoading] = useState(true)
@@ -25,26 +25,16 @@ function User(): JSX.Element | undefined {
 
   useEffect(() => {
     setLoading(true)
-    authenticate()
-      .then((res) => {
-        setAuth(res.status)
-        if (res.status === false) {
-          navigate('/login')
-        }
-        /* fetch info about other user if 
-        url param (id) and username differs */
-        if (id !== user?.username) {
-          fetchOtherUser(id).then((res) => {
-            const [userD] = res
-            setOtherUser(userD)
-            navigate(`assets`)
-          })
-        }
+    if (id !== user?.username) {
+      // TD use getUser util
+      fetchOtherUser(id).then((res) => {
+        setOtherUser(res)
+        navigate(`assets`)
       })
-      .catch((err) => {
-        console.log(err)
-        navigate('/login')
-      })
+    } else {
+      getUser(setUser, navigate, undefined, id)
+    }
+    setAuth(true)
     setLoading(false)
   }, [])
 
@@ -54,11 +44,7 @@ function User(): JSX.Element | undefined {
         {!loading && (
           <>
             <div id='user-outlet'>
-              {id === user?.username ? ( // TD can't his be combined?
-                <Outlet />
-              ) : (
-                <Outlet context={[otherUser]} />
-              )}
+              <Outlet />
             </div>
             {id === user?.username ? ( // TD can't his be combined?
               <UserInfo />
