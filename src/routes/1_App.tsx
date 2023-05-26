@@ -55,10 +55,7 @@ function App(): JSX.Element {
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log('App.js getUser')
-    console.log('user: ',user?.username)
-    getUser(setUser, navigate) // TD condition is both github_access and jwt cookie present,
-     
+    getUser(setUser, navigate)
   }, [])
 
   /* search */

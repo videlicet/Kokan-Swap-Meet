@@ -35,19 +35,16 @@ function LoginComponent(props: Props): JSX.Element {
           password: password,
         }),
         headers: {
-          'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
         credentials: 'include',
       })
+      console.log(res)
       if (res.status === 200) {
-        // TD transform to try catch 
-        getUser(setUser, navigate, 'dashboard', props.usernameHandle).then(
-          () => {
-            setLoading(false)
-            setError(false)
-          },
-        )
+        await getUser(setUser, navigate, 'dashboard').then(() => {
+          setLoading(false)
+          setError(false)
+        })
       } else {
         setError(true)
         setValue('password', '')
