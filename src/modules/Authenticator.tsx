@@ -43,6 +43,7 @@ export const redirectDashboard = (username: any, navigate: any) => {
   navigate(`/user/${username}`)
 }
 
+// USER-ROUTE
 export const fetchOtherUser = async (id: string) => {
   let res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${id}`, {
     method: 'POST',

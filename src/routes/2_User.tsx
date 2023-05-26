@@ -8,8 +8,11 @@ import UserInfo from '../components/UserInfo.tsx'
 /* import modules */
 import { authenticate } from '../modules/Authenticator'
 
-/* context */
+/* import context */
 import { UserContext } from './1_App'
+
+/* import modules */
+import { fetchOtherUser } from '../modules/Authenticator'
 
 function User(): JSX.Element | undefined {
   const [loading, setLoading] = useState(true)
@@ -43,24 +46,6 @@ function User(): JSX.Element | undefined {
         navigate('/login')
       })
     setLoading(false)
-
-    // TD move this function to a utils
-    async function fetchOtherUser(id: string) {
-      let res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${id}`, {
-        method: 'POST',
-        body: JSON.stringify({
-          username: id,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-      })
-      if (res.status === 200) {
-        let otherUser = await res.json()
-        return otherUser
-      }
-    }
   }, [])
 
   if (auth === true)

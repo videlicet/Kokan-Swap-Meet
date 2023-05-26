@@ -4,11 +4,12 @@ export interface AssetInterface {
     kokans: number,
     created: string,
     creator: string,
+    creator_username: string
     owners: [string],
+    owners_usernames: [string],
     onOffer: boolean,
     type: [string],
     description_short: string,
     description_long: string,
     licence: string,
-    aliases: {owners: [string], creator: string}
   }

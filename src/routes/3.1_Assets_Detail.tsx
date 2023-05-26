@@ -37,52 +37,11 @@ function AssetsDetail(): JSX.Element {
       )
       if (res.status == 200) {
         const asset = await res.json()
-
-        /* set aliases for usernames */
-        asset.aliases = { creator: '', owners: [] }
-
-        /* get username aliases from creator id */
-        const creator = await fetch(
-          `${import.meta.env.VITE_SERVER_URL}users/${asset.creator}`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ user: { _id: asset.creator } }),
-          },
-        )
-        if (creator.status === 200) {
-          const [user] = await creator.json()
-          const { username } = user
-          asset.aliases.creator = username
-        } else if (creator.status === 404) {
-          asset.aliases.creator = 'Deleted User'
-        }
-
-        /* get usernames aliases from owner ids */
-        const aliasesOwners = await Promise.all(
-          asset.owners.map(async (user: string) => {
-            const res = await fetch(
-              `${import.meta.env.VITE_SERVER_URL}users/${user}`,
-              {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ user: { _id: user } }),
-              },
-            )
-            const [ owner ] = await res.json()
-            const { username } = owner
-            return username
-          }),
-        )
-        asset.aliases.owners = aliasesOwners
-
         setAsset(asset)
       }
-    } catch (error) {}
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   useEffect(() => {
@@ -197,17 +156,17 @@ function AssetsDetail(): JSX.Element {
               </span>
               <span>
                 &nbsp;&nbsp;by&nbsp;
-                {(asset.aliases.creator !== 'Deleted User' && (
-                  <NavLink to={`/user/${asset.aliases.creator}`}>
-                    {asset.aliases.creator}
+                {(asset.creator_username !== 'Deleted User' && (
+                  <NavLink to={`/user/${asset.creator_username}`}>
+                    {asset.creator_username}
                   </NavLink>
                 )) ||
-                  asset.aliases.creator}
+                  asset.creator_username}
               </span>
               <div style={{ color: 'grey' }}> {assetCreated}</div>
             </div>
             <div className='interaction'>
-              {user && !asset.aliases?.owners.includes(user.username) && (
+              {user && !asset.owners_usernames.includes(user.username) && (
                 <AlertDialogAssetSwap
                   portalContainer={portalContainer}
                   price={asset?.kokans}
@@ -215,7 +174,7 @@ function AssetsDetail(): JSX.Element {
                   disabled={user.kokans < asset.kokans ? true : false}
                 />
               )}
-              {user && asset.aliases.creator == user.username && (
+              {user && asset.creator_username == user.username && (
                 <AlertDialogAssetDelete
                   portalContainer={portalContainer}
                   title={asset?.title}
@@ -255,7 +214,7 @@ function AssetsDetail(): JSX.Element {
             <div className='additional-info'>
               <span className='info-type'>Owners</span>
               <div style={{ display: 'flex' }}>
-                {asset.aliases?.owners.map((item: string) => (
+                {asset.owners_usernames.map((item: string) => (
                   <span className='info'>{item}</span>
                 ))}
               </div>

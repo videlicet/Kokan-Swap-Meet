@@ -76,6 +76,7 @@ function Login(): JSX.Element {
           }
           let user = await getGitHubUser()
           /*look in DB for user with GitHub username*/
+          // USER-ROUTE
           try {
             const res = await fetch(
               `${import.meta.env.VITE_SERVER_URL}users/${user.login}`,
