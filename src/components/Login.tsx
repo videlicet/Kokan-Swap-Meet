@@ -4,7 +4,10 @@ import { useForm } from 'react-hook-form'
 import { CheckCircledIcon } from '@radix-ui/react-icons'
 import { getUser } from '../modules/Authenticator'
 
-/* context */
+/* import components */
+import Loading from './Loading'
+
+/* import context */
 import { UserContext } from '../routes/1_App'
 
 interface Props {
@@ -43,7 +46,6 @@ function LoginComponent(props: Props): JSX.Element {
       console.log(res)
       if (res.status === 200) {
         await getUser(setUser, navigate, 'dashboard').then(() => {
-          setLoading(false)
           setError(false)
         })
       } else {
@@ -54,13 +56,14 @@ function LoginComponent(props: Props): JSX.Element {
     } catch (err) {
       console.log('Login failed.')
       console.log(err)
+      setLoading(false)
     }
   }
 
   return (
     <div>
       {!loading ? (
-        <div >
+        <div>
           <h3 style={{ color: 'grey' }}>
             1. GitHub Account <CheckCircledIcon />
           </h3>
@@ -98,7 +101,7 @@ function LoginComponent(props: Props): JSX.Element {
           </form>
         </div>
       ) : (
-        <span>Loading</span>
+        <Loading />
       )}
     </div>
   )
