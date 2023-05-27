@@ -1,6 +1,8 @@
 #requests {
     display: flex;
     flex-direction: column;
+    height: 100%;
+    align-content: stretch;
     gap: 1rem;      
 }
 

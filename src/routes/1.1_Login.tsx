@@ -7,6 +7,7 @@ import { UserContext } from './1_App'
 /* components */
 import LoginComponent from '../components/Login'
 import SignUp from '../components/SignUp'
+import Loading from '../components/Loading'
 
 function Login(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(false)
@@ -122,7 +123,7 @@ function Login(): JSX.Element {
   return (
     <div id='login-container'>
       {!loading ? (
-        <>
+        <div>
           <h2>Login</h2>
           {(!gitHubAuth && (
             <>
@@ -157,9 +158,9 @@ function Login(): JSX.Element {
                 setLogin={setLogin}
               />
             ))}
-        </>
+        </div>
       ) : (
-        <span>Loading</span>
+        <Loading/>
       )}
     </div>
   )

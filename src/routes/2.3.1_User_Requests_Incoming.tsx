@@ -2,16 +2,14 @@ import { useState, useEffect, useContext, useRef } from 'react'
 import '../styles/2.3.1–2_User_Requests.css'
 
 /* import components */
-import RequestIncoming from '../components/RequestIncoming.tsx'
-
-/* import types */
-import { RequestInterface } from '../assets/mockRequests.tsx'
+import RequestIncoming from '../components/RequestIncoming'
+import Loading from '../components/Loading'
 
 /* import context */
 import { UserContext } from './1_App'
 
 /* request dialog content */
-import { getUserRequests } from '../modules/Requestor.tsx'
+import { getUserRequests } from '../modules/Requestor'
 
 /* function component */
 function UserRequestsIncoming(): JSX.Element {
@@ -29,19 +27,14 @@ function UserRequestsIncoming(): JSX.Element {
   return (
     <div id='requests'>
       {loading ? (
-        <span>Loading</span>
+        <Loading />
       ) : requests?.current.length !== 0 ? (
         requests?.current.map((item: any, index: number) => (
-          <RequestIncoming
-            requestProps={item}
-            index={index}
-          ></RequestIncoming>
+          <RequestIncoming requestProps={item} index={index}></RequestIncoming>
         ))
       ) : (
-        <div className='request'>
-          <div style={{ marginLeft: '1rem' }}>
-            <p>No incoming swap requests yet.</p>
-          </div>
+        <div className='request' style={{ marginLeft: '1rem' }}>
+          <p>No incoming swap requests yet.</p>
         </div>
       )}
     </div>

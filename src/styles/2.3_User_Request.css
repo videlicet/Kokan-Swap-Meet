@@ -1,5 +1,9 @@
 #user-requests {
+    display: flex;
+    flex-direction: column;
     margin-top: -1rem;
+    align-items: stretch;
+    height: 100%;
 }
 
 #user-requests ul {
@@ -14,4 +18,10 @@
 #user-requests ul li {
     margin: 0 1rem;
     text-transform: uppercase;
+}
+
+#user-requests-outlet {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }

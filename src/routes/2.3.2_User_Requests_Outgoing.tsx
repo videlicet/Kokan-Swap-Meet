@@ -3,11 +3,12 @@ import { NavLink } from 'react-router-dom'
 import '../styles/2.3.1–2_User_Requests.css'
 
 /* import components */
-import RequestOutgoing from '../components/RequestOutgoing.tsx'
+import RequestOutgoing from '../components/RequestOutgoing'
+import Loading from '../components/Loading'
 
 /* import context */
 import { UserContext } from './1_App'
-import { getUserRequests } from '../modules/Requestor.tsx'
+import { getUserRequests } from '../modules/Requestor'
 
 /* function component */
 function UserRequestsOutgoing(): JSX.Element {
@@ -25,7 +26,7 @@ function UserRequestsOutgoing(): JSX.Element {
   return (
     <div id='requests'>
       {loading ? (
-        <span>Loading</span>
+        <Loading/>
       ) : requests?.current.length !== 0 ? (
         requests?.current.map((item: any, index: number) => (
           <RequestOutgoing

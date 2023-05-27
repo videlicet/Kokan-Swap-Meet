@@ -8,7 +8,9 @@ a {
   color: var(--main-text-color);
 }
 
-button, .button-like, input[type='submit'] {
+button,
+.button-like,
+input[type='submit'] {
   border: none;
   border-radius: 10px;
   background-color: black;
@@ -20,13 +22,17 @@ button, .button-like, input[type='submit'] {
   color: var(--main-text-color);
   cursor: pointer;
 }
-  
-button:hover, .button-like:hover, input[type='submit']:hover {
-    background-color: var(--main-text-color);
-    color: black;
+
+button:hover,
+.button-like:hover,
+input[type='submit']:hover {
+  background-color: var(--main-text-color);
+  color: black;
 }
 
-input[type='text'], input[type='number'],  input[type='password']  {
+input[type='text'],
+input[type='number'],
+input[type='password'] {
   border: none;
   border-radius: 10px;
   background-color: black;
@@ -144,9 +150,9 @@ input:disabled {
 }
 
 .search-span {
-  position: relative; 
+  position: relative;
   top: 0.5rem;
-  font-size:medium;
+  font-size: medium;
 }
 
 .login_icon {
@@ -185,6 +191,7 @@ input:disabled {
   background-color: rgba(0, 0, 0, 0.6);
   min-height: 0;
   height: 100%;
+  overflow: scroll;
 }
 
 @media screen and (min-width: 760px) {
@@ -197,16 +204,23 @@ input:disabled {
 #footer {
   padding: 1.5rem 9rem;
   color: grey;
-  grid-area: 3 / 0 / 4 / 0 ;
+  grid-area: 3 / 0 / 4 / 0;
 }
 
 @media screen and (min-width: 760px) {
   #footer {
-    grid-area: 3 / 2 / 4 / 3 ;
+    grid-area: 3 / 2 / 4 / 3;
   }
 }
 
 #footer .navbar {
   display: flex;
   justify-content: space-between;
+}
+
+#loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }

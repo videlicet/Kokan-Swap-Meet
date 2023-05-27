@@ -6,6 +6,7 @@ import '../styles/3.1_Assets_Detail.css'
 import AlertDialogAssetSwap from '../components/AlertDialogAssetSwap.tsx'
 import AlertDialogAssetDelete from '../components/AlertDialogAssetDelete.tsx'
 import AlertDialogAssetOffer from '../components/AlertDialogAssetOffer.tsx'
+import Loading from '../components/Loading'
 
 /* import types */
 import { AssetInterface } from '../assets/mockAssets'
@@ -146,81 +147,85 @@ function AssetsDetail(): JSX.Element {
 
   return (
     <div id='asset-container'>
-      {asset && (
-        <div>
-          <div className='header'>
-            <div>
-              <span className='title'>{asset.title}</span>
-              <span className='kokans' style={pricey}>
-                {asset.kokans}
-              </span>
-              <span>
-                &nbsp;&nbsp;by&nbsp;
-                {(asset.creator_username !== 'Deleted User' && (
-                  <NavLink to={`/user/${asset.creator_username}`}>
-                    {asset.creator_username}
-                  </NavLink>
-                )) ||
-                  asset.creator_username}
-              </span>
-              <div style={{ color: 'grey' }}> {assetCreated}</div>
+      {!loading ? (
+        asset && (
+          <div>
+            <div className='header'>
+              <div>
+                <span className='title'>{asset.title}</span>
+                <span className='kokans' style={pricey}>
+                  {asset.kokans}
+                </span>
+                <span>
+                  &nbsp;&nbsp;by&nbsp;
+                  {(asset.creator_username !== 'Deleted User' && (
+                    <NavLink to={`/user/${asset.creator_username}`}>
+                      {asset.creator_username}
+                    </NavLink>
+                  )) ||
+                    asset.creator_username}
+                </span>
+                <div style={{ color: 'grey' }}> {assetCreated}</div>
+              </div>
+              <div className='interaction'>
+                {user && !asset.owners_usernames.includes(user.username) && (
+                  <AlertDialogAssetSwap
+                    portalContainer={portalContainer}
+                    price={asset.kokans}
+                    onSwap={onSwap}
+                    disabled={user.kokans < asset.kokans ? true : false}
+                  />
+                )}
+                {user && asset.creator_username == user.username && (
+                  <AlertDialogAssetDelete
+                    portalContainer={portalContainer}
+                    title={asset.title}
+                    onDelete={onDelete}
+                  />
+                )}
+                {user && asset.owners.includes(user._id) && (
+                  <AlertDialogAssetOffer
+                    portalContainer={portalContainer}
+                    title={asset.title}
+                    onOffer={onOffer}
+                    removeable={asset.onOffer ? true : false}
+                  />
+                )}
+              </div>
             </div>
-            <div className='interaction'>
-              {user && !asset.owners_usernames.includes(user.username) && (
-                <AlertDialogAssetSwap
-                  portalContainer={portalContainer}
-                  price={asset.kokans}
-                  onSwap={onSwap}
-                  disabled={user.kokans < asset.kokans ? true : false}
-                />
-              )}
-              {user && asset.creator_username == user.username && (
-                <AlertDialogAssetDelete
-                  portalContainer={portalContainer}
-                  title={asset.title}
-                  onDelete={onDelete}
-                />
-              )}
-              {user && asset.owners.includes(user._id) && (
-                <AlertDialogAssetOffer
-                  portalContainer={portalContainer}
-                  title={asset.title}
-                  onOffer={onOffer}
-                  removeable={asset.onOffer ? true : false}
-                />
-              )}
-            </div>
-          </div>
-          <br />
-          <div className='description'>
-            <span>{asset.description_long}</span>
-          </div>
-
-          <div
-            className='asset-footer'
-            style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
-          >
-            <div className='additional-info'>
-              <span className='info-type'>License</span>
-              <span className='info'>{asset.licence}</span>
-            </div>
-            <div className='additional-info'>
-              <span className='info-type'>Type</span>
-              {asset.type.map((item) => (
-                <span className='info'>{item}</span>
-              ))}
+            <br />
+            <div className='description'>
+              <span>{asset.description_long}</span>
             </div>
 
-            <div className='additional-info'>
-              <span className='info-type'>Owners</span>
-              <div style={{ display: 'flex' }}>
-                {asset.owners_usernames.map((item: string) => (
+            <div
+              className='asset-footer'
+              style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+            >
+              <div className='additional-info'>
+                <span className='info-type'>License</span>
+                <span className='info'>{asset.licence}</span>
+              </div>
+              <div className='additional-info'>
+                <span className='info-type'>Type</span>
+                {asset.type.map((item) => (
                   <span className='info'>{item}</span>
                 ))}
               </div>
+
+              <div className='additional-info'>
+                <span className='info-type'>Owners</span>
+                <div style={{ display: 'flex' }}>
+                  {asset.owners_usernames.map((item: string) => (
+                    <span className='info'>{item}</span>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        )
+      ) : (
+        <Loading />
       )}
     </div>
   )

@@ -4,12 +4,13 @@ import '../styles/3_Assets.css'
 
 /* import components */
 import Asset from '../components/Asset.tsx'
+import Loading from '../components/Loading'
 
 /* import context */
 import { AssetContext, UserContext } from './1_App'
 
 function Assets(): JSX.Element {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [assets, setAssets] = useState([])
   
@@ -33,6 +34,7 @@ function Assets(): JSX.Element {
     } catch (error) {
       // TD errorHandling
     }
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -41,12 +43,13 @@ function Assets(): JSX.Element {
 
   return (
     <div id='assets' className="asset-overview">
-      {loading && 'render'}
-        {assets.length > 0 && assets.map((item: any, index) => (
+      {!loading ?
+        assets.length > 0 && assets.map((item: any, index) => (
           <NavLink to={`/assets/${item._id}`}>
             <Asset assetProps={item} index={index} user_kokans={user?.kokans}></Asset>
           </NavLink>
-        )) || <div className="asset" style={{height: "5rem"}}>No matching assets.</div>}
+        )) || <div className="asset" style={{height: "5rem"}}>No matching assets.</div>
+        : <Loading/>}
     </div>
   )
 }

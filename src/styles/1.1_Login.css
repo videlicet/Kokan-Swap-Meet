@@ -1,19 +1,23 @@
 #login-container {
-    padding: 3rem;
+  min-height: 0;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 3rem;
 }
 
 .sign-up a:hover {
-    background-color: white;
-    color: black;
+  background-color: white;
+  color: black;
 }
 
-#login-container input[type="text"], #login-container input[type="password"]  {
-    border: 2px black solid;
-    border-radius: 10px;
-    background-color: rgb(0, 0, 0, 0.3);
-    resize: none;
-    padding: 0.4rem 0.6rem 0.3rem 0.6rem;
-    font-family: var(--main-font-style);
-    font-size: smaller;
-    color: var(--main-font-color);;
+#login-container input[type='text'],
+#login-container input[type='password'] {
+  border: 2px black solid;
+  border-radius: 10px;
+  background-color: rgb(0, 0, 0, 0.3);
+  resize: none;
+  padding: 0.4rem 0.6rem 0.3rem 0.6rem;
+  font-family: var(--main-font-style);
+  font-size: smaller;
+  color: var(--main-font-color);
 }

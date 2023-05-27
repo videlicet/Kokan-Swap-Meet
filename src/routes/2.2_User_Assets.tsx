@@ -1,17 +1,17 @@
 import { useState, useEffect, useContext } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
-import '../styles/2_User.css'
+import '../styles/2.2_User_Assets.css'
 
 /* import components */
 import Asset from '../components/Asset.tsx'
+import Loading from '../components/Loading'
 
 /* import context */
 import { UserContext } from './1_App'
 
-
 /* function component */
 function UserAssets(): JSX.Element {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const { user, setUser } = useContext<any>(UserContext)
   const [userAssets, setUserAssets] = useState<any>([])
@@ -42,27 +42,21 @@ function UserAssets(): JSX.Element {
     } catch (error) {
       //errorHandling
     }
+    setLoading(false)
   }
 
   useEffect(() => {
     setIdCurrent(id)
     getUserAssets()
+
   }, [])
 
   return (
     <div id='user-assets'>
-      {userAssets?.length !== 0 ? (
-        userAssets.map((item: any, index: number) => {
-          if (id === user?.username) {
-            return (
-              <Asset
-                assetProps={item}
-                index={index}
-                user_kokans={user?.kokans}
-              ></Asset>
-            )
-          } else {
-            if (item.onOffer === true) {
+      {!loading ? (
+        userAssets?.length !== 0 ? (
+          userAssets.map((item: any, index: number) => {
+            if (id === user?.username) {
               return (
                 <Asset
                   assetProps={item}
@@ -70,18 +64,30 @@ function UserAssets(): JSX.Element {
                   user_kokans={user?.kokans}
                 ></Asset>
               )
+            } else {
+              if (item.onOffer === true) {
+                return (
+                  <Asset
+                    assetProps={item}
+                    index={index}
+                    user_kokans={user?.kokans}
+                  ></Asset>
+                )
+              }
             }
-          }
-        })
-      ) : (
-        <div className='asset'>
-          <div style={{ marginLeft: '1rem' }}>
-            <p>No assets yet.</p>
-            <NavLink to={`/assets/new`} className='unstyledLink'>
-              <p>Link your first GitHub asset.</p>
-            </NavLink>
+          })
+        ) : (
+          <div className='asset'>
+            <div style={{ marginLeft: '1rem' }}>
+              <p>No assets yet.</p>
+              <NavLink to={`/assets/new`} className='unstyledLink'>
+                <p>Link your first GitHub asset.</p>
+              </NavLink>
+            </div>
           </div>
-        </div>
+        )
+      ) : (
+        <Loading/>
       )}
     </div>
   )

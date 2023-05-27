@@ -58,9 +58,9 @@ function LoginComponent(props: Props): JSX.Element {
   }
 
   return (
-    <>
+    <div>
       {!loading ? (
-        <>
+        <div >
           <h3 style={{ color: 'grey' }}>
             1. GitHub Account <CheckCircledIcon />
           </h3>
@@ -96,11 +96,11 @@ function LoginComponent(props: Props): JSX.Element {
             <br />
             <input type='submit' value='login'></input>
           </form>
-        </>
+        </div>
       ) : (
         <span>Loading</span>
       )}
-    </>
+    </div>
   )
 }
 

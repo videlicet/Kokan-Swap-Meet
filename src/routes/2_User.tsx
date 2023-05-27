@@ -3,7 +3,8 @@ import { useNavigate, Outlet, useParams } from 'react-router-dom'
 import '../styles/2_User.css'
 
 /* import components */
-import UserInfo from '../components/UserInfo.tsx'
+import UserInfo from '../components/UserInfo'
+import Loading from '../components/Loading'
 
 /* import modules */
 import { authenticate } from '../modules/Authenticator'
@@ -51,7 +52,7 @@ function User(): JSX.Element | undefined {
   if (auth === true)
     return (
       <div id='user-container'>
-        {!loading && (
+        {!loading ? (
           <>
             <div id='user-outlet'>
                 <Outlet />
@@ -62,7 +63,7 @@ function User(): JSX.Element | undefined {
               <UserInfo otherUser={otherUser} />
             )}
           </>
-        )}
+        ) : <Loading/>}
       </div>
     )
 }

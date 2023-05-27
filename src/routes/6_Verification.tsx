@@ -2,7 +2,11 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../styles/5_About.css'
 
+/* import components */
+import Loading from '../components/Loading'
+
 function EmailVerfication(): JSX.Element {
+  const [loading, setLoading] = useState(true)
   const [verified, setVerified] = useState<boolean>(true)
   const navigate = useNavigate()
 
@@ -61,12 +65,12 @@ function EmailVerfication(): JSX.Element {
         // TD errorHandling
       }
     } else navigate('/')
+    setLoading(false)
   }
 
   return (
-    <>
       <div id='about-container'>
-        <h2>Email Verfication</h2>
+        {!loading ?         <><h2>Email Verfication</h2>
         <p>Thank you for varifying your E-Mail.</p>
         <p>You can now log in to your Kokan account.</p>
         <button
@@ -84,8 +88,9 @@ function EmailVerfication(): JSX.Element {
         >
           Close Tab
         </button>
+      </>
+      : <Loading/>}
       </div>
-    </>
   )
 }
 
