@@ -30,9 +30,7 @@ function UserInfo(props?: Props): JSX.Element {
       <div style={{ color: 'var(--main-color-yellow)' }}>
         {otherUser?.username || user?.username}
         <a
-          href={`https://github.com/${
-            otherUser?.username || user?.username
-          }`}
+          href={`https://github.com/${otherUser?.username || user?.username}`}
           target='_blank'
         >
           &nbsp;
@@ -42,7 +40,8 @@ function UserInfo(props?: Props): JSX.Element {
       <div id='user-info'>
         {!otherUser && (
           <div>
-            Kokans: {user?.kokans}
+            <span>Kokans: {user?.kokans}</span>
+            {user?.kokans_pending > 0 && <span> / {user?.kokans_pending} </span>}
             <img
               src={brand_icon}
               alt='kokans'
@@ -51,29 +50,31 @@ function UserInfo(props?: Props): JSX.Element {
                 position: 'relative',
                 top: '0.3rem',
                 marginLeft: '0.2rem',
-                zIndex: 0
+                zIndex: 0,
               }}
             />
+            {user?.kokans_pending > 0 && (
+              <span style={{ color: 'grey' }}> (current / pending)</span>
+            )}
           </div>
         )}
         <div>
           <span>
             Assets:{' '}
-            {otherUser?.assets_count_offered ||
-              user?.assets_count_offered}
-            {!otherUser && <span>/{user?.assets_count}</span>}
+            {otherUser?.assets_count_offered || user?.assets_count_offered}
+            {!otherUser && <span> / {user?.assets_count}</span>}
             <span style={{ color: 'grey' }}>
               {' '}
               (offered
-              {!otherUser && <span>/total</span>})
+              {!otherUser && <span> / total</span>})
             </span>
           </span>
         </div>
         {!otherUser && (
           <span>
-            Pending requests: {user?.requests_incoming_count_pending}/
+            Pending requests: {user?.requests_incoming_count_pending} /{' '}
             {user?.requests_outgoing_count_pending}{' '}
-            <span style={{ color: 'grey' }}>(incoming/outgoing)</span>
+            <span style={{ color: 'grey' }}>(incoming / outgoing)</span>
           </span>
         )}
         <div>Member since {otherUser?.created || user?.created}</div>

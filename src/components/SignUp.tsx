@@ -40,6 +40,7 @@ function SignUp(props: Props): JSX.Element {
           email: email,
           pictureURL: props.gitHubUser.avatar_url,
           kokans: 1,
+          kokans_pending: 0
         }),
       })
       props.setLogin(true)

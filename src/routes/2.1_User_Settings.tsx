@@ -80,6 +80,7 @@ function UserSettings(): JSX.Element {
   async function handleSettingsChange(data: any) {
     setLoading(true)
     const { data: changes } = data
+    console.log(changes)
     const reqBody = {
       user: { _id: user?._id },
       update: { changes: changes },
@@ -100,6 +101,7 @@ function UserSettings(): JSX.Element {
       getUser(setUser, navigate)
     } catch (err) {
       // TD errorHandling
+      console.log(err)
     }
     setLoading(false)
   }

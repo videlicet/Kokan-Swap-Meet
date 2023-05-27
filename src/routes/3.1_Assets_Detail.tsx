@@ -50,6 +50,7 @@ function AssetsDetail(): JSX.Element {
   }, [])
 
   async function onSwap() {
+    /* create transaction in database */
     try {
       let res = await fetch(`${import.meta.env.VITE_SERVER_URL}transactions`, {
         method: 'POST',
@@ -72,6 +73,33 @@ function AssetsDetail(): JSX.Element {
       }
     } catch (err) {
       // TD errorhandling
+    }
+    /* change total kokans and pending kokans */
+    const changes = {
+      $inc: {
+        kokans: -asset?.kokans,
+        kokans_pending: asset?.kokans,
+      },
+    }
+    const reqBody = {
+      user: { _id: user?._id },
+      update: { changes: changes },
+    }
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}users/${user?._id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify(reqBody),
+        },
+      )
+    } catch (err) {
+      // TD errorHandling
+      console.log(err)
     }
   }
 

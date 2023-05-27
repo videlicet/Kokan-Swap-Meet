@@ -41,7 +41,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           body: JSON.stringify({ transaction: { status: reaction } }),
         },
       )
-      if (res.status === 200) {
+      if (res.status === 200 && reaction === 'accepted') {
         /* update ownership of asset */
         await fetch(
           `${import.meta.env.VITE_SERVER_URL}assets/${
@@ -64,9 +64,6 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         /* new kokan balances */
         const newRequesteeKokans =
           user.kokans + props.requestProps.asset_data.kokans
-        const newRequesterKokans =
-          props.requestProps.requester_kokans -
-          props.requestProps.asset_data.kokans
 
         /* update requestee kokans */
         await fetch(`${import.meta.env.VITE_SERVER_URL}users/${user._id}`, {
@@ -94,7 +91,9 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
               user: { _id: props.requestProps.requester },
               update: {
                 changes: {
-                  kokans: newRequesterKokans,
+                  $inc: {
+                    kokans_pending: -props.requestProps.asset_data.kokans,
+                  },
                 },
               },
             }),
@@ -116,18 +115,40 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
 
         navigate(`/user/${user.username}/requests/incoming`)
       }
+      if (res.status === 200 && reaction === 'declined') {
+        /* update requester kokans  */
+        await fetch(
+          `${import.meta.env.VITE_SERVER_URL}users/${
+            props.requestProps.requester
+          }`,
+          {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              user: { _id: props.requestProps.requester },
+              update: {
+                changes: {
+                  $inc: {
+                    kokans: props.requestProps.asset_data.kokans,
+                    kokans_pending: -props.requestProps.asset_data.kokans,
+                  },
+                },
+              },
+            }),
+          },
+        )
+      }
     } catch (err) {
       // TD errHandling
     }
   }
 
-  
   /* add requester as GitHub collaborator on repo */
   async function addCollaborator(
     requesteeGitHub: string,
     requesterGitHub: string,
     gitHubRepo: string,
-    ) {
+  ) {
     console.log(requesteeGitHub, requesterGitHub, gitHubRepo)
     // TD wrap in try/catch
     let res = await fetch(
@@ -144,14 +165,14 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           gitHubRepo: gitHubRepo,
         }),
       },
-      )
+    )
     if (res.status === 200) {
       console.log('add successful')
       const collaborators = await res.json()
       console.log(collaborators)
     } else console.log('Inviting collaborator failed.') // TD else action
   }
-  
+
   /* change style of request depending on status */
   function dynamicRequestStyle(status: string) {
     switch (status) {
@@ -163,11 +184,11 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         return 'request declined'
     }
   }
-  
+
   return (
     <div
-    className={dynamicRequestStyle(props.requestProps?.status)}
-    key={props.index}
+      className={dynamicRequestStyle(props.requestProps?.status)}
+      key={props.index}
     >
       <div className='header'>
         <span className='title'>

@@ -10,12 +10,10 @@ import AlertDialogRequest, {
 import { RequestInterface } from '../assets/mockRequests'
 
 /* import context */
-import { PortalContext } from '../routes/1_App'
+import { PortalContext, UserContext } from '../routes/1_App'
 
 /* import request dialog content */
-import {
-  alertDialogRequestContentDelete
-} from '../components/RequestDialogs.tsx'
+import { alertDialogRequestContentDelete } from '../components/RequestDialogs.tsx'
 
 interface Request {
   requestProps: RequestInterface
@@ -41,8 +39,10 @@ function dynamicRequestStyle(status: string) {
 const RequestOutgoing: React.FC<Request> = (props: Request) => {
   const navigate = useNavigate()
   const { portalContainer } = useContext<any>(PortalContext)
+  const { user } = useContext<any>(UserContext)
 
   async function onConfirm() {
+    /* delete transaction */
     try {
       const res = await fetch(
         `${import.meta.env.VITE_SERVER_URL}transactions/${
@@ -59,7 +59,37 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
       if (res.status === 200) {
         navigate(`/user/${props.username}/requests/outgoing`)
       }
-    } catch (err) {}
+    } catch (err) {
+      // TD errorHandling
+      console.log(err)
+    }
+    /* change total kokans and pending kokans */
+    const changes = {
+      $inc: {
+        kokans: +props.requestProps?.asset_data.kokans,
+        kokans_pending: -props.requestProps?.asset_data.kokans,
+      },
+    }
+    const reqBody = {
+      user: { _id: user?._id },
+      update: { changes: changes },
+    }
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}users/${user?._id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify(reqBody),
+        },
+      )
+    } catch (err) {
+      // TD errorHandling
+      console.log(err)
+    }
   }
 
   return (
@@ -82,9 +112,16 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
             {props.requestProps?.asset_data.title}
           </NavLink>{' '}
           from users:{' '}
-          {props.requestProps?.requestees_username.map((username: string, index: number) => (
-            <NavLink to={`/user/${username}`}>{username}{index+1 !== props.requestProps?.requestees_username.length ? ", " : "."}</NavLink>
-          ))}
+          {props.requestProps?.requestees_username.map(
+            (username: string, index: number) => (
+              <NavLink to={`/user/${username}`}>
+                {username}
+                {index + 1 !== props.requestProps?.requestees_username.length
+                  ? ', '
+                  : '.'}
+              </NavLink>
+            ),
+          )}
         </span>
       </div>
       {props.requestProps?.status === 'pending' && (
