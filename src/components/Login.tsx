@@ -43,7 +43,6 @@ function LoginComponent(props: Props): JSX.Element {
         },
         credentials: 'include',
       })
-      console.log(res)
       if (res.status === 200) {
         await getUser(setUser, navigate, 'dashboard').then(() => {
           setError(false)

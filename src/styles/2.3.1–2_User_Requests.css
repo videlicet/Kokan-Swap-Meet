@@ -1,25 +1,25 @@
 #requests {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    align-content: stretch;
-    gap: 1rem;      
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-content: stretch;
+  gap: 1rem;
 }
 
 #requests .request {
-    display: flex;
-    flex-direction: column;
-    border: 3px solid black;
-    border-radius: 15px;
-    margin-right: 1rem;
-    background-color: rgb(0, 0, 0, 0.4);
-    padding: 1rem;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  border: 3px solid black;
+  border-radius: 15px;
+  margin-right: 1rem;
+  background-color: rgb(0, 0, 0, 0.4);
+  padding: 1rem;
+  gap: 1rem;
 }
 
 .accepted {
-    opacity: 0.5;
-    background-image: repeating-linear-gradient(
+  opacity: 0.5;
+  background-image: repeating-linear-gradient(
     135deg,
     rgb(0, 0, 0, 0) 0%,
     rgb(0, 0, 0, 0) 2%,
@@ -30,8 +30,8 @@
 }
 
 .declined {
-    opacity: 0.5;
-    background-image: repeating-linear-gradient(
+  opacity: 0.5;
+  background-image: repeating-linear-gradient(
     135deg,
     rgb(0, 0, 0, 0) 0%,
     rgb(0, 0, 0, 0) 2%,
@@ -41,17 +41,29 @@
   );
 }
 
+.expired {
+  opacity: 0.5;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgb(0, 0, 0, 0) 0%,
+    rgb(0, 0, 0, 0) 2%,
+    rgb(255, 255, 255) 2%,
+    rgb(109, 109, 109) 2.5%,
+    rgb(0, 0, 0, 0) 1%
+  );
+}
+
 #requests .header {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 #requests .title {
-    font-size: xx-large;
-    overflow-wrap: anywhere;
+  font-size: xx-large;
+  overflow-wrap: anywhere;
 }
 
 #requests button {
-    width: fit-content;
-    place-self: end;
+  width: fit-content;
+  place-self: end;
 }

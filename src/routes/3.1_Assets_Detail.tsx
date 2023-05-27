@@ -59,6 +59,7 @@ function AssetsDetail(): JSX.Element {
         body: JSON.stringify({
           transaction: {
             asset_id: asset?._id,
+            kokans: asset?.kokans,
             requester: user._id,
             requestee: asset?.owners,
             created: new Date(),

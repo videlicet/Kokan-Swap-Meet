@@ -32,6 +32,8 @@ function dynamicRequestStyle(status: string) {
       return 'request accepted'
     case 'declined':
       return 'request declined'
+    case 'expired':
+      return 'request expired'
   }
 }
 

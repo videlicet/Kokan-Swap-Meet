@@ -5,6 +5,7 @@ export interface UserInterface {
   first_name: string
   last_name: string
   kokans: number
+  kokans_pending: number
   pictureURL: string
   created: string
   assets_count: number
