@@ -12,3 +12,7 @@
 #assets input[type='text'] {
   padding: 0.5rem 1rem; /*1rem on general input[type='text']*/
 }
+
+.description {
+  overflow-wrap: anywhere;
+}

@@ -37,12 +37,6 @@ const footerContent = [
   { name: 'About', route: '/about' },
 ]
 
-const navContent = [
-  { name: 'Home', route: '/' },
-  { name: 'Assets', route: '/assets' },
-  { name: 'Kokans', route: '/kokans' },
-]
-
 function App(): JSX.Element {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)

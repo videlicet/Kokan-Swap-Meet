@@ -46,6 +46,7 @@
 
 #requests .title {
     font-size: xx-large;
+    overflow-wrap: anywhere;
 }
 
 #requests button {

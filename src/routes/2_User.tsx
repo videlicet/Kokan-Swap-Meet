@@ -54,11 +54,7 @@ function User(): JSX.Element | undefined {
         {!loading && (
           <>
             <div id='user-outlet'>
-              {id === user?.username ? ( // TD can't his be combined?
                 <Outlet />
-              ) : (
-                <Outlet context={[otherUser]} />
-              )}
             </div>
             {id === user?.username ? ( // TD can't his be combined?
               <UserInfo />

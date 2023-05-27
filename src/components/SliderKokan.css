@@ -19,7 +19,7 @@
   .SliderRange {
     position: absolute;
     border-radius: 9999px;
-    background-color: var(--main-color-yellow);
+    background-color: grey;
     height: 100%;
   }
   
@@ -27,8 +27,9 @@
     display: block;
     border-radius: 15px;
     background-color: rgb(25, 25, 25);
-    height: 20px;
+    height: 25px;
     width: 20px;
+    text-align: center;
   }
   .SliderThumb:hover {
     filter: grayscale(70%);

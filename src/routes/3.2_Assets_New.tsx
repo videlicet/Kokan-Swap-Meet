@@ -51,7 +51,11 @@ function AssetsNew(): JSX.Element {
     setValue,
     control,
     formState: { errors },
-  } = useForm()
+  } = useForm({
+    defaultValues: {
+      kokans: 3
+    }
+  })
   const [loading, setLoading] = useState()
   const [error, setError] = useState(null)
   const [kokans, setKokans] = useState<number>(3)
@@ -109,8 +113,6 @@ function AssetsNew(): JSX.Element {
 
   /* check existense of repository */
   async function checkRepository() {
-    console.log('checkRepository')
-
     try {
       let res = await fetch(
         `${import.meta.env.VITE_SERVER_URL}auth/gitHub/repository`,
@@ -323,7 +325,6 @@ function AssetsNew(): JSX.Element {
             from='newAsset'
             type='number'
             step='1'
-            defaultValue={3}
             style={{ display: 'none' }}
           />
           <SliderKokan handleKokans={handleKokans} kokans={watch('kokans')} />

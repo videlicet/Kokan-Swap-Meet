@@ -66,7 +66,7 @@ function AssetsDetail(): JSX.Element {
         }),
       })
       if (res.status === 201) {
-        navigate(`/user/${user.username}/requests/outgoing`)
+        navigate(`/user/${user?.username}/requests/outgoing`)
       }
     } catch (err) {
       // TD errorhandling
@@ -99,7 +99,7 @@ function AssetsDetail(): JSX.Element {
           },
         )
 
-        navigate(`/user/${user.username}/assets`)
+        navigate(`/user/${user?.username}/assets`)
       }
     } catch (err) {
       // TD errorhandling
@@ -119,12 +119,12 @@ function AssetsDetail(): JSX.Element {
             asset: {
               asset_id: asset?._id,
             },
-            update: { onOffer: true },
+            update: { onOffer: !asset?.onOffer },
           }),
         },
       )
       if (res.status === 200) {
-        navigate(`/assets/${asset?._id}`)
+        navigate(`/user/${user?.username}/assets`)
       }
     } catch (err) {
       // TD errorhandling
@@ -169,7 +169,7 @@ function AssetsDetail(): JSX.Element {
               {user && !asset.owners_usernames.includes(user.username) && (
                 <AlertDialogAssetSwap
                   portalContainer={portalContainer}
-                  price={asset?.kokans}
+                  price={asset.kokans}
                   onSwap={onSwap}
                   disabled={user.kokans < asset.kokans ? true : false}
                 />
@@ -177,14 +177,14 @@ function AssetsDetail(): JSX.Element {
               {user && asset.creator_username == user.username && (
                 <AlertDialogAssetDelete
                   portalContainer={portalContainer}
-                  title={asset?.title}
+                  title={asset.title}
                   onDelete={onDelete}
                 />
               )}
               {user && asset.owners.includes(user._id) && (
                 <AlertDialogAssetOffer
                   portalContainer={portalContainer}
-                  title={asset?.title}
+                  title={asset.title}
                   onOffer={onOffer}
                   removeable={asset.onOffer ? true : false}
                 />

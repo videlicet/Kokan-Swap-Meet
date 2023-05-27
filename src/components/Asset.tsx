@@ -63,7 +63,7 @@ const Asset: React.FC<Asset> = (props: Asset) => {
           <span className='info'>{props.assetProps.licence}</span>
         </div>
         {pathname !== '/assets' && props.assetProps.onOffer && (
-          <span className='on-offer'>ON OFFER</span>
+          <span className='on-offer'>on offer</span>
         )}
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import * as Slider from '@radix-ui/react-slider'
 import './SliderKokan.css'
-import brand_icon from '../assets/kokan_icon_w_y.png'
+import brand_icon from '../assets/kokan_icon_w.png'
 
 interface Props {
   kokans: any
@@ -10,9 +10,6 @@ interface Props {
 
 const SliderKokan = (props: Props) => (
   <div style={{ display: 'flex', gap: '1rem', alignItems: "center" }}>
-    <div className="info-box">
-      <span style={{display: "block", width: "0.7rem", textAlign: "center"}}>{props.kokans}</span>
-    </div>
     <form>
       <Slider.Root
         className='SliderRoot'
@@ -27,18 +24,25 @@ const SliderKokan = (props: Props) => (
           <Slider.Range className='SliderRange' />
         </Slider.Track>
         <Slider.Thumb className='SliderThumb' aria-label='Volume'>
+       {props.kokans}
+        </Slider.Thumb>
         <img
         src={brand_icon}
         alt='kokans'
         height='20px'
         style={{
-          position: 'relative',
+          position: 'relative', left: "1.5rem"
         }}
       />
-        </Slider.Thumb>
       </Slider.Root>
     </form>
   </div>
 )
 
 export default SliderKokan
+
+/*
+    <div className="info-box">
+      <span style={{display: "block", width: "0.7rem", textAlign: "center"}}>{props.kokans}</span>
+    </div>V
+*/

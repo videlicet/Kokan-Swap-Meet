@@ -34,6 +34,7 @@ function Login(): JSX.Element {
               {
                 headers: {
                   'Content-Type': 'application/json',
+                  'Access-Control-Allow-Credentials': 'true',
                 },
                 credentials: 'include',
               },
