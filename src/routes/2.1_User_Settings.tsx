@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import '../styles/2.1_User_Settings.css'
 
@@ -27,11 +27,8 @@ function UserSettings(): JSX.Element {
   const [error, setError] = useState(null)
   const { user, setUser } = useContext<any>(UserContext)
   const { portalContainer } = useContext<any>(PortalContext)
-  const { id } = useParams()
   const navigate = useNavigate()
-
-  if (id !== user?.username) redirectDashboard(id, navigate)
-
+  
   const DialogPassword = {
     title: 'password',
     fields: [

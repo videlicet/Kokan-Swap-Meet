@@ -14,6 +14,7 @@ import { UserContext } from './1_App'
 
 /* import modules */
 import { fetchOtherUser } from '../modules/Authenticator'
+import { redirectDashboard } from '../modules/Authenticator'
 
 function User(): JSX.Element | undefined {
   const [loading, setLoading] = useState(true)
@@ -23,21 +24,29 @@ function User(): JSX.Element | undefined {
   const [auth, setAuth] = useState(false)
   const navigate = useNavigate()
   const { id } = useParams<string>() //as any // throws error without
+  const idCurrent = useRef<string>()
+  //const [idCurrent, setIdCurrent] = useState<string>()
 
+  console.log(id, idCurrent)
   useEffect(() => {
+    //setIdCurrent(id)
     setLoading(true)
     authenticate()
       .then((res) => {
         setAuth(res.status)
         if (res.status === false) {
-          navigate('/login')
+          return navigate('/login')
         }
         /* fetch info about other user if 
         url param (id) and username differs */
-        if (id !== user?.username) {
+        if(res.status === true) {
+          setUser(res.user)
+          idCurrent.current = res.user.username
+        }
+        if (idCurrent.current !== id) {
           fetchOtherUser(id).then((res) => {
-            const [userD] = res
-            setOtherUser(userD)
+            const [userRes] = res
+            setOtherUser(userRes)
             navigate(`assets`)
           })
         }

@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 export const authenticate = async (): Promise<
-  { status: boolean; user: any } | { status: boolean }
+  { status: boolean; user: any }
 > => {
   /*check user has JWT token*/
   const requestHeaders: HeadersInit = new Headers()
@@ -16,7 +16,7 @@ export const authenticate = async (): Promise<
     const user = await res.json()
     return { status: true, user: user }
   }
-  throw new Error('User not authenticated.') // TD test
+  return {status: false, user: {}}
 }
 
 export const getUser = async (

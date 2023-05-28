@@ -13,9 +13,6 @@ interface profilePicture {
 }
 
 const ProfileAvatar: React.FC<profilePicture> = (props: profilePicture) => {
-
-
-    console.log(props)
   return (
   <div style={{ display: 'flex', justifyContent: 'center', gap: 20 }}>
     <Avatar.Root className='AvatarRoot'>

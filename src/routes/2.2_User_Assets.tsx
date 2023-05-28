@@ -48,7 +48,6 @@ function UserAssets(): JSX.Element {
   useEffect(() => {
     setIdCurrent(id)
     getUserAssets()
-
   }, [])
 
   return (
