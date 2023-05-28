@@ -27,7 +27,7 @@ function LoginComponent(props: Props): JSX.Element {
     formState: { errors },
   } = useForm()
 
-  async function handleLogin(data: any) {
+  async function handleLogin(data: any) { // TD typing
     setLoading(true)
     const { password } = data
     try {

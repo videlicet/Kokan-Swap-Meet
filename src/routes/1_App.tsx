@@ -7,6 +7,7 @@ import {
   FormEvent,
   useRef,
 } from 'react'
+import { useForm } from 'react-hook-form'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import '../styles/1_App.css'
 import '@fontsource/rubik/500.css'
@@ -40,11 +41,11 @@ const footerContent = [
 function App(): JSX.Element {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [searchTerm, setSearchTerm] = useState<string>()
   const [searchTermHandle, setSearchTermHandle] = useState<string>('')
   const [footer, setFooter] = useState(footerContent)
   const [user, setUser] = useState<any>()
   const portal = useRef(null)
+  const { register, handleSubmit, reset } = useForm()
 
   const navigate = useNavigate()
 
@@ -53,14 +54,9 @@ function App(): JSX.Element {
   }, [])
 
   /* search */
-  function handleSearch(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    setSearchTermHandle(event.target.children[0].value)
+  function handleSearchSubmit(data: any) { // TD typing
+    setSearchTermHandle(data.search)
     navigate('/')
-  }
-
-  function handleChangeSearchTerm(event: ChangeEvent<HTMLInputElement>) {
-    setSearchTerm(event.target.value)
   }
 
   console.log('UPDATE: App.js updated') // TD console.log
@@ -74,7 +70,7 @@ function App(): JSX.Element {
               to='/'
               onClick={() => {
                 setSearchTermHandle('')
-                setSearchTerm('')
+                reset()
               }}
             >
               <h1 id='brand'>
@@ -85,20 +81,21 @@ function App(): JSX.Element {
 
             <nav id='header'>
               <div className='navbar'>
-                <div style={{ display: 'flex', gap: '1rem', height:"100%"}}>
-                <NavLink className='navbar-element'
-                    to="/"
+                <div style={{ display: 'flex', gap: '1rem', height: '100%' }}>
+                  <NavLink
+                    className='navbar-element'
+                    to='/'
                     style={{ fontSize: 'medium' }}
                     onClick={() => {
                       setSearchTermHandle('')
-                      setSearchTerm('')
+                      reset()
                     }}
                   >
                     Swap-Meet
                   </NavLink>
 
                   <form
-                    onSubmit={handleSearch}
+                    onSubmit={handleSubmit((data) => handleSearchSubmit(data))}
                     className='navbar-element'
                     style={{
                       display: 'flex',
@@ -107,11 +104,12 @@ function App(): JSX.Element {
                     }}
                   >
                     <input
-                      onChange={handleChangeSearchTerm}
+                      {...register('search')}
+                      id='search'
+                      name='search'
                       style={{ width: '25rem' }}
                       type='text'
-                      value={searchTerm}
-                      placeholder='Search assets'
+                      placeholder='Search assets' // TD set default in useForm
                     ></input>
                     <button
                       type='submit'
