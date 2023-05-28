@@ -23,6 +23,7 @@ export async function getUserRequests(
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Access-Control-Allow-Credentials': 'true',
         },
         body: JSON.stringify(query),
       },
@@ -59,7 +60,6 @@ export async function aggregateTransactions(transaction_id: any) { // TD type
           'Access-Control-Allow-Credentials': 'true',
         },
         credentials: 'include',
-        mode: "cors",
         body: JSON.stringify({ transaction_id: transaction_id }),
       },
     )

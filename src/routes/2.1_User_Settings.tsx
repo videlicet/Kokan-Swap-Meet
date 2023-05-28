@@ -90,6 +90,7 @@ function UserSettings(): JSX.Element {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': 'true',
           },
           credentials: 'include',
           body: JSON.stringify(reqBody),
@@ -110,6 +111,7 @@ function UserSettings(): JSX.Element {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+          'Access-Control-Allow-Credentials': 'true',
         },
         credentials: 'include',
         body: JSON.stringify({ user: { _id: user?._id } }),
@@ -122,6 +124,7 @@ function UserSettings(): JSX.Element {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': 'true',
           },
           credentials: 'include',
         })
@@ -172,6 +175,7 @@ function UserSettings(): JSX.Element {
                 method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json',
+                  'Access-Control-Allow-Credentials': 'true',
                 },
                 credentials: 'include',
                 body: JSON.stringify(reqBody),

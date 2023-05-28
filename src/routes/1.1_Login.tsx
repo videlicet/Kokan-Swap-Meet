@@ -38,7 +38,6 @@ function Login(): JSX.Element {
                   'Access-Control-Allow-Credentials': 'true',
                 },
                 credentials: 'include',
-                mode: "cors",
               },
             )
             if (res.status === 200) {
@@ -66,7 +65,6 @@ function Login(): JSX.Element {
                     'Access-Control-Allow-Credentials': 'true',
                   },
                   credentials: 'include',
-                  mode: "cors",
                 },
               )
               if (userRes.status === 200) {
@@ -95,7 +93,6 @@ function Login(): JSX.Element {
                   'Access-Control-Allow-Credentials': 'true',
                 },
                 credentials: 'include',
-                mode: "cors",
               },
             )
             if (res.status === 200) {

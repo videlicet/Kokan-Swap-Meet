@@ -42,7 +42,10 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         }`,
         {
           method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': 'true',
+          },
           body: JSON.stringify({ transaction: { status: reaction } }),
         },
       )
@@ -54,7 +57,10 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           }`,
           {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Credentials': 'true',
+            },
             body: JSON.stringify({
               asset: { asset_id: props.requestProps.asset_id },
               update: {
@@ -73,7 +79,10 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         /* update requestee kokans */
         await fetch(`${import.meta.env.VITE_SERVER_URL}users/${user._id}`, {
           method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': 'true',
+          },
           body: JSON.stringify({
             user: { _id: user._id },
             update: {
@@ -91,7 +100,10 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           }`,
           {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Credentials': 'true',
+            },
             body: JSON.stringify({
               user: { _id: props.requestProps.requester },
               update: {
@@ -128,7 +140,10 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           }`,
           {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Credentials': 'true',
+            },
             body: JSON.stringify({
               user: { _id: props.requestProps.requester },
               update: {
@@ -162,6 +177,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Access-Control-Allow-Credentials': 'true',
         },
         credentials: 'include',
         body: JSON.stringify({

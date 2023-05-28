@@ -1,23 +1,22 @@
-// @ts-nocheck
-
-export const authenticate = async (): Promise<
-  { status: boolean; user: any }
-> => {
+export const authenticate = async (): Promise<{
+  status: boolean
+  user: any
+}> => {
   /*check user has JWT token*/
-  const requestHeaders: HeadersInit = new Headers()
-  requestHeaders.set('Content-Type', 'application/json')
-  requestHeaders.set('Access-Control-Allow-Credentials', true) // QQ can't solve this type issue
+
   const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
     method: 'GET',
     credentials: 'include',
-    headers: requestHeaders,
-    mode: "cors",
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Credentials': 'true',
+    },
   })
   if (res.status === 200) {
     const user = await res.json()
     return { status: true, user: user }
   }
-  return {status: false, user: {}}
+  return { status: false, user: {} }
 }
 
 export const getUser = async (
@@ -56,7 +55,6 @@ export const fetchOtherUser = async (id: string) => {
       'Access-Control-Allow-Credentials': 'true',
     },
     credentials: 'include',
-    method: "cors"
   })
   if (res.status === 200) {
     let otherUser = await res.json()

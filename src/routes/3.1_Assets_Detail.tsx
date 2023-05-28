@@ -33,6 +33,7 @@ function AssetsDetail(): JSX.Element {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': 'true',
           },
           body: JSON.stringify({ asset: { _id: id } }),
         },
@@ -55,8 +56,10 @@ function AssetsDetail(): JSX.Element {
     try {
       let res = await fetch(`${import.meta.env.VITE_SERVER_URL}transactions`, {
         method: 'POST',
+        credentials: "include",
         headers: {
           'Content-Type': 'application/json',
+          'Access-Control-Allow-Credentials': 'true',
         },
         body: JSON.stringify({
           transaction: {
@@ -93,6 +96,7 @@ function AssetsDetail(): JSX.Element {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': 'true',
           },
           credentials: 'include',
           body: JSON.stringify(reqBody),
@@ -112,6 +116,7 @@ function AssetsDetail(): JSX.Element {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': 'true',
           },
           body: JSON.stringify({ asset: { _id: asset?._id } }),
         },
@@ -124,6 +129,7 @@ function AssetsDetail(): JSX.Element {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
+              'Access-Control-Allow-Credentials': 'true',
             },
             credentials: 'include',
             body: JSON.stringify({ asset: { _id: asset?._id } }),
@@ -145,6 +151,7 @@ function AssetsDetail(): JSX.Element {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': 'true',
           },
           body: JSON.stringify({
             asset: {

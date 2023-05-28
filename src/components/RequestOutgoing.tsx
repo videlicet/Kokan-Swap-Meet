@@ -58,6 +58,7 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': 'true',
           },
           credentials: 'include',
         },
@@ -87,6 +88,7 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': 'true',
           },
           credentials: 'include',
           body: JSON.stringify(reqBody),

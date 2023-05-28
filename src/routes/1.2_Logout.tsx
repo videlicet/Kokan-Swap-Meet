@@ -22,6 +22,7 @@ function Logout(): JSX.Element {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+          'Access-Control-Allow-Credentials': 'true',
         },
         credentials: 'include',
       })

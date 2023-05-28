@@ -13,19 +13,24 @@ function Assets(): JSX.Element {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [assets, setAssets] = useState([])
-  
+
   const { user } = useContext<any>(UserContext)
   const { searchTermHandle } = useContext<any>(AssetContext)
 
   async function getAssets() {
     try {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}assets/search`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}assets/search`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': 'true',
+          },
+          body: JSON.stringify({ asset: { searchTerm: searchTermHandle } }),
+          credentials: 'include',
         },
-        body: JSON.stringify({ asset: { searchTerm: searchTermHandle } }),
-      })
+      )
       if (res.status === 200) {
         const data = await res.json()
         const onOffer = data.filter((asset: any) => asset.onOffer === true)
@@ -42,14 +47,25 @@ function Assets(): JSX.Element {
   }, [searchTermHandle])
 
   return (
-    <div id='assets' className="asset-overview">
-      {!loading ?
-        assets.length > 0 && assets.map((item: any, index) => (
-          <NavLink to={`/assets/${item._id}`}>
-            <Asset assetProps={item} index={index} user_kokans={user?.kokans}></Asset>
-          </NavLink>
-        )) || <div className="asset" style={{height: "5rem"}}>No matching assets.</div>
-        : <Loading/>}
+    <div id='assets' className='asset-overview'>
+      {!loading ? (
+        (assets.length > 0 &&
+          assets.map((item: any, index) => (
+            <NavLink to={`/assets/${item._id}`}>
+              <Asset
+                assetProps={item}
+                index={index}
+                user_kokans={user?.kokans}
+              ></Asset>
+            </NavLink>
+          ))) || (
+          <div className='asset' style={{ height: '5rem' }}>
+            No matching assets.
+          </div>
+        )
+      ) : (
+        <Loading />
+      )}
     </div>
   )
 }
