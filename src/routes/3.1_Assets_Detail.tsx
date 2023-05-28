@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
+import date from 'date-and-time'
 import '../styles/3.1_Assets_Detail.css'
 
 /* import components */
@@ -161,12 +162,6 @@ function AssetsDetail(): JSX.Element {
     }
   }
 
-  const assetCreated = [
-    asset?.created.slice(0, 4),
-    asset?.created.slice(5, 7),
-    asset?.created.slice(8, 10),
-  ].join('/')
-
   const pricey =
     user?.kokans < asset?.kokans
       ? {
@@ -194,7 +189,7 @@ function AssetsDetail(): JSX.Element {
                   )) ||
                     asset?.creator_username}
                 </span>
-                <div style={{ color: 'grey' }}> {assetCreated}</div>
+                <div style={{ color: 'grey' }}> {date.format(new Date(asset?.created), 'YYYY/MM/DD')}</div>
               </div>
               <div className='interaction'>
                 {user && !asset?.owners_usernames.includes(user?.username) && (
@@ -231,6 +226,10 @@ function AssetsDetail(): JSX.Element {
               className='asset-footer'
               style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
             >
+              {user && asset?.owners.includes(user?._id) && (<div className='additional-info'>
+                <span className='info-type'>Repository</span>
+                <span className='info'><a href={`https://github.com/${asset?.creator_username}/${asset?.gitHub_repo}`}>{asset?.gitHub_repo}</a></span>
+              </div>)}
               <div className='additional-info'>
                 <span className='info-type'>License</span>
                 <span className='info'>{asset?.licence}</span>

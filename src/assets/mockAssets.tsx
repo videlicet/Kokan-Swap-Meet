@@ -1,6 +1,7 @@
 export interface AssetInterface {
     _id: string,
     title: string,
+    gitHub_repo: string,
     kokans: number,
     created: string,
     creator: string,

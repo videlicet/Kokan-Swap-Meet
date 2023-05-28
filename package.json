@@ -1,6 +1,6 @@
 {
   "name": "kokan-frontend",
-  "description": "Kokan – a swap-meet fot digital assets",
+  "description": "Kokan – A Swap-Meet for Digital Assets",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -28,6 +28,7 @@
     "@radix-ui/react-tooltip": "^1.0.5",
     "@types/react-router-dom": "5.3.3",
     "classnames": "^2.3.2",
+    "date-and-time": "^3.0.0",
     "history": "^5.3.0",
     "install": "0.13.0",
     "octokit": "^2.0.14",

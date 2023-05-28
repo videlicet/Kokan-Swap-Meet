@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
+import date from 'date-and-time'
 
 /* import components */
 import AlertDialogRequest from './AlertDialogRequest'
@@ -38,6 +39,13 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
   const navigate = useNavigate()
   const { portalContainer } = useContext<any>(PortalContext)
   const { user } = useContext<any>(UserContext)
+
+  const creationDate = new Date(props.requestProps?.created)
+  const expirationDate = creationDate.setUTCDate(creationDate.getUTCDate() + 5)
+  const expirationDateFormatted = date.format(
+    new Date(expirationDate),
+    'YYYY/MM/DD, HH:mm',
+  )
 
   async function onConfirm() {
     /* delete transaction */
@@ -102,6 +110,7 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
             {props.requestProps?.asset_data.title}
           </NavLink>
         </span>
+        <span className='expiration'>EXPIRATION {expirationDateFormatted}</span>
       </div>
 
       <div
@@ -145,13 +154,13 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
               (props.requestProps?.status === 'expired' && 'expired')}
           </span>
         )}
-      {props.requestProps?.status === 'pending' && (
-        <AlertDialogRequest
-          portalContainer={portalContainer}
-          content={alertDialogRequestContentDelete}
-          onConfirm={onConfirm}
-        />
-      )}
+        {props.requestProps?.status === 'pending' && (
+          <AlertDialogRequest
+            portalContainer={portalContainer}
+            content={alertDialogRequestContentDelete}
+            onConfirm={onConfirm}
+          />
+        )}
       </div>
     </div>
   )

@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from 'react'
+import date from 'date-and-time'
 import '../styles/2_User.css'
 import brand_icon from '../assets/kokan_icon_w.png'
 
@@ -41,7 +42,9 @@ function UserInfo(props?: Props): JSX.Element {
         {!otherUser && (
           <div>
             <span>Kokans: {user?.kokans}</span>
-            {user?.kokans_pending > 0 && <span> / {user?.kokans_pending} </span>}
+            {user?.kokans_pending > 0 && (
+              <span> / {user?.kokans_pending} </span>
+            )}
             <img
               src={brand_icon}
               alt='kokans'
@@ -77,7 +80,12 @@ function UserInfo(props?: Props): JSX.Element {
             <span style={{ color: 'grey' }}>(incoming / outgoing)</span>
           </span>
         )}
-        <div>Member since {otherUser?.created || user?.created}</div>
+        <div>
+          Member since{' '}
+          {otherUser
+            ? date.format(new Date(otherUser?.created), 'YYYY/MM/DD')
+            : date.format(new Date(user?.created), 'YYYY/MM/DD')}
+        </div>
       </div>
     </div>
   )

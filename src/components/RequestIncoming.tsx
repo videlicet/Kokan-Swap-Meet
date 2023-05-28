@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
+import date from 'date-and-time'
 
 /* import components */
 import AlertDialogRequest from './AlertDialogRequest'
@@ -9,9 +10,6 @@ import { UserContext, PortalContext } from '../routes/1_App'
 
 /* import types */
 import { RequestInterface } from '../assets/mockRequests'
-
-/* import utils */
-import { aggregateTransactions } from '../modules/Requestor.tsx'
 
 /* import request dialog content */
 import {
@@ -28,6 +26,13 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
   const navigate = useNavigate()
   const { user, setUser } = useContext<any>(UserContext)
   const { portalContainer } = useContext<any>(PortalContext)
+
+  const creationDate = new Date(props.requestProps?.created)
+  const expirationDate = creationDate.setUTCDate(creationDate.getUTCDate() + 5)
+  const expirationDateFormatted = date.format(
+    new Date(expirationDate),
+    'YYYY/MM/DD, HH:mm',
+  )
 
   async function onConfirm(reaction: string) {
     try {
@@ -55,7 +60,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
               update: {
                 $push: {
                   owners: props.requestProps.requester._id,
-                  brokers: props.requestProps.requester._id, //necessary?
+                  brokers: props.requestProps.requester._id, // TD necessary?
                 },
               },
             }),
@@ -202,6 +207,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
             {props.requestProps?.requester_username}
           </NavLink>
         </span>
+        <span className='expiration'>EXPIRATION {expirationDateFormatted}</span>
       </div>
       <div
         className='description'
@@ -211,24 +217,26 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           User {props.requestProps?.requester_username} requests a swap for your
           asset {props.requestProps?.asset_data.title}.
         </span>
-        <span
-          className='reaction'
-          style={
-            (props.requestProps?.status === 'declined' && {
-              backgroundColor: 'rgb(190, 53, 11)',
-            }) ||
-            (props.requestProps?.status === 'accepted' && {
-              backgroundColor: 'rgb(91, 128, 73, 1)',
-            }) ||
-            (props.requestProps?.status === 'expired' && {
-              backgroundColor: 'grey',
-            })
-          }
-        >
-          {(props.requestProps?.status === 'declined' && 'declined') ||
-            (props.requestProps?.status === 'accepted' && 'accepted') ||
-            (props.requestProps?.status === 'expired' && 'expired')}
-        </span>
+        {props.requestProps?.status !== 'pending' && (
+          <span
+            className='reaction'
+            style={
+              (props.requestProps?.status === 'declined' && {
+                backgroundColor: 'rgb(190, 53, 11)',
+              }) ||
+              (props.requestProps?.status === 'accepted' && {
+                backgroundColor: 'rgb(91, 128, 73, 1)',
+              }) ||
+              (props.requestProps?.status === 'expired' && {
+                backgroundColor: 'grey',
+              })
+            }
+          >
+            {(props.requestProps?.status === 'declined' && 'declined') ||
+              (props.requestProps?.status === 'accepted' && 'accepted') ||
+              (props.requestProps?.status === 'expired' && 'expired')}
+          </span>
+        )}
       </div>
       {props.requestProps?.status === 'pending' && (
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
