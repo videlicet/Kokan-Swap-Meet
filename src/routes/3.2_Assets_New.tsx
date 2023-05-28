@@ -24,8 +24,25 @@ const tooltipShortDescription =
 const tooltipLongDescription =
   'Provide a short description for your asset. Minimum 50, maximum 2000 characters.'
 const tooltipsKokans = 'Choose your Kokan value from 1 to 5 Kokans.'
-const tooltipLicense = `Pick a license for your asset.
-This helps to ensure you and your swap partner know how they can use your asset.` // TD ideally, this tooltip contains a link to https://choosealicense.com/
+const tooltipLicense = (
+  <div>
+    <p>
+      Pick a license for your asset. This helps to ensure you and your potential
+      swap partners know how this asset can be used.
+    </p>
+    <p>
+      Learn more about Open Source licenses{' '}
+      <a
+        href='https://choosealicense.com/'
+        target='_blank'
+        style={{ color: 'black', textDecoration: 'underline' }}
+      >
+        here
+      </a>
+      .
+    </p>
+  </div>
+)
 
 /* licenseTypes */
 const licenseTypes = [

@@ -3,11 +3,11 @@ import * as Tooltip from '@radix-ui/react-tooltip';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
 import './Tooltip.css';
 
-interface tooltip {
-    content: string
+interface Props {
+    content: string | any // TD typing
 }
 
-const TooltipInfo: React.FC<tooltip> = (props: tooltip) => {
+const TooltipInfo: React.FC<Props> = (props: Props) => {
   return (
     <Tooltip.Provider>
       <Tooltip.Root>

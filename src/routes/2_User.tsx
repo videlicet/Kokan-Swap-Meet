@@ -14,7 +14,6 @@ import { UserContext } from './1_App'
 
 /* import modules */
 import { fetchOtherUser } from '../modules/Authenticator'
-import { redirectDashboard } from '../modules/Authenticator'
 
 function User(): JSX.Element | undefined {
   const [loading, setLoading] = useState(true)
@@ -22,14 +21,14 @@ function User(): JSX.Element | undefined {
   const { user, setUser } = useContext<any>(UserContext)
   const [otherUser, setOtherUser] = useState()
   const [auth, setAuth] = useState(false)
+  const [loadingUserInfo, setLoadingUserInfo] = useState(true)
   const navigate = useNavigate()
-  const { id } = useParams<string>() //as any // throws error without
+  const { id } = useParams<string>()
   const idCurrent = useRef<string>()
-  //const [idCurrent, setIdCurrent] = useState<string>()
 
   useEffect(() => {
-    //setIdCurrent(id)
     setLoading(true)
+    setLoadingUserInfo(true)
     authenticate()
       .then((res) => {
         setAuth(res.status)
@@ -54,6 +53,7 @@ function User(): JSX.Element | undefined {
         console.log(err)
         navigate('/login')
       })
+    setLoadingUserInfo(false)
     setLoading(false)
   }, [])
 
@@ -66,9 +66,9 @@ function User(): JSX.Element | undefined {
                 <Outlet />
             </div>
             {id === user?.username ? ( // TD can't his be combined?
-              <UserInfo />
+              <UserInfo loadingUserInfo={loadingUserInfo} />
             ) : (
-              <UserInfo otherUser={otherUser} />
+              <UserInfo otherUser={otherUser} loadingUserInfo={loadingUserInfo}/>
             )}
           </>
         ) : <Loading/>}

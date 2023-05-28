@@ -15,7 +15,7 @@ function Login(): JSX.Element {
   const [login, setLogin] = useState<boolean>(false)
   const [signup, setSignup] = useState<boolean>(false)
   const [gitHubUser, setGitHubUser] = useState<any>({}) // TD typing
-  const { user, setUser } = useContext<any>(UserContext)
+  const { user, setUser } = useContext<any>(UserContext) // TD typing
 
   useEffect(() => {
     const queryString = window.location.search
@@ -38,6 +38,7 @@ function Login(): JSX.Element {
                   'Access-Control-Allow-Credentials': 'true',
                 },
                 credentials: 'include',
+                mode: "cors",
               },
             )
             if (res.status === 200) {
@@ -62,8 +63,10 @@ function Login(): JSX.Element {
                 {
                   headers: {
                     'Content-Type': 'application/json',
+                    'Access-Control-Allow-Credentials': 'true',
                   },
                   credentials: 'include',
+                  mode: "cors",
                 },
               )
               if (userRes.status === 200) {
@@ -89,8 +92,10 @@ function Login(): JSX.Element {
                 }),
                 headers: {
                   'Content-Type': 'application/json',
+                  'Access-Control-Allow-Credentials': 'true',
                 },
                 credentials: 'include',
+                mode: "cors",
               },
             )
             if (res.status === 200) {
@@ -149,6 +154,7 @@ function Login(): JSX.Element {
               <LoginComponent
                 usernameHandle={gitHubUser.login}
                 setUser={setUser}
+                setLoading={setLoading}
               />
             )) ||
             (signup && (

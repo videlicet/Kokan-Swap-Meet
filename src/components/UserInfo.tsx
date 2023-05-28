@@ -6,12 +6,15 @@ import brand_icon from '../assets/kokan_icon_w.png'
 /* import components */
 import { ExternalLinkIcon } from '@radix-ui/react-icons'
 import ProfileAvatar from '../components/ProfileAvatar'
+import TooltipInfo from '../components/Tooltip'
 
 /* context */
 import { UserContext } from '../routes/1_App'
+import Loading from './Loading'
 
 interface Props {
   otherUser?: any // TD type
+  loadingUserInfo: boolean
 }
 
 function UserInfo(props?: Props): JSX.Element {
@@ -25,68 +28,76 @@ function UserInfo(props?: Props): JSX.Element {
     setRenderTrigger(!renderTrigger)
   }, [])
 
+  /* tooltips */
+  const tooltipKokans = <span>current / outgoing</span>
+  const tooltipAssets = (
+    <span>offered {!otherUser && <span> / total</span>}</span>
+  )
+  const tooltipRequests = (
+    <span>
+      {user?.kokans_pending > 0 && (
+        <span>current / pending</span>
+      )}
+    </span>
+  )
+
   return (
     <div id='user-info-container'>
-      <ProfileAvatar user={otherUser || user}></ProfileAvatar>
-      <div style={{ color: 'var(--main-color-yellow)' }}>
-        {otherUser?.username || user?.username}
-        <a
-          href={`https://github.com/${otherUser?.username || user?.username}`}
-          target='_blank'
-        >
-          &nbsp;
-          <ExternalLinkIcon />
-        </a>
-      </div>
-      <div id='user-info'>
-        {!otherUser && (
-          <div>
-            <span>Kokans: {user?.kokans}</span>
-            {user?.kokans_pending > 0 && (
-              <span> / {user?.kokans_pending} </span>
-            )}
-            <img
-              src={brand_icon}
-              alt='kokans'
-              height='20px'
-              style={{
-                position: 'relative',
-                top: '0.3rem',
-                marginLeft: '0.2rem',
-                zIndex: 0,
-              }}
-            />
-            {user?.kokans_pending > 0 && (
-              <span style={{ color: 'grey' }}> (current / pending)</span>
-            )}
-          </div>
-        )}
+      {!props.loadingUserInfo ? (
         <div>
-          <span>
-            Assets:{' '}
-            {otherUser?.assets_count_offered || user?.assets_count_offered}
-            {!otherUser && <span> / {user?.assets_count}</span>}
-            <span style={{ color: 'grey' }}>
-              {' '}
-              (offered
-              {!otherUser && <span> / total</span>})
+          <div id='user-info-header'>
+            <ProfileAvatar user={otherUser || user}></ProfileAvatar>
+            <span>
+              {otherUser?.username || user?.username}
+              <a
+                href={`https://github.com/${
+                  otherUser?.username || user?.username
+                }`}
+                target='_blank'
+              >
+                &nbsp;
+                <ExternalLinkIcon />
+              </a>
             </span>
-          </span>
+          </div>
+          <div id='user-info'>
+            {!otherUser && (
+              <div>
+                <span>Kokans: {user?.kokans}</span>
+                {user?.kokans_pending > 0 && (
+                  <span> / {user?.kokans_pending} </span>
+                )}
+                <TooltipInfo content={tooltipKokans} />
+              </div>
+            )}
+            <div>
+              <span>
+                Assets:{' '}
+                {otherUser?.assets_count_offered || user?.assets_count_offered}
+                {!otherUser && <span> / {user?.assets_count}</span>}{' '}
+                <TooltipInfo content={tooltipAssets} />
+              </span>
+            </div>
+            {!otherUser && (
+              <span>
+                  Pending requests: {user?.requests_incoming_count_pending} /{' '}
+                  {user?.requests_outgoing_count_pending}{' '}
+                <TooltipInfo content={tooltipRequests} />
+              </span>
+            )}
+            <div>
+              <span>
+                Member since:{' '}
+                {otherUser
+                  ? date.format(new Date(otherUser?.created), 'YYYY/MM/DD')
+                  : date.format(new Date(user?.created), 'YYYY/MM/DD')}
+              </span>
+            </div>
+          </div>
         </div>
-        {!otherUser && (
-          <span>
-            Pending requests: {user?.requests_incoming_count_pending} /{' '}
-            {user?.requests_outgoing_count_pending}{' '}
-            <span style={{ color: 'grey' }}>(incoming / outgoing)</span>
-          </span>
-        )}
-        <div>
-          Member since{' '}
-          {otherUser
-            ? date.format(new Date(otherUser?.created), 'YYYY/MM/DD')
-            : date.format(new Date(user?.created), 'YYYY/MM/DD')}
-        </div>
-      </div>
+      ) : (
+        <Loading />
+      )}
     </div>
   )
 }

@@ -24,7 +24,8 @@ const Asset: React.FC<Asset> = (props: Asset) => {
   const { pathname } = useLocation()
 
   const pricey =
-    (pathname === '/assets' || pathname.includes('/user')) && props.user_kokans < props.assetProps.kokans
+    (pathname === '/assets' || pathname.includes('/user')) &&
+    props.user_kokans < props.assetProps.kokans
       ? {
           backgroundColor: 'grey',
         }
@@ -39,10 +40,10 @@ const Asset: React.FC<Asset> = (props: Asset) => {
             className='unstyledLink'
           >
             <p>
-              <span className='title'>{props.assetProps.title}</span>
               <span className='kokans' style={pricey}>
-                {props.assetProps.kokans}
+                {props.assetProps.kokans}{' '}
               </span>
+              <span className='title'>{props.assetProps.title}</span>
             </p>
           </NavLink>
         </div>

@@ -2,8 +2,8 @@
     #user-assets {
       display: flex;
       flex-direction: column;
-      width: 100%;
       height: 100%;
+      width: 100%;
       gap: 1rem;
     }
   }
@@ -37,11 +37,15 @@
   
   #user-assets .kokans,
   #assets .kokans {
+    display: inline-block;
     border-radius: 100px;
     background-color: var(--main-color-yellow);
-    padding: 0.3rem;
-    vertical-align: top;
+    min-width: 1ch;
+    padding: 0.1rem 0.3rem;
+    margin-right: 0.5rem;
+    vertical-align:super;
     color: rgb(0, 0, 0);
+    text-align: center;
   }
   
   #user-assets .licence,

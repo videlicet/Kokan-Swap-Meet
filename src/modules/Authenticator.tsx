@@ -11,6 +11,7 @@ export const authenticate = async (): Promise<
     method: 'GET',
     credentials: 'include',
     headers: requestHeaders,
+    mode: "cors",
   })
   if (res.status === 200) {
     const user = await res.json()
@@ -52,8 +53,10 @@ export const fetchOtherUser = async (id: string) => {
     }),
     headers: {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Credentials': 'true',
     },
     credentials: 'include',
+    method: "cors"
   })
   if (res.status === 200) {
     let otherUser = await res.json()
