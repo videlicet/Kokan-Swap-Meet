@@ -23,11 +23,15 @@ input[type='submit'] {
   cursor: pointer;
 }
 
-button:hover,
-.button-like:hover,
-input[type='submit']:hover {
+button:hover:enabled,
+.button-like:enabled:hover,
+input[type='submit']:enabled:hover {
   background-color: var(--main-text-color);
   color: black;
+}
+
+button:disabled{
+  cursor:auto;
 }
 
 input[type='text'],

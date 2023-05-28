@@ -61,7 +61,7 @@ function AssetsDetail(): JSX.Element {
           transaction: {
             asset_id: asset?._id,
             kokans: asset?.kokans,
-            requester: user._id,
+            requester: user?._id,
             requestee: asset?.owners,
             created: new Date(),
             status: 'pending',
@@ -181,50 +181,50 @@ function AssetsDetail(): JSX.Element {
           <div>
             <div className='header'>
               <div>
-                <span className='title'>{asset.title}</span>
+                <span className='title'>{asset?.title}</span>
                 <span className='kokans' style={pricey}>
-                  {asset.kokans}
+                  {asset?.kokans}
                 </span>
                 <span>
                   &nbsp;&nbsp;by&nbsp;
-                  {(asset.creator_username !== 'Deleted User' && (
-                    <NavLink to={`/user/${asset.creator_username}`}>
-                      {asset.creator_username}
+                  {(asset?.creator_username !== 'Deleted User' && (
+                    <NavLink to={`/user/${asset?.creator_username}`}>
+                      {asset?.creator_username}
                     </NavLink>
                   )) ||
-                    asset.creator_username}
+                    asset?.creator_username}
                 </span>
                 <div style={{ color: 'grey' }}> {assetCreated}</div>
               </div>
               <div className='interaction'>
-                {user && !asset.owners_usernames.includes(user.username) && (
+                {user && !asset?.owners_usernames.includes(user?.username) && (
                   <AlertDialogAssetSwap
                     portalContainer={portalContainer}
-                    price={asset.kokans}
+                    price={asset?.kokans}
                     onSwap={onSwap}
-                    disabled={user.kokans < asset.kokans ? true : false}
+                    disabled={user?.kokans < asset?.kokans ? true : false}
                   />
                 )}
-                {user && asset.creator_username == user.username && (
+                {user && asset?.creator_username == user?.username && (
                   <AlertDialogAssetDelete
                     portalContainer={portalContainer}
-                    title={asset.title}
+                    title={asset?.title}
                     onDelete={onDelete}
                   />
                 )}
-                {user && asset.owners.includes(user._id) && (
+                {user && asset?.owners.includes(user?._id) && (
                   <AlertDialogAssetOffer
                     portalContainer={portalContainer}
-                    title={asset.title}
+                    title={asset?.title}
                     onOffer={onOffer}
-                    removeable={asset.onOffer ? true : false}
+                    removeable={asset?.onOffer ? true : false}
                   />
                 )}
               </div>
             </div>
             <br />
             <div className='description'>
-              <span>{asset.description_long}</span>
+              <span>{asset?.description_long}</span>
             </div>
 
             <div
@@ -233,11 +233,11 @@ function AssetsDetail(): JSX.Element {
             >
               <div className='additional-info'>
                 <span className='info-type'>License</span>
-                <span className='info'>{asset.licence}</span>
+                <span className='info'>{asset?.licence}</span>
               </div>
               <div className='additional-info'>
                 <span className='info-type'>Type</span>
-                {asset.type.map((item) => (
+                {asset?.type.map((item) => (
                   <span className='info'>{item}</span>
                 ))}
               </div>
@@ -245,7 +245,7 @@ function AssetsDetail(): JSX.Element {
               <div className='additional-info'>
                 <span className='info-type'>Owners</span>
                 <div style={{ display: 'flex' }}>
-                  {asset.owners_usernames.map((item: string) => (
+                  {asset?.owners_usernames.map((item: string) => (
                     <span className='info'>{item}</span>
                   ))}
                 </div>

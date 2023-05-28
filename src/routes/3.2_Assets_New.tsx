@@ -53,8 +53,8 @@ function AssetsNew(): JSX.Element {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      kokans: 3
-    }
+      kokans: 3,
+    },
   })
   const [loading, setLoading] = useState()
   const [error, setError] = useState(null)
