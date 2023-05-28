@@ -54,10 +54,10 @@
   }
   
   #user-assets .on-offer {
-    border-radius: 15px;
+    border-radius: 10px;
     background-color: var(--main-color-green);
     padding: 0.3rem 0.9rem;
-    text-transform: capitalize;
+    text-transform: uppercase;
     font-size: smaller;
     text-align: center;
   }

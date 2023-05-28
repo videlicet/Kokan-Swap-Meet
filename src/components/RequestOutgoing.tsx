@@ -2,9 +2,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 
 /* import components */
-import AlertDialogRequest, {
-  AlertDialogRequestContent,
-} from './AlertDialogRequest'
+import AlertDialogRequest from './AlertDialogRequest'
 
 /* import types */
 import { RequestInterface } from '../assets/mockRequests'
@@ -105,7 +103,11 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
           </NavLink>
         </span>
       </div>
-      <div className='description'>
+
+      <div
+        className='description'
+        style={{ display: 'flex', justifyContent: 'space-between' }}
+      >
         <span>
           You requested{' '}
           <NavLink to={`/assets/${props.requestProps?.asset_data._id}`}>
@@ -123,7 +125,26 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
             ),
           )}
         </span>
-      </div>
+        {props.requestProps?.status !== 'pending' && (
+          <span
+            className='reaction'
+            style={
+              (props.requestProps?.status === 'declined' && {
+                backgroundColor: 'rgb(190, 53, 11)',
+              }) ||
+              (props.requestProps?.status === 'accepted' && {
+                backgroundColor: 'rgb(91, 128, 73, 1)',
+              }) ||
+              (props.requestProps?.status === 'expired' && {
+                backgroundColor: 'grey',
+              })
+            }
+          >
+            {(props.requestProps?.status === 'declined' && 'declined') ||
+              (props.requestProps?.status === 'accepted' && 'accepted') ||
+              (props.requestProps?.status === 'expired' && 'expired')}
+          </span>
+        )}
       {props.requestProps?.status === 'pending' && (
         <AlertDialogRequest
           portalContainer={portalContainer}
@@ -131,6 +152,7 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
           onConfirm={onConfirm}
         />
       )}
+      </div>
     </div>
   )
 }

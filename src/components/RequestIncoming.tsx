@@ -203,10 +203,31 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           </NavLink>
         </span>
       </div>
-      <div className='description'>
+      <div
+        className='description'
+        style={{ display: 'flex', justifyContent: 'space-between' }}
+      >
         <span>
           User {props.requestProps?.requester_username} requests a swap for your
           asset {props.requestProps?.asset_data.title}.
+        </span>
+        <span
+          className='reaction'
+          style={
+            (props.requestProps?.status === 'declined' && {
+              backgroundColor: 'rgb(190, 53, 11)',
+            }) ||
+            (props.requestProps?.status === 'accepted' && {
+              backgroundColor: 'rgb(91, 128, 73, 1)',
+            }) ||
+            (props.requestProps?.status === 'expired' && {
+              backgroundColor: 'grey',
+            })
+          }
+        >
+          {(props.requestProps?.status === 'declined' && 'declined') ||
+            (props.requestProps?.status === 'accepted' && 'accepted') ||
+            (props.requestProps?.status === 'expired' && 'expired')}
         </span>
       </div>
       {props.requestProps?.status === 'pending' && (

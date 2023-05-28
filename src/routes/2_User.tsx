@@ -27,7 +27,6 @@ function User(): JSX.Element | undefined {
   const idCurrent = useRef<string>()
   //const [idCurrent, setIdCurrent] = useState<string>()
 
-  console.log(id, idCurrent)
   useEffect(() => {
     //setIdCurrent(id)
     setLoading(true)
