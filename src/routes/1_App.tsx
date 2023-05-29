@@ -54,12 +54,12 @@ function App(): JSX.Element {
   }, [])
 
   /* search */
-  function handleSearchSubmit(data: any) { // TD typing
+  function handleSearchSubmit(data: any) { // TODO typing
     setSearchTermHandle(data.search)
     navigate('/')
   }
 
-  console.log('UPDATE: App.js updated') // TD console.log
+  console.log('UPDATE: App.js updated') // TODO console.log
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
@@ -109,7 +109,7 @@ function App(): JSX.Element {
                       name='search'
                       style={{ width: '25rem' }}
                       type='text'
-                      placeholder='Search assets' // TD set default in useForm
+                      placeholder='Search assets' // TODO set default in useForm
                     ></input>
                     <button
                       type='submit'

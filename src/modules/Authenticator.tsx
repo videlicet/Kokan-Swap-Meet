@@ -24,12 +24,12 @@ export const getUser = async (
   navigate: any,
   to?: string,
 ): Promise<string | any> => {
-  // TD typing, is this an acutal promis?
+  // TODO typing, is this an acutal promis?
   console.log('User authentication:')
   authenticate().then((res) => {
     if (res.status === true) {
       console.log('– User authenticated.')
-      setUser(res.user) // TD typing
+      setUser(res.user) // TODO typing
       /* relevant for logging in: redirect to dashboard instead of staying on the page */
       if (to === 'dashboard') navigate(`/user/${res.user.username}/assets`)
     } else {

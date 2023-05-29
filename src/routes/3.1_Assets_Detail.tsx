@@ -76,7 +76,7 @@ function AssetsDetail(): JSX.Element {
         navigate(`/user/${user?.username}/requests/outgoing`)
       }
     } catch (err) {
-      // TD errorhandling
+      // TODO errorhandling
     }
     /* change total kokans and pending kokans */
     const changes = {
@@ -103,7 +103,7 @@ function AssetsDetail(): JSX.Element {
         },
       )
     } catch (err) {
-      // TD errorHandling
+      // TODO errorHandling
       console.log(err)
     }
   }
@@ -139,7 +139,7 @@ function AssetsDetail(): JSX.Element {
         navigate(`/user/${user?.username}/assets`)
       }
     } catch (err) {
-      // TD errorhandling
+      // TODO errorhandling
     }
   }
 
@@ -165,7 +165,7 @@ function AssetsDetail(): JSX.Element {
         navigate(`/user/${user?.username}/assets`)
       }
     } catch (err) {
-      // TD errorhandling
+      // TODO errorhandling
     }
   }
 

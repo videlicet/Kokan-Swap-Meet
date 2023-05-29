@@ -1,12 +1,12 @@
 export async function getUserRequests(
   user: any,
-  requests: any, // TD typing
+  requests: any, // TODO typing
   criterion: string,
   setLoading?: any,
 ) {
-  // TD typing
+  // TODO typing
   setLoading(true)
-  let query: any = {} // TD typing
+  let query: any = {} // TODO typing
   /* getUserRequests is used by two client functions that query different documents */
   switch (criterion) {
     case 'requester':
@@ -48,12 +48,12 @@ export async function getUserRequests(
   }
 }
 
-export async function aggregateTransactions(transaction_id: any) { // TD type
+export async function aggregateTransactions(transaction_id: any) { // TODO type
   try {
     const res = await fetch(
       `${import.meta.env.VITE_SERVER_URL}transactions/test/users`,
       {
-        // TD remove "test"
+        // TODO remove "test"
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

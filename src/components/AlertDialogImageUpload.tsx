@@ -5,7 +5,7 @@ import './AlertDialog.css'
 
 interface swapRequest {
   portalContainer: HTMLElement | null
-  onConfirm: any // TD type?
+  onConfirm: any // TODO type?
   disabled: boolean
 }
 

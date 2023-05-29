@@ -28,7 +28,7 @@ function LoginComponent(props: Props): JSX.Element {
   } = useForm()
 
   async function handleLogin(data: any) {
-    // TD typing
+    // TODO typing
     props.setLoading(true)
     const { password } = data
     try {

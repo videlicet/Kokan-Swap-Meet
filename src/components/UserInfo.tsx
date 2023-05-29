@@ -13,7 +13,7 @@ import { UserContext } from '../routes/1_App'
 import Loading from './Loading'
 
 interface Props {
-  otherUser?: any // TD type
+  otherUser?: any // TODO type
   loadingUserInfo: boolean
 }
 

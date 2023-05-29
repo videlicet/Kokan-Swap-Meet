@@ -37,7 +37,7 @@ function Assets(): JSX.Element {
         setAssets(onOffer)
       }
     } catch (error) {
-      // TD errorHandling
+      // TODO errorHandling
     }
     setLoading(false)
   }

@@ -14,7 +14,7 @@ interface propsInterface {
 
 const SelectLicence = forwardRef(({ ...props}: propsInterface , forwardedRef,) => (
   <Select.Root value={props.value} onValueChange={props.onValueChange}>
-    <Select.Trigger className='SelectTrigger' ref={forwardedRef} aria-label='license'> {/* TD type */}
+    <Select.Trigger className='SelectTrigger' ref={forwardedRef} aria-label='license'> {/* TODO type */}
       <Select.Value>
       <span>{props.value ?? "Select license"}</span>
       </Select.Value>

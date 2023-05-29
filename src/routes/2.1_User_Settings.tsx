@@ -98,7 +98,7 @@ function UserSettings(): JSX.Element {
       )
       getUser(setUser, navigate)
     } catch (err) {
-      // TD errorHandling
+      // TODO errorHandling
       console.log(err)
     }
     setLoading(false)
@@ -131,22 +131,22 @@ function UserSettings(): JSX.Element {
         if (res.status === 200) {
           setUser()
           /* clear JWT cookie */
-          // TD clear cookie
+          // TODO clear cookie
         }
       } catch (error) {
-        // TD errorHandling
+        // TODO errorHandling
       }
       navigate('/')
     }
   }
 
   async function handleImageUpload() {
-    // TD type
+    // TODO type
     /* get uploaded image */
     const inputElement = document?.getElementById('profile-picture')
     const file = inputElement?.files[0]
     if (1 === 1) {
-      // TD logic
+      // TODO logic
       /* send image to cloudinary */
       const formData = new FormData()
       formData.append('file', file)
@@ -188,7 +188,7 @@ function UserSettings(): JSX.Element {
           } catch (err) {}
         }
       } catch (err) {
-        // TD errorHandling
+        // TODO errorHandling
       }
     }
   }

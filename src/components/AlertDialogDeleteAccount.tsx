@@ -6,7 +6,7 @@ import './AlertDialog.css'
 interface deleteRequest {
   portalContainer: HTMLElement | null
   username: string
-  onDelete: any // TD type?
+  onDelete: any // TODO type?
 }
 
 const AlertDialogSwap: React.FC<deleteRequest> = (props: deleteRequest) => (

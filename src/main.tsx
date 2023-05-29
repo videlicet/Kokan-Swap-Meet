@@ -5,7 +5,7 @@ import './styles/0_index.css'
 
 /* import routes*/
 import App from './routes/1_App.tsx'
-import Welcome from './routes/1.1_Welcome.tsx' // TD change numbers
+import Welcome from './routes/1.1_Welcome.tsx'
 import Assets from './routes/3_Assets.tsx'
 import Login from './routes/1.1_Login.tsx'
 import Logout from './routes/1.2_Logout.tsx'
@@ -98,7 +98,7 @@ const router = createBrowserRouter([{
 }]);
 
 root.render(
-  //<React.StrictMode> // TD enable after finding workaround for refresh
+  //<React.StrictMode> {/*TODO enable after finding workaround for refresh*/}
     <RouterProvider router={router} />
   //</React.StrictMode>
 );

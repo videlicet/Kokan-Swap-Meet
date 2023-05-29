@@ -7,10 +7,10 @@ import brand_icon from '../assets/kokan_icon_w.png'
 
 interface createNewAsset {
   portalContainer: HTMLElement | null
-  onSubmitTrigger: any // TD type
+  onSubmitTrigger: any // TODO type
   title: string
   kokans: number
-  trigger: any // TD type
+  trigger: any // TODO type
 }
 
 const AlertDialogCreateNew: React.FC<createNewAsset> = (

@@ -66,7 +66,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
               update: {
                 $push: {
                   owners: props.requestProps.requester._id,
-                  brokers: props.requestProps.requester._id, // TD necessary?
+                  brokers: props.requestProps.requester._id, // TODO necessary?
                 },
               },
             }),
@@ -159,7 +159,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         )
       }
     } catch (err) {
-      // TD errHandling
+      // TODO errHandling
     }
   }
 
@@ -170,7 +170,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
     gitHubRepo: string,
   ) {
     console.log(requesteeGitHub, requesterGitHub, gitHubRepo)
-    // TD wrap in try/catch
+    // TODO wrap in try/catch
     let res = await fetch(
       `${import.meta.env.VITE_SERVER_URL}auth/gitHub/addCollaborator`,
       {
@@ -191,7 +191,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
       console.log('add successful')
       const collaborators = await res.json()
       console.log(collaborators)
-    } else console.log('Inviting collaborator failed.') // TD else action
+    } else console.log('Inviting collaborator failed.') // TODO else action
   }
 
   /* change style of request depending on status */

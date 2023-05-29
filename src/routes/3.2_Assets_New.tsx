@@ -107,19 +107,19 @@ function AssetsNew(): JSX.Element {
           creator: user._id,
           owners: [user._id],
           onOffer: false,
-          type: ['code'], // TD change when different types allowed
+          type: ['code'], // TODO change when different types allowed
           created: new Date(),
         }),
       })
     } catch (error) {
-      // TD errorHandling
+      // TODO errorHandling
     }
     navigate(`/user/${user.username}/assets`)
   }
 
   /* triggers submit of form after confirmation in alert dialog */
   function onSubmitTrigger() {
-    const form: HTMLFormElement = document.forms.newAsset // TD type
+    const form: HTMLFormElement = document.forms.newAsset // TODO type
     form.requestSubmit()
   }
 
@@ -160,14 +160,14 @@ function AssetsNew(): JSX.Element {
 
   return (
     <div id='new-asset-container'>
-      <h2>Link New Asset</h2>
+      <h2>Upload New Asset</h2>
       <form
         className='new-asset-form'
         name='newAsset'
         onSubmit={handleSubmit((data) => handleFormSubmit(data))}
         noValidate
       >
-        <div className='text-input' style={{ width: '80%' }}>
+        <div className='text-input' style={{ width: '90%' }}>
           <label htmlFor='repo'>
             GitHub Repository
             <TooltipInfo content={tooltipsRepo} />
@@ -230,7 +230,7 @@ function AssetsNew(): JSX.Element {
           </div>
         </div>
 
-        <div className='text-input' style={{ width: '80%' }}>
+        <div className='text-input' style={{ width: '90%' }}>
           <label htmlFor='title'>
             Asset Title
             <TooltipInfo content={tooltipTitle} />
@@ -264,7 +264,7 @@ function AssetsNew(): JSX.Element {
           </div>
         </div>
 
-        <div className='text-input' style={{ width: '80%' }}>
+        <div className='text-input' style={{ width: '90%' }}>
           <label htmlFor='descriptionShort'>
             Short Description
             <TooltipInfo content={tooltipShortDescription} />
@@ -296,7 +296,7 @@ function AssetsNew(): JSX.Element {
           </div>
         </div>
 
-        <div className='text-input' style={{ width: '80%' }}>
+        <div className='text-input' style={{ width: '90%' }}>
           <label htmlFor='descriptionLong'>
             Long Description
             <TooltipInfo content={tooltipLongDescription} />

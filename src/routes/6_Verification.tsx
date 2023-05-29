@@ -45,7 +45,7 @@ function EmailVerfication(): JSX.Element {
           }
           /* update email_verfied status in DB */
           try {
-            // TD fail logic
+            // TODO fail logic
             const res = await fetch(
               `${import.meta.env.VITE_SERVER_URL}users/${userCodeParam}`,
               {
@@ -59,12 +59,12 @@ function EmailVerfication(): JSX.Element {
               },
             )
           } catch (err) {
-            // TD errorHanlding
+            // TODO errorHanlding
           }
           setVerified(true)
         }
       } catch (err) {
-        // TD errorHandling
+        // TODO errorHandling
       }
     } else navigate('/')
     setLoading(false)

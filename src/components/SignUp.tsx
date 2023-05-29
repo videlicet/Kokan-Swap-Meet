@@ -8,9 +8,9 @@ import './SignUp.css'
 import { UserContext } from '../routes/1_App'
 
 interface Props {
-  gitHubUser: any // TD typing
-  setSignup: any // TD typing
-  setLogin: any // TD typing
+  gitHubUser: any // TODO typing
+  setSignup: any // TODO typing
+  setLogin: any // TODO typing
 }
 
 function SignUp(props: Props): JSX.Element {
@@ -49,7 +49,7 @@ function SignUp(props: Props): JSX.Element {
       navigate('/login')
       sendVerificationEmail(props.gitHubUser.login, email)
     } catch (error) {
-      // TD errorHandling
+      // TODO errorHandling
     }
   }
 
@@ -71,7 +71,7 @@ function SignUp(props: Props): JSX.Element {
         // show sth that the email was sent
       }
     } catch (err) {
-      // TD errorHandling
+      // TODO errorHandling
     }
     return
   }

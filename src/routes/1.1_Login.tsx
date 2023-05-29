@@ -14,8 +14,8 @@ function Login(): JSX.Element {
   const [gitHubAuth, setGitHubAuth] = useState<boolean>(false)
   const [login, setLogin] = useState<boolean>(false)
   const [signup, setSignup] = useState<boolean>(false)
-  const [gitHubUser, setGitHubUser] = useState<any>({}) // TD typing
-  const { user, setUser } = useContext<any>(UserContext) // TD typing
+  const [gitHubUser, setGitHubUser] = useState<any>({}) // TODO typing
+  const { user, setUser } = useContext<any>(UserContext) // TODO typing
 
   useEffect(() => {
     const queryString = window.location.search
@@ -49,7 +49,7 @@ function Login(): JSX.Element {
             return res
           } catch (err) {
             console.log('– GitHub authentication failed')
-            // TD error Handling what if failed -> create gitHub Account
+            // TODO error Handling what if failed -> create gitHub Account
           }
         }
         let res = await getAccessToken()

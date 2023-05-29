@@ -67,7 +67,7 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
         navigate(`/user/${props.username}/requests/outgoing`)
       }
     } catch (err) {
-      // TD errorHandling
+      // TODO errorHandling
       console.log(err)
     }
     /* change total kokans and pending kokans */
@@ -95,7 +95,7 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
         },
       )
     } catch (err) {
-      // TD errorHandling
+      // TODO errorHandling
       console.log(err)
     }
   }

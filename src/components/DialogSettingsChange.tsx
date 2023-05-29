@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form'
 interface settingsChange {
   portalContainer?: HTMLElement | null
   user: any
-  onSubmit: any // TD type
+  onSubmit: any // TODO type
   content: {
     title: string
     fields: {
@@ -16,7 +16,7 @@ interface settingsChange {
       inputName: string
       validation: any
     }[]
-  } // TD type
+  } // TODO type
 }
 
 const DialogSettingsChange: React.FC<settingsChange> = (

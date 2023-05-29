@@ -4,7 +4,7 @@ import { InfoCircledIcon } from '@radix-ui/react-icons';
 import './Tooltip.css';
 
 interface Props {
-    content: string | any // TD typing
+    content: string | any // TODO typing
 }
 
 const TooltipInfo: React.FC<Props> = (props: Props) => {
