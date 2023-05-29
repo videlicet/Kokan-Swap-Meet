@@ -4,8 +4,7 @@
   grid-template-rows: 1fr;
   min-height: 0;
   height: 100%;
-  overflow: scroll;
-
+  overflow: hidden scroll;
   row-gap: 0.5rem;
 }
 

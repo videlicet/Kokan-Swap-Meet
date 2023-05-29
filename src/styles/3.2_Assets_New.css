@@ -2,7 +2,7 @@
     min-height: 0;
     height: 100%;
     box-sizing: border-box;
-    overflow: scroll;
+    overflow: hidden auto;
     padding: 1rem 3rem;
     }
 
