@@ -35,13 +35,39 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
 
   const creationDate = new Date(props.requestProps?.created)
   const expirationOffset = 5
-  const expirationDate = creationDate.setUTCDate(creationDate.getUTCDate() + expirationOffset)
+  const expirationDate = creationDate.setUTCDate(
+    creationDate.getUTCDate() + expirationOffset,
+  )
   const expirationDateFormatted = date.format(
     new Date(expirationDate),
     'YYYY/MM/DD, HH:mm',
   )
 
   async function onConfirm(reaction: string) {
+    /* confirm the request is still pending by trying to find it as pending */
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}transactions/${
+          props.requestProps?._id
+        }`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': 'true',
+          },
+          credentials: 'include',
+        },
+      )
+      if (res.status === 404) {
+        getUser(setUser, navigate)
+        getUserRequests(user, props.requests, 'requester', props.setLoading)
+        return
+      }
+    } catch (err) {
+      console.log(err)
+    }
+
+    /* update transaction status */
     try {
       const res = await fetch(
         `${import.meta.env.VITE_SERVER_URL}transactions/${
@@ -78,6 +104,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
             }),
           },
         )
+
         /* new kokan balances */
         const newRequesteeKokans =
           user.kokans + props.requestProps.asset_data.kokans
@@ -122,12 +149,6 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
             }),
           },
         )
-
-        /* update user (aka requestee) state */
-        setUser({
-          ...user,
-          kokans: newRequesteeKokans,
-        })
 
         /* add requester as GitHub collaborator on repo */
         addCollaborator(

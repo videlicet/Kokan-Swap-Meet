@@ -48,12 +48,11 @@ export async function getUserRequests(
   }
 }
 
-export async function aggregateTransactions(transaction_id: any) { // TODO type
+export async function aggregateTransactions(transaction_id: string) { // TODO type
   try {
     const res = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}transactions/test/users`,
+      `${import.meta.env.VITE_SERVER_URL}transactions/${transaction_id}/users`,
       {
-        // TODO remove "test"
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

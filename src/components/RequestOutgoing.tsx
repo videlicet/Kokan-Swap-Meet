@@ -55,6 +55,29 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
   )
 
   async function onConfirm() {
+    /* confirm the request is still pending by trying to find it as pending */
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}transactions/${
+          props.requestProps?._id
+        }`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': 'true',
+          },
+          credentials: 'include',
+        },
+      )
+      if (res.status === 404) {
+        getUser(setUser, navigate)
+        getUserRequests(user, props.requests, 'requestee', props.setLoading)
+        return
+      }
+    } catch (err) {
+      console.log(err)
+    }
+
     /* delete transaction */
     try {
       const res = await fetch(
