@@ -2,7 +2,7 @@ export async function getUserRequests(
   user: any,
   requests: any, // TODO typing
   criterion: string,
-  setLoading?: any,
+  setLoading?: any, // TODO typing
 ) {
   // TODO typing
   setLoading(true)

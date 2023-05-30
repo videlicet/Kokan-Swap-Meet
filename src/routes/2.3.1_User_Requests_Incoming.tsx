@@ -30,7 +30,12 @@ function UserRequestsIncoming(): JSX.Element {
         <Loading />
       ) : requests?.current.length !== 0 ? (
         requests?.current.map((item: any, index: number) => (
-          <RequestIncoming requestProps={item} index={index}></RequestIncoming>
+          <RequestIncoming
+            requestProps={item}
+            index={index}
+            requests={requests}
+            setLoading={setLoading}
+          />
         ))
       ) : (
         <div className='request' style={{ marginLeft: '1rem' }}>

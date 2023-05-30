@@ -4,9 +4,9 @@ import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import './AlertDialog.css'
 
 interface swapRequest {
-  portalContainer: HTMLElement | null
   onConfirm: any // TODO type?
-  disabled: boolean
+  portalContainer?: HTMLElement | null
+  disabled?: boolean
 }
 
 const AlertDialogImageUpload: React.FC<swapRequest> = (props: swapRequest) => {

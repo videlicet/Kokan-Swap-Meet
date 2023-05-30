@@ -16,12 +16,12 @@ import { UserContext } from './1_App'
 import { fetchOtherUser } from '../modules/Authenticator'
 
 function User(): JSX.Element | undefined {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState(null)
   const { user, setUser } = useContext<any>(UserContext)
-  const [otherUser, setOtherUser] = useState()
-  const [auth, setAuth] = useState(false)
-  const [loadingUserInfo, setLoadingUserInfo] = useState(true)
+  const [otherUser, setOtherUser] = useState<any>()
+  const [auth, setAuth] = useState<boolean>(false)
+  const [loadingUserInfo, setLoadingUserInfo] = useState<boolean>(true)
   const navigate = useNavigate()
   const { id } = useParams<string>()
   const idCurrent = useRef<string>()
@@ -35,9 +35,8 @@ function User(): JSX.Element | undefined {
         if (res.status === false) {
           return navigate('/login')
         }
-        /* fetch info about other user if 
-        url param (id) and username differs */
-        if(res.status === true) {
+        /* fetch info about other user if url param (id) and username differs */
+        if (res.status === true) {
           setUser(res.user)
           idCurrent.current = res.user.username
         }
@@ -63,15 +62,20 @@ function User(): JSX.Element | undefined {
         {!loading ? (
           <>
             <div id='user-outlet'>
-                <Outlet />
+              <Outlet />
             </div>
             {id === user?.username ? ( // TODO can't his be combined?
               <UserInfo loadingUserInfo={loadingUserInfo} />
             ) : (
-              <UserInfo otherUser={otherUser} loadingUserInfo={loadingUserInfo}/>
+              <UserInfo
+                otherUser={otherUser}
+                loadingUserInfo={loadingUserInfo}
+              />
             )}
           </>
-        ) : <Loading/>}
+        ) : (
+          <Loading />
+        )}
       </div>
     )
 }

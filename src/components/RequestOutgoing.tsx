@@ -11,6 +11,10 @@ import { RequestInterface } from '../assets/mockRequests'
 /* import context */
 import { PortalContext, UserContext } from '../routes/1_App'
 
+/* import modules */
+import { getUser } from '../modules/Authenticator'
+import { getUserRequests } from '../modules/Requestor'
+
 /* import request dialog content */
 import { alertDialogRequestContentDelete } from '../components/RequestDialogs.tsx'
 
@@ -18,6 +22,8 @@ interface Request {
   requestProps: RequestInterface
   index: number
   username: string
+  setLoading: any // TODO typing
+  requests: any // TODO typing
 }
 
 /* change style of request depending on status */
@@ -38,8 +44,9 @@ function dynamicRequestStyle(status: string) {
 const RequestOutgoing: React.FC<Request> = (props: Request) => {
   const navigate = useNavigate()
   const { portalContainer } = useContext<any>(PortalContext)
-  const { user } = useContext<any>(UserContext)
+  const { user, setUser } = useContext<any>(UserContext)
 
+  /* prepare expiration date */
   const creationDate = new Date(props.requestProps?.created)
   const expirationDate = creationDate.setUTCDate(creationDate.getUTCDate() + 5)
   const expirationDateFormatted = date.format(
@@ -98,6 +105,8 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
       // TODO errorHandling
       console.log(err)
     }
+    getUser(setUser, navigate)
+    getUserRequests(user, props.requests, 'requester', props.setLoading)
   }
 
   return (

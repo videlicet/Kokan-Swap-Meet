@@ -11,6 +11,10 @@ import { UserContext, PortalContext } from '../routes/1_App'
 /* import types */
 import { RequestInterface } from '../assets/mockRequests'
 
+/* import */
+import { getUser } from '../modules/Authenticator'
+import { getUserRequests } from '../modules/Requestor'
+
 /* import request dialog content */
 import {
   alertDialogRequestContentAccept,
@@ -20,6 +24,8 @@ import {
 interface Request {
   requestProps: RequestInterface
   index: number
+  requests: any // TODO typing
+  setLoading: any // TODO typing
 }
 
 const RequestIncoming: React.FC<Request> = (props: Request) => {
@@ -125,7 +131,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
 
         /* add requester as GitHub collaborator on repo */
         addCollaborator(
-          user.username,
+          user?.username,
           props.requestProps.requester_username,
           props.requestProps.asset_data.gitHub_repo,
         )
@@ -161,6 +167,8 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
     } catch (err) {
       // TODO errHandling
     }
+    getUser(setUser, navigate)
+    getUserRequests(user, props.requests, 'requestee', props.setLoading)
   }
 
   /* add requester as GitHub collaborator on repo */
@@ -188,7 +196,6 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
       },
     )
     if (res.status === 200) {
-      console.log('add successful')
       const collaborators = await res.json()
       console.log(collaborators)
     } else console.log('Inviting collaborator failed.') // TODO else action
@@ -203,6 +210,8 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         return 'request accepted'
       case 'declined':
         return 'request declined'
+      case 'expired':
+        return 'request expired'
     }
   }
 

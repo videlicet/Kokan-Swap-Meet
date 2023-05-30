@@ -41,8 +41,9 @@ function UserAssets(): JSX.Element {
         const userAssets = await res.json()
         setUserAssets(userAssets)
       }
-    } catch (error) {
-      //errorHandling
+    } catch (err) {
+      console.log(err)
+      // TODO errorHandling
     }
     setLoading(false)
   }

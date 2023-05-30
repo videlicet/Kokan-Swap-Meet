@@ -1,6 +1,6 @@
 // @ts-nocheck
-import { useState, useContext, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import '../styles/2.1_User_Settings.css'
 
 /* import components */
@@ -9,8 +9,11 @@ import DialogSettingsChange from '../components/DialogSettingsChange.tsx'
 import TooltipInfo from '../components/Tooltip.tsx'
 import AlertDialogImageUpload from '../components/AlertDialogImageUpload.tsx'
 
-/* context */
+/* impmort context */
 import { UserContext, PortalContext } from './1_App'
+
+/* import modules */
+import { getUser } from '../modules/Authenticator'
 
 /* toolTips */
 const tooltipName = 'Your first and last names.'
@@ -19,16 +22,13 @@ const tooltipPassword = 'Your password for logging in to Kokan.'
 const tooltipProfilePicture =
   'Kokan uses your GitHub profile picture by default. You can upload a different profile picture here.'
 
-/*modules*/
-import { getUser, redirectDashboard } from '../modules/Authenticator'
-
 function UserSettings(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const { user, setUser } = useContext<any>(UserContext)
   const { portalContainer } = useContext<any>(PortalContext)
   const navigate = useNavigate()
-  
+
   const DialogPassword = {
     title: 'password',
     fields: [
@@ -98,8 +98,8 @@ function UserSettings(): JSX.Element {
       )
       getUser(setUser, navigate)
     } catch (err) {
-      // TODO errorHandling
       console.log(err)
+      // TODO errorHandling
     }
     setLoading(false)
   }
@@ -130,10 +130,9 @@ function UserSettings(): JSX.Element {
         })
         if (res.status === 200) {
           setUser()
-          /* clear JWT cookie */
-          // TODO clear cookie
         }
-      } catch (error) {
+      } catch (err) {
+        console.log(err)
         // TODO errorHandling
       }
       navigate('/')
@@ -185,9 +184,13 @@ function UserSettings(): JSX.Element {
               inputElement.value = ''
               getUser(setUser, navigate)
             }
-          } catch (err) {}
+          } catch (err) {
+            console.log(err)
+            // TODO errorHan
+          }
         }
       } catch (err) {
+        console.log(err)
         // TODO errorHandling
       }
     }

@@ -8,6 +8,8 @@ import Loading from '../components/Loading'
 
 /* import context */
 import { UserContext } from './1_App'
+
+/* import modules */
 import { getUserRequests } from '../modules/Requestor'
 
 /* function component */
@@ -33,6 +35,8 @@ function UserRequestsOutgoing(): JSX.Element {
             requestProps={item}
             index={index}
             username={user.username}
+            requests={requests}
+            setLoading={setLoading}
           ></RequestOutgoing>
         ))
       ) : (
