@@ -9,10 +9,9 @@ import { CheckIcon, Cross1Icon } from '@radix-ui/react-icons'
 import SelectLicence from '../components/SelectLicense.tsx'
 import TooltipInfo from '../components/Tooltip.tsx'
 import SliderKokan from '../components/SliderKokan.tsx'
-
 import AlertDialogCreateNew from '../components/AlertDialogCreateNew.tsx'
 
-/* context */
+/* import context */
 import { PortalContext, UserContext } from './1_App'
 
 /* toolTips */

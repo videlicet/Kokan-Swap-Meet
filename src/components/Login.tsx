@@ -1,11 +1,12 @@
 import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { CheckCircledIcon } from '@radix-ui/react-icons'
-import { getUser } from '../modules/Authenticator'
 
 /* import components */
-import Loading from './Loading'
+import { CheckCircledIcon } from '@radix-ui/react-icons'
+
+/* import modules */
+import { getUser } from '../modules/Authenticator'
 
 /* import context */
 import { UserContext } from '../routes/1_App'

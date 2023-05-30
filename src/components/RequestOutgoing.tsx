@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import date from 'date-and-time'
 
@@ -22,7 +22,7 @@ interface Request {
   requestProps: RequestInterface
   index: number
   username: string
-  setLoading: any // TODO typing
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
   requests: any // TODO typing
 }
 

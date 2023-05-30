@@ -3,8 +3,6 @@ import {
   useState,
   useEffect,
   createContext,
-  ChangeEvent,
-  FormEvent,
   useRef,
 } from 'react'
 import { useForm } from 'react-hook-form'
@@ -20,9 +18,6 @@ import {
   PlusIcon,
 } from '@radix-ui/react-icons'
 import DropdownMenu from '../components/DropDownMenu.tsx'
-
-/* import types */
-import { UserInterface } from '../assets/mockUsers.tsx'
 
 /* context */
 export const UserContext = createContext({})

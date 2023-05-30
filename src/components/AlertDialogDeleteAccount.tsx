@@ -1,7 +1,9 @@
 // @ts-nocheck
 import React from 'react'
-import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import './AlertDialog.css'
+
+/* import components */
+import * as AlertDialog from '@radix-ui/react-alert-dialog'
 
 interface deleteRequest {
   portalContainer: HTMLElement | null

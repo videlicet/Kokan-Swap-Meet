@@ -29,6 +29,7 @@ function UserSettings(): JSX.Element {
   const { portalContainer } = useContext<any>(PortalContext)
   const navigate = useNavigate()
 
+  /* dialog contents */
   const DialogPassword = {
     title: 'password',
     fields: [
@@ -140,7 +141,6 @@ function UserSettings(): JSX.Element {
   }
 
   async function handleImageUpload() {
-    // TODO type
     /* get uploaded image */
     const inputElement = document?.getElementById('profile-picture')
     const file = inputElement?.files[0]

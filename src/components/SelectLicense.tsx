@@ -1,7 +1,9 @@
 // @ts-nocheck
-import React, {forwardRef} from 'react'
-import * as Select from '@radix-ui/react-select'
+import {forwardRef} from 'react'
 import './SelectLicense.css'
+
+/* import components */
+import * as Select from '@radix-ui/react-select'
 import { CheckIcon, ChevronDownIcon } from '@radix-ui/react-icons'
 
 interface propsInterface {

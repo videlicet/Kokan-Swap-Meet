@@ -1,8 +1,9 @@
 // @ts-nocheck
 import React, { useState } from 'react'
-import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import './AlertDialog.css'
 
+/* import components */
+import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import brand_icon from '../assets/kokan_icon_w.png'
 
 interface createNewAsset {

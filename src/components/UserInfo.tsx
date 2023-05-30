@@ -1,14 +1,13 @@
 import { useState, useContext, useEffect } from 'react'
 import date from 'date-and-time'
 import '../styles/2_User.css'
-import brand_icon from '../assets/kokan_icon_w.png'
 
 /* import components */
 import { ExternalLinkIcon } from '@radix-ui/react-icons'
 import ProfileAvatar from '../components/ProfileAvatar'
 import TooltipInfo from '../components/Tooltip'
 
-/* context */
+/* import context */
 import { UserContext } from '../routes/1_App'
 import Loading from './Loading'
 

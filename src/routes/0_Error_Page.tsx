@@ -8,8 +8,6 @@ import brand_icon from '../assets/kokan_icon_w.png'
 
 function ErrorPage(): JSX.Element {
   const [loading, setLoading] = useState(true)
-  //const [error, setError] = useState(null);
-
   let error: any
   error = useRouteError() ? useRouteError() : error
 

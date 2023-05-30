@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import '../styles/1.2_Logout.css'
 
 /* import components */
@@ -12,7 +12,6 @@ function Logout(): JSX.Element {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [loggedOut, setLoggedOut] = useState(false)
-  const navigate = useNavigate()
   const { user, setUser } = useContext<any>(UserContext)
 
   async function logout() {

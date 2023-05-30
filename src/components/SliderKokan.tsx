@@ -1,10 +1,11 @@
-import React from 'react'
-import * as Slider from '@radix-ui/react-slider'
 import './SliderKokan.css'
+
+/* import components */
+import * as Slider from '@radix-ui/react-slider'
 import brand_icon from '../assets/kokan_icon_w.png'
 
 interface Props {
-  kokans: any
+  kokans: number
   handleKokans: (value: number[]) => void
 }
 
@@ -40,9 +41,3 @@ const SliderKokan = (props: Props) => (
 )
 
 export default SliderKokan
-
-/*
-    <div className="info-box">
-      <span style={{display: "block", width: "0.7rem", textAlign: "center"}}>{props.kokans}</span>
-    </div>V
-*/

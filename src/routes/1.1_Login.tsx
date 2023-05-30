@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, useRef } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import '../styles/1.1_Login.css'
 
 /* context */
@@ -163,7 +163,7 @@ function Login(): JSX.Element {
             ))}
         </div>
       ) : (
-        <Loading/>
+        <Loading />
       )}
     </div>
   )

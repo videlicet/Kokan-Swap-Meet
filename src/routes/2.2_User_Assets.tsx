@@ -9,7 +9,6 @@ import Loading from '../components/Loading'
 /* import context */
 import { UserContext } from './1_App'
 
-/* function component */
 function UserAssets(): JSX.Element {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)

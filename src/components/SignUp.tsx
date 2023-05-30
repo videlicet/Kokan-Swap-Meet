@@ -1,27 +1,24 @@
-import { useState, ChangeEvent, useContext } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { CheckCircledIcon } from '@radix-ui/react-icons'
 import './SignUp.css'
 
-/* context */
-import { UserContext } from '../routes/1_App'
+/* import components */
+import { CheckCircledIcon } from '@radix-ui/react-icons'
 
 interface Props {
   gitHubUser: any // TODO typing
-  setSignup: any // TODO typing
-  setLogin: any // TODO typing
+  setSignup: React.Dispatch<React.SetStateAction<boolean>>
+  setLogin: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 function SignUp(props: Props): JSX.Element {
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
-  const { user, setUser } = useContext<any>(UserContext)
   const navigate = useNavigate()
 
   async function handleFormSubmit(data: any) {
@@ -48,7 +45,8 @@ function SignUp(props: Props): JSX.Element {
       props.setSignup(false)
       navigate('/login')
       sendVerificationEmail(props.gitHubUser.login, email)
-    } catch (error) {
+    } catch (err) {
+      console.log(err)
       // TODO errorHandling
     }
   }
@@ -71,6 +69,7 @@ function SignUp(props: Props): JSX.Element {
         // show sth that the email was sent
       }
     } catch (err) {
+      console.log(err)
       // TODO errorHandling
     }
     return

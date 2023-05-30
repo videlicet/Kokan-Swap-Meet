@@ -1,8 +1,10 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import './DialogSettingsChange.css'
+
+/* import components */
 import * as Dialog from '@radix-ui/react-dialog'
 import { Cross2Icon } from '@radix-ui/react-icons'
-import './DialogSettingsChange.css'
-import { useForm } from 'react-hook-form'
 
 interface settingsChange {
   portalContainer?: HTMLElement | null

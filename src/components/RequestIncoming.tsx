@@ -25,7 +25,7 @@ interface Request {
   requestProps: RequestInterface
   index: number
   requests: any // TODO typing
-  setLoading: any // TODO typing
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const RequestIncoming: React.FC<Request> = (props: Request) => {
@@ -60,7 +60,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         /* update ownership of asset */
         await fetch(
           `${import.meta.env.VITE_SERVER_URL}assets/${
-            props.requestProps.asset_data
+            props.requestProps.asset_id
           }`,
           {
             method: 'PUT',
@@ -69,11 +69,10 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
               'Access-Control-Allow-Credentials': 'true',
             },
             body: JSON.stringify({
-              asset: { asset_id: props.requestProps.asset_id },
+              asset: { asset_id: props.requestProps.asset_data._id },
               update: {
                 $push: {
-                  owners: props.requestProps.requester._id,
-                  brokers: props.requestProps.requester._id, // TODO necessary?
+                  owners: props.requestProps.requester,
                 },
               },
             }),
