@@ -22,7 +22,6 @@ input[type='submit'] {
   color: var(--main-text-color);
   cursor: pointer;
 }
-
 button:hover:enabled,
 .button-like:enabled:hover,
 input[type='submit']:enabled:hover {
@@ -30,8 +29,8 @@ input[type='submit']:enabled:hover {
   color: black;
 }
 
-button:disabled{
-  cursor:auto;
+button:disabled {
+  cursor: auto;
 }
 
 input[type='text'],
@@ -48,6 +47,20 @@ input[type='password'] {
 
 input:disabled {
   opacity: 0.5;
+}
+
+.inactive {
+  cursor: auto;
+}
+
+.yellow {
+  color: rgba(0, 0, 0);
+  background-color: var(--main-color-yellow);
+}
+
+.green {
+  color: var(--main-text-color);
+  background-color: var(--main-color-green);
 }
 
 .text-input {

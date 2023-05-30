@@ -29,7 +29,7 @@ function UserInfo(props?: Props): JSX.Element {
   }, [])
 
   /* tooltips */
-  const tooltipKokans = <span>current / outgoing</span>
+  const tooltipKokans = <span>current / pending</span>
   const tooltipAssets = (
     <span>offered {!otherUser && <span> / total</span>}</span>
   )

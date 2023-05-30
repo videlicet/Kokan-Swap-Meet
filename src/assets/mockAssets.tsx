@@ -13,4 +13,6 @@ export interface AssetInterface {
     description_short: string,
     description_long: string,
     licence: string,
+    transaction_created: string,
+    transaction_status: string
   }

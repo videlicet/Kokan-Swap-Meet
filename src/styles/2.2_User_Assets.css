@@ -38,7 +38,7 @@
   #user-assets .kokans,
   #assets .kokans, #asset-container .kokans {
     display: inline-block;
-    border-radius: 100px;
+    border-radius: 5px;
     background-color: var(--main-color-yellow);
     min-width: 1ch;
     padding: 0.1rem 0.3rem;

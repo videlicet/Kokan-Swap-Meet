@@ -25,7 +25,8 @@ function AssetsDetail(): JSX.Element {
   let { id } = useParams<string>()
   const navigate = useNavigate()
 
-  async function getAsset() {
+  async function getAsset(requester: string) {
+    /* get aasset in database */
     try {
       const res = await fetch(
         `${import.meta.env.VITE_SERVER_URL}assets/${id}`,
@@ -35,7 +36,10 @@ function AssetsDetail(): JSX.Element {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': 'true',
           },
-          body: JSON.stringify({ asset: { _id: id } }),
+          body: JSON.stringify({
+            asset: { _id: id },
+            requester: { _id: requester },
+          }),
         },
       )
       if (res.status == 200) {
@@ -48,7 +52,7 @@ function AssetsDetail(): JSX.Element {
   }
 
   useEffect(() => {
-    getAsset()
+    getAsset(user?._id)
   }, [])
 
   async function onSwap() {
@@ -190,12 +194,12 @@ function AssetsDetail(): JSX.Element {
                 <span className='title'>{asset?.title}</span>
                 <span>
                   &nbsp;&nbsp;by&nbsp;
-                  {(asset?.creator_username !== 'Deleted User' && (
+                  {(asset?.creator_username && (
                     <NavLink to={`/user/${asset?.creator_username}`}>
                       {asset?.creator_username}
                     </NavLink>
                   )) ||
-                    asset?.creator_username}
+                    'Deleted User'}
                 </span>
                 <div style={{ color: 'grey' }}>
                   {' '}
@@ -203,13 +207,31 @@ function AssetsDetail(): JSX.Element {
                 </div>
               </div>
               <div className='interaction'>
-                {user && !asset?.owners_usernames.includes(user?.username) && (
-                  <AlertDialogAssetSwap
-                    portalContainer={portalContainer}
-                    price={asset?.kokans}
-                    onSwap={onSwap}
-                    disabled={user?.kokans < asset?.kokans ? true : false}
-                  />
+                {user &&
+                  !asset?.owners_usernames.includes(user?.username) &&
+                  !asset?.transaction_status && (
+                    <AlertDialogAssetSwap
+                      portalContainer={portalContainer}
+                      price={asset?.kokans}
+                      onSwap={onSwap}
+                      disabled={user?.kokans < asset?.kokans ? true : false}
+                    />
+                  )}
+                {user &&
+                  !asset?.owners_usernames.includes(user?.username) &&
+                  asset?.transaction_status === 'pending' && (
+                    <span className='button-like inactive yellow'>
+                      request pending since{' '}
+                      {date.format(
+                        new Date(asset?.transaction_created),
+                        'YYYY/MM/DD',
+                      )}
+                    </span>
+                  )}
+                {user && asset?.owners_usernames.includes(user?.username) && (
+                  <span className='button-like inactive green'>
+                    owned by you
+                  </span>
                 )}
                 {user && asset?.creator_username == user?.username && (
                   <AlertDialogAssetDelete

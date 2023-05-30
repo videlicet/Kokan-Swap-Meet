@@ -53,7 +53,7 @@ const DialogSettingsChange: React.FC<settingsChange> = (
               Change {props.content.title}
             </Dialog.Title>
             <Dialog.Description className='DialogDescription'>
-              Make changes to your profile here. Click save when you're done.
+              Make changes to your profile settings and click "save settings" when you're done.
             </Dialog.Description>
             {fields.map((field, index: number) => {
               return (

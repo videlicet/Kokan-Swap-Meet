@@ -34,7 +34,8 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
   const { portalContainer } = useContext<any>(PortalContext)
 
   const creationDate = new Date(props.requestProps?.created)
-  const expirationDate = creationDate.setUTCDate(creationDate.getUTCDate() + 5)
+  const expirationOffset = 5
+  const expirationDate = creationDate.setUTCDate(creationDate.getUTCDate() + expirationOffset)
   const expirationDateFormatted = date.format(
     new Date(expirationDate),
     'YYYY/MM/DD, HH:mm',
@@ -165,6 +166,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         )
       }
     } catch (err) {
+      console.log(err)
       // TODO errHandling
     }
     getUser(setUser, navigate)
