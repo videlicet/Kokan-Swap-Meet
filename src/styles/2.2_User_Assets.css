@@ -36,7 +36,7 @@
   }
   
   #user-assets .kokans,
-  #assets .kokans {
+  #assets .kokans, #asset-container .kokans {
     display: inline-block;
     border-radius: 100px;
     background-color: var(--main-color-yellow);

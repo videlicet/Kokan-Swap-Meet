@@ -56,7 +56,7 @@ function AssetsDetail(): JSX.Element {
     try {
       let res = await fetch(`${import.meta.env.VITE_SERVER_URL}transactions`, {
         method: 'POST',
-        credentials: "include",
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Credentials': 'true',
@@ -72,10 +72,8 @@ function AssetsDetail(): JSX.Element {
           },
         }),
       })
-      if (res.status === 201) {
-        navigate(`/user/${user?.username}/requests/outgoing`)
-      }
     } catch (err) {
+      console.log(err)
       // TODO errorhandling
     }
     /* change total kokans and pending kokans */
@@ -103,9 +101,10 @@ function AssetsDetail(): JSX.Element {
         },
       )
     } catch (err) {
-      // TODO errorHandling
       console.log(err)
+      // TODO errorHandling
     }
+    navigate(`/user/${user?.username}/requests/outgoing`)
   }
 
   async function onDelete() {
@@ -135,12 +134,12 @@ function AssetsDetail(): JSX.Element {
             body: JSON.stringify({ asset: { _id: asset?._id } }),
           },
         )
-
-        navigate(`/user/${user?.username}/assets`)
       }
     } catch (err) {
+      console.log(err)
       // TODO errorhandling
     }
+    navigate(`/user/${user?.username}/assets`)
   }
 
   async function onOffer() {
@@ -165,6 +164,8 @@ function AssetsDetail(): JSX.Element {
         navigate(`/user/${user?.username}/assets`)
       }
     } catch (err) {
+      console.log(err)
+      navigate(`/user/${user?.username}/assets`)
       // TODO errorhandling
     }
   }
@@ -183,10 +184,10 @@ function AssetsDetail(): JSX.Element {
           <div>
             <div className='header'>
               <div>
-                <span className='title'>{asset?.title}</span>
                 <span className='kokans' style={pricey}>
                   {asset?.kokans}
                 </span>
+                <span className='title'>{asset?.title}</span>
                 <span>
                   &nbsp;&nbsp;by&nbsp;
                   {(asset?.creator_username !== 'Deleted User' && (
@@ -196,7 +197,10 @@ function AssetsDetail(): JSX.Element {
                   )) ||
                     asset?.creator_username}
                 </span>
-                <div style={{ color: 'grey' }}> {date.format(new Date(asset?.created), 'YYYY/MM/DD')}</div>
+                <div style={{ color: 'grey' }}>
+                  {' '}
+                  {date.format(new Date(asset?.created), 'YYYY/MM/DD')}
+                </div>
               </div>
               <div className='interaction'>
                 {user && !asset?.owners_usernames.includes(user?.username) && (
@@ -233,10 +237,18 @@ function AssetsDetail(): JSX.Element {
               className='asset-footer'
               style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
             >
-              {user && asset?.owners.includes(user?._id) && (<div className='additional-info'>
-                <span className='info-type'>Repository</span>
-                <span className='info'><a href={`https://github.com/${asset?.creator_username}/${asset?.gitHub_repo}`}>{asset?.gitHub_repo}</a></span>
-              </div>)}
+              {user && asset?.owners.includes(user?._id) && (
+                <div className='additional-info'>
+                  <span className='info-type'>Repository</span>
+                  <span className='info'>
+                    <a
+                      href={`https://github.com/${asset?.creator_username}/${asset?.gitHub_repo}`}
+                    >
+                      {asset?.gitHub_repo}
+                    </a>
+                  </span>
+                </div>
+              )}
               <div className='additional-info'>
                 <span className='info-type'>License</span>
                 <span className='info'>{asset?.licence}</span>

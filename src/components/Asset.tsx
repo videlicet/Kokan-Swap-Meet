@@ -41,7 +41,7 @@ const Asset: React.FC<Asset> = (props: Asset) => {
           >
             <p>
               <span className='kokans' style={pricey}>
-                {props.assetProps.kokans}{' '}
+                {props.assetProps.kokans}
               </span>
               <span className='title'>{props.assetProps.title}</span>
             </p>
