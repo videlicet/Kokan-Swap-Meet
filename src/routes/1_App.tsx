@@ -47,7 +47,7 @@ function App(): JSX.Element {
   function handleSearchSubmit(data: any) {
     // TODO typing
     setSearchTermHandle(data.search)
-    navigate('/')
+    navigate('/assets')
   }
 
   return (
@@ -73,7 +73,7 @@ function App(): JSX.Element {
                 <div style={{ display: 'flex', gap: '1rem', height: '100%' }}>
                   <NavLink
                     className='navbar-element'
-                    to='/'
+                    to='/assets'
                     style={{ fontSize: 'medium' }}
                     onClick={() => {
                       setSearchTermHandle('')

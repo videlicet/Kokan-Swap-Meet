@@ -23,9 +23,7 @@ const AlertDialogAssetDelete: React.FC<swapRequest> = (props: swapRequest) => (
           Please confirm you want to delete this asset.
         </AlertDialog.Title>
         <AlertDialog.Description className='AlertDialogDescription'>
-          <p>
             Delete asset <span style={{color: "red"}}>{props.title}</span>.
-          </p>
         </AlertDialog.Description>
         <div style={{ display: 'flex', gap: 25, justifyContent: 'flex-end' }}>
           <AlertDialog.Cancel asChild>

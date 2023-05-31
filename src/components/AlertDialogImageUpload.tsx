@@ -39,11 +39,9 @@ const AlertDialogImageUpload: React.FC<swapRequest> = (props: swapRequest) => {
             Please confirm you want to change your profile picture.
           </AlertDialog.Title>
           <AlertDialog.Description className='AlertDialogDescription'>
-            <p>
               Your profile picture will be updated on confirmation. If you want
               your default GitHub profile picture back, please reupload it
               through this form.
-            </p>
           </AlertDialog.Description>
           <div style={{ display: 'flex', gap: 25, justifyContent: 'flex-end' }}>
             <AlertDialog.Cancel asChild>

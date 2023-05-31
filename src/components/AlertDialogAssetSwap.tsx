@@ -38,9 +38,7 @@ const AlertDialogAssetSwap: React.FC<swapRequest> = (props: swapRequest) => {
             Please confirm your request to swap this asset.
           </AlertDialog.Title>
           <AlertDialog.Description className='AlertDialogDescription'>
-            <p>
               Kokan balance: <span>{props.price}</span>
-            </p>
           </AlertDialog.Description>
           <div style={{ display: 'flex', gap: 25, justifyContent: 'flex-end' }}>
             <AlertDialog.Cancel asChild>

@@ -46,20 +46,18 @@ const AlertDialogCreateNew: React.FC<createNewAsset> = (
               Please confirm you want to create and publish this asset.
             </AlertDialog.Title>
             <AlertDialog.Description className='AlertDialogDescription'>
-              <p>
-                Create new asset {props.title} for{' '}
-                <img
-                  src={brand_icon}
-                  alt='kokans'
-                  height='20px'
-                  style={{
-                    position: 'relative',
-                    top: '0.3rem',
-                    marginLeft: '0.2rem',
-                  }}
-                />{' '}
-                {props.kokans}
-              </p>
+              Create new asset {props.title} for{' '}
+              <img
+                src={brand_icon}
+                alt='kokans'
+                height='20px'
+                style={{
+                  position: 'relative',
+                  top: '0.3rem',
+                  marginLeft: '0.2rem',
+                }}
+              />{' '}
+              {props.kokans}
             </AlertDialog.Description>
             <div
               style={{

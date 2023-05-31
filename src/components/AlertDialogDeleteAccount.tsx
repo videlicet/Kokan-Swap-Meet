@@ -23,11 +23,9 @@ const AlertDialogSwap: React.FC<deleteRequest> = (props: deleteRequest) => (
           Please confirm you want to delete your Account.
         </AlertDialog.Title>
         <AlertDialog.Description className='AlertDialogDescription'>
-          <p>
-            Are you sure you want to delete your{' '}
-            <span style={{ color: 'red' }}>{props.username}</span> account
-            permanently? All of your kokans and assets will be deleted.
-          </p>
+          Are you sure you want to delete your{' '}
+          <span style={{ color: 'red' }}>{props.username}</span> account
+          permanently? All of your kokans and assets will be deleted.
         </AlertDialog.Description>
         <div
           style={{ display: 'flex', gap: 25, justifyContent: 'space-between' }}

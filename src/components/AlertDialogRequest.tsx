@@ -31,9 +31,7 @@ const AlertDialogRequest: React.FC<request> = (props: request) => (
           {props.content.title}
         </AlertDialog.Title>
         <AlertDialog.Description className='AlertDialogDescription'>
-          <p>
             {props.content.description}
-          </p>
         </AlertDialog.Description>
         <div style={{ display: 'flex', gap: 25, justifyContent: 'space-between' }}>
           <AlertDialog.Cancel asChild>

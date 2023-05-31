@@ -28,12 +28,10 @@ const AlertDialogAssetOffer: React.FC<offerRequest> = (props: offerRequest) => (
             : 'Please confirm you want to offer this asset on Kokan'}
         </AlertDialog.Title>
         <AlertDialog.Description className='AlertDialogDescription'>
-          <p>
           {props.removeable
             ? 'Revoke offer of asset '
             : 'Offer asset '}
             <span style={{ color: 'red' }}>{props.title}</span>.
-          </p>
         </AlertDialog.Description>
         <div style={{ display: 'flex', gap: 25, justifyContent: 'flex-end' }}>
           <AlertDialog.Cancel asChild>

@@ -23,12 +23,12 @@ function Assets(): JSX.Element {
         `${import.meta.env.VITE_SERVER_URL}assets/search`,
         {
           method: 'POST',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': 'true',
           },
           body: JSON.stringify({ asset: { searchTerm: searchTermHandle } }),
-          credentials: 'include',
         },
       )
       if (res.status === 200) {
@@ -36,7 +36,8 @@ function Assets(): JSX.Element {
         const onOffer = data.filter((asset: any) => asset.onOffer === true)
         setAssets(onOffer)
       }
-    } catch (error) {
+    } catch (err) {
+      console.log(err)
       // TODO errorHandling
     }
     setLoading(false)
