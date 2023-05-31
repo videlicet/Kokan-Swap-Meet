@@ -40,7 +40,6 @@ function dynamicRequestStyle(status: string) {
   }
 }
 
-/* component */
 const RequestOutgoing: React.FC<Request> = (props: Request) => {
   const navigate = useNavigate()
   const { portalContainer } = useContext<any>(PortalContext)
@@ -62,11 +61,11 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
           props.requestProps?._id
         }`,
         {
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': 'true',
           },
-          credentials: 'include',
         },
       )
       if (res.status === 404) {
@@ -100,6 +99,7 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
       // TODO errorHandling
       console.log(err)
     }
+
     /* change total kokans and pending kokans */
     const changes = {
       $inc: {

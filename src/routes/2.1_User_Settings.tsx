@@ -123,11 +123,11 @@ function UserSettings(): JSX.Element {
       try {
         const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
           method: 'DELETE',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': 'true',
           },
-          credentials: 'include',
         })
         if (res.status === 200) {
           setUser()
@@ -157,6 +157,11 @@ function UserSettings(): JSX.Element {
           }/upload`,
           {
             method: 'POST',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Credentials': 'true',
+            },
             body: formData,
           },
         )

@@ -53,7 +53,7 @@ function SignUp(props: Props): JSX.Element {
 
   async function sendVerificationEmail(username: string, email: string) {
     try {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth/email`, {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}emails/signup/submit`, {
         method: 'POST',
         body: JSON.stringify({
           username: username,
@@ -66,7 +66,7 @@ function SignUp(props: Props): JSX.Element {
         credentials: 'include',
       })
       if (res.status === 200) {
-        // show sth that the email was sent
+        // TODO show sth that the email was sent
       }
     } catch (err) {
       console.log(err)
@@ -105,7 +105,6 @@ function SignUp(props: Props): JSX.Element {
           {errors.password && (
             <p className='validation-error'>Password invalid.</p>
           )}
-          <br />
         </div>
         <div className='text-input'>
           <label htmlFor='email'>E-Mail</label>

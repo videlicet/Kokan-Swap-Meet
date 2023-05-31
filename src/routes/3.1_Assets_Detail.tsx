@@ -32,6 +32,7 @@ function AssetsDetail(): JSX.Element {
         `${import.meta.env.VITE_SERVER_URL}assets/${id}`,
         {
           method: 'POST',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': 'true',
@@ -58,7 +59,7 @@ function AssetsDetail(): JSX.Element {
   async function onSwap() {
     /* create transaction in database */
     try {
-      let res = await fetch(`${import.meta.env.VITE_SERVER_URL}transactions`, {
+      await fetch(`${import.meta.env.VITE_SERVER_URL}transactions`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -80,6 +81,7 @@ function AssetsDetail(): JSX.Element {
       console.log(err)
       // TODO errorhandling
     }
+
     /* change total kokans and pending kokans */
     const changes = {
       $inc: {
@@ -92,21 +94,46 @@ function AssetsDetail(): JSX.Element {
       update: { changes: changes },
     }
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}users/${user?._id}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Credentials': 'true',
-          },
-          credentials: 'include',
-          body: JSON.stringify(reqBody),
+      await fetch(`${import.meta.env.VITE_SERVER_URL}users/${user?._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Credentials': 'true',
         },
-      )
+        credentials: 'include',
+        body: JSON.stringify(reqBody),
+      })
     } catch (err) {
       console.log(err)
       // TODO errorHandling
+    }
+
+    /* send emails to owners */
+    try {
+      asset?.owners_usernames.map(async (owner: any) => {
+        // TODO typing
+        const res = await fetch(
+          `${import.meta.env.VITE_SERVER_URL}emails/swap/submit`,
+          {
+            credentials: 'include',
+            method: 'POST',
+            body: JSON.stringify({
+              user: { username: user?.username },
+              owner: { username: owner },
+              asset: { title: asset?.title },
+            }),
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Credentials': 'true',
+            },
+          },
+        )
+        if (res.status === 200) {
+          // TODO show sth that the email was sent
+        }
+      })
+    } catch (err) {
+      console.log(err)
     }
     navigate(`/user/${user?.username}/requests/outgoing`)
   }
@@ -117,6 +144,7 @@ function AssetsDetail(): JSX.Element {
         `${import.meta.env.VITE_SERVER_URL}assets/${asset?._id}`,
         {
           method: 'DELETE',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': 'true',
@@ -130,11 +158,11 @@ function AssetsDetail(): JSX.Element {
           `${import.meta.env.VITE_SERVER_URL}transactions`,
           {
             method: 'DELETE',
+            credentials: 'include',
             headers: {
               'Content-Type': 'application/json',
               'Access-Control-Allow-Credentials': 'true',
             },
-            credentials: 'include',
             body: JSON.stringify({ asset: { _id: asset?._id } }),
           },
         )
@@ -152,6 +180,7 @@ function AssetsDetail(): JSX.Element {
         `${import.meta.env.VITE_SERVER_URL}assets/${asset?._id}`,
         {
           method: 'PUT',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': 'true',
@@ -202,7 +231,6 @@ function AssetsDetail(): JSX.Element {
                     'Deleted User'}
                 </span>
                 <div style={{ color: 'grey' }}>
-                  {' '}
                   {date.format(new Date(asset?.created), 'YYYY/MM/DD')}
                 </div>
               </div>

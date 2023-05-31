@@ -21,6 +21,7 @@ export async function getUserRequests(
       `${import.meta.env.VITE_SERVER_URL}users/${user.username}/requests`,
       {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Credentials': 'true',

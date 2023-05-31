@@ -22,7 +22,7 @@ function EmailVerfication(): JSX.Element {
     if (verificationCodeParam && userCodeParam) {
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_SERVER_URL}auth/email/verification`,
+          `${import.meta.env.VITE_SERVER_URL}emails/signup/verify`,
           {
             method: 'POST',
             body: JSON.stringify({

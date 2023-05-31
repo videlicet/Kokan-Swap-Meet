@@ -51,11 +51,11 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           props.requestProps?._id
         }`,
         {
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': 'true',
           },
-          credentials: 'include',
         },
       )
       if (res.status === 404) {
@@ -75,6 +75,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         }`,
         {
           method: 'PUT',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': 'true',
@@ -90,6 +91,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           }`,
           {
             method: 'PUT',
+            credentials: 'include',
             headers: {
               'Content-Type': 'application/json',
               'Access-Control-Allow-Credentials': 'true',
@@ -105,13 +107,14 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           },
         )
 
-        /* new kokan balances */
+        /* new kokan balance */
         const newRequesteeKokans =
           user.kokans + props.requestProps.asset_data.kokans
 
         /* update requestee kokans */
         await fetch(`${import.meta.env.VITE_SERVER_URL}users/${user._id}`, {
           method: 'PUT',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': 'true',
@@ -133,6 +136,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           }`,
           {
             method: 'PUT',
+            credentials: 'include',
             headers: {
               'Content-Type': 'application/json',
               'Access-Control-Allow-Credentials': 'true',
@@ -167,6 +171,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
           }`,
           {
             method: 'PUT',
+            credentials: 'include',
             headers: {
               'Content-Type': 'application/json',
               'Access-Control-Allow-Credentials': 'true',
@@ -199,17 +204,16 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
     requesterGitHub: string,
     gitHubRepo: string,
   ) {
-    console.log(requesteeGitHub, requesterGitHub, gitHubRepo)
     // TODO wrap in try/catch
     let res = await fetch(
       `${import.meta.env.VITE_SERVER_URL}auth/gitHub/addCollaborator`,
       {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Credentials': 'true',
         },
-        credentials: 'include',
         body: JSON.stringify({
           requesteeGitHub: requesteeGitHub,
           requesterGitHub: requesterGitHub,

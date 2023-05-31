@@ -35,16 +35,16 @@ function LoginComponent(props: Props): JSX.Element {
     try {
       const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
         method: 'POST',
-        body: JSON.stringify({
-          username: props.usernameHandle,
-          password: password,
-        }),
+        credentials: 'include',
+        mode: "cors", // TODO nec?
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Credentials': 'true',
         },
-        credentials: 'include',
-        mode: "cors",
+        body: JSON.stringify({
+          username: props.usernameHandle,
+          password: password,
+        }),
       })
       if (res.status === 200) {
         await getUser(setUser, navigate, 'dashboard').then(() => {

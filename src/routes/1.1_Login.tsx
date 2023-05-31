@@ -73,7 +73,7 @@ function Login(): JSX.Element {
                 return user
               }
             } catch (err) {
-              console.log('No GitHub user found')
+              console.log('No GitHub user found.')
               setLoading(false)
             }
           }
