@@ -28,10 +28,11 @@ function UserRequestsOutgoing(): JSX.Element {
   return (
     <div id='requests'>
       {loading ? (
-        <Loading/>
+        <Loading />
       ) : requests?.current.length !== 0 ? (
         requests?.current.map((item: any, index: number) => (
           <RequestOutgoing
+            key={index}
             requestProps={item}
             index={index}
             username={user.username}

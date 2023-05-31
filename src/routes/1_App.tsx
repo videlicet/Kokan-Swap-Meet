@@ -1,10 +1,5 @@
 // @ts-nocheck
-import {
-  useState,
-  useEffect,
-  createContext,
-  useRef,
-} from 'react'
+import { useState, useEffect, createContext, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import '../styles/1_App.css'
@@ -49,12 +44,11 @@ function App(): JSX.Element {
   }, [])
 
   /* search */
-  function handleSearchSubmit(data: any) { // TODO typing
+  function handleSearchSubmit(data: any) {
+    // TODO typing
     setSearchTermHandle(data.search)
     navigate('/')
   }
-
-  console.log('UPDATE: App.js updated') // TODO console.log
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
@@ -162,19 +156,18 @@ function App(): JSX.Element {
           <footer id='footer'>
             <div className='navbar'>
               {footer.map((item) => (
-                <div>
-                  <NavLink
-                    style={({ isActive }) => ({
-                      fontWeight: isActive ? 'bold' : '',
-                      color: isActive ? 'black' : 'grey',
-                      padding: isActive ? '0 0.8rem' : 0,
-                      borderRadius: isActive ? 15 : 0,
-                    })}
-                    to={`${item.route}`}
-                  >
-                    {item.name}
-                  </NavLink>
-                </div>
+                <NavLink
+                  key={item.name}
+                  style={({ isActive }) => ({
+                    fontWeight: isActive ? 'bold' : '',
+                    color: isActive ? 'black' : 'grey',
+                    padding: isActive ? '0 0.8rem' : 0,
+                    borderRadius: isActive ? 15 : 0,
+                  })}
+                  to={`${item.route}`}
+                >
+                  {item.name}
+                </NavLink>
               ))}
               <div>
                 <span>Kokan © 2023</span>

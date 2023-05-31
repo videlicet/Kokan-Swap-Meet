@@ -69,7 +69,10 @@ function AssetsNew(): JSX.Element {
     formState: { errors },
   } = useForm({
     defaultValues: {
+      repo: undefined,
+      title: undefined,
       kokans: 3,
+      license:  undefined,
     },
   })
   const [loading, setLoading] = useState()
@@ -345,7 +348,7 @@ function AssetsNew(): JSX.Element {
             step='1'
             style={{ display: 'none' }}
           />
-          <SliderKokan handleKokans={handleKokans} kokans={watch('kokans')} />
+          <SliderKokan handlekokans={handleKokans} kokans={watch('kokans')} />
           {errors.kokans && <p className='validation-error'>Kokans invalid.</p>}
         </div>
 

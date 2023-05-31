@@ -305,17 +305,23 @@ function AssetsDetail(): JSX.Element {
               </div>
               <div className='additional-info'>
                 <span className='info-type'>Type</span>
-                {asset?.type.map((item) => (
-                  <span className='info'>{item}</span>
+                {asset?.type.map((type: string, index: number) => (
+                  <span className='info' key={index}>
+                    {type}
+                  </span>
                 ))}
               </div>
 
               <div className='additional-info'>
                 <span className='info-type'>Owners</span>
                 <div style={{ display: 'flex' }}>
-                  {asset?.owners_usernames.map((item: string) => (
-                    <span className='info'>{item}</span>
-                  ))}
+                  {asset?.owners_usernames.map(
+                    (owner: string, index: number) => (
+                      <span className='info' key={index}>
+                        {owner}
+                      </span>
+                    ),
+                  )}
                 </div>
               </div>
             </div>

@@ -50,8 +50,8 @@ function Assets(): JSX.Element {
     <div id='assets' className='asset-overview'>
       {!loading ? (
         (assets.length > 0 &&
-          assets.map((item: any, index) => (
-            <NavLink to={`/assets/${item._id}`}>
+          assets.map((item: any, index: number) => (
+            <NavLink key={index} to={`/assets/${item._id}`}>
               <Asset
                 assetProps={item}
                 index={index}

@@ -35,7 +35,8 @@ button:disabled {
 
 input[type='text'],
 input[type='number'],
-input[type='password'] {
+input[type='password'],
+input[type='email'] {
   border: none;
   border-radius: 10px;
   background-color: black;

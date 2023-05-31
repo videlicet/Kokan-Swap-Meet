@@ -6,12 +6,12 @@ import brand_icon from '../assets/kokan_icon_w.png'
 
 interface Props {
   kokans: number
-  handleKokans: (value: number[]) => void
+  handlekokans: (value: number[]) => void
 }
 
 const SliderKokan = (props: Props) => (
   <div style={{ display: 'flex', gap: '1rem', alignItems: "center" }}>
-    <form>
+
       <Slider.Root
         className='SliderRoot'
         {...(props as any)}
@@ -19,7 +19,7 @@ const SliderKokan = (props: Props) => (
         max={5}
         defaultValue={[3]}
         step={1}
-        onValueChange={(value) => props.handleKokans(value)}
+        onValueChange={(value) => props.handlekokans(value)}
       >
         <Slider.Track className='SliderTrack'>
           <Slider.Range className='SliderRange' />
@@ -36,7 +36,7 @@ const SliderKokan = (props: Props) => (
         }}
       />
       </Slider.Root>
-    </form>
+
   </div>
 )
 

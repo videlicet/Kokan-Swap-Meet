@@ -159,7 +159,7 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
           from users:{' '}
           {props.requestProps?.requestees_username.map(
             (username: string, index: number) => (
-              <NavLink to={`/user/${username}`}>
+              <NavLink key={index} to={`/user/${username}`}>
                 {username}
                 {index + 1 !== props.requestProps?.requestees_username.length
                   ? ', '

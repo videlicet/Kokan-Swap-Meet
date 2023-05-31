@@ -60,8 +60,9 @@ function UserAssets(): JSX.Element {
             if (id === user?.username) {
               return (
                 <Asset
-                  assetProps={item}
                   index={index}
+                  assetProps={item}
+                  key={index}
                   user_kokans={user?.kokans}
                 ></Asset>
               )
@@ -69,8 +70,9 @@ function UserAssets(): JSX.Element {
               if (item.onOffer === true) {
                 return (
                   <Asset
-                    assetProps={item}
                     index={index}
+                    assetProps={item}
+                    key={index}
                     user_kokans={user?.kokans}
                   ></Asset>
                 )

@@ -9,7 +9,7 @@ import brand_icon from '../assets/kokan_icon_w.png'
 interface createNewAsset {
   portalContainer: HTMLElement | null
   onSubmitTrigger: any // TODO type
-  title: string
+  title: readonly any[]
   kokans: number
   trigger: any // TODO type
 }

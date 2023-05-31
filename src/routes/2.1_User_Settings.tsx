@@ -85,7 +85,7 @@ function UserSettings(): JSX.Element {
     }
 
     try {
-      const res = await fetch(
+      await fetch(
         `${import.meta.env.VITE_SERVER_URL}users/${user?._id}`,
         {
           method: 'PUT',
@@ -156,12 +156,8 @@ function UserSettings(): JSX.Element {
             import.meta.env.VITE_CLOUDINARY_CLOUD
           }/upload`,
           {
+            /* do not modify this request, it works even though "credentials: 'include'" and "'Access-Control-Allow-Credentials': 'true'" isn't set */
             method: 'POST',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Credentials': 'true',
-            },
             body: formData,
           },
         )

@@ -59,7 +59,7 @@ const DialogSettingsChange: React.FC<settingsChange> = (
             </Dialog.Description>
             {fields.map((field, index: number) => {
               return (
-                <fieldset className='Fieldset'>
+                <fieldset key={index} className='Fieldset'>
                   <label className='Label' htmlFor={field.content}>
                     {field.content}
                   </label>
@@ -69,6 +69,7 @@ const DialogSettingsChange: React.FC<settingsChange> = (
                     id={field.content}
                     name={field.inputName}
                     placeholder={field?.defaultValue}
+                    type={field.inputName === 'password' ? 'password' : field.inputName === 'email' ?  'email' : undefined}
                   />
                   {errors[`${field.inputName}`] && (
                     <p className='validation-error'>

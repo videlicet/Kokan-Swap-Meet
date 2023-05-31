@@ -31,6 +31,7 @@ function UserRequestsIncoming(): JSX.Element {
       ) : requests?.current.length !== 0 ? (
         requests?.current.map((item: any, index: number) => (
           <RequestIncoming
+            key={index}
             requestProps={item}
             index={index}
             requests={requests}

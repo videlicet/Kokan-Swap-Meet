@@ -116,7 +116,7 @@ function SignUp(props: Props): JSX.Element {
               pattern: /^(.+)@(.+)$/,
             })}
             name='email'
-            type='text'
+            type='email'
           ></input>
           {errors.email && <p className='validation-error'>Email invalid.</p>}
           <br />

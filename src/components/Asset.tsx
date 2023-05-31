@@ -32,21 +32,14 @@ const Asset: React.FC<Asset> = (props: Asset) => {
       : undefined
 
   return (
-    <div className='asset' key={props.index}>
+    <div className='asset' key={props.assetProps._id}>
       <div className='left'>
-        <div>
-          <NavLink
-            to={`/assets/${props.assetProps._id}`}
-            className='unstyledLink'
-          >
-            <p>
-              <span className='kokans' style={pricey}>
-                {props.assetProps.kokans}
-              </span>
-              <span className='title'>{props.assetProps.title}</span>
-            </p>
-          </NavLink>
-        </div>
+        <p>
+          <span className='kokans' style={pricey}>
+            {props.assetProps.kokans}
+          </span>
+          <span className='title'>{props.assetProps.title}</span>
+        </p>
         <div className='description' style={{ marginBottom: '1rem' }}>
           <span>{props.assetProps.description_short}</span>
         </div>
@@ -55,8 +48,10 @@ const Asset: React.FC<Asset> = (props: Asset) => {
       <div className='asset-footer' style={{ marginTop: '0' }}>
         <div className='additional-info'>
           <span className='info-type'>Type</span>
-          {props.assetProps.type.map((item) => (
-            <span className='info'>{item}</span>
+          {props.assetProps.type.map((type: string, index: number) => (
+            <span className='info' key={index}>
+              {type}
+            </span>
           ))}
         </div>
         <div className='additional-info'>
