@@ -3,7 +3,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import '../styles/1_App.css'
 import './DropDownMenu.css'
 
-import { UserInterface } from '../assets/mockUsers'
+import { UserInterface } from '../types/types'
 import { PersonIcon } from '@radix-ui/react-icons'
 
 interface propsInterface {

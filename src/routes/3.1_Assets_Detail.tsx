@@ -4,13 +4,13 @@ import date from 'date-and-time'
 import '../styles/3.1_Assets_Detail.css'
 
 /* import components */
-import AlertDialogAssetSwap from '../components/AlertDialogAssetSwap.tsx'
-import AlertDialogAssetDelete from '../components/AlertDialogAssetDelete.tsx'
-import AlertDialogAssetOffer from '../components/AlertDialogAssetOffer.tsx'
+import AlertDialogAssetSwap from '../components/AlertDialogAssetSwap'
+import AlertDialogAssetDelete from '../components/AlertDialogAssetDelete'
+import AlertDialogAssetOffer from '../components/AlertDialogAssetOffer'
 import Loading from '../components/Loading'
 
 /* import types */
-import { AssetInterface } from '../assets/mockAssets.tsx'
+import { AssetInterface } from '../types/types'
 
 /* context */
 import { UserContext, PortalContext } from './1_App'

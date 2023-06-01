@@ -9,7 +9,7 @@ import AlertDialogRequest from './AlertDialogRequest'
 import { UserContext, PortalContext } from '../routes/1_App'
 
 /* import types */
-import { RequestInterface } from '../assets/mockRequests'
+import { RequestInterface } from '../types/types'
 
 /* import */
 import { getUser } from '../modules/Authenticator'

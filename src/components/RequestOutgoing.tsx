@@ -6,7 +6,7 @@ import date from 'date-and-time'
 import AlertDialogRequest from './AlertDialogRequest'
 
 /* import types */
-import { RequestInterface } from '../assets/mockRequests'
+import { RequestInterface } from '../types/types'
 
 /* import context */
 import { PortalContext, UserContext } from '../routes/1_App'

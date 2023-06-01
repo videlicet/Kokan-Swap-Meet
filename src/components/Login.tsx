@@ -48,10 +48,10 @@ function LoginComponent(props: Props): JSX.Element {
       })
       if (res.status === 200) {
         await getUser(setUser, navigate, 'dashboard').then(() => {
-          props.setLoading(false)
           props.setPasswordCorrect(true)
         })
       } else {
+        props.setLoading(false)
         props.setPasswordCorrect(false)
         setValue('password', '')
       }
