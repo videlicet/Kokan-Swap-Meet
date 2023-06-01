@@ -115,8 +115,8 @@ function AssetsDetail(): JSX.Element {
         const res = await fetch(
           `${import.meta.env.VITE_SERVER_URL}emails/swap/submit`,
           {
-            credentials: 'include',
             method: 'POST',
+            credentials: 'include',
             body: JSON.stringify({
               user: { username: user?.username },
               owner: { username: owner },

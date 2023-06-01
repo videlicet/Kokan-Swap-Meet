@@ -59,22 +59,24 @@ function UserAssets(): JSX.Element {
           userAssets.map((item: any, index: number) => {
             if (id === user?.username) {
               return (
-                <Asset
-                  index={index}
-                  assetProps={item}
-                  key={index}
-                  user_kokans={user?.kokans}
-                ></Asset>
+                <NavLink key={index} to={`/assets/${item._id}`}>
+                  <Asset
+                    index={index}
+                    assetProps={item}
+                    user_kokans={user?.kokans}
+                  ></Asset>
+                </NavLink>
               )
             } else {
               if (item.onOffer === true) {
                 return (
-                  <Asset
-                    index={index}
-                    assetProps={item}
-                    key={index}
-                    user_kokans={user?.kokans}
-                  ></Asset>
+                  <NavLink key={index} to={`/assets/${item._id}`}>
+                    <Asset
+                      index={index}
+                      assetProps={item}
+                      user_kokans={user?.kokans}
+                    ></Asset>
+                  </NavLink>
                 )
               }
             }

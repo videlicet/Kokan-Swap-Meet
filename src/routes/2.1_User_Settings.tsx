@@ -85,18 +85,15 @@ function UserSettings(): JSX.Element {
     }
 
     try {
-      await fetch(
-        `${import.meta.env.VITE_SERVER_URL}users/${user?._id}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Credentials': 'true',
-          },
-          credentials: 'include',
-          body: JSON.stringify(reqBody),
+      await fetch(`${import.meta.env.VITE_SERVER_URL}users/${user?._id}`, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Credentials': 'true',
         },
-      )
+        body: JSON.stringify(reqBody),
+      })
       getUser(setUser, navigate)
     } catch (err) {
       console.log(err)
@@ -106,38 +103,56 @@ function UserSettings(): JSX.Element {
   }
 
   async function onDelete() {
-    const res = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}users/${user?._id}`,
-      {
+    /* delete assets that only this user owns */
+    try {
+      await fetch(`${import.meta.env.VITE_SERVER_URL}assets`, {
         method: 'DELETE',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Credentials': 'true',
         },
-        credentials: 'include',
         body: JSON.stringify({ user: { _id: user?._id } }),
-      },
-    )
-    if (res.status == 200) {
-      /* delete user */
-      try {
-        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
+      })
+    } catch (err) {
+      console.log(err)
+    }
+    /* delete user */
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}users/${user?._id}`,
+        {
           method: 'DELETE',
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': 'true',
           },
-        })
-        if (res.status === 200) {
-          setUser()
+          body: JSON.stringify({ user: { _id: user?._id } }),
+        },
+      )
+      if (res.status == 200) {
+        /* clear cookies */
+        try {
+          const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Credentials': 'true',
+            },
+          })
+          if (res.status === 200) {
+            setUser()
+          }
+        } catch (err) {
+          console.log(err)
         }
-      } catch (err) {
-        console.log(err)
-        // TODO errorHandling
       }
-      navigate('/')
+    } catch (err) {
+      console.log(err)
     }
+    navigate('/')
   }
 
   async function handleImageUpload() {
