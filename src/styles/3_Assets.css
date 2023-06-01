@@ -1,11 +1,10 @@
 #assets {
-  display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: 1fr;
+display: flex;
+flex-direction: column;
   min-height: 0;
   height: 100%;
   overflow: hidden scroll;
-  row-gap: 0.5rem;
+  gap: 1rem;
 }
 
 #assets input[type='text'] {

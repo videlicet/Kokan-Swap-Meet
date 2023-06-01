@@ -48,16 +48,15 @@ function LoginComponent(props: Props): JSX.Element {
       })
       if (res.status === 200) {
         await getUser(setUser, navigate, 'dashboard').then(() => {
-        props.setPasswordCorrect(true)
+          props.setLoading(false)
+          props.setPasswordCorrect(true)
         })
       } else {
-        props.setLoading(false)
         props.setPasswordCorrect(false)
         setValue('password', '')
       }
     } catch (err) {
       props.setLoading(false)
-      console.log('Login failed.')
       console.log(err)
     }
   }
@@ -96,7 +95,9 @@ function LoginComponent(props: Props): JSX.Element {
               <p className='validation-error'>Password invalid.</p>
             )}
           </div>
-          {!props.passwordCorrect && <p className='validation-error'>Password incorrect.</p>}
+          {!props.passwordCorrect && (
+            <p className='validation-error'>Password incorrect.</p>
+          )}
           <br />
           <input type='submit' value='login'></input>
         </form>
