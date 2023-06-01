@@ -25,74 +25,74 @@ function EmailVerfication(): JSX.Element {
           `${import.meta.env.VITE_SERVER_URL}emails/signup/verify`,
           {
             method: 'POST',
-            body: JSON.stringify({
-              username: userCodeParam,
-            }),
+            credentials: 'include',
             headers: {
               'Content-Type': 'application/json',
               'Access-Control-Allow-Credentials': 'true',
             },
-            credentials: 'include',
+            body: JSON.stringify({
+              username: userCodeParam,
+            }),
           },
         )
         if (res.status === 200) {
-          const { success } = await res.json()
-          console.log(success)
-
-          const reqBody = {
-            user: { username: userCodeParam },
-            update: { changes: { email_verified: true } },
-          }
-          /* update email_verfied status in DB */
-          try {
-            // TODO fail logic
-            const res = await fetch(
-              `${import.meta.env.VITE_SERVER_URL}users/${userCodeParam}`,
-              {
-                method: 'PUT',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Access-Control-Allow-Credentials': 'true',
-                },
-                credentials: 'include',
-                body: JSON.stringify(reqBody),
-              },
-            )
-          } catch (err) {
-            // TODO errorHanlding
-          }
+          // const reqBody = {
+          //   user: { username: userCodeParam },
+          //   update: { changes: { email_verified: true } },
+          // }
+          // /* update email_verfied status in DB */
+          // try {
+          //   const res = await fetch(
+          //     `${import.meta.env.VITE_SERVER_URL}users/${userCodeParam}`,
+          //     {
+          //       method: 'PUT',
+          //       headers: {
+          //         'Content-Type': 'application/json',
+          //         'Access-Control-Allow-Credentials': 'true',
+          //       },
+          //       credentials: 'include',
+          //       body: JSON.stringify(reqBody),
+          //     },
+          //   )
+          // } catch (err) {
+          //   console.log(err)
+          // }
           setVerified(true)
         }
       } catch (err) {
-        // TODO errorHandling
+        console.log(err)
       }
     } else navigate('/')
     setLoading(false)
   }
 
   return (
-      <div id='about-container'>
-        {!loading ?         <><h2>Email Verfication</h2>
-        <p>Thank you for varifying your E-Mail.</p>
-        <p>You can now log in to your Kokan account.</p>
-        <button
-          onClick={() => {
-            navigate('/login')
-          }}
-        >
-          Login
-        </button>
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <button
-          onClick={() => {
-            window.close()
-          }}
-        >
-          Close Tab
-        </button>
-      </>
-      : <Loading/>}
-      </div>
+    <div id='about-container'>
+      {!loading ? (
+        <>
+          <h2>Email Verfication</h2>
+          <p>Thank you for varifying your E-Mail.</p>
+          <p>You can now log in to your Kokan account.</p>
+          <button
+            onClick={() => {
+              navigate('/login')
+            }}
+          >
+            Login
+          </button>
+          <span>&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <button
+            onClick={() => {
+              window.close()
+            }}
+          >
+            Close Tab
+          </button>
+        </>
+      ) : (
+        <Loading />
+      )}
+    </div>
   )
 }
 

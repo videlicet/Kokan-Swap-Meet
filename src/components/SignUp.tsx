@@ -27,11 +27,11 @@ function SignUp(props: Props): JSX.Element {
     try {
       await fetch(`${import.meta.env.VITE_SERVER_URL}users`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Credentials': 'true',
         },
-        credentials: 'include',
         body: JSON.stringify({
           username: props.gitHubUser.login,
           password: password,
@@ -44,10 +44,12 @@ function SignUp(props: Props): JSX.Element {
       props.setLogin(true)
       props.setSignup(false)
       navigate('/login')
+
+      console.log(props.gitHubUser.login)
+      console.log(email)
       sendVerificationEmail(props.gitHubUser.login, email)
     } catch (err) {
       console.log(err)
-      // TODO errorHandling
     }
   }
 
@@ -55,22 +57,21 @@ function SignUp(props: Props): JSX.Element {
     try {
       const res = await fetch(`${import.meta.env.VITE_SERVER_URL}emails/signup/submit`, {
         method: 'POST',
-        body: JSON.stringify({
-          username: username,
-          email: email,
-        }),
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Credentials': 'true',
         },
-        credentials: 'include',
+        body: JSON.stringify({
+          username: username,
+          email: email,
+        }),
       })
       if (res.status === 200) {
         // TODO show sth that the email was sent
       }
     } catch (err) {
       console.log(err)
-      // TODO errorHandling
     }
     return
   }

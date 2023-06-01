@@ -159,56 +159,54 @@ function UserSettings(): JSX.Element {
     /* get uploaded image */
     const inputElement = document?.getElementById('profile-picture')
     const file = inputElement?.files[0]
-    if (1 === 1) {
-      // TODO logic
-      /* send image to cloudinary */
-      const formData = new FormData()
-      formData.append('file', file)
-      formData.append('upload_preset', 'profile-pictures')
-      try {
-        const image = await fetch(
-          `https://api.cloudinary.com/v1_1/${
-            import.meta.env.VITE_CLOUDINARY_CLOUD
-          }/upload`,
-          {
-            /* do not modify this request, it works even though "credentials: 'include'" and "'Access-Control-Allow-Credentials': 'true'" isn't set */
-            method: 'POST',
-            body: formData,
-          },
-        )
-        if (image) {
-          /* update profile picture URL for user in DB  */
-          const { secure_url: image_URL } = await image.json()
-          const reqBody = {
-            user: { _id: user?._id },
-            update: { changes: { pictureURL: image_URL } },
-          }
-          try {
-            const res = await fetch(
-              `${import.meta.env.VITE_SERVER_URL}users/${user?._id}`,
-              {
-                method: 'PUT',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Access-Control-Allow-Credentials': 'true',
-                },
-                credentials: 'include',
-                body: JSON.stringify(reqBody),
-              },
-            )
-            if (res.status === 200) {
-              inputElement.value = ''
-              getUser(setUser, navigate)
-            }
-          } catch (err) {
-            console.log(err)
-            // TODO errorHan
-          }
+    // TODO logic
+    /* send image to cloudinary */
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('upload_preset', 'profile-pictures')
+    try {
+      const image = await fetch(
+        `https://api.cloudinary.com/v1_1/${
+          import.meta.env.VITE_CLOUDINARY_CLOUD
+        }/upload`,
+        {
+          /* do not modify this request, it works even though "credentials: 'include'" and "'Access-Control-Allow-Credentials': 'true'" isn't set */
+          method: 'POST',
+          body: formData,
+        },
+      )
+      if (image) {
+        /* update profile picture URL for user in DB  */
+        const { secure_url: image_URL } = await image.json()
+        const reqBody = {
+          user: { _id: user?._id },
+          update: { changes: { pictureURL: image_URL } },
         }
-      } catch (err) {
-        console.log(err)
-        // TODO errorHandling
+        try {
+          const res = await fetch(
+            `${import.meta.env.VITE_SERVER_URL}users/${user?._id}`,
+            {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Credentials': 'true',
+              },
+              credentials: 'include',
+              body: JSON.stringify(reqBody),
+            },
+          )
+          if (res.status === 200) {
+            inputElement.value = ''
+            getUser(setUser, navigate)
+          }
+        } catch (err) {
+          console.log(err)
+          // TODO errorHan
+        }
       }
+    } catch (err) {
+      console.log(err)
+      // TODO errorHandling
     }
   }
 
@@ -268,6 +266,16 @@ function UserSettings(): JSX.Element {
                         onSubmit={handleSettingsChange}
                       />
                     </div>
+                    {!user?.email_verified ? (
+                      <span className='verification green'>verified email</span>
+                    ) : (
+                      <div>
+                        <span className='verification yellow'>
+                          unverified email
+                        </span>
+                        <button>verify</button>
+                      </div>
+                    )}
                   </div>
                 </div>
 

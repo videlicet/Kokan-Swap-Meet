@@ -1,7 +1,8 @@
 export interface UserInterface {
   username: string
   password: string
-  email: string
+  email: string,
+  email_verified: string
   first_name: string
   last_name: string
   kokans: number

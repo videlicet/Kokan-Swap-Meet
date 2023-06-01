@@ -10,7 +10,7 @@ import AlertDialogAssetOffer from '../components/AlertDialogAssetOffer.tsx'
 import Loading from '../components/Loading'
 
 /* import types */
-import { AssetInterface } from '../assets/mockAssets'
+import { AssetInterface } from '../assets/mockAssets.tsx'
 
 /* context */
 import { UserContext, PortalContext } from './1_App'

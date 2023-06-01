@@ -34,7 +34,7 @@
   padding: 0.4rem 0.6rem 0.3rem 0.6rem;
   font-family: var(--main-font-style);
   font-size: smaller;
-  color: var(--main-font-color);;
+  color: var(--main-font-color);
 }
 
 input[type='file'] {
@@ -50,7 +50,7 @@ input[type='file'] {
   border-radius: 0 15px 0 0;
   margin-right: 1rem;
   background-color: rgb(0, 0, 0, 0.4);
-  padding: 0.5rem  0.6rem 0.5rem 0.6rem;
+  padding: 0.5rem 0.6rem 0.5rem 0.6rem;
   font-family: var(--main-font-style);
   color: var(--main-text-color);
 }
@@ -58,6 +58,16 @@ input[type='file'] {
 .info-box input::file-selector-button:hover {
   background-color: var(--main-text-color);
   color: black;
+}
+/*TODO */
+.verification {
+  display: inline-flex;
+  text-transform: uppercase;
+  margin: 1rem 1rem 0 0;
+  font-size: smaller;
+  border-radius: 10px;
+  padding: 0.4rem 0.9rem;
+  color: rgb(0, 0, 0);
 }
 
 #delete-account-box {
