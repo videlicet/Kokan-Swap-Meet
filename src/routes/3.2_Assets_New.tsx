@@ -90,7 +90,6 @@ function AssetsNew(): JSX.Element {
   async function handleFormSubmit(data: any) {
     const { repo, title, descriptionShort, descriptionLong, kokans, license } =
       data
-    console.log(data)
     try {
       await fetch(`${import.meta.env.VITE_SERVER_URL}assets`, {
         method: 'POST',

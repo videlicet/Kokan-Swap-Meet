@@ -3,7 +3,6 @@ export const authenticate = async (): Promise<{
   user: any
 }> => {
   /*check user has JWT token*/
-
   const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
     method: 'GET',
     credentials: 'include',
@@ -25,15 +24,12 @@ export const getUser = async (
   to?: string,
 ): Promise<string | any> => {
   // TODO typing, is this an acutal promis?
-  console.log('User authentication:')
   authenticate().then((res) => {
     if (res.status === true) {
-      console.log('– User authenticated.')
       setUser(res.user) // TODO typing
       /* relevant for logging in: redirect to dashboard instead of staying on the page */
       if (to === 'dashboard') navigate(`/user/${res.user.username}/assets`)
     } else {
-      console.log('– User not authenticated.')
       return navigate('/login')
     }
   })

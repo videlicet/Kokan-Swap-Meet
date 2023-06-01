@@ -15,10 +15,11 @@ interface Props {
   usernameHandle: string
   setUser: void
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  passwordCorrect: boolean
+  setPasswordCorrect: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 function LoginComponent(props: Props): JSX.Element {
-  const [error, setError] = useState(false)
   const { setUser } = useContext<any>(UserContext)
   const navigate = useNavigate()
   const {
@@ -36,7 +37,6 @@ function LoginComponent(props: Props): JSX.Element {
       const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
         method: 'POST',
         credentials: 'include',
-        mode: "cors", // TODO nec?
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Credentials': 'true',
@@ -48,17 +48,17 @@ function LoginComponent(props: Props): JSX.Element {
       })
       if (res.status === 200) {
         await getUser(setUser, navigate, 'dashboard').then(() => {
-          setError(false)
+        props.setPasswordCorrect(true)
         })
       } else {
-        setError(true)
-        setValue('password', '')
         props.setLoading(false)
+        props.setPasswordCorrect(false)
+        setValue('password', '')
       }
     } catch (err) {
+      props.setLoading(false)
       console.log('Login failed.')
       console.log(err)
-      props.setLoading(false)
     }
   }
 
@@ -96,7 +96,7 @@ function LoginComponent(props: Props): JSX.Element {
               <p className='validation-error'>Password invalid.</p>
             )}
           </div>
-          {error && <p className='validation-error'>Password incorrect.</p>}
+          {!props.passwordCorrect && <p className='validation-error'>Password incorrect.</p>}
           <br />
           <input type='submit' value='login'></input>
         </form>

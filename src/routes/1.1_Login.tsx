@@ -14,6 +14,7 @@ function Login(): JSX.Element {
   const [gitHubAuth, setGitHubAuth] = useState<boolean>(false)
   const [login, setLogin] = useState<boolean>(false)
   const [signup, setSignup] = useState<boolean>(false)
+  const [passwordCorrect, setPasswordCorrect] = useState<boolean>(true)
   const [gitHubUser, setGitHubUser] = useState<any>({}) // TODO typing
   const { user, setUser } = useContext<any>(UserContext) // TODO typing
 
@@ -26,7 +27,6 @@ function Login(): JSX.Element {
       /* get GitHub access_token */
       async function gitHubAuthenticate() {
         async function getAccessToken() {
-          console.log('GitHub authentication:')
           try {
             const res = await fetch(
               `${
@@ -41,14 +41,12 @@ function Login(): JSX.Element {
               },
             )
             if (res.status === 200) {
-              console.log('–– GitHub authentication succeeded')
               setGitHubAuth(true)
             } else {
-              console.log('–– GitHub authentication failed')
+              setGitHubAuth(false)
             }
             return res
           } catch (err) {
-            console.log('– GitHub authentication failed')
             // TODO error Handling what if failed -> create gitHub Account
           }
         }
@@ -152,6 +150,8 @@ function Login(): JSX.Element {
                 usernameHandle={gitHubUser.login}
                 setUser={setUser}
                 setLoading={setLoading}
+                passwordCorrect={passwordCorrect}
+                setPasswordCorrect={setPasswordCorrect}
               />
             )) ||
             (signup && (
