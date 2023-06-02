@@ -36,27 +36,6 @@ function EmailVerfication(): JSX.Element {
           },
         )
         if (res.status === 200) {
-          // const reqBody = {
-          //   user: { username: userCodeParam },
-          //   update: { changes: { email_verified: true } },
-          // }
-          // /* update email_verfied status in DB */
-          // try {
-          //   const res = await fetch(
-          //     `${import.meta.env.VITE_SERVER_URL}users/${userCodeParam}`,
-          //     {
-          //       method: 'PUT',
-          //       headers: {
-          //         'Content-Type': 'application/json',
-          //         'Access-Control-Allow-Credentials': 'true',
-          //       },
-          //       credentials: 'include',
-          //       body: JSON.stringify(reqBody),
-          //     },
-          //   )
-          // } catch (err) {
-          //   console.log(err)
-          // }
           setVerified(true)
         }
       } catch (err) {

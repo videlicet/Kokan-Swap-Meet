@@ -240,7 +240,7 @@ const RequestIncoming: React.FC<Request> = (props: Request) => {
         return 'request expired'
     }
   }
-
+console.log(props)
   return (
     <div
       className={dynamicRequestStyle(props.requestProps?.status)}

@@ -39,7 +39,7 @@ function UserRequestsIncoming(): JSX.Element {
           />
         ))
       ) : (
-        <div className='request' style={{ marginLeft: '1rem' }}>
+        <div className='request' >
           <p>No incoming swap requests yet.</p>
         </div>
       )}

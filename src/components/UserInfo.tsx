@@ -28,16 +28,12 @@ function UserInfo(props?: Props): JSX.Element {
   }, [])
 
   /* tooltips */
-  const tooltipKokans = <span>current / pending</span>
+  const tooltipKokans = <span>pending incoming / outgoing requests</span>
   const tooltipAssets = (
     <span>offered {!otherUser && <span> / total</span>}</span>
   )
   const tooltipRequests = (
-    <span>
-      {user?.kokans_pending > 0 && (
-        <span>current / pending</span>
-      )}
-    </span>
+    <span>{user?.kokans_pending > 0 && <span>current / pending</span>}</span>
   )
 
   return (
@@ -65,7 +61,7 @@ function UserInfo(props?: Props): JSX.Element {
                 <span>Kokans: {user?.kokans}</span>
                 {user?.kokans_pending > 0 && (
                   <span> / {user?.kokans_pending} </span>
-                )}
+                )}{' '}
                 <TooltipInfo content={tooltipKokans} />
               </div>
             )}
@@ -79,8 +75,8 @@ function UserInfo(props?: Props): JSX.Element {
             </div>
             {!otherUser && (
               <span>
-                  Pending requests: {user?.requests_incoming_count_pending} /{' '}
-                  {user?.requests_outgoing_count_pending}{' '}
+                Pending requests: {user?.requests_incoming_count_pending} /{' '}
+                {user?.requests_outgoing_count_pending}{' '}
                 <TooltipInfo content={tooltipRequests} />
               </span>
             )}
@@ -102,7 +98,3 @@ function UserInfo(props?: Props): JSX.Element {
 }
 
 export default UserInfo
-
-/*
-
-*/

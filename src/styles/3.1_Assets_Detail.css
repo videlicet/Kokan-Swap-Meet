@@ -1,74 +1,107 @@
 #asset-container {
-    min-height: 0;
-    height: 100%;
-    width: 100%;
-    box-sizing: border-box;
-    overflow: hidden auto;
-    padding: 3rem;
+  min-height: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden auto;
+  padding: 3rem;
 }
 
 #asset-container .header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+@media screen and (min-width: 760px) {
+  #asset-container .header {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    gap: 0;
+  }
 }
 
 #asset-container .title {
-    font-size: xx-large;
-    overflow-wrap: anywhere;
+  word-break: break-all;
+  font-size: xx-large;
+  overflow-wrap: anywhere;
 }
 
 #asset-container .kokans {
-    border-radius: 100px;
-    background-color: rgba(253,187,45,1);
-    padding: 0.3rem; 
-    vertical-align: top;
-    color: black;
+  display: inline-block;
+  border-radius: 5px;
+  margin-right: 0.5rem;
+  background-color: var(--main-color-yellow);
+  min-width: 1ch;
+  padding: 0.1rem 0.3rem;
+  vertical-align: super;
+  color: rgb(0, 0, 0);
+  align-self: baseline;
+  text-align: center;
 }
 
 .interaction {
-    display: flex;
-    border-radius: 10px;
-    background-color: rgb(0, 0, 0, 0.4);
-    height: fit-content;
-    gap: 1rem;
+  display: flex;
+  border-radius: 10px;
+  background-color: rgb(0, 0, 0, 0.4);
+  height: fit-content;
+  width: fit-content;
+  gap: 1rem;
 }
 
 .asset-footer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-top: 2rem;
-    font-size: small;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 2rem;
+  font-size: small;
+  gap: 1rem;
 }
 
 .asset-footer-overview {
-    margin-top: 1.5rem;
-    background-color: red;
-    height: fit-content;
-    font-size: smaller;
+  margin-top: 1.5rem;
+  background-color: red;
+  height: fit-content;
+  font-size: smaller;
 }
 
-.additional-info {
+#assets .additional-info {
+  display: none;
+}
+
+#asset-container .additional-info {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  border-radius: 10px;
+  background-color: rgb(0, 0, 0, 0.4);
+  width: fit-content;
+  padding-right: 0.6rem;
+}
+
+@media screen and (min-width: 760px) {
+  #assets .additional-info,
+  #user-assets .additional-info {
     display: grid;
     grid-template-columns: 1fr auto;
-    border-radius: 10px; 
+    border-radius: 10px;
     background-color: rgb(0, 0, 0, 0.4);
     width: fit-content;
     padding-right: 0.6rem;
+  }
 }
 
 .info-type {
-    border-radius: 10px;
-    margin-right: 0.5rem;
-    background-color: rgb(0, 0, 0, 1);
-    width: 4rem;
-    padding: 0.5rem 0.9rem;
+  border-radius: 10px;
+  margin-right: 0.5rem;
+  background-color: rgb(0, 0, 0, 1);
+  width: 4rem;
+  padding: 0.5rem 0.9rem;
 }
 
 .asset-footer .info {
-    overflow: hidden;    
-    padding: 0.5rem 0.9rem;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  overflow: hidden;
+  padding: 0.5rem 0.9rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

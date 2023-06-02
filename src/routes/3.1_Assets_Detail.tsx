@@ -154,18 +154,15 @@ function AssetsDetail(): JSX.Element {
       )
       if (res.status === 200) {
         /*delete swap requests relating to this asset*/
-        const res = await fetch(
-          `${import.meta.env.VITE_SERVER_URL}transactions`,
-          {
-            method: 'DELETE',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Credentials': 'true',
-            },
-            body: JSON.stringify({ asset: { _id: asset?._id } }),
+        await fetch(`${import.meta.env.VITE_SERVER_URL}transactions`, {
+          method: 'DELETE',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': 'true',
           },
-        )
+          body: JSON.stringify({ asset: { _id: asset?._id } }),
+        })
       }
     } catch (err) {
       console.log(err)
@@ -217,21 +214,25 @@ function AssetsDetail(): JSX.Element {
           <div>
             <div className='header'>
               <div>
-                <span className='kokans' style={pricey}>
-                  {asset?.kokans}
-                </span>
-                <span className='title'>{asset?.title}</span>
-                <span>
-                  &nbsp;&nbsp;by&nbsp;
-                  {(asset?.creator_username && (
-                    <NavLink to={`/user/${asset?.creator_username}`}>
-                      {asset?.creator_username}
-                    </NavLink>
-                  )) ||
-                    'Deleted User'}
-                </span>
-                <div style={{ color: 'grey' }}>
-                  {date.format(new Date(asset?.created), 'YYYY/MM/DD')}
+                <div>
+                  <span className='kokans' style={pricey}>
+                    {asset?.kokans}
+                  </span>
+                  <span className='title'>{asset?.title}</span>
+                </div>
+                <div>
+                  <span>
+                    Creator:{' '}
+                    {(asset?.creator_username && (
+                      <NavLink to={`/user/${asset?.creator_username}`}>
+                        {asset?.creator_username}
+                      </NavLink>
+                    )) ||
+                      'Deleted User'}
+                  </span>
+                  <span >
+                    , {date.format(new Date(asset?.created), 'YYYY/MM/DD')}
+                  </span>
                 </div>
               </div>
               <div className='interaction'>
@@ -257,9 +258,7 @@ function AssetsDetail(): JSX.Element {
                     </span>
                   )}
                 {user && asset?.owners_usernames.includes(user?.username) && (
-                  <span className='button-like inactive green'>
-                    owned by you
-                  </span>
+                  <span className='button-like inactive green'>yours</span>
                 )}
                 {user && asset?.creator_username == user?.username && (
                   <AlertDialogAssetDelete
@@ -315,13 +314,13 @@ function AssetsDetail(): JSX.Element {
               <div className='additional-info'>
                 <span className='info-type'>Owners</span>
                 <div style={{ display: 'flex' }}>
-                  {asset?.owners_usernames.map(
+                  {asset?.owners_usernames.length > 0 && asset?.owners_usernames.map(
                     (owner: string, index: number) => (
                       <span className='info' key={index}>
                         {owner}
                       </span>
                     ),
-                  )}
+                  ) || <span className='info'>deleted user</span>}
                 </div>
               </div>
             </div>

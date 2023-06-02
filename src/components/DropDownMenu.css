@@ -1,3 +1,13 @@
+.DropDownMenuTrigger {
+  display: flex;
+  align-items: center;
+}
+
+.DropDownMenuTrigger .login-icon {
+  height: 2rem;
+  width: 2rem;
+}
+
 .DropDownMenuContent {
   position: relative;
   top: 1rem;

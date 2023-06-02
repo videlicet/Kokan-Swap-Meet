@@ -11,6 +11,7 @@ import {
   MagnifyingGlassIcon,
   PersonIcon,
   PlusIcon,
+  HomeIcon,
 } from '@radix-ui/react-icons'
 import DropdownMenu from '../components/DropDownMenu.tsx'
 
@@ -72,7 +73,6 @@ function App(): JSX.Element {
               <div className='navbar'>
                 <div style={{ display: 'flex', gap: '1rem', height: '100%' }}>
                   <NavLink
-                    className='navbar-element'
                     to='/assets'
                     style={{ fontSize: 'medium' }}
                     onClick={() => {
@@ -80,7 +80,10 @@ function App(): JSX.Element {
                       reset()
                     }}
                   >
-                    Swap-Meet
+                    <div className='navbar-element hover'>
+                      <HomeIcon className='home-icon' />
+                      <span className='home-span'>Swap-Meet</span>
+                    </div>
                   </NavLink>
 
                   <form
@@ -112,11 +115,11 @@ function App(): JSX.Element {
                 </div>
                 {user && (
                   <div className='navbar-element hover'>
-                    <NavLink to='assets/new' style={{ color: 'inherit' }}>
-                      <PlusIcon
-                        style={{ position: 'relative', top: '0.1rem' }}
-                      />
-                      &nbsp;Asset
+                    <NavLink to='assets/new'>
+                      <div className='hover'>
+                        <PlusIcon className='plus-icon'/>
+                        <span className='asset-span'>&nbsp;Asset</span>
+                      </div>
                     </NavLink>
                   </div>
                 )}
@@ -130,17 +133,19 @@ function App(): JSX.Element {
                       <PersonIcon
                         className='login_icon'
                         style={{
+                          position: 'relative',
                           top: '-0.8rem',
                           left: '-1rem',
                           width: '4rem',
                           height: '2.6rem',
-                          padding: '0.6rem',
+                          padding: '0.5rem',
+                          boxSizing: "border-box"
                         }} /* this styling is necessary because the hover effect is blocked by the NavLink tag */
                       />
                     </NavLink>
                   )}
                   {user && (
-                    <div className='profile-name'>
+                    <div className='profile-dropdown'>
                       <DropdownMenu user={user} />
                     </div>
                   )}

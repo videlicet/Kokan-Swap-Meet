@@ -1,68 +1,75 @@
+#user-assets {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  gap: 0.5rem;
+}
+
 @media screen and (min-width: 760px) {
-    #user-assets {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      width: 100%;
-      gap: 1rem;
-    }
+  #user-assets {
+    gap: 1rem;
   }
-  
-  @media screen and (min-width: 760px) {
-    .asset {
-      display: grid;
-      align-items: center;
-      grid-template-columns: 6fr 2fr;
-      border: 3px solid black;
-      border-radius: 15px;
-      margin-right: 1rem;
-      background-color: rgb(0, 0, 0, 0.4);
-      box-sizing: border-box;
-      padding: 1rem;
-      gap: 1rem;
-    }
+}
+
+.asset {
+  align-items: center;
+  border: 3px solid black;
+  border-radius: 15px;
+  margin-right: 0.5rem;
+  background-color: rgb(0, 0, 0, 0.4);
+  box-sizing: border-box;
+  padding: 1rem;
+  gap: 1rem;
+}
+@media screen and (min-width: 760px) {
+  .asset {
+    display: grid;
+    grid-template-columns: 6fr 2fr;
+    margin-right: 1rem;
   }
-  
-  .asset .left {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  #user-assets .title,
-  #assets .title {
-    font-size: xx-large;
-    overflow-wrap: anywhere;
-  }
-  
-  #user-assets .kokans,
-  #assets .kokans, #asset-container .kokans {
-    display: inline-block;
-    border-radius: 5px;
-    background-color: var(--main-color-yellow);
-    min-width: 1ch;
-    padding: 0.1rem 0.3rem;
-    margin-right: 0.5rem;
-    vertical-align:super;
-    color: rgb(0, 0, 0);
-    text-align: center;
-  }
-  
-  #user-assets .licence,
-  #assets .licence {
-    border-radius: 15px;
-    background-color: black;
-    padding: 0.5rem 0.5rem;
-    font-size: smaller;
-    align-self: center;
-  }
-  
-  #user-assets .on-offer {
-    border-radius: 10px;
-    background-color: var(--main-color-green);
-    padding: 0.3rem 0.9rem;
-    text-transform: uppercase;
-    font-size: smaller;
-    text-align: center;
-  }
-  
+}
+
+.asset .left {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+#user-assets .title,
+#assets .title {
+  word-break: break-all;
+  font-size: xx-large;
+  overflow-wrap: anywhere;
+}
+
+#user-assets .kokans,
+#assets .kokans {
+  display: inline-block;
+  border-radius: 5px;
+  margin-right: 0.5rem;
+  background-color: var(--main-color-yellow);
+  min-width: 1ch;
+  padding: 0.1rem 0.3rem;
+  vertical-align: super;
+  color: rgb(0, 0, 0);
+  text-align: center;
+}
+
+#user-assets .licence,
+#assets .licence {
+  border-radius: 15px;
+  background-color: black;
+  padding: 0.5rem 0.5rem;
+  font-size: smaller;
+  align-self: center;
+}
+
+#user-assets .on-offer {
+  border-radius: 10px;
+  background-color: var(--main-color-green);
+  padding: 0.3rem 0.9rem;
+  text-transform: uppercase;
+  font-size: smaller;
+  text-align: center;
+}

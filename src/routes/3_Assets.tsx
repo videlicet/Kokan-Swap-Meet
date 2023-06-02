@@ -48,7 +48,7 @@ function Assets(): JSX.Element {
   }, [searchTermHandle])
 
   return (
-    <div id='assets' className='asset-overview'>
+    <div id='assets'>
       {!loading ? (
         (assets.length > 0 &&
           assets.map((item: any, index: number) => (

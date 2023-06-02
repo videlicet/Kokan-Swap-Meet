@@ -15,10 +15,10 @@ export default (props: propsInterface) => {
 
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <PersonIcon className='login_icon' />
-          <span>{props.user?.username}</span>
+      <DropdownMenu.Trigger className='DropDownMenuTrigger' asChild>
+        <div>
+          <PersonIcon className='login-icon' />
+          <span className='profile-username'>{props.user?.username}</span>
           {(props.user?.requests_incoming_count_pending > 0 ||
             props.user?.requests_outgoing_count_pending > 0) && (
             <div id='newCounter'></div>
@@ -28,6 +28,12 @@ export default (props: propsInterface) => {
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content className='DropDownMenuContent'>
+          <DropdownMenu.Item
+            className='DropdownMenuItem'
+            onSelect={(e) => navigate(`user/${props.user?.username}/profile`)}
+          >
+            Profile
+          </DropdownMenu.Item>
           <DropdownMenu.Item
             className='DropdownMenuItem'
             onSelect={(e) => navigate(`user/${props.user?.username}/assets`)}
@@ -41,12 +47,6 @@ export default (props: propsInterface) => {
             }
           >
             Requests
-          </DropdownMenu.Item>
-          <DropdownMenu.Item
-            className='DropdownMenuItem'
-            onSelect={(e) => navigate(`user/${props.user?.username}/settings`)}
-          >
-            Settings
           </DropdownMenu.Item>
           <DropdownMenu.Item
             className='DropdownMenuItem'
