@@ -1,5 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import { NavLink } from 'react-router-dom'
+
+/* import styles */
 import '../styles/1.2_Logout.css'
 
 /* import components */
@@ -19,11 +21,11 @@ function Logout(): JSX.Element {
     try {
       const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
         method: 'DELETE',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Credentials': 'true',
         },
-        credentials: 'include',
       })
       if (res.status == 200) {
         setLoggedOut(true)

@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+
+/* import styles */
 import './DialogSettingsChange.css'
 
 /* import components */
 import * as Dialog from '@radix-ui/react-dialog'
 import { Cross2Icon } from '@radix-ui/react-icons'
 
-interface settingsChange {
+/* types */
+interface Props {
   portalContainer?: HTMLElement | null
   user: any
   onSubmit: any // TODO type
@@ -21,8 +24,8 @@ interface settingsChange {
   } // TODO type
 }
 
-const DialogSettingsChange: React.FC<settingsChange> = (
-  props: settingsChange,
+const DialogSettingsChange: React.FC<Props> = (
+  props: Props,
 ) => {
   const [open, setOpen] = useState(false)
   const {

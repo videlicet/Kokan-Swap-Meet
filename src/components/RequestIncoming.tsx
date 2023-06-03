@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react'
+import React, { useContext } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import date from 'date-and-time'
 
@@ -8,12 +8,12 @@ import AlertDialogRequest from './AlertDialogRequest'
 /* import context */
 import { UserContext, PortalContext } from '../routes/1_App'
 
-/* import types */
-import { RequestInterface } from '../types/types'
-
-/* import */
+/* import modules */
 import { getUser } from '../modules/Authenticator'
 import { getUserRequests } from '../modules/Requestor'
+
+/* import types */
+import { RequestInterface } from '../types/types'
 
 /* import request dialog content */
 import {
@@ -21,14 +21,15 @@ import {
   alertDialogRequestContentDecline,
 } from '../components/RequestDialogs.tsx'
 
-interface Request {
+/* types */
+interface Props {
   requestProps: RequestInterface
   index: number
   requests: any // TODO typing
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const RequestIncoming: React.FC<Request> = (props: Request) => {
+const RequestIncoming: React.FC<Props> = (props: Props) => {
   const navigate = useNavigate()
   const { user, setUser } = useContext<any>(UserContext)
   const { portalContainer } = useContext<any>(PortalContext)

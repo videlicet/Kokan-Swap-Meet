@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { NavLink, useRouteError } from 'react-router-dom'
+
+/* import styles */
 import '../styles/0_Errog_Page.css'
-
 import '@fontsource/rubik/500.css'
-
 import brand_icon from '../assets/kokan_icon_w.png'
 
 function ErrorPage(): JSX.Element {
@@ -25,7 +25,7 @@ function ErrorPage(): JSX.Element {
             okan
           </h1>
         </NavLink>
-        
+
         <div id='main-container'>
           <div id='error-container'>
             <h2>Oops!</h2>

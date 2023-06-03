@@ -1,5 +1,7 @@
 import { useState, useContext, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
+
+/* import styles */
 import '../styles/3_Assets.css'
 
 /* import components */

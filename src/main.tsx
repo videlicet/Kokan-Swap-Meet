@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './styles/0_index.css'
@@ -92,7 +91,7 @@ const router = createBrowserRouter([
         element: <AssetsDetail />,
       },
       {
-        path: 'assets/new', // QQ will this route work or collide with assets/:id, e.g. if there the param is the asset name and the asset called new
+        path: 'assets/new',
         element: <AssetsNew />,
       },
     ],
@@ -100,7 +99,7 @@ const router = createBrowserRouter([
 ])
 
 root.render(
-  //<React.StrictMode> {/*TODO enable after finding workaround for refresh*/}
+  //<React.StrictMode> {/* StrictMode is disabled because OAuth authentication fails when the URL authentication code is sent twice to GitHub*/}
   <RouterProvider router={router} />,
   //</React.StrictMode>
 )

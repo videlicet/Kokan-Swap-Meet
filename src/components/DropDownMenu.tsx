@@ -1,16 +1,20 @@
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+
+/* import styles */
 import '../styles/1_App.css'
 import './DropDownMenu.css'
 
+/* types */
 import { UserInterface } from '../types/types'
 import { PersonIcon } from '@radix-ui/react-icons'
 
-interface propsInterface {
+/* types */
+interface Props {
   user: UserInterface
 }
 
-export default (props: propsInterface) => {
+export default (props: Props) => {
   const navigate = useNavigate()
 
   return (

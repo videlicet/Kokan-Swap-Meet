@@ -1,5 +1,7 @@
 import { useState, useEffect, useContext, useRef } from 'react'
 import { NavLink } from 'react-router-dom'
+
+/* import styles */
 import '../styles/2.3.1–2_User_Requests.css'
 
 /* import components */
@@ -12,7 +14,6 @@ import { UserContext } from './1_App'
 /* import modules */
 import { getUserRequests } from '../modules/Requestor'
 
-/* function component */
 function UserRequestsOutgoing(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)

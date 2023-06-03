@@ -1,5 +1,8 @@
-import { ExternalLinkIcon } from '@radix-ui/react-icons'
+/* import styles */
 import '../styles/5_About.css'
+
+/* import components */
+import { ExternalLinkIcon } from '@radix-ui/react-icons'
 
 function About(): JSX.Element {
   return (

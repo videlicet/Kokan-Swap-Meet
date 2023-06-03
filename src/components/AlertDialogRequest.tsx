@@ -1,11 +1,14 @@
 // @ts-nocheck
 import React from 'react'
+
+/* import styles */
 import './AlertDialog.css'
 
 /* import components */
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 
-interface request {
+/* types */
+interface Props {
   portalContainer: HTMLElement | null,
   onConfirm: any // type?
   content: {
@@ -19,7 +22,7 @@ interface request {
   }
 }
 
-const AlertDialogRequest: React.FC<request> = (props: request) => (
+const AlertDialogRequest: React.FC<Props> = (props: Props) => (
   <AlertDialog.Root className='AlertDialogRoot'>
     <AlertDialog.Trigger asChild>
       <button className='button-like'>{props.content.button.button}</button>

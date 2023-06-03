@@ -1,17 +1,20 @@
 // @ts-nocheck
 import React from 'react'
+
+/* import styles */
 import './AlertDialog.css'
 
 /* import components */
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 
-interface swapRequest {
+/* types */
+interface Props {
   portalContainer: HTMLElement | null
   title: string
   onDelete: any // type?
 }
 
-const AlertDialogAssetDelete: React.FC<swapRequest> = (props: swapRequest) => (
+const AlertDialogAssetDelete: React.FC<Props> = (props: Props) => (
   <AlertDialog.Root className='AlertDialogRoot'>
     <AlertDialog.Trigger asChild>
       <button className='button-like'>delete</button>
@@ -20,7 +23,7 @@ const AlertDialogAssetDelete: React.FC<swapRequest> = (props: swapRequest) => (
       <AlertDialog.Overlay className='AlertDialogOverlay' />
       <AlertDialog.Content className='AlertDialogContent'>
         <AlertDialog.Title className='AlertDialogTitle'>
-          Please confirm you want to delete this asset.
+          Please confirm you want to delete this asset
         </AlertDialog.Title>
         <AlertDialog.Description className='AlertDialogDescription'>
             Delete asset <span style={{color: "red"}}>{props.title}</span>.

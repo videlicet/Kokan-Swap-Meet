@@ -1,5 +1,7 @@
 import { useState, useEffect, useContext, useRef } from 'react'
 import { useNavigate, Outlet, useParams } from 'react-router-dom'
+
+/* import styles */
 import '../styles/2_User.css'
 
 /* import components */

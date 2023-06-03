@@ -1,8 +1,11 @@
 import React from 'react'
 import { useLocation, NavLink } from 'react-router-dom'
+
+/* import styles */
 import '../styles/3.1_Assets_Detail.css'
 
-interface Asset {
+/* types */
+interface Props {
   assetProps: {
     _id: string
     title: string
@@ -20,7 +23,7 @@ interface Asset {
   index: number
 }
 
-const Asset: React.FC<Asset> = (props: Asset) => {
+const Asset: React.FC<Props> = (props: Props) => {
   const { pathname } = useLocation()
 
   const pricey =

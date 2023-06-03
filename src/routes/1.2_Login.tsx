@@ -1,10 +1,12 @@
 import { useState, useContext, useEffect } from 'react'
+
+/* import styles */
 import '../styles/1.1_Login.css'
 
-/* context */
+/* import context */
 import { UserContext } from './1_App'
 
-/* components */
+/* import components */
 import LoginComponent from '../components/Login'
 import SignUp from '../components/SignUp'
 import Loading from '../components/Loading'
@@ -33,11 +35,11 @@ function Login(): JSX.Element {
                 import.meta.env.VITE_SERVER_URL
               }auth/gitHub?code=${gitHubParam}`,
               {
+                credentials: 'include',
                 headers: {
                   'Content-Type': 'application/json',
                   'Access-Control-Allow-Credentials': 'true',
                 },
-                credentials: 'include',
               },
             )
             if (res.status === 200) {
@@ -82,7 +84,6 @@ function Login(): JSX.Element {
             const res = await fetch(
               `${import.meta.env.VITE_SERVER_URL}users/${user.login}`,
               {
-                method: 'GET',
                 credentials: 'include',
                 headers: {
                   'Content-Type': 'application/json',

@@ -2,7 +2,7 @@ import { useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 /* impmort context */
-import { UserContext, PortalContext } from './1_App'
+import { UserContext } from './1_App'
 
 function Welcome(): JSX.Element {
   const { user, setUser } = useContext<any>(UserContext)
@@ -16,7 +16,6 @@ function Welcome(): JSX.Element {
   return (
     <></>
   )
-
 }
 
 export default Welcome

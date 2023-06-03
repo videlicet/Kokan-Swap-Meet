@@ -1,6 +1,8 @@
 import { useState, useEffect, useContext } from 'react'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import date from 'date-and-time'
+
+/* import styles */
 import '../styles/3.1_Assets_Detail.css'
 
 /* import components */
@@ -24,8 +26,6 @@ function AssetsDetail(): JSX.Element {
 
   let { id } = useParams<string>()
   const navigate = useNavigate()
-
-  console.log(asset)
 
   async function getAsset(requester: string) {
     /* get aasset in database */
@@ -98,11 +98,11 @@ function AssetsDetail(): JSX.Element {
     try {
       await fetch(`${import.meta.env.VITE_SERVER_URL}users/${user?._id}`, {
         method: 'PUT',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Credentials': 'true',
         },
-        credentials: 'include',
         body: JSON.stringify(reqBody),
       })
     } catch (err) {
@@ -119,15 +119,15 @@ function AssetsDetail(): JSX.Element {
           {
             method: 'POST',
             credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Credentials': 'true',
+            },
             body: JSON.stringify({
               user: { username: user?.username },
               owner: { username: owner },
               asset: { title: asset?.title },
             }),
-            headers: {
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Credentials': 'true',
-            },
           },
         )
         if (res.status === 200) {

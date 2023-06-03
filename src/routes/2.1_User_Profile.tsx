@@ -196,11 +196,11 @@ function UserProfile(): JSX.Element {
             `${import.meta.env.VITE_SERVER_URL}users/${user?._id}`,
             {
               method: 'PUT',
+              credentials: 'include',
               headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Credentials': 'true',
               },
-              credentials: 'include',
               body: JSON.stringify(reqBody),
             },
           )

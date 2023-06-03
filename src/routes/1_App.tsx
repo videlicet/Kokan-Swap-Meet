@@ -2,11 +2,13 @@
 import { useState, useEffect, createContext, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
-import '../styles/1_App.css'
+
+/* import styles */
 import '@fontsource/rubik/500.css'
+import '../styles/1_App.css'
+import brand_icon from '../assets/kokan_icon_w.png'
 
 /* import components */
-import brand_icon from '../assets/kokan_icon_w.png'
 import {
   MagnifyingGlassIcon,
   PersonIcon,
@@ -15,12 +17,12 @@ import {
 } from '@radix-ui/react-icons'
 import DropdownMenu from '../components/DropDownMenu.tsx'
 
-/* context */
+/* import context */
 export const UserContext = createContext({})
 export const AssetContext = createContext({})
 export const PortalContext = createContext({})
 
-/*modules*/
+/* import modules*/
 import { getUser } from '../modules/Authenticator'
 
 /* helpers */

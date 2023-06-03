@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+
+/* import styles */
 import './SignUp.css'
 
 /* import components */
 import { CheckCircledIcon } from '@radix-ui/react-icons'
 
+/* types */
 interface Props {
   gitHubUser: any // TODO typing
   setSignup: React.Dispatch<React.SetStateAction<boolean>>

@@ -15,10 +15,8 @@ import { PortalContext, UserContext } from '../routes/1_App'
 import { getUser } from '../modules/Authenticator'
 import { getUserRequests } from '../modules/Requestor'
 
-/* import request dialog content */
-import { alertDialogRequestContentDelete } from '../components/RequestDialogs.tsx'
-
-interface Request {
+/* types */
+interface Props {
   requestProps: RequestInterface
   index: number
   username: string
@@ -40,7 +38,10 @@ function dynamicRequestStyle(status: string) {
   }
 }
 
-const RequestOutgoing: React.FC<Request> = (props: Request) => {
+/* import request dialog content */
+import { alertDialogRequestContentDelete } from '../components/RequestDialogs.tsx'
+
+const RequestOutgoing: React.FC<Props> = (props: Props) => {
   const navigate = useNavigate()
   const { portalContainer } = useContext<any>(PortalContext)
   const { user, setUser } = useContext<any>(UserContext)
@@ -85,11 +86,11 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
         }`,
         {
           method: 'DELETE',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': 'true',
           },
-          credentials: 'include',
         },
       )
       if (res.status === 200) {
@@ -116,11 +117,11 @@ const RequestOutgoing: React.FC<Request> = (props: Request) => {
         `${import.meta.env.VITE_SERVER_URL}users/${user?._id}`,
         {
           method: 'PUT',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': 'true',
           },
-          credentials: 'include',
           body: JSON.stringify(reqBody),
         },
       )

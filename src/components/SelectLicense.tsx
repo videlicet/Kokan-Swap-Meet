@@ -1,11 +1,14 @@
 // @ts-nocheck
 import { forwardRef } from 'react'
+
+/* import styles */
 import './SelectLicense.css'
 
 /* import components */
 import * as Select from '@radix-ui/react-select'
 import { CheckIcon, ChevronDownIcon } from '@radix-ui/react-icons'
 
+/* types */
 interface propsInterface {
   licenseTypes: string[]
   license: string

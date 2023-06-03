@@ -1,5 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
+
+/* import styles */
 import '../styles/2.2_User_Assets.css'
 
 /* import components */
@@ -28,11 +30,11 @@ function UserAssets(): JSX.Element {
         `${import.meta.env.VITE_SERVER_URL}users/${id}/assets`,
         {
           method: 'POST',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': 'true',
           },
-          credentials: 'include',
           body: JSON.stringify({ owner: id }),
         },
       )

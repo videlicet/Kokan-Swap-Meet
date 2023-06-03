@@ -1,8 +1,11 @@
 import React from 'react'
 import * as Avatar from '@radix-ui/react-avatar'
+
+/* import styles */
 import './ProfileAvatar.css'
 
-interface profilePicture {
+/* types */
+interface Props {
   otherUser?: any
   user?: {
     username: string
@@ -12,7 +15,7 @@ interface profilePicture {
   }
 }
 
-const ProfileAvatar: React.FC<profilePicture> = (props: profilePicture) => {
+const ProfileAvatar: React.FC<Props> = (props: Props) => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', gap: 20 }}>
       <Avatar.Root className='AvatarRoot'>

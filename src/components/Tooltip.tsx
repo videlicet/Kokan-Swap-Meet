@@ -1,10 +1,13 @@
 import React from 'react';
+
+/* import styles */
 import './Tooltip.css';
 
 /* import components */
 import * as Tooltip from '@radix-ui/react-tooltip';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
 
+/* types */
 interface Props {
     content: string | any // TODO typing
 }

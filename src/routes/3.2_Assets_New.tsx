@@ -2,6 +2,8 @@
 import { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm, Controller } from 'react-hook-form'
+
+/* import styles */
 import '../styles/3.2_Assets_New.css'
 
 /* import components */
@@ -93,11 +95,11 @@ function AssetsNew(): JSX.Element {
     try {
       await fetch(`${import.meta.env.VITE_SERVER_URL}assets`, {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Credentials': 'true',
         },
-        credentials: 'include',
         body: JSON.stringify({
           gitHub_repo: repo,
           title: title,
@@ -112,7 +114,8 @@ function AssetsNew(): JSX.Element {
           created: new Date(),
         }),
       })
-    } catch (error) {
+    } catch (err) {
+      console.log(err)
       // TODO errorHandling
     }
     navigate(`/user/${user.username}/assets`)
@@ -124,24 +127,24 @@ function AssetsNew(): JSX.Element {
     form.requestSubmit()
   }
 
-  /* kokan change helper (SliderKokan component can't use react hook forms) */
+  /* helper because kokan change helper (SliderKokan component can't use react hook forms) */
   function handleKokans(value: number[]) {
     setKokans(value[0])
     setValue('kokans', value[0])
   }
 
-  /* check existense of repository */
+  /* check existence of repository */
   async function checkRepository() {
     try {
       let res = await fetch(
         `${import.meta.env.VITE_SERVER_URL}auth/gitHub/repository`,
         {
           method: 'POST',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': 'true',
           },
-          credentials: 'include',
           body: JSON.stringify({
             owner: user?.username,
             repository: watch('repo'),

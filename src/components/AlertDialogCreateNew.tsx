@@ -1,12 +1,15 @@
 // @ts-nocheck
 import React, { useState } from 'react'
+
+/* import styles */
 import './AlertDialog.css'
 
 /* import components */
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import brand_icon from '../assets/kokan_icon_w.png'
 
-interface createNewAsset {
+/* types */
+interface Props {
   portalContainer: HTMLElement | null
   onSubmitTrigger: any // TODO type
   title: readonly any[]
@@ -14,8 +17,8 @@ interface createNewAsset {
   trigger: any // TODO type
 }
 
-const AlertDialogCreateNew: React.FC<createNewAsset> = (
-  props: createNewAsset,
+const AlertDialogCreateNew: React.FC<Props> = (
+  props: Props,
 ) => {
   const [valid, setValid] = useState(true)
   return (
@@ -43,7 +46,7 @@ const AlertDialogCreateNew: React.FC<createNewAsset> = (
           <AlertDialog.Overlay className='AlertDialogOverlay' />
           <AlertDialog.Content className='AlertDialogContent'>
             <AlertDialog.Title className='AlertDialogTitle'>
-              Please confirm you want to create and publish this asset.
+              Please confirm you want to create and publish this asset
             </AlertDialog.Title>
             <AlertDialog.Description className='AlertDialogDescription'>
               Create new asset {props.title} for{' '}

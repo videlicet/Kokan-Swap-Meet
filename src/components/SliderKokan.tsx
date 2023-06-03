@@ -1,9 +1,11 @@
+/* import styles */
 import './SliderKokan.css'
 
 /* import components */
 import * as Slider from '@radix-ui/react-slider'
 import brand_icon from '../assets/kokan_icon_w.png'
 
+/* types */
 interface Props {
   kokans: number
   handlekokans: (value: number[]) => void

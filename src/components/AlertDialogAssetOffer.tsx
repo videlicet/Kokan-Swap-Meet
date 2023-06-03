@@ -1,18 +1,21 @@
 // @ts-nocheck
 import React from 'react'
+
+/* import styles */
 import './AlertDialog.css'
 
 /* import components */
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 
-interface offerRequest {
+/* types */
+interface Props {
   portalContainer: HTMLElement | null
   title: string
   onOffer: () => Promise<void>
   removeable: boolean
 }
 
-const AlertDialogAssetOffer: React.FC<offerRequest> = (props: offerRequest) => (
+const AlertDialogAssetOffer: React.FC<Props> = (props: Props) => (
   <AlertDialog.Root className='AlertDialogRoot'>
     <AlertDialog.Trigger asChild>
       <button className='button-like'>

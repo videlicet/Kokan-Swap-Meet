@@ -55,11 +55,11 @@ export async function aggregateTransactions(transaction_id: string) { // TODO ty
       `${import.meta.env.VITE_SERVER_URL}transactions/${transaction_id}/users`,
       {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Credentials': 'true',
         },
-        credentials: 'include',
         body: JSON.stringify({ transaction_id: transaction_id }),
       },
     )

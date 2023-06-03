@@ -1,4 +1,6 @@
 import { useState, useEffect, useContext, useRef } from 'react'
+
+/* import styles */
 import '../styles/2.3.1–2_User_Requests.css'
 
 /* import components */
@@ -11,7 +13,6 @@ import { UserContext } from './1_App'
 /* request dialog content */
 import { getUserRequests } from '../modules/Requestor'
 
-/* function component */
 function UserRequestsIncoming(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)

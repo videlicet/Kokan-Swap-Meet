@@ -1,17 +1,20 @@
 // @ts-nocheck
 import React from 'react'
+
+/* import styles */
 import './AlertDialog.css'
 
 /* import components */
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 
-interface swapRequest {
+/* types */
+interface Props {
   onConfirm: any // TODO type?
   portalContainer?: HTMLElement | null
   disabled?: boolean
 }
 
-const AlertDialogImageUpload: React.FC<swapRequest> = (props: swapRequest) => {
+const AlertDialogImageUpload: React.FC<Props> = (props: Props) => {
   const triggerButtonStyle = props.disabled
     ? {
         backgroundColor: 'grey',
@@ -36,7 +39,7 @@ const AlertDialogImageUpload: React.FC<swapRequest> = (props: swapRequest) => {
         <AlertDialog.Overlay className='AlertDialogOverlay' />
         <AlertDialog.Content className='AlertDialogContent'>
           <AlertDialog.Title className='AlertDialogTitle'>
-            Please confirm you want to change your profile picture.
+            Please confirm you want to change your profile picture
           </AlertDialog.Title>
           <AlertDialog.Description className='AlertDialogDescription'>
               Your profile picture will be updated on confirmation. If you want

@@ -1,17 +1,20 @@
 // @ts-nocheck
 import React from 'react'
+
+/* import styles */
 import './AlertDialog.css'
 
 /* import components */
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 
-interface deleteRequest {
+/* types */
+interface Props {
   portalContainer: HTMLElement | null
   username: string
   onDelete: any // TODO type?
 }
 
-const AlertDialogSwap: React.FC<deleteRequest> = (props: deleteRequest) => (
+const AlertDialogSwap: React.FC<Props> = (props: Props) => (
   <AlertDialog.Root className='AlertDialogRoot'>
     <AlertDialog.Trigger asChild>
       <button>Delete Account</button>
@@ -20,7 +23,7 @@ const AlertDialogSwap: React.FC<deleteRequest> = (props: deleteRequest) => (
       <AlertDialog.Overlay className='AlertDialogOverlay' />
       <AlertDialog.Content className='AlertDialogContent'>
         <AlertDialog.Title className='AlertDialogTitle'>
-          Please confirm you want to delete your Account.
+          Please confirm you want to delete your Account
         </AlertDialog.Title>
         <AlertDialog.Description className='AlertDialogDescription'>
           Are you sure you want to delete your{' '}

@@ -1,5 +1,7 @@
 import { useState, useContext, useEffect } from 'react'
 import date from 'date-and-time'
+
+/* import styles */
 import '../styles/2_User.css'
 
 /* import components */
@@ -11,6 +13,7 @@ import TooltipInfo from '../components/Tooltip'
 import { UserContext } from '../routes/1_App'
 import Loading from './Loading'
 
+/* types */
 interface Props {
   otherUser?: any // TODO type
   loadingUserInfo: boolean

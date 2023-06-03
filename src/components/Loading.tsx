@@ -1,5 +1,9 @@
-import PulseLoader from 'react-spinners/PulseLoader'
+
+/* import styles */
 import '../styles/1_App.css'
+
+/* import components */
+import PulseLoader from 'react-spinners/PulseLoader'
 
 function Loading(): JSX.Element {
   return (
