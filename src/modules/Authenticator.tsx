@@ -3,7 +3,8 @@ export const authenticate = async (): Promise<{
   user: any
 }> => {
   /*check user has JWT token*/
-  const res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/login`, { // TODO replace id placholder 
+  const res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/login`, {
+    // TODO replace id placholder
     method: 'POST',
     credentials: 'include',
     headers: {
@@ -21,18 +22,34 @@ export const authenticate = async (): Promise<{
 export const getUser = async (
   setUser: any,
   navigate: any,
+  id?: string,
   to?: string,
-): Promise<string | any> => {
-  // TODO typing, is this an acutal promise?
+): Promise<void> => {
   authenticate().then((res) => {
     if (res.status === true) {
-      setUser(res.user) // TODO typing
+      let user = fetchUser()
+      setUser(user) // TODO typing
       /* relevant for logging in: redirect to dashboard instead of staying on the page */
       if (to === 'dashboard') navigate(`/user/${res.user.username}/assets`)
     } else {
       return navigate('/login')
     }
   })
+
+  async function fetchUser() {
+    let res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': 'true',
+      },
+      credentials: 'include',
+    })
+    if (res.status === 200) {
+      let otherUser = await res.json()
+      return otherUser
+    }
+  }
 }
 
 export const redirectDashboard = (username: any, navigate: any) => {
@@ -43,14 +60,14 @@ export const redirectDashboard = (username: any, navigate: any) => {
 export const fetchOtherUser = async (id: string) => {
   let res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${id}`, {
     method: 'POST',
-    body: JSON.stringify({
-      username: id,
-    }),
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Credentials': 'true',
     },
-    credentials: 'include',
+    body: JSON.stringify({
+      username: id,
+    }),
   })
   if (res.status === 200) {
     let otherUser = await res.json()

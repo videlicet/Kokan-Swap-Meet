@@ -25,6 +25,8 @@ function AssetsDetail(): JSX.Element {
   let { id } = useParams<string>()
   const navigate = useNavigate()
 
+  console.log(asset)
+
   async function getAsset(requester: string) {
     /* get aasset in database */
     try {

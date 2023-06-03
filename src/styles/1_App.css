@@ -333,7 +333,7 @@ input:disabled {
 }
 @media screen and (min-width: 1200px) {
   #new-counter {
-    margin-left: 0.2rem;
+    margin-left: 0.4rem;
   }
 }
 

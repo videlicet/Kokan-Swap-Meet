@@ -41,7 +41,7 @@ function App(): JSX.Element {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (user) getUser(setUser, navigate)
+    if (user) getUser(setUser, navigate, user._id)
   }, [])
 
   /* search */
