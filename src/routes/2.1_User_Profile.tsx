@@ -93,7 +93,6 @@ function UserProfile(): JSX.Element {
       user: { _id: user?._id },
       update: { changes: changes },
     }
-
     try {
       await fetch(`${import.meta.env.VITE_SERVER_URL}users/${user?._id}`, {
         method: 'PUT',
@@ -104,7 +103,7 @@ function UserProfile(): JSX.Element {
         },
         body: JSON.stringify(reqBody),
       })
-      getUser(setUser, navigate)
+      getUser(setUser, navigate, user?._id)
     } catch (err) {
       console.log(err)
       // TODO errorHandling

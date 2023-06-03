@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { NavLink, useRouteError } from 'react-router-dom'
 import '../styles/0_Errog_Page.css'
 
@@ -15,8 +15,6 @@ function ErrorPage(): JSX.Element {
     { name: 'How It Works', route: '/how-it-works' },
     { name: 'About', route: '/about' },
   ])
-
-  const [style, setStyle] = useState('')
 
   return (
     <>
@@ -46,8 +44,8 @@ function ErrorPage(): JSX.Element {
 
       <footer id='footer'>
         <ul className='navbar'>
-          {footer.map((item, index) => (
-            <li>
+          {footer.map((item: any, index: number) => (
+            <li key={index}>
               <NavLink
                 style={({ isActive }) => ({
                   fontWeight: isActive ? 'bold' : '',
@@ -71,16 +69,3 @@ function ErrorPage(): JSX.Element {
 }
 
 export default ErrorPage
-
-/**
- * 
- *                   <NavLink onClick={toggleDropdown} style={({ isActive }) => ({
-                        backgroundColor: isActive ? 'lightgrey' : '',
-                        color: isActive ? 'black' : 'white',
-                        padding: isActive ? '0 0.8rem' : 0,
-                        borderRadius: isActive ? 15 : 0,
-                        })} 
-                        to={user.loggedIn == true && `user/1` || `/login`} >
-
-                  </NavLink>
- */

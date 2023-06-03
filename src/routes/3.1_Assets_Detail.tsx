@@ -12,7 +12,7 @@ import Loading from '../components/Loading'
 /* import types */
 import { AssetInterface } from '../types/types'
 
-/* context */
+/* import context */
 import { UserContext, PortalContext } from './1_App'
 
 function AssetsDetail(): JSX.Element {
@@ -232,7 +232,7 @@ function AssetsDetail(): JSX.Element {
                     )) ||
                       'Deleted User'}
                   </span>
-                  <span >
+                  <span>
                     , {date.format(new Date(asset?.created), 'YYYY/MM/DD')}
                   </span>
                 </div>
@@ -288,18 +288,20 @@ function AssetsDetail(): JSX.Element {
               className='asset-footer'
               style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
             >
-              {user && asset?.owners.includes(user?._id) && (
-                <div className='additional-info'>
-                  <span className='info-type'>Repository</span>
-                  <span className='info'>
-                    <a
-                      href={`https://github.com/${asset?.creator_username}/${asset?.gitHub_repo}`}
-                    >
-                      {asset?.gitHub_repo}
-                    </a>
-                  </span>
-                </div>
-              )}
+              {user &&
+                asset?.creator_username &&
+                asset?.owners.includes(user?._id) && (
+                  <div className='additional-info'>
+                    <span className='info-type'>Repository</span>
+                    <span className='info'>
+                      <a
+                        href={`https://github.com/${asset?.creator_username}/${asset?.gitHub_repo}`}
+                      >
+                        {asset?.gitHub_repo}
+                      </a>
+                    </span>
+                  </div>
+                )}
               <div className='additional-info'>
                 <span className='info-type'>License</span>
                 <span className='info'>{asset?.licence}</span>
@@ -316,13 +318,16 @@ function AssetsDetail(): JSX.Element {
               <div className='additional-info'>
                 <span className='info-type'>Owners</span>
                 <div style={{ display: 'flex' }}>
-                  {asset?.owners_usernames.length > 0 && asset?.owners_usernames.map(
-                    (owner: string, index: number) => (
-                      <span className='info' key={index}>
-                        {owner}
-                      </span>
-                    ),
-                  ) || <span className='info'>deleted user</span>}
+                  {(asset?.owners_usernames.length > 0 &&
+                    asset?.owners_usernames.map(
+                      (owner: string, index: number) => (
+                        <NavLink key={index} className='info' to={`/user/${owner}/assets`} >
+                          <span  >
+                            {owner}
+                          </span>
+                        </NavLink>
+                      ),
+                    )) || <span className='info'>deleted user</span>}
                 </div>
               </div>
             </div>
