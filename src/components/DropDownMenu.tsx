@@ -21,7 +21,7 @@ export default (props: propsInterface) => {
           <span className='profile-username'>{props.user?.username}</span>
           {(props.user?.requests_incoming_count_pending > 0 ||
             props.user?.requests_outgoing_count_pending > 0) && (
-            <div id='newCounter'></div>
+            <div id='new-counter'></div>
           )}
         </div>
       </DropdownMenu.Trigger>

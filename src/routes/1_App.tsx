@@ -162,9 +162,9 @@ function App(): JSX.Element {
                   key={item.name}
                   style={({ isActive }) => ({
                     fontWeight: isActive ? 'bold' : '',
-                    color: isActive ? 'black' : 'grey',
-                    padding: isActive ? '0 0.8rem' : 0,
+                    color: isActive ? 'rgb(221, 213, 207)' : 'grey',
                     borderRadius: isActive ? 15 : 0,
+                    mixBlendMode: "difference"
                   })}
                   to={`${item.route}`}
                 >
