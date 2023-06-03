@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react'
 
 /* import styles */
@@ -16,7 +15,7 @@ interface Props {
 }
 
 const AlertDialogAssetOffer: React.FC<Props> = (props: Props) => (
-  <AlertDialog.Root className='AlertDialogRoot'>
+  <AlertDialog.Root>
     <AlertDialog.Trigger asChild>
       <button className='button-like'>
         {props.removeable ? 'Revoke' : 'Offer'}

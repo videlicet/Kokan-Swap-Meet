@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useEffect, createContext, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'

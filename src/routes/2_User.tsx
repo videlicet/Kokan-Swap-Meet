@@ -31,7 +31,7 @@ function User(): JSX.Element | undefined {
   useEffect(() => {
     setLoading(true)
     setLoadingUserInfo(true)
-    authenticate()
+    authenticate(user?._id)
       .then((res) => {
         setAuth(res.status)
         if (res.status === false) {

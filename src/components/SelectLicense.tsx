@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { forwardRef } from 'react'
 
 /* import styles */
@@ -17,7 +16,7 @@ interface propsInterface {
   onValueChange: (...event: any[]) => void
 }
 
-const SelectLicence = forwardRef(
+const SelectLicence = forwardRef<HTMLButtonElement, propsInterface>(
   ({ ...props }: propsInterface, forwardedRef) => (
     <Select.Root value={props.value} onValueChange={props.onValueChange}>
       <Select.Trigger
@@ -26,7 +25,6 @@ const SelectLicence = forwardRef(
         aria-label='license'
       >
         {' '}
-        {/* TODO type */}
         <Select.Value>
           <span>{props.value ?? 'Select license'}</span>
         </Select.Value>

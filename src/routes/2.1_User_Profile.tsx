@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import date from 'date-and-time'
@@ -167,7 +166,7 @@ function UserProfile(): JSX.Element {
   async function handleImageUpload() {
     /* get uploaded image */
     const inputElement = document?.getElementById('profile-picture')
-    const file = inputElement?.files[0]
+    const file = (inputElement as HTMLInputElement)?.files[0]
     // TODO logic
     /* send image to cloudinary */
     const formData = new FormData()
@@ -205,7 +204,7 @@ function UserProfile(): JSX.Element {
             },
           )
           if (res.status === 200) {
-            inputElement.value = ''
+            (inputElement as HTMLInputElement).value = ''
             getUser(setUser, navigate)
           }
         } catch (err) {

@@ -16,7 +16,7 @@ const SliderKokan = (props: Props) => (
 
       <Slider.Root
         className='SliderRoot'
-        {...(props as any)}
+        {...(props)}
         min={1}
         max={5}
         defaultValue={[3]}

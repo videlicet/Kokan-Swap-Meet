@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react'
 
 /* import styles */
@@ -17,13 +16,10 @@ interface Props {
   trigger: any // TODO type
 }
 
-const AlertDialogCreateNew: React.FC<Props> = (
-  props: Props,
-) => {
+const AlertDialogCreateNew: React.FC<Props> = (props: Props) => {
   const [valid, setValid] = useState(true)
   return (
     <AlertDialog.Root
-      className='AlertDialogRoot'
       onOpenChange={async () => {
         const result = await props.trigger([
           'title',

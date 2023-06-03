@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react'
 
 /* import styles */
@@ -25,7 +24,7 @@ const AlertDialogImageUpload: React.FC<Props> = (props: Props) => {
     : undefined
 
   return (
-    <AlertDialog.Root className='AlertDialogRoot'>
+    <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
         <button
           className='button-like'

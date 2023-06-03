@@ -1,12 +1,11 @@
 import {NavigateFunction} from 'react-router-dom'
 
-export const authenticate = async (): Promise<{
+export const authenticate = async (id?: string): Promise<{
   status: boolean
   user: any
 }> => {
   /*check user has JWT token*/
-  const res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/login`, {
-    // TODO replace id placholder
+  const res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${id}`, {
     method: 'POST',
     credentials: 'include',
     headers: {

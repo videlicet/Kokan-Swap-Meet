@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm, Controller } from 'react-hook-form'
@@ -75,6 +74,8 @@ function AssetsNew(): JSX.Element {
       title: undefined,
       kokans: 3,
       license:  undefined,
+      descriptionShort: undefined,
+      descriptionLong: undefined
     },
   })
   const [loading, setLoading] = useState()
@@ -123,7 +124,7 @@ function AssetsNew(): JSX.Element {
 
   /* triggers submit of form after confirmation in alert dialog */
   function onSubmitTrigger() {
-    const form: HTMLFormElement = document.forms.newAsset // TODO type
+    const form = (document.forms as HTMLCollectionOf<HTMLFormElement> & any).newAsset // TODO type
     form.requestSubmit()
   }
 
@@ -229,7 +230,7 @@ function AssetsNew(): JSX.Element {
           </div>
           <div>
             {errors.repo && (
-              <span className='validation-error'>{errors.repo?.message}</span>
+              <span className='validation-error'>{errors.repo?.message.toString()}</span>
             )}
           </div>
         </div>
@@ -345,7 +346,7 @@ function AssetsNew(): JSX.Element {
             })}
             name='kokans'
             className='new-asset'
-            from='newAsset'
+            form='newAsset'
             type='number'
             step='1'
             style={{ display: 'none' }}

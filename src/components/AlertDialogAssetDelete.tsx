@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react'
 
 /* import styles */
@@ -15,7 +14,7 @@ interface Props {
 }
 
 const AlertDialogAssetDelete: React.FC<Props> = (props: Props) => (
-  <AlertDialog.Root className='AlertDialogRoot'>
+  <AlertDialog.Root>
     <AlertDialog.Trigger asChild>
       <button className='button-like'>delete</button>
     </AlertDialog.Trigger>
