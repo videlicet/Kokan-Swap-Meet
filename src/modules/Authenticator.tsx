@@ -3,8 +3,8 @@ export const authenticate = async (): Promise<{
   user: any
 }> => {
   /*check user has JWT token*/
-  const res = await fetch(`${import.meta.env.VITE_SERVER_URL}auth`, {
-    method: 'GET',
+  const res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/login`, { // TODO replace id placholder 
+    method: 'POST',
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ export const getUser = async (
   navigate: any,
   to?: string,
 ): Promise<string | any> => {
-  // TODO typing, is this an acutal promis?
+  // TODO typing, is this an acutal promise?
   authenticate().then((res) => {
     if (res.status === true) {
       setUser(res.user) // TODO typing

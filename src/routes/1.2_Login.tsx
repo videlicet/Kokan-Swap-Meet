@@ -58,15 +58,15 @@ function Login(): JSX.Element {
               let userRes = await fetch(
                 `${import.meta.env.VITE_SERVER_URL}auth/gitHub/user`,
                 {
+                  credentials: 'include',
                   headers: {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Credentials': 'true',
                   },
-                  credentials: 'include',
                 },
               )
               if (userRes.status === 200) {
-                let user = await userRes.json()
+                const user = await userRes.json()
                 setGitHubUser(user)
                 return user
               }
@@ -82,15 +82,12 @@ function Login(): JSX.Element {
             const res = await fetch(
               `${import.meta.env.VITE_SERVER_URL}users/${user.login}`,
               {
-                method: 'POST',
-                body: JSON.stringify({
-                  username: user.login,
-                }),
+                method: 'GET',
+                credentials: 'include',
                 headers: {
                   'Content-Type': 'application/json',
                   'Access-Control-Allow-Credentials': 'true',
                 },
-                credentials: 'include',
               },
             )
             if (res.status === 200) {
@@ -100,7 +97,7 @@ function Login(): JSX.Element {
             }
             setLoading(false)
           } catch (err) {
-            console.log('No GitHub user found')
+            console.log('No GitHub user found in Kokan database')
           }
         }
         return setLoading(false)

@@ -41,9 +41,8 @@ function User(): JSX.Element | undefined {
           idCurrent.current = res.user.username
         }
         if (idCurrent.current !== id) {
-          fetchOtherUser(id).then((res) => {
-            const [userRes] = res
-            setOtherUser(userRes)
+          fetchOtherUser(id).then((user) => {
+            setOtherUser(user)
             navigate(`assets`)
           })
         }
