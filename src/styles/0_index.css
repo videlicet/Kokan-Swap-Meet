@@ -53,9 +53,10 @@ body {
 @media screen and (min-width: 760px) {
   #root {
     grid-template-rows: auto 1fr auto;
-    grid-template-columns: 0.5fr 2fr 0.5fr;
+    grid-template-columns: minmax(0.3rem, 0.5fr) minmax(auto, 2fr) minmax(0.3rem, 0.5fr);
   }
 }
+
 
 /* page container */
 .page-container {

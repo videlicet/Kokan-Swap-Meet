@@ -54,8 +54,6 @@ export default (props: propsInterface) => {
           >
             Logout
           </DropdownMenu.Item>
-
-          <DropdownMenu.Arrow />
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>

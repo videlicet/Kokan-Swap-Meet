@@ -71,7 +71,7 @@ function App(): JSX.Element {
 
             <nav id='header'>
               <div className='navbar'>
-                <div style={{ display: 'flex', gap: '1rem', height: '100%' }}>
+                <div id='search-bar'>
                   <NavLink
                     to='/assets'
                     style={{ fontSize: 'medium' }}
@@ -99,7 +99,6 @@ function App(): JSX.Element {
                       {...register('search')}
                       id='search'
                       name='search'
-                      style={{ width: '25rem' }}
                       type='text'
                       placeholder='Search assets' // TODO set default in useForm
                     ></input>
@@ -114,14 +113,12 @@ function App(): JSX.Element {
                   </form>
                 </div>
                 {user && (
-                  <div className='navbar-element hover'>
-                    <NavLink to='assets/new'>
-                      <div className='hover'>
-                        <PlusIcon className='plus-icon'/>
-                        <span className='asset-span'>&nbsp;Asset</span>
-                      </div>
-                    </NavLink>
-                  </div>
+                  <NavLink className='navbar-element hover' to='assets/new'>
+                    <div>
+                      <PlusIcon className='plus-icon ' />
+                      <span className='asset-span'>&nbsp;Asset</span>
+                    </div>
+                  </NavLink>
                 )}
                 <div id='profile-link' className='navbar-element hover'>
                   {!user && (
@@ -139,7 +136,7 @@ function App(): JSX.Element {
                           width: '4rem',
                           height: '2.6rem',
                           padding: '0.5rem',
-                          boxSizing: "border-box"
+                          boxSizing: 'border-box',
                         }} /* this styling is necessary because the hover effect is blocked by the NavLink tag */
                       />
                     </NavLink>
