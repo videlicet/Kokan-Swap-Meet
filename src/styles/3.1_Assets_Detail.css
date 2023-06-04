@@ -79,10 +79,6 @@
   font-size: smaller;
 }
 
-#assets .additional-info {
-  display: none;
-}
-
 #asset-container .additional-info {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -90,6 +86,11 @@
   background-color: rgb(0, 0, 0, 0.4);
   width: fit-content;
   padding-right: 0.6rem;
+}
+
+#assets .additional-info,
+#user-assets .additional-info {
+  display: none;
 }
 @media screen and (min-width: 760px) {
   #assets .additional-info,

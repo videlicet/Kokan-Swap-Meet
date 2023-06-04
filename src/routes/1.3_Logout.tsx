@@ -40,7 +40,7 @@ function Logout(): JSX.Element {
   }, [])
 
   return (
-    <div id='login-container'>
+    <div id='logout-container'>
       {!loading ? loggedOut && (
         <>
           <h2>Logout</h2>

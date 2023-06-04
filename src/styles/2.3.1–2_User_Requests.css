@@ -15,6 +15,12 @@
   background-color: rgb(0, 0, 0, 0.4);
   padding: 1rem;
   gap: 1rem;
+  font-size: smaller;
+}
+@media screen and (min-width: 1200px) {
+  #requests .request {
+    font-size: medium;
+  }
 }
 
 .accepted {
@@ -59,8 +65,13 @@
 }
 
 #requests .title {
-  font-size: xx-large;
+  font-size: x-large;
   overflow-wrap: anywhere;
+}
+@media screen and (min-width: 1200px) {
+  #requests .title {
+    font-size: xx-large;
+  }
 }
 
 #requests button {

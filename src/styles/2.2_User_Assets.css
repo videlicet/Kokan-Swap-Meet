@@ -21,12 +21,13 @@
   box-sizing: border-box;
   padding: 1rem;
   gap: 1rem;
+  font-size: smaller;
 }
-
-@media screen and (min-width: 1600px) {
-  #user-assets .asset {
+@media screen and (min-width: 1200px) {
+.asset {
     display: grid;
     grid-template-columns: 7fr 3fr;
+    font-size: medium;
   }
 }
 
@@ -39,9 +40,15 @@
 #user-assets .title,
 #assets .title {
   word-break: break-all;
-  font-size: xx-large;
+  font-size: x-large;
   overflow-wrap: anywhere;
 }
+@media screen and (min-width: 1200px) {
+  #user-assets .title,
+  #assets .title {
+      font-size: xx-large;
+    }
+  }
 
 #user-assets .kokans,
 #assets .kokans {
