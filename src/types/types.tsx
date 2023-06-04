@@ -32,6 +32,7 @@ export interface AssetInterface {
     licence: string,
     transaction_created: string,
     transaction_status: string
+    transaction_requesters: string[]
 }
 
 export interface RequestInterface {

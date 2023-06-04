@@ -138,6 +138,7 @@ function AssetsDetail(): JSX.Element {
   }
 
   async function onDelete() {
+    /* delete asset */
     try {
       let res = await fetch(
         `${import.meta.env.VITE_SERVER_URL}assets/${asset?._id}`,
@@ -162,12 +163,42 @@ function AssetsDetail(): JSX.Element {
           },
           body: JSON.stringify({ asset: { _id: asset?._id } }),
         })
+        
+        /* rebate pending to requesters */
+        const changes = {
+          $inc: {
+            kokans: +asset?.kokans,
+            kokans_pending: -asset?.kokans,
+          },
+        }
+        const reqBody = {
+          users: { _id: { $in: asset?.transaction_requesters } },
+          update: { changes: changes },
+        }
+        try {
+          await fetch(
+            `${import.meta.env.VITE_SERVER_URL}users`,
+            {
+              method: 'PUT',
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Credentials': 'true',
+              },
+              body: JSON.stringify(reqBody),
+            },
+          )
+        } catch (err) {
+          // TODO ERROR HANDLING
+        }
       }
     } catch (err) {
       // TODO ERROR HANDLING
     }
     navigate(`/user/${user?.username}/assets`)
   }
+
+console.log(asset)
 
   async function onOffer() {
     try {

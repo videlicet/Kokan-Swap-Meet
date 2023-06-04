@@ -75,7 +75,7 @@ const RequestOutgoing: React.FC<Props> = (props: Props) => {
         return
       }
     } catch (err) {
- // TODO ERROR HANDLING
+      // TODO ERROR HANDLING
     }
 
     /* delete transaction */
@@ -97,10 +97,10 @@ const RequestOutgoing: React.FC<Props> = (props: Props) => {
         navigate(`/user/${props.username}/requests/outgoing`)
       }
     } catch (err) {
- // TODO ERROR HANDLING
+      // TODO ERROR HANDLING
     }
 
-    /* change total kokans and pending kokans */
+    /* rebate pending kokans to requester */
     const changes = {
       $inc: {
         kokans: +props.requestProps?.asset_data.kokans,
@@ -125,7 +125,7 @@ const RequestOutgoing: React.FC<Props> = (props: Props) => {
         },
       )
     } catch (err) {
- // TODO ERROR HANDLING
+      // TODO ERROR HANDLING
     }
     getUser(setUser, navigate)
     getUserRequests(user, props.requests, 'requester', props.setLoading)
