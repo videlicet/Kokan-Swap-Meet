@@ -189,7 +189,6 @@ function UserProfile(): JSX.Element {
     /* get uploaded image */
     const inputElement = document?.getElementById('profile-picture')
     const file = (inputElement as HTMLInputElement)?.files[0]
-    // TODO logic
     /* send image to cloudinary */
     const formData = new FormData()
     formData.append('file', file)

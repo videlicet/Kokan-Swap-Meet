@@ -12,7 +12,7 @@ interface propsInterface {
   licenseTypes: string[]
   license: string
   value: string
-  forwardedRef: any // TD
+  forwardedRef: any // TODO typing
   onValueChange: (...event: any[]) => void
 }
 

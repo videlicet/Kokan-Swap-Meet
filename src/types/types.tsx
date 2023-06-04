@@ -38,10 +38,10 @@ export interface AssetInterface {
 export interface RequestInterface {
     _id: number,
     kokans: number,
-    asset_id : string | any, // "any" in case the asset_id is overwritten with a fetched object // still relevant? -> aggregation
-    asset_data: any // TODO typing
-    requester: string | any, // "any" in case the requester is overwritten with a fetched object
-    requestee: string | any, // "any" in case the requestee is overwritten with a fetched object 
+    asset_id : string
+    asset_data: AssetInterface
+    requester: string
+    requestee: string 
     created: string,
     status: string,
     requestees_username: string[],

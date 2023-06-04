@@ -6,7 +6,7 @@ export const authenticate = async (
   status: boolean
   user: any
 }> => {
-  /*check user has JWT token*/
+  /*check user has kokan JWT token*/
   const res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${id}`, {
     method: 'POST',
     credentials: 'include',

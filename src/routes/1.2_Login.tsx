@@ -26,7 +26,7 @@ function Login(): JSX.Element {
     const gitHubParam = urlParams.get('code')
     if (gitHubParam) {
       setLoading(true)
-      /* get GitHub access_token */
+      /* get GitHub access token */
       async function gitHubAuthenticate() {
         async function getAccessToken() {
           try {

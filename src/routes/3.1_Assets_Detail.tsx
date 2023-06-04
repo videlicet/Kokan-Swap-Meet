@@ -198,8 +198,6 @@ function AssetsDetail(): JSX.Element {
     navigate(`/user/${user?.username}/assets`)
   }
 
-console.log(asset)
-
   async function onOffer() {
     try {
       let res = await fetch(

@@ -1,8 +1,8 @@
 import React from 'react'
-import { useLocation, NavLink } from 'react-router-dom'
+import { useLocation} from 'react-router-dom'
 
 /* import styles */
-import '../styles/3.1_Assets_Detail.css'
+import './Asset.css'
 
 /* types */
 interface Props {
