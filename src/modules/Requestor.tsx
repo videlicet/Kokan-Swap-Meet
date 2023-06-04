@@ -45,11 +45,12 @@ export async function getUserRequests(
       setLoading(false)
     }
   } catch (error) {
-    //errorHandling
+    // TODO ERROR HANDLING
   }
 }
 
-export async function aggregateTransactions(transaction_id: string) { // TODO type
+export async function aggregateTransactions(transaction_id: string) {
+  // TODO type
   try {
     const res = await fetch(
       `${import.meta.env.VITE_SERVER_URL}transactions/${transaction_id}/users`,
@@ -66,6 +67,6 @@ export async function aggregateTransactions(transaction_id: string) { // TODO ty
     let aggregatedTransaction = await res.json()
     return aggregatedTransaction
   } catch (err) {
-    console.log('Aggregation failed')
+    // TODO ERROR HANDLING
   }
 }

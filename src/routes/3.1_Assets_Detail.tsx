@@ -19,13 +19,16 @@ import { UserContext, PortalContext } from './1_App'
 
 function AssetsDetail(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState(null)
   const [asset, setAsset] = useState<AssetInterface>()
-  const { user, setUser } = useContext<any>(UserContext)
+  const { user } = useContext<any>(UserContext)
   const { portalContainer } = useContext<any>(PortalContext)
 
   let { id } = useParams<string>()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    getAsset(user?._id)
+  }, [])
 
   async function getAsset(requester: string) {
     /* get aasset in database */
@@ -50,13 +53,9 @@ function AssetsDetail(): JSX.Element {
         setAsset(asset)
       }
     } catch (err) {
-      console.log(err)
+      // TODO ERROR HANDLING
     }
   }
-
-  useEffect(() => {
-    getAsset(user?._id)
-  }, [])
 
   async function onSwap() {
     /* create transaction in database */
@@ -80,8 +79,7 @@ function AssetsDetail(): JSX.Element {
         }),
       })
     } catch (err) {
-      console.log(err)
-      // TODO errorhandling
+      // TODO ERROR HANDLING
     }
 
     /* change total kokans and pending kokans */
@@ -106,13 +104,12 @@ function AssetsDetail(): JSX.Element {
         body: JSON.stringify(reqBody),
       })
     } catch (err) {
-      console.log(err)
-      // TODO errorHandling
+      // TODO ERROR HANDLING
     }
 
     /* send emails to owners */
     try {
-      asset?.owners_usernames.map(async (owner: any) => {
+      asset?.owners_usernames.map(async (owner: string) => {
         // TODO typing
         const res = await fetch(
           `${import.meta.env.VITE_SERVER_URL}emails/swap/submit`,
@@ -135,7 +132,7 @@ function AssetsDetail(): JSX.Element {
         }
       })
     } catch (err) {
-      console.log(err)
+      // TODO ERROR HANDLING
     }
     navigate(`/user/${user?.username}/requests/outgoing`)
   }
@@ -167,8 +164,7 @@ function AssetsDetail(): JSX.Element {
         })
       }
     } catch (err) {
-      console.log(err)
-      // TODO errorhandling
+      // TODO ERROR HANDLING
     }
     navigate(`/user/${user?.username}/assets`)
   }
@@ -196,9 +192,8 @@ function AssetsDetail(): JSX.Element {
         navigate(`/user/${user?.username}/assets`)
       }
     } catch (err) {
-      console.log(err)
+      // TODO ERROR HANDLING
       navigate(`/user/${user?.username}/assets`)
-      // TODO errorhandling
     }
   }
 
@@ -226,7 +221,7 @@ function AssetsDetail(): JSX.Element {
                   <span>
                     Creator:{' '}
                     {(asset?.creator_username && (
-                      <NavLink to={`/user/${asset?.creator_username}`}>
+                      <NavLink to={`/user/${asset?.creator_username}/assets`}>
                         {asset?.creator_username}
                       </NavLink>
                     )) ||
@@ -280,7 +275,7 @@ function AssetsDetail(): JSX.Element {
               </div>
             </div>
             <br />
-            <div className='description'>
+            <div className='description long'>
               <span>{asset?.description_long}</span>
             </div>
 
@@ -296,6 +291,7 @@ function AssetsDetail(): JSX.Element {
                     <span className='info'>
                       <a
                         href={`https://github.com/${asset?.creator_username}/${asset?.gitHub_repo}`}
+                        target='_blank'
                       >
                         {asset?.gitHub_repo}
                       </a>
@@ -321,10 +317,12 @@ function AssetsDetail(): JSX.Element {
                   {(asset?.owners_usernames.length > 0 &&
                     asset?.owners_usernames.map(
                       (owner: string, index: number) => (
-                        <NavLink key={index} className='info' to={`/user/${owner}/assets`} >
-                          <span  >
-                            {owner}
-                          </span>
+                        <NavLink
+                          key={index}
+                          className='info'
+                          to={`/user/${owner}/assets`}
+                        >
+                          <span>{owner}</span>
                         </NavLink>
                       ),
                     )) || <span className='info'>deleted user</span>}

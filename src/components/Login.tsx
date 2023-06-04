@@ -58,7 +58,6 @@ function LoginComponent(props: Props): JSX.Element {
       }
     } catch (err) {
       props.setLoading(false)
-      console.log(err)
     }
   }
 

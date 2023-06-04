@@ -65,7 +65,7 @@ const RequestIncoming: React.FC<Props> = (props: Props) => {
         return
       }
     } catch (err) {
-      console.log(err)
+      // TODO ERROR HANDLING
     }
 
     /* update transaction status */
@@ -192,7 +192,6 @@ const RequestIncoming: React.FC<Props> = (props: Props) => {
         )
       }
     } catch (err) {
-      console.log(err)
       // TODO errHandling
     }
     getUser(setUser, navigate)
@@ -205,27 +204,26 @@ const RequestIncoming: React.FC<Props> = (props: Props) => {
     requesterGitHub: string,
     gitHubRepo: string,
   ) {
-    // TODO wrap in try/catch
-    let res = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}auth/gitHub/addCollaborator`,
-      {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Credentials': 'true',
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}auth/gitHub/addCollaborator`,
+        {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': 'true',
+          },
+          body: JSON.stringify({
+            requesteeGitHub: requesteeGitHub,
+            requesterGitHub: requesterGitHub,
+            gitHubRepo: gitHubRepo,
+          }),
         },
-        body: JSON.stringify({
-          requesteeGitHub: requesteeGitHub,
-          requesterGitHub: requesterGitHub,
-          gitHubRepo: gitHubRepo,
-        }),
-      },
-    )
-    if (res.status === 200) {
-      const collaborators = await res.json()
-      console.log(collaborators)
-    } else console.log('Inviting collaborator failed.') // TODO else action
+      )
+    } catch (err) {
+      // TODO ERROR HANDLING
+    }
   }
 
   /* change style of request depending on status */
@@ -241,7 +239,6 @@ const RequestIncoming: React.FC<Props> = (props: Props) => {
         return 'request expired'
     }
   }
-console.log(props)
   return (
     <div
       className={dynamicRequestStyle(props.requestProps?.status)}

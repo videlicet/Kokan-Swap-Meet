@@ -13,12 +13,10 @@
   justify-content: space-between;
   gap: 1rem;
 }
-
 @media screen and (min-width: 760px) {
   #asset-container .header {
     display: flex;
     flex-direction: row;
-    gap: 0;
   }
 }
 
@@ -49,6 +47,16 @@
   width: fit-content;
   gap: 1rem;
 }
+@media screen and (min-width: 760px) {
+  .interaction {
+    flex-direction: column;
+  }
+}
+@media screen and (min-width: 1600px) {
+  .interaction {
+    flex-direction: row;
+  }
+}
 
 .asset-footer {
   display: flex;
@@ -78,7 +86,6 @@
   width: fit-content;
   padding-right: 0.6rem;
 }
-
 @media screen and (min-width: 760px) {
   #assets .additional-info,
   #user-assets .additional-info {

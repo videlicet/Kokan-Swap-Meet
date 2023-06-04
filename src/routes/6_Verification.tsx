@@ -41,7 +41,7 @@ function EmailVerfication(): JSX.Element {
           setVerified(true)
         }
       } catch (err) {
-        console.log(err)
+        // TODO ERROR HANDLING
       }
     } else navigate('/')
     setLoading(false)

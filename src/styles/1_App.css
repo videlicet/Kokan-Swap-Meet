@@ -265,9 +265,8 @@ input:disabled {
   height: 1.5rem;
   width: 1.5rem;
 }
-@media screen and (min-width: 760px) {
+@media screen and (min-width: 1600px) {
   .plus-icon {
-    position: relative;
     top: 0.1rem;
     height: auto;
     width: auto;
@@ -355,11 +354,12 @@ input:disabled {
 
 /* footer */
 #footer {
-  padding: 1.5rem 9rem;
+  padding: 1.5rem;
   color: grey;
 }
 @media screen and (min-width: 760px) {
   #footer {
+    padding: 1.5rem 9rem;
     grid-area: 3 / 2 / 4 / 3;
   }
 }

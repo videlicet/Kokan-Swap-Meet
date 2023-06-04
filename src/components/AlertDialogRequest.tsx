@@ -19,7 +19,6 @@ interface Props {
     title: string
     description: string
   }
-  className: any
 }
 
 const AlertDialogRequest: React.FC<Props> = (props: Props) => (

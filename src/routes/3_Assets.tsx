@@ -37,10 +37,11 @@ function Assets(): JSX.Element {
         const data = await res.json()
         const onOffer = data.filter((asset: any) => asset.onOffer === true)
         setAssets(onOffer)
+      } else {
+        setAssets([])
       }
     } catch (err) {
-      console.log(err)
-      // TODO errorHandling
+      setAssets([])
     }
     setLoading(false)
   }

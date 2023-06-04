@@ -87,7 +87,6 @@ function UserProfile(): JSX.Element {
   async function handleSettingsChange(data: any) {
     setLoading(true)
     const { data: changes } = data
-    console.log(changes)
     const reqBody = {
       user: { _id: user?._id },
       update: { changes: changes },
@@ -104,8 +103,7 @@ function UserProfile(): JSX.Element {
       })
       getUser(setUser, navigate, user?._id)
     } catch (err) {
-      console.log(err)
-      // TODO errorHandling
+      // TODO ERROR HANDLING
     }
     setLoading(false)
   }
@@ -123,7 +121,7 @@ function UserProfile(): JSX.Element {
         body: JSON.stringify({ user: { _id: user?._id } }),
       })
     } catch (err) {
-      console.log(err)
+      // TODO ERROR HANDLING
     }
     /* delete user */
     try {
@@ -154,11 +152,11 @@ function UserProfile(): JSX.Element {
             setUser()
           }
         } catch (err) {
-          console.log(err)
+          // TODO ERROR HANDLING
         }
       }
     } catch (err) {
-      console.log(err)
+      // TODO ERROR HANDLING
     }
     navigate('/')
   }
@@ -204,17 +202,15 @@ function UserProfile(): JSX.Element {
             },
           )
           if (res.status === 200) {
-            (inputElement as HTMLInputElement).value = ''
+            ;(inputElement as HTMLInputElement).value = ''
             getUser(setUser, navigate)
           }
         } catch (err) {
-          console.log(err)
-          // TODO errorHan
+          // TODO ERROR HANDLING
         }
       }
     } catch (err) {
-      console.log(err)
-      // TODO errorHandling
+      // TODO ERROR HANDLING
     }
   }
 
@@ -261,16 +257,15 @@ function UserProfile(): JSX.Element {
                           Assets <TooltipInfo content={tooltipAssets} />
                         </span>
                         <span>
-                          {user?.assets_count_offered} /{' '}{user?.assets_count}{' '}
+                          {user?.assets_count_offered} / {user?.assets_count}{' '}
                         </span>
                       </div>
                       <div className='stat'>
                         <span>
-                          Requests{' '}
-                          <TooltipInfo content={tooltipRequests} />
+                          Requests <TooltipInfo content={tooltipRequests} />
                         </span>
                         <span>
-                          {user?.requests_incoming_count_pending}{' '}/{' '}
+                          {user?.requests_incoming_count_pending} /{' '}
                           {user?.requests_outgoing_count_pending}{' '}
                         </span>
                       </div>
@@ -322,8 +317,7 @@ function UserProfile(): JSX.Element {
 
                     <div className='setting-containter'>
                       <label htmlFor='email'>
-                        Email{' '}
-                        <TooltipInfo content={tooltipEmail} />
+                        Email <TooltipInfo content={tooltipEmail} />
                       </label>
                       <div className='info-box'>
                         <span id='email'>{user?.email}</span>
@@ -352,8 +346,7 @@ function UserProfile(): JSX.Element {
                   <div>
                     <div className='setting-containter'>
                       <label htmlFor='password'>
-                        Password{' '}
-                        <TooltipInfo content={tooltipPassword} />
+                        Password <TooltipInfo content={tooltipPassword} />
                       </label>
                       <div className='info-box'>
                         <span id='password'>●●●●●●●●●●●●●●</span>

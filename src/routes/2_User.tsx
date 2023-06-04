@@ -50,7 +50,7 @@ function User(): JSX.Element | undefined {
         }
       })
       .catch((err) => {
-        console.log(err)
+        // TODO ERROR HANDLING
         navigate('/login')
       })
     setLoadingUserInfo(false)

@@ -49,7 +49,7 @@ function Login(): JSX.Element {
             }
             return res
           } catch (err) {
-            // TODO error Handling what if failed -> create gitHub Account
+            // TODO ERROR HANDLING what if failed -> create gitHub Account
           }
         }
         let res = await getAccessToken()
@@ -73,7 +73,6 @@ function Login(): JSX.Element {
                 return user
               }
             } catch (err) {
-              console.log('No GitHub user found.')
               setLoading(false)
             }
           }
@@ -98,7 +97,7 @@ function Login(): JSX.Element {
             }
             setLoading(false)
           } catch (err) {
-            console.log('No GitHub user found in Kokan database')
+            // TODO ERROR HANDLING
           }
         }
         return setLoading(false)

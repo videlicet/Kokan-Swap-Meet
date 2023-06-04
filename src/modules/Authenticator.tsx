@@ -1,6 +1,8 @@
-import {NavigateFunction} from 'react-router-dom'
+import { NavigateFunction } from 'react-router-dom'
 
-export const authenticate = async (id?: string): Promise<{
+export const authenticate = async (
+  id?: string,
+): Promise<{
   status: boolean
   user: any
 }> => {
@@ -50,7 +52,7 @@ export const fetchUser = async (navigate: NavigateFunction, id?: string) => {
     let user = await res.json()
     return user
   } catch (err) {
-    console.log(err)
+    // TODO ERROR HANDLING
     return navigate('/login')
   }
 }

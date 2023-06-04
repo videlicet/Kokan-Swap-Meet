@@ -75,7 +75,7 @@ const RequestOutgoing: React.FC<Props> = (props: Props) => {
         return
       }
     } catch (err) {
-      console.log(err)
+ // TODO ERROR HANDLING
     }
 
     /* delete transaction */
@@ -97,8 +97,7 @@ const RequestOutgoing: React.FC<Props> = (props: Props) => {
         navigate(`/user/${props.username}/requests/outgoing`)
       }
     } catch (err) {
-      // TODO errorHandling
-      console.log(err)
+ // TODO ERROR HANDLING
     }
 
     /* change total kokans and pending kokans */
@@ -126,8 +125,7 @@ const RequestOutgoing: React.FC<Props> = (props: Props) => {
         },
       )
     } catch (err) {
-      // TODO errorHandling
-      console.log(err)
+ // TODO ERROR HANDLING
     }
     getUser(setUser, navigate)
     getUserRequests(user, props.requests, 'requester', props.setLoading)

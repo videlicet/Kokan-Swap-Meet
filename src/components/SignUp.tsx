@@ -41,40 +41,40 @@ function SignUp(props: Props): JSX.Element {
           email: email,
           pictureURL: props.gitHubUser.avatar_url,
           kokans: 1,
-          kokans_pending: 0
+          kokans_pending: 0,
         }),
       })
       props.setLogin(true)
       props.setSignup(false)
       navigate('/login')
-
-      console.log(props.gitHubUser.login)
-      console.log(email)
       sendVerificationEmail(props.gitHubUser.login, email)
     } catch (err) {
-      console.log(err)
+      // TODO ERROR HANDLING
     }
   }
 
   async function sendVerificationEmail(username: string, email: string) {
     try {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}emails/signup/submit`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Credentials': 'true',
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}emails/signup/submit`,
+        {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': 'true',
+          },
+          body: JSON.stringify({
+            username: username,
+            email: email,
+          }),
         },
-        body: JSON.stringify({
-          username: username,
-          email: email,
-        }),
-      })
+      )
       if (res.status === 200) {
         // TODO show sth that the email was sent
       }
     } catch (err) {
-      console.log(err)
+      // TODO ERROR HANDLING
     }
     return
   }

@@ -73,9 +73,9 @@ function AssetsNew(): JSX.Element {
       repo: undefined,
       title: undefined,
       kokans: 3,
-      license:  undefined,
+      license: undefined,
       descriptionShort: undefined,
-      descriptionLong: undefined
+      descriptionLong: undefined,
     },
   })
   const [loading, setLoading] = useState()
@@ -116,15 +116,15 @@ function AssetsNew(): JSX.Element {
         }),
       })
     } catch (err) {
-      console.log(err)
-      // TODO errorHandling
+      // TODO ERROR HANDLING
     }
     navigate(`/user/${user.username}/assets`)
   }
 
   /* triggers submit of form after confirmation in alert dialog */
   function onSubmitTrigger() {
-    const form = (document.forms as HTMLCollectionOf<HTMLFormElement> & any).newAsset // TODO type
+    const form = (document.forms as HTMLCollectionOf<HTMLFormElement> & any)
+      .newAsset // TODO type
     form.requestSubmit()
   }
 
@@ -156,10 +156,9 @@ function AssetsNew(): JSX.Element {
         setRepoConfirmed('confirmed')
       } else {
         setRepoConfirmed('rejected')
-        console.log('This repository does not exist on your account.')
       }
     } catch (err) {
-      console.log(err)
+      // TODO ERROR HANDLING
     }
   }
 
@@ -190,7 +189,7 @@ function AssetsNew(): JSX.Element {
                   checkConfirmed: () =>
                     repoConfirmed === 'confirmed' ||
                     (repoConfirmed === 'rejected'
-                      ? 'This repository apparently does not exist on your GitHub account.'
+                      ? 'Apparently, this repository does not exist on your GitHub account.'
                       : 'Please verify whether this repository exists on your account.'),
                 },
               })}
@@ -230,7 +229,9 @@ function AssetsNew(): JSX.Element {
           </div>
           <div>
             {errors.repo && (
-              <span className='validation-error'>{errors.repo?.message.toString()}</span>
+              <span className='validation-error'>
+                {errors.repo?.message.toString()}
+              </span>
             )}
           </div>
         </div>

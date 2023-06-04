@@ -43,8 +43,7 @@ function UserAssets(): JSX.Element {
         setUserAssets(userAssets)
       }
     } catch (err) {
-      console.log(err)
-      // TODO errorHandling
+      // TODO ERROR HANDLING
     }
     setLoading(false)
   }
