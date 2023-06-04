@@ -129,15 +129,17 @@ function Login(): JSX.Element {
                 <p>
                   Please authenticate your GitHub account before proceeding.
                 </p>
-                <button onClick={loginWithGithub}>Authenticate</button>
-                <span> &nbsp; &nbsp;OR &nbsp; &nbsp;</span>
-                <button
-                  onClick={() => {
-                    window.location.assign(`https://github.com/join`)
-                  }}
-                >
-                  Sign Up
-                </button>
+                <div style={{lineHeight: "3rem"}}>
+                  <button onClick={loginWithGithub}>Authenticate</button>
+                  <span> &nbsp; &nbsp;OR &nbsp; &nbsp;</span>
+                  <button
+                    onClick={() => {
+                      window.location.assign(`https://github.com/join`)
+                    }}
+                  >
+                    Sign Up
+                  </button>
+                </div>
               </div>
               <h3 style={{ color: 'grey' }}>2. Kokan Account</h3>
             </>

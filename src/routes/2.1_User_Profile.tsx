@@ -16,6 +16,7 @@ import { UserContext, PortalContext } from './1_App.tsx'
 
 /* import modules */
 import { getUser } from '../modules/Authenticator.tsx'
+import { sendVerificationEmail } from '../modules/Emailer.tsx'
 
 /* toolTips */
 const tooltipName = 'Your first and last names.'
@@ -86,7 +87,30 @@ function UserProfile(): JSX.Element {
 
   async function handleSettingsChange(data: any) {
     setLoading(true)
+
     const { data: changes } = data
+
+    /* set email_verified to false when email is set */
+    if (data.data.email) {
+      try {
+        await fetch(`${import.meta.env.VITE_SERVER_URL}users/${user?._id}`, {
+          method: 'PUT',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': 'true',
+          },
+          body: JSON.stringify({
+            user: { _id: user?._id },
+            update: { changes: { email_verified: false } },
+          }),
+        })
+      } catch (err) {
+        // TODO ERROR HANDLING
+      }
+    }
+
+    /* update user in database */
     const reqBody = {
       user: { _id: user?._id },
       update: { changes: changes },
@@ -328,7 +352,7 @@ function UserProfile(): JSX.Element {
                           onSubmit={handleSettingsChange}
                         />
                       </div>
-                      {!user?.email_verified ? (
+                      {user?.email_verified ? (
                         <span className='verification green'>
                           verified email
                         </span>
@@ -337,7 +361,13 @@ function UserProfile(): JSX.Element {
                           <span className='verification yellow'>
                             unverified email
                           </span>
-                          <button>verify</button>
+                          <button
+                            onClick={() =>
+                              sendVerificationEmail(user?.username, user?.email)
+                            }
+                          >
+                            verify
+                          </button>
                         </div>
                       )}
                     </div>

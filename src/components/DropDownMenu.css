@@ -18,15 +18,16 @@
   background-color: rgba(0, 0, 0, 1);
   width: 160%;
   box-sizing: border-box;
-  padding: 1rem;
+  padding: 1rem 0;
   text-transform: uppercase;
 }
 @media screen and (min-width: 760px) {
   .DropDownMenuContent {
     top: 1.3rem;
     right: 1.9rem;
-    border-radius: 15px;
     border: 0;
+    border-radius: 15px;
+    padding: 1rem;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   }
 }

@@ -1,3 +1,8 @@
 #how-it-works-container {
+  padding: 1rem;
+}
+@media screen and (min-width: 760px) {
+  #how-it-works-container {
     padding: 3rem;
+  }
 }

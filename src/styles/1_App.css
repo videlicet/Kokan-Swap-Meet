@@ -210,9 +210,15 @@ input:disabled {
 
 .navbar input {
   height: 100%;
-  width: 20rem;
+  width: 100%;
   padding-top: 0.5rem;
-  font-size: medium;
+  font-size: smaller;
+}
+@media screen and (min-width: 760px) {
+  .navbar input {
+    width: 20rem;
+    padding-top: 0.3rem;
+  }
 }
 @media screen and (min-width: 1200px) {
   .navbar input {
@@ -284,7 +290,6 @@ input:disabled {
 
 .login-icon {
   position: relative;
-
   height: 2.2rem;
   width: 2.2rem;
   box-sizing: border-box;

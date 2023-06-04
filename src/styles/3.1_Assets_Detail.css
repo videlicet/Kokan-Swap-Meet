@@ -4,7 +4,12 @@
   width: 100%;
   box-sizing: border-box;
   overflow: hidden auto;
-  padding: 3rem;
+  padding: 1rem;
+}
+@media screen and (min-width: 760px) {
+  #asset-container {
+    padding: 3rem;
+  }
 }
 
 #asset-container .header {

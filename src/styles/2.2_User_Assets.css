@@ -22,15 +22,10 @@
   padding: 1rem;
   gap: 1rem;
 }
-@media screen and (min-width: 760px) {
-  .asset {
-    display: grid;
-    grid-template-columns: 6fr 2fr;
-    margin-right: 1rem;
-  }
-}
-@media screen and (min-width: 760px) {
+
+@media screen and (min-width: 1600px) {
   #user-assets .asset {
+    display: grid;
     grid-template-columns: 7fr 3fr;
   }
 }

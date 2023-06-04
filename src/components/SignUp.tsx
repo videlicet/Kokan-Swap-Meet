@@ -8,6 +8,9 @@ import './SignUp.css'
 /* import components */
 import { CheckCircledIcon } from '@radix-ui/react-icons'
 
+/* import modules */
+import { sendVerificationEmail } from '../modules/Emailer'
+
 /* types */
 interface Props {
   gitHubUser: any // TODO typing
@@ -48,31 +51,6 @@ function SignUp(props: Props): JSX.Element {
       props.setSignup(false)
       navigate('/login')
       sendVerificationEmail(props.gitHubUser.login, email)
-    } catch (err) {
-      // TODO ERROR HANDLING
-    }
-  }
-
-  async function sendVerificationEmail(username: string, email: string) {
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}emails/signup/submit`,
-        {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Credentials': 'true',
-          },
-          body: JSON.stringify({
-            username: username,
-            email: email,
-          }),
-        },
-      )
-      if (res.status === 200) {
-        // TODO show sth that the email was sent
-      }
     } catch (err) {
       // TODO ERROR HANDLING
     }

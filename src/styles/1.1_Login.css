@@ -2,7 +2,12 @@
   min-height: 0;
   height: 100%;
   box-sizing: border-box;
-  padding: 3rem;
+  padding: 1rem;
+}
+@media screen and (min-width: 1200px) {
+  #login-container {
+    padding: 3rem;
+  }
 }
 
 .sign-up a:hover {
