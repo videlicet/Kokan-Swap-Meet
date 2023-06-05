@@ -1,8 +1,11 @@
-import React from 'react'
-import { useLocation} from 'react-router-dom'
+import React, { useContext } from 'react'
+import { useLocation } from 'react-router-dom'
 
 /* import styles */
 import './Asset.css'
+
+/* import context */
+import { UserContext } from '../routes/1_App'
 
 /* types */
 interface Props {
@@ -24,11 +27,12 @@ interface Props {
 }
 
 const Asset: React.FC<Props> = (props: Props) => {
+  const { user, setUser } = useContext<any>(UserContext)
   const { pathname } = useLocation()
 
   const pricey =
-    (pathname === '/assets' || pathname.includes('/user')) &&
-    props.user_kokans < props.assetProps.kokans
+    (pathname === '/assets' || !pathname.includes(user?.username)) &&
+    user?.kokans < props.assetProps.kokans
       ? {
           backgroundColor: 'grey',
         }

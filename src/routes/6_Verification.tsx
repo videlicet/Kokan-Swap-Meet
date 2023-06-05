@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 /* import styles */
-import '../styles/5_About.css'
+import '../styles/6_Verification.css'
 
 /* import components */
 import Loading from '../components/Loading'
@@ -48,7 +48,7 @@ function EmailVerfication(): JSX.Element {
   }
 
   return (
-    <div id='about-container'>
+    <div id='verification-container'>
       {!loading ? (
         <>
           <h2>Email Verfication</h2>

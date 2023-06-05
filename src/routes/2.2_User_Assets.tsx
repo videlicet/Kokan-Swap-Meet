@@ -86,9 +86,12 @@ function UserAssets(): JSX.Element {
           <div className='asset'>
             <div style={{ marginLeft: '1rem' }}>
               <p>No assets yet.</p>
-              <NavLink to={`/assets/new`} className='unstyledLink'>
-                <p>Link your first GitHub asset.</p>
-              </NavLink>
+              <p>
+                <NavLink className='link' to={`/assets/new`}>
+                  <span>Link </span>
+                </NavLink>
+                your first GitHub asset.
+              </p>
             </div>
           </div>
         )

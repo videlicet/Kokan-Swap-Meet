@@ -19,6 +19,7 @@
   padding: 1rem;
   font-family: var(--main-font-style);
   color: var(--main-font-color);
+  font-size: inherit;
 }
 
 #new-asset-container .new-asset {

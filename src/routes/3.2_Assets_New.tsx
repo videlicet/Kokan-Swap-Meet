@@ -16,8 +16,17 @@ import AlertDialogCreateNew from '../components/AlertDialogCreateNew.tsx'
 import { PortalContext, UserContext } from './1_App'
 
 /* toolTips */
-const tooltipsRepo =
-  'Provide the name of the GitHub repository you want to link to your Kokan account. You will need to check if that repo exists before creating your asset.'
+const tooltipsRepo = (
+  <div>
+    <p>
+      Provide the name of the GitHub repository you want to link to your Kokan
+      account.
+    </p>
+    <p>
+      You will need to check if that repo exists before uploading your asset.
+    </p>
+  </div>
+)
 const tooltipTitle = 'Provide a title. Minimum 10, maximum 50 characters.'
 const tooltipShortDescription =
   'Provide a short description for your asset. Minimum 50, maximum 160 characters.'

@@ -64,6 +64,10 @@ input:disabled {
   color: var(--main-text-color);
 }
 
+.link {
+  text-decoration: underline;
+}
+
 .text-input {
   display: flex;
   flex-direction: column;

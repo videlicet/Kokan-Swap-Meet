@@ -53,15 +53,15 @@ function User(): JSX.Element | undefined {
         // TODO ERROR HANDLING
         navigate('/login')
       })
+    setInterval(() => setLoading(false), 1000)
     setLoadingUserInfo(false)
-    setLoading(false)
   }, [])
 
   if (auth === true)
     return (
-      <div id='user-container'>
+      <>
         {!loading ? (
-          <>
+          <div id='user-container'>
             <div id='user-outlet'>
               <Outlet />
             </div>
@@ -73,11 +73,11 @@ function User(): JSX.Element | undefined {
                 loadingUserInfo={loadingUserInfo}
               />
             )}
-          </>
+          </div>
         ) : (
           <Loading />
         )}
-      </div>
+      </>
     )
 }
 

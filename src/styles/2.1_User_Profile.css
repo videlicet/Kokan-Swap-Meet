@@ -1,4 +1,7 @@
 #user-profile {
+  min-height: 0;
+  height: 100%;
+  box-sizing: border-box;
   padding: 1rem;
 }
 @media screen and (min-width: 760px) {

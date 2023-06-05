@@ -45,6 +45,7 @@ const RequestIncoming: React.FC<Props> = (props: Props) => {
   )
 
   async function onConfirm(reaction: string) {
+    props.setLoading(true)
     /* confirm the request is still pending by trying to find it as pending */
     try {
       const res = await fetch(
@@ -191,8 +192,10 @@ const RequestIncoming: React.FC<Props> = (props: Props) => {
           },
         )
       }
+      props.setLoading(false)
     } catch (err) {
       // TODO errHandling
+      props.setLoading(false)
     }
     getUser(setUser, navigate)
     getUserRequests(user, props.requests, 'requestee', props.setLoading)

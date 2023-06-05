@@ -8,6 +8,7 @@ import '../styles/2_User.css'
 import { ExternalLinkIcon } from '@radix-ui/react-icons'
 import ProfileAvatar from '../components/ProfileAvatar'
 import TooltipInfo from '../components/Tooltip'
+import brand_icon from '../assets/kokan_icon_w.png'
 
 /* import context */
 import { UserContext } from '../routes/1_App'
@@ -65,6 +66,12 @@ function UserInfo(props?: Props): JSX.Element {
                 {user?.kokans_pending > 0 && (
                   <span> / {user?.kokans_pending} </span>
                 )}{' '}
+                <img
+                  src={brand_icon}
+                  alt='kokans'
+                  height='16px'
+                  style={{ position: 'relative', top: '3px' }}
+                />{' '}
                 <TooltipInfo content={tooltipKokans} />
               </div>
             )}

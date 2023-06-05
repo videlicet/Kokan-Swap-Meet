@@ -31,6 +31,7 @@ function AssetsDetail(): JSX.Element {
   }, [])
 
   async function getAsset(requester: string) {
+    setLoading(true)
     /* get aasset in database */
     try {
       const res = await fetch(
@@ -51,13 +52,16 @@ function AssetsDetail(): JSX.Element {
       if (res.status == 200) {
         const asset = await res.json()
         setAsset(asset)
+        setLoading(false)
       }
     } catch (err) {
       // TODO ERROR HANDLING
+      setLoading(false)
     }
   }
 
   async function onSwap() {
+    setLoading(true)
     /* create transaction in database */
     try {
       await fetch(`${import.meta.env.VITE_SERVER_URL}transactions`, {
@@ -131,13 +135,16 @@ function AssetsDetail(): JSX.Element {
           // TODO show sth that the email was sent
         }
       })
+      setLoading(false)
     } catch (err) {
       // TODO ERROR HANDLING
+      setLoading(false)
     }
     navigate(`/user/${user?.username}/requests/outgoing`)
   }
 
   async function onDelete() {
+    setLoading(true)
     /* delete asset */
     try {
       let res = await fetch(
@@ -163,7 +170,7 @@ function AssetsDetail(): JSX.Element {
           },
           body: JSON.stringify({ asset: { _id: asset?._id } }),
         })
-        
+
         /* rebate pending to requesters */
         const changes = {
           $inc: {
@@ -176,29 +183,29 @@ function AssetsDetail(): JSX.Element {
           update: { changes: changes },
         }
         try {
-          await fetch(
-            `${import.meta.env.VITE_SERVER_URL}users`,
-            {
-              method: 'PUT',
-              credentials: 'include',
-              headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Credentials': 'true',
-              },
-              body: JSON.stringify(reqBody),
+          await fetch(`${import.meta.env.VITE_SERVER_URL}users`, {
+            method: 'PUT',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Credentials': 'true',
             },
-          )
+            body: JSON.stringify(reqBody),
+          })
         } catch (err) {
           // TODO ERROR HANDLING
+          setLoading(false)
         }
       }
     } catch (err) {
       // TODO ERROR HANDLING
+      setLoading(false)
     }
     navigate(`/user/${user?.username}/assets`)
   }
 
   async function onOffer() {
+    setLoading(true)
     try {
       let res = await fetch(
         `${import.meta.env.VITE_SERVER_URL}assets/${asset?._id}`,
@@ -219,10 +226,11 @@ function AssetsDetail(): JSX.Element {
       )
       if (res.status === 200) {
         navigate(`/user/${user?.username}/assets`)
+        setLoading(false)
       }
     } catch (err) {
-      // TODO ERROR HANDLING
       navigate(`/user/${user?.username}/assets`)
+      setLoading(false)
     }
   }
 
@@ -250,7 +258,10 @@ function AssetsDetail(): JSX.Element {
                   <span>
                     Creator:{' '}
                     {(asset?.creator_username && (
-                      <NavLink to={`/user/${asset?.creator_username}/assets`}>
+                      <NavLink
+                        className='link'
+                        to={`/user/${asset?.creator_username}/assets`}
+                      >
                         {asset?.creator_username}
                       </NavLink>
                     )) ||

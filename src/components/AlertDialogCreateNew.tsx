@@ -45,7 +45,7 @@ const AlertDialogCreateNew: React.FC<Props> = (props: Props) => {
               Please confirm you want to create and publish this asset
             </AlertDialog.Title>
             <AlertDialog.Description className='AlertDialogDescription'>
-              Create new asset {props.title} for{' '}
+              Create new asset {props.title} for {props.kokans}{' '}
               <img
                 src={brand_icon}
                 alt='kokans'
@@ -55,8 +55,7 @@ const AlertDialogCreateNew: React.FC<Props> = (props: Props) => {
                   top: '0.3rem',
                   marginLeft: '0.2rem',
                 }}
-              />{' '}
-              {props.kokans}
+              />
             </AlertDialog.Description>
             <div
               style={{

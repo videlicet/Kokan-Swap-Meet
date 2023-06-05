@@ -16,7 +16,7 @@ import {
 } from '@radix-ui/react-icons'
 import DropdownMenu from '../components/DropDownMenu.tsx'
 
-/* import context */
+/* set up context */
 export const UserContext = createContext({})
 export const AssetContext = createContext({})
 export const PortalContext = createContext({})

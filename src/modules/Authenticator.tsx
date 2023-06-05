@@ -58,7 +58,7 @@ export const fetchUser = async (navigate: NavigateFunction, id?: string) => {
 }
 // USER-ROUTE
 export const fetchOtherUser = async (id: string) => {
-  let res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${id}`, {
+  const res = await fetch(`${import.meta.env.VITE_SERVER_URL}users/${id}`, {
     method: 'POST',
     credentials: 'include',
     headers: {

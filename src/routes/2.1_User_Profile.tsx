@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import date from 'date-and-time'
 import '../styles/2.1_User_Profile.css'
@@ -10,6 +10,7 @@ import TooltipInfo from '../components/Tooltip.tsx'
 import AlertDialogImageUpload from '../components/AlertDialogImageUpload.tsx'
 import ProfileAvatar from '../components/ProfileAvatar.tsx'
 import { ExternalLinkIcon } from '@radix-ui/react-icons'
+import Loading from '../components/Loading.tsx'
 
 /* impmort context */
 import { UserContext, PortalContext } from './1_App.tsx'
@@ -51,6 +52,7 @@ function UserProfile(): JSX.Element {
       },
     ],
   }
+
   const DialogEmail = {
     title: 'Email',
     fields: [
@@ -67,6 +69,7 @@ function UserProfile(): JSX.Element {
       },
     ],
   }
+
   const DialogName = {
     title: 'Name',
     fields: [
@@ -126,10 +129,11 @@ function UserProfile(): JSX.Element {
         body: JSON.stringify(reqBody),
       })
       getUser(setUser, navigate, user?._id)
+      return setLoading(false)
     } catch (err) {
       // TODO ERROR HANDLING
+      return setLoading(false)
     }
-    setLoading(false)
   }
 
   async function onDelete() {
@@ -186,6 +190,7 @@ function UserProfile(): JSX.Element {
   }
 
   async function handleImageUpload() {
+    setLoading(true)
     /* get uploaded image */
     const inputElement = document?.getElementById('profile-picture')
     const file = (inputElement as HTMLInputElement)?.files[0]
@@ -227,20 +232,23 @@ function UserProfile(): JSX.Element {
           if (res.status === 200) {
             ;(inputElement as HTMLInputElement).value = ''
             getUser(setUser, navigate)
+            return setLoading(false)
           }
         } catch (err) {
           // TODO ERROR HANDLING
+          return setLoading(false)
         }
       }
     } catch (err) {
       // TODO ERROR HANDLING
+      return setLoading(false)
     }
   }
 
   return (
     <div id='user-profile'>
       {loading ? (
-        <span>Loading</span>
+        <Loading />
       ) : (
         <>
           {user && (
