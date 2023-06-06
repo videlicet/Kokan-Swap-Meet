@@ -13,9 +13,13 @@
   - [ ] Sort search results (by kokans, date, number of owners).
 - Users:
   - [ ] Search users.
-  - [ ] Collecti user stats.
+  - [ ] Collect user stats (ratio of successful swap requests to swap requests, ...).
 - Transactions:
   - [ ] When a creator deletes their repository on GitHub or removes owners from the collaborators, rebate the assets kokans to the other owners.
+
+## Business Logic
+  - [ ] What's the best way to manage decision making on incoming swap requests? Custom / two-thirds / simple majority?
+  - [ ] If a creator deletes their asset, should it remain available for co-owners?
 
 ## Security
 
