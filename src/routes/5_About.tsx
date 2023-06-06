@@ -9,15 +9,33 @@ function About(): JSX.Element {
     <div id='about-container'>
       <h2>About</h2>
       <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur
-        placeat animi cupiditate natus deserunt vero, repellat doloribus enim
-        necessitatibus voluptatum! Dolor, officia sapiente voluptate animi eius
-        quos delectus quasi atque!
+        Kokan was developed May–June 2023 as a final project for the Web & App
+        Development Bootcamp at WBS Coding School (Berlin, Germany).
       </p>
-      <a href='https://github.com/videlicet/Kokan-Swap-Meet' target='_blank'>
-        <ExternalLinkIcon />
-        &nbsp;GitHub Repository
-      </a>
+      <p>
+        Kokan is Japanese (交換, こうかん、koukan) for 'barter, exchange', among
+        others.
+      </p>
+      <p>Check out the GitHub Repositories:</p>
+      <p>
+        <a
+          className='link'
+          href='https://github.com/videlicet/Kokan-Swap-Meet'
+          target='_blank'
+        >
+          Frontend
+          <ExternalLinkIcon />
+        </a>
+        <span>&nbsp;and&nbsp;</span>
+        <a
+          className='link'
+          href='https://github.com/videlicet/Kokan-Swap-Meet'
+          target='_blank'
+        >
+          Backend
+          <ExternalLinkIcon />
+        </a>
+      </p>
     </div>
   )
 }
