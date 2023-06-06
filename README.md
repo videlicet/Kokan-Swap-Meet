@@ -34,7 +34,7 @@ After authenticating, you will be asked to sign up for Kokan. You will receive a
 
 After logging in, you will be redirected to your Dashboard. You can see information about your account on the right side of the center view (on small screens, this information will be displayed on <em>User Profile</em>). To the left, you will see assets you have linked with Kokan.
 
-Click on the navigation bar element on the top right (it shows your username while you're logged in) to open a dropdown menu.
+Click on the navigation bar element on the top right (on larger screens, it shows your username while you're logged in) to open a dropdown menu.
 This menu takes you to:
 
 ### User
@@ -46,16 +46,16 @@ The <em>User Settings</em> is also where you can delete your account.
 
 #### 2. User Assets (default dashboard view):
 
-<em>User Assets</em> shows an overview of all assets you have linked to Kokan. A green "on offer"-badge on the bottom right of an asset indicates that the asset is available at the swap-meet and can be requested by other users. You can change the "on offer" status on the <em>Assets Details</em> view.
+<em>User Assets</em> shows an overview of all assets you have linked to Kokan. A green "ON OFFER"-badge on the bottom right of an asset indicates that the asset is available at the swap-meet and can be requested by other users. You can change the "ON OFFER" status on the <em>Assets Details</em> view.
 
 #### 3. User Requests:
 
 <em>User Requests</em> is divided into <em>Incoming</em> and <em>Outgoing</em> Requests.
 
-Requests are either "pending", "declined", or "accepted". They can also be "expired" if requestees haven't reacted to the requests within 5 days. In general, requesters and requestees can only interact with pending requests.
+Requests are either "pending", "declined", or "accepted". They can also be "expired" if requestees haven't reacted to the requests within five days. In general, requesters and requestees can only interact with pending requests.
 
 <em>Incoming requests</em> shows swap requests you have received for your assets. You can interact with pending incoming requests by declining or accepting them.</br>
-Accepting them dispatches a collaboration invitation from GitHub that will be sent to the requester. Requesters can make new swap requests if their previous request was declined.</br>
+Accepting a swap request dispatches a collaboration invitation from GitHub that will be sent to the requester. Requesters can make new swap requests if their previous request was declined.</br>
 Declining a request changes its status but does not delete it. Both the requestees and requester can still see declined request.</br>
 
 <em>Outgoing requests</em> shows all outgoing swap requests. You can interact with pending outgoing requests by withdrawing them. </br>
@@ -65,7 +65,7 @@ Withdrawing a request deletes it permanently. It will disappear from both your a
 
 Your sessions ends and you will be redirected to the <em>Logout</em> page.
 
-## Assets
+### Assets
 
 Clicking on "SWAP-MEET" or searching assets with the search bar brings you to the <em>Assets</em> view.
 
