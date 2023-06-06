@@ -206,6 +206,9 @@ function UserProfile(): JSX.Element {
         {
           /* do not modify this request, it works even though "credentials: 'include'" and "'Access-Control-Allow-Credentials': 'true'" isn't set */
           method: 'POST',
+          headers: {
+            'Access-Control-Allow-Origin': 'https://kokan-videlicet.netlify.app',  // `${import.meta.env.VITE_SERVER_URL}`,
+          },
           body: formData,
         },
       )

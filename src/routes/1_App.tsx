@@ -159,9 +159,7 @@ function App(): JSX.Element {
                 <NavLink
                   key={item.name}
                   style={({ isActive }) => ({
-                    fontWeight: isActive ? 'bold' : '',
                     color: isActive ? 'rgb(221, 213, 207)' : 'grey',
-                    borderRadius: isActive ? 15 : 0,
                     mixBlendMode: "difference"
                   })}
                   to={`${item.route}`}

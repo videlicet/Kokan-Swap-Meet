@@ -36,6 +36,7 @@
   padding: 0.5rem 0;
   color: var(--main-text-color);
   text-align: center;
+  cursor: pointer;
 }
 .DropdownMenuItem:hover {
   text-decoration: underline var(--main-text-color);

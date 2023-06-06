@@ -21,8 +21,6 @@ interface Props {
 }
 
 function UserInfo(props?: Props): JSX.Element {
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
   const { user, setUser } = useContext<any>(UserContext)
   const [renderTrigger, setRenderTrigger] = useState(false)
   const otherUser = props?.otherUser

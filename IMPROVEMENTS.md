@@ -16,7 +16,7 @@
   - [ ] Collect user stats (ratio of successful swap requests to swap requests, ...).
   - [ ] Deleting a user should rebate pending kokan balances to requesters in pending requests.
 - Transactions:
-  - [ ] When a creator deletes their repository on GitHub or removes owners from the collaborators, rebate the assets kokans to the other owners.
+  - [ ] When a creator deletes their repository on GitHub or removes owners from the collaborators, rebate the asset's kokans to the requesters of pending requests.
 
 ## Business Logic
 
@@ -28,6 +28,7 @@
 - [ ] Make Kokan a GitHub App (fine-grain permissions for Kokans access to user repositories (which repositories)).
 - [ ] Fine-grain permissions for collaborators (fork, pull, ...).
 - [ ] Create new asset: Sanitize inputs in short/long descriptions.
+- [ ] Provide refresh token.
 
 ## Restructuring
 

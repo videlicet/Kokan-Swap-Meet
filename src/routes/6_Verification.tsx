@@ -61,14 +61,6 @@ function EmailVerfication(): JSX.Element {
           >
             Login
           </button>
-          <span>&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp;&nbsp;</span>
-          <button
-            onClick={() => {
-              window.close()
-            }}
-          >
-            Close Tab
-          </button>
         </>
       ) : (
         <Loading />
