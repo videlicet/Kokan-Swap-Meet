@@ -235,12 +235,10 @@ function UserProfile(): JSX.Element {
             return setLoading(false)
           }
         } catch (err) {
-          // TODO ERROR HANDLING
           return setLoading(false)
         }
       }
     } catch (err) {
-      // TODO ERROR HANDLING
       return setLoading(false)
     }
   }

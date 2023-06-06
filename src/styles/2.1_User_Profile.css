@@ -128,6 +128,7 @@ input[type='file'] {
 .info-box input::file-selector-button:hover {
   background-color: var(--main-text-color);
   color: black;
+  cursor: pointer;
 }
 /*TODO */
 .verification {

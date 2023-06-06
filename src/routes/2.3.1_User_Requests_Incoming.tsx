@@ -16,8 +16,8 @@ import { getUserRequests } from '../modules/Requestor'
 function UserRequestsIncoming(): JSX.Element {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const { user, setUser } = useContext<any>(UserContext)
-  const requests = useRef<any>([]) // type
+  const { user, setUser } = useContext<any>(UserContext)  // TODO typing
+  const requests = useRef<any>([])  // TODO typing
 
   if (!requests) getUserRequests(user, requests, 'requestee', setLoading) // assures fetch on page refresh
 

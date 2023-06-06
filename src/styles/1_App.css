@@ -213,16 +213,18 @@ input:disabled {
 }
 
 .navbar input {
+  background: linear-gradient(var(--main-text-color), var(--main-text-color))
+    right bottom 7px / calc(100% - 15px) 1px no-repeat;
   height: 100%;
-  width: 100%;
+  width: 20rem;
   padding-top: 0.5rem;
   font-size: smaller;
 }
 @media screen and (min-width: 760px) {
   .navbar input {
+    background: none;
     width: 20rem;
     padding-top: 0.3rem;
-
   }
 }
 @media screen and (min-width: 1200px) {
