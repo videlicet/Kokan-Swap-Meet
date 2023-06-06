@@ -1,4 +1,8 @@
 #how-it-works-container {
+  min-height: 0;
+  height: 100%;
+  overflow: hidden auto;
+  box-sizing: border-box;
   padding: 1rem;
 }
 @media screen and (min-width: 760px) {

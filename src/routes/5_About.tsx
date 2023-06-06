@@ -13,7 +13,7 @@ function About(): JSX.Element {
         Development Bootcamp at WBS Coding School (Berlin, Germany).
       </p>
       <p>
-        Kokan is Japanese (交換, こうかん、koukan) for 'barter, exchange', among
+        Kokan is Japanese for 'barter, exchange' (交換, こうかん、koukan), among
         others.
       </p>
       <p>Check out the GitHub Repositories:</p>

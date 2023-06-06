@@ -31,10 +31,7 @@ const footerContent = [
 ]
 
 function App(): JSX.Element {
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
   const [searchTermHandle, setSearchTermHandle] = useState<string>('')
-  const [footer, setFooter] = useState(footerContent)
   const [user, setUser] = useState<any>()
   const portal = useRef(null)
   const { register, handleSubmit, reset } = useForm()
@@ -158,7 +155,7 @@ function App(): JSX.Element {
 
           <footer id='footer'>
             <div className='navbar'>
-              {footer.map((item) => (
+              {footerContent.map((item) => (
                 <NavLink
                   key={item.name}
                   style={({ isActive }) => ({

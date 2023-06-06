@@ -14,15 +14,14 @@ function HowItWorks(): JSX.Element {
         the requester receives a GitHub collaboration invitation for the
         corresponding repository.
       </p>
-      <h3 id='important'>Important</h3>
+      <h3>Important</h3>
       <p>
         At this point, co-owned assets come with equal rights in terms of
         accepting and rejecting swap requests (first come, first serve).
-        Whenever an asset is requested, every owner will receive a notification
-        and is asked to respond to the request (see IMPROVEMENTS readme about
-        this feature).
+        Whenever an asset is requested, every owner of this assets will receive
+        a notification and is asked to respond to the request.
       </p>
-      <h2 id='instructions'>Instructions</h2>
+      <h2>Instructions</h2>
       <p>
         Please make sure you have a GitHub account before starting with Kokan.
       </p>
@@ -44,8 +43,8 @@ function HowItWorks(): JSX.Element {
         it shows your username while you&#39;re logged in) to open a dropdown
         menu. This menu takes you to:
       </p>
-      <h3 id='user'>User</h3>
-      <h4 id='1-user-profile-'>1. User Profile:</h4>
+      <h3>User</h3>
+      <h4>1. User Profile:</h4>
       <p>
         You can change your data on <em>User Profile</em>. For example, you can
         add a custom profile picture (it defaults to your GitHub profile picture
@@ -53,9 +52,7 @@ function HowItWorks(): JSX.Element {
         fallback for your profile picture. The <em>User Settings</em> is also
         where you can delete your account.
       </p>
-      <h4 id='2-user-assets-default-dashboard-view-'>
-        2. User Assets (default dashboard view):
-      </h4>
+      <h4>2. User Assets (default dashboard view):</h4>
       <p>
         <em>User Assets</em> shows an overview of all assets you have linked to
         Kokan. A green &quot;ON OFFER&quot;-badge on the bottom right of an
@@ -63,7 +60,7 @@ function HowItWorks(): JSX.Element {
         requested by other users. You can change the &quot;ON OFFER&quot; status
         on the <em>Assets Details</em> view.
       </p>
-      <h4 id='3-user-requests-'>3. User Requests:</h4>
+      <h4>3. User Requests:</h4>
       <p>
         <em>User Requests</em> is divided into <em>Incoming</em> and{' '}
         <em>Outgoing</em> Requests.
@@ -92,12 +89,12 @@ function HowItWorks(): JSX.Element {
         both your and the requestees&#39; dashboard. After withdrawing, you can
         request an asset again if you changed your mind.
       </p>
-      <h4 id='4-logout-'>4. Logout:</h4>
+      <h4>4. Logout:</h4>
       <p>
         Your sessions ends and you will be redirected to the <em>Logout</em>{' '}
         page.
       </p>
-      <h3 id='assets'>Assets</h3>
+      <h3>Assets</h3>
       <p>
         Clicking on &quot;SWAP-MEET&quot; or searching assets with the search
         bar brings you to the <em>Assets</em> view.

@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 /* import styles */
 import '../styles/3_Assets.css'
@@ -13,9 +13,8 @@ import { AssetContext, UserContext } from './1_App'
 
 function Assets(): JSX.Element {
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
   const [assets, setAssets] = useState([])
-
+  const navigate = useNavigate()
   const { user } = useContext<any>(UserContext)
   const { searchTermHandle } = useContext<any>(AssetContext)
 
@@ -47,7 +46,11 @@ function Assets(): JSX.Element {
   }
 
   useEffect(() => {
-    getAssets()
+    if (!user) {
+      navigate('/login')
+    } else {
+      getAssets()
+    }
   }, [searchTermHandle])
 
   return (
