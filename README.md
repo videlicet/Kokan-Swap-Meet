@@ -11,7 +11,7 @@ In essence, Kokan allows GitHub users to access other GitHub users' private repo
 ```diff
 ! The app might seem to be stuck loading after authenticating with GitHub.
 ! This means the server was idling due to prolonged inactivity 
-! (15 min on Render's freey plan).
+! (15 min on Render's free plan).
 ! It may take up to one minute for the server to be fully available.
 ```
 This is the frontend repository. Click <a href="https://github.com/videlicet/Kokan-Swap-Meet-Server" target="_blank">here</a> to get to the backend repository.

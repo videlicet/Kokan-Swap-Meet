@@ -30,6 +30,12 @@
 - [ ] Create new asset: Sanitize inputs in short/long descriptions.
 - [ ] Provide refresh token.
 
+## UX/UI
+
+- [ ] Abort fetches if necessary.
+- [ ] Better differentiation of buttons and other elements with black backgrounds.
+- [ ] 
+
 ## Restructuring
 
 - [ ] Store verification codes temporarily in database instead of the server state.
