@@ -157,10 +157,10 @@ function App(): JSX.Element {
             <div className='navbar'>
               {footerContent.map((item) => (
                 <NavLink
+                  className='navlink'
                   key={item.name}
                   style={({ isActive }) => ({
-                    color: isActive ? 'rgb(221, 213, 207)' : 'grey',
-                    mixBlendMode: "difference"
+                    filter: isActive ? "invert(100%)": "invert(50%)"
                   })}
                   to={`${item.route}`}
                 >

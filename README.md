@@ -9,9 +9,9 @@ The Kokan web-app extends GitHub with a swap-meet for digital assets.
 In essence, Kokan allows GitHub users to access other GitHub users' private repositories in exchange for tokens. Whenever an owner accepts a swap request for an asset, the requester receives a GitHub collaboration invitation for the corresponding repository and becomes a co-owner on Kokan.  
 
 ```diff
-! The App might seem to be stuck loading after authenticating with GitHub.
+! The app might seem to be stuck loading after authenticating with GitHub.
 ! This means the server was idling due to prolonged inactivity 
-! (Kokan is currently hosted on a free plan with Render).
+! (15 min on Render's freey plan).
 ! It may take up to one minute for the server to be fully available.
 ```
 This is the frontend repository. Click <a href="https://github.com/videlicet/Kokan-Swap-Meet-Server" target="_blank">here</a> to get to the backend repository.
