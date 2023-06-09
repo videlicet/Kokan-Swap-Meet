@@ -348,10 +348,10 @@ function AssetsDetail(): JSX.Element {
                 <span className='info'>{asset?.licence}</span>
               </div>
               <div className='additional-info'>
-                <span className='info-type'>Type</span>
-                {asset?.type.map((type: string, index: number) => (
+                <span className='info-type'>Tags</span>
+                {asset?.tags.map((tag: string, index: number) => (
                   <span className='info' key={index}>
-                    {type}
+                    {tag}
                   </span>
                 ))}
               </div>

@@ -6,23 +6,25 @@
 }
 
 #types {
-  width: fit-content;
   display: flex;
   flex-wrap: wrap;
   border: 2px solid black;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.4);
-
+  height: 2.8rem;
+  width: fit-content;
   gap: 1rem;
 }
 
 .type {
+  align-items: center;
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.4);
   padding-left: 0.5rem;
 }
 
 .type-name {
-  font-size: smaller;
-  padding: 0.5rem;
+  padding: 0.9rem;
+  vertical-align: bottom;
+  font-size: medium;
 }

@@ -7,21 +7,12 @@ import './Asset.css'
 /* import context */
 import { UserContext } from '../routes/1_App'
 
+/* import types */
+import { AssetInterface } from '../types/types'
+
 /* types */
 interface Props {
-  assetProps: {
-    _id: string
-    title: string
-    kokans: number
-    creator: string
-    created: string
-    owners: string[]
-    onOffer: boolean
-    type: string[]
-    description_short: string
-    description_long: string
-    licence: string
-  }
+  assetProps: AssetInterface
   user_kokans: number
   index: number
 }
@@ -54,10 +45,10 @@ const Asset: React.FC<Props> = (props: Props) => {
 
       <div className='asset-footer' style={{ marginTop: '0' }}>
         <div className='additional-info'>
-          <span className='info-type'>Type</span>
-          {props.assetProps.type.map((type: string, index: number) => (
+          <span className='info-type'>Tags</span>
+          {props.assetProps.tags.map((tag: string, index: number) => (
             <span className='info' key={index}>
-              {type}
+              {tag}
             </span>
           ))}
         </div>

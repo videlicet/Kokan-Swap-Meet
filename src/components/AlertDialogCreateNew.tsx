@@ -22,6 +22,8 @@ const AlertDialogCreateNew: React.FC<Props> = (props: Props) => {
     <AlertDialog.Root
       onOpenChange={async () => {
         const result = await props.trigger([
+          'repo',
+          'tags',
           'title',
           'descriptionLong',
           'descriptionShort',

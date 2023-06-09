@@ -96,10 +96,9 @@
   #assets .additional-info,
   #user-assets .additional-info {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: repeat(auto-fill, 1fr);
     border-radius: 10px;
     background-color: rgb(0, 0, 0, 0.4);
-    width: fit-content;
     padding-right: 0.6rem;
   }
 }
@@ -108,7 +107,6 @@
   border-radius: 10px;
   margin-right: 0.5rem;
   background-color: rgb(0, 0, 0, 1);
-  width: 4rem;
   padding: 0.5rem 0.9rem;
 }
 

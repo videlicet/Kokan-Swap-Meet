@@ -82,6 +82,7 @@ function AssetsNew(): JSX.Element {
   } = useForm({
     defaultValues: {
       repo: undefined,
+      tags: undefined,
       title: undefined,
       kokans: 3,
       license: undefined,
@@ -100,8 +101,15 @@ function AssetsNew(): JSX.Element {
   }, [watch('repo')])
 
   async function handleFormSubmit(data: any) {
-    const { repo, title, descriptionShort, descriptionLong, kokans, license } =
-      data
+    const {
+      repo,
+      tags,
+      title,
+      descriptionShort,
+      descriptionLong,
+      kokans,
+      license,
+    } = data
     try {
       await fetch(`${import.meta.env.VITE_SERVER_URL}assets`, {
         method: 'POST',
@@ -112,6 +120,7 @@ function AssetsNew(): JSX.Element {
         },
         body: JSON.stringify({
           gitHub_repo: repo,
+          tags: tags,
           title: title,
           kokans: kokans,
           description_short: descriptionShort,
@@ -120,7 +129,6 @@ function AssetsNew(): JSX.Element {
           creator: user._id,
           owners: [user._id],
           onOffer: false,
-          type: ['code'], // TODO change when different types allowed
           created: new Date(),
         }),
       })
@@ -244,12 +252,31 @@ function AssetsNew(): JSX.Element {
             )}
           </div>
         </div>
+
         <div className='text-input'>
           <label htmlFor='title'>
             Tags
             <TooltipInfo content={tooltipTags} />
           </label>
-          <TypePicker />
+          <Controller
+            name='tags'
+            control={control}
+            rules={{
+              required: false,
+              validate: {
+                checkTagsMinLength: (value) => value.length > 0,
+                checkTagsMaxLength: (value) => value.length <= 5,
+              },
+            }}
+            render={({ field: { onChange, value, ref, ...props } }) => (
+              <TypePicker
+                value={value}
+                setValue={setValue}
+                tags={watch('tags')}
+              />
+            )}
+          />
+          {errors.tags && <p className='validation-error'>Tags invalid.</p>}
         </div>
 
         <div className='text-input' style={{ width: '90%' }}>

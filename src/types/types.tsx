@@ -18,6 +18,7 @@ export interface UserInterface {
 export interface AssetInterface {
     _id: string,
     title: string,
+    tags: [string],
     gitHub_repo: string,
     kokans: number,
     created: string,
@@ -26,7 +27,6 @@ export interface AssetInterface {
     owners: [string],
     owners_usernames: [string],
     onOffer: boolean,
-    type: [string],
     description_short: string,
     description_long: string,
     licence: string,
