@@ -249,15 +249,7 @@ const RequestIncoming: React.FC<Props> = (props: Props) => {
     >
       <div className='header'>
         <span className='title'>
-          <NavLink to={`/assets/${props.requestProps?.asset_data._id}`}>
-            {props.requestProps?.asset_data.title}
-          </NavLink>{' '}
-          requested by{' '}
-          <NavLink
-            to={`/user/${props.requestProps?.requester_username}/assets`}
-          >
-            {props.requestProps?.requester_username}
-          </NavLink>
+          Incoming request for {props.requestProps?.asset_data.title}
         </span>
         <span className='expiration'>EXPIRATION {expirationDateFormatted}</span>
       </div>
@@ -266,8 +258,21 @@ const RequestIncoming: React.FC<Props> = (props: Props) => {
         style={{ display: 'flex', justifyContent: 'space-between' }}
       >
         <span>
-          User {props.requestProps?.requester_username} requests a swap for your
-          asset {props.requestProps?.asset_data.title}.
+          User{' '}
+          <NavLink
+            className='link'
+            to={`/user/${props.requestProps?.requester_username}/assets`}
+          >
+            {props.requestProps?.requester_username}
+          </NavLink>{' '}
+          requests a swap for your asset{' '}
+          <NavLink
+            className='link'
+            to={`/assets/${props.requestProps?.asset_data._id}`}
+          >
+            {props.requestProps?.asset_data.title}
+          </NavLink>
+          .
         </span>
         {props.requestProps?.status !== 'pending' && (
           <span

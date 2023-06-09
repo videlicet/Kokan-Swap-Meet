@@ -65,8 +65,8 @@ function UserAssets(): JSX.Element {
               <p>No assets yet.</p>
               <p>
                 <NavLink className='link' to={`/assets/new`}>
-                  <span>Link </span>
-                </NavLink>
+                  <span>Link</span>
+                </NavLink>{' '}
                 your first GitHub asset.
               </p>
             </div>

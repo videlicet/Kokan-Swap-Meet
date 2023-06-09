@@ -14,14 +14,15 @@
 - Users:
   - [ ] Search users.
   - [ ] Collect user stats (ratio of successful swap requests to swap requests, ...).
-  - [ ] Deleting a user should rebate pending kokan balances to requesters in pending requests.
+  - [X] Deleting a user should rebate pending kokan balances to requesters in pending requests if the deleted user is the only owner.
 - Transactions:
-  - [ ] When a creator deletes their repository on GitHub or removes owners from the collaborators, rebate the asset's kokans to the requesters of pending requests.
+  - [ ] When a creator deletes their repository on GitHub or removes owners from the collaborators, refund the asset's kokans to the requesters of pending requests.
 
 ## Business Logic
 
 - [ ] What's the best way to manage decision making on incoming swap requests? Custom / two-thirds / simple majority?
 - [ ] If a creator deletes their asset, should it remain available for co-owners?
+- [ ] Enforce OS licenses that include "same license" conditions.
 
 ## Security
 
@@ -29,6 +30,7 @@
 - [ ] Fine-grain permissions for collaborators (fork, pull, ...).
 - [ ] Create new asset: Sanitize inputs in short/long descriptions.
 - [ ] Provide refresh token.
+- [ ] Double check kokan balance changes.
 
 ## UX/UI
 
@@ -48,7 +50,15 @@
 
 - [] Restrictions on documents.
 
+## Testing
+
+- [] Test transaction logics and kokan balances.
+
 ## General
 
 - [ ] Improve TS typing.
 - [ ] Improve consistency (error handling in try/catch-structures, returned responses on the server).
+
+## Bugs
+
+- [ ] Picking a license on the dropdown in New Asset selects text on the background. 

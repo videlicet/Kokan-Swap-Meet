@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useRef } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useNavigate, Outlet, useParams } from 'react-router-dom'
 
 /* import styles */
@@ -7,9 +7,6 @@ import '../styles/2_User.css'
 /* import components */
 import UserInfo from '../components/UserInfo'
 import Loading from '../components/Loading'
-
-/* import modules */
-import { authenticate } from '../modules/Authenticator'
 
 /* import context */
 import { UserContext } from './1_App'

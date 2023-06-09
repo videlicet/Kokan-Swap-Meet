@@ -15,7 +15,6 @@ import { getUserRequests } from '../modules/Requestor'
 
 function UserRequestsIncoming(): JSX.Element {
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
   const { user, setUser } = useContext<any>(UserContext)  // TODO typing
   const requests = useRef<any>([])  // TODO typing
 

@@ -141,10 +141,7 @@ const RequestOutgoing: React.FC<Props> = (props: Props) => {
     >
       <div className='header'>
         <span className='title'>
-          Request for{' '}
-          <NavLink to={`/assets/${props.requestProps?.asset_data._id}`}>
-            {props.requestProps?.asset_data.title}
-          </NavLink>
+          Request for {props.requestProps?.asset_data.title}
         </span>
         <span className='expiration'>EXPIRATION {expirationDateFormatted}</span>
       </div>
@@ -155,14 +152,20 @@ const RequestOutgoing: React.FC<Props> = (props: Props) => {
       >
         <span>
           You requested{' '}
-          <NavLink to={`/assets/${props.requestProps?.asset_data._id}`}>
+          <NavLink
+            className='link'
+            to={`/assets/${props.requestProps?.asset_data._id}`}
+          >
             {props.requestProps?.asset_data.title}
           </NavLink>{' '}
-          from users:{' '}
+          from{' '}
+          {props.requestProps?.requestees_username.length > 1
+            ? 'users:'
+            : 'user'}{' '}
           {props.requestProps?.requestees_username.map(
             (username: string, index: number) => (
               <NavLink key={index} to={`/user/${username}`}>
-                {username}
+                <span className='link'>{username}</span>
                 {index + 1 !== props.requestProps?.requestees_username.length
                   ? ', '
                   : '.'}
