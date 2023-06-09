@@ -14,6 +14,7 @@ import AlertDialogCreateNew from '../components/AlertDialogCreateNew.tsx'
 
 /* import context */
 import { PortalContext, UserContext } from './1_App.tsx'
+import TypePicker from '../components/TypePicker.tsx'
 
 /* toolTips */
 const tooltipsRepo = (
@@ -27,6 +28,7 @@ const tooltipsRepo = (
     </p>
   </div>
 )
+const tooltipTags = 'Give your asset up to five tags.'
 const tooltipTitle = 'Provide a title. Minimum 10, maximum 50 characters.'
 const tooltipShortDescription =
   'Provide a short description for your asset. Minimum 50, maximum 160 characters.'
@@ -87,8 +89,6 @@ function AssetsNew(): JSX.Element {
       descriptionLong: undefined,
     },
   })
-  const [loading, setLoading] = useState()
-  const [error, setError] = useState(null)
   const [kokans, setKokans] = useState<number>(3)
   const { user, setUser } = useContext<any>(UserContext)
   const { portalContainer } = useContext<any>(PortalContext)
@@ -243,6 +243,13 @@ function AssetsNew(): JSX.Element {
               </span>
             )}
           </div>
+        </div>
+        <div className='text-input'>
+          <label htmlFor='title'>
+            Tags
+            <TooltipInfo content={tooltipTags} />
+          </label>
+          <TypePicker />
         </div>
 
         <div className='text-input' style={{ width: '90%' }}>

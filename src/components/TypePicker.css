@@ -1,0 +1,28 @@
+#type-picker {
+}
+
+#type-picker button {
+  margin: 0;
+}
+
+#types {
+  width: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  gap: 1rem;
+}
+
+.type {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.4);
+  padding-left: 0.5rem;
+}
+
+.type-name {
+  font-size: smaller;
+  padding: 0.5rem;
+}

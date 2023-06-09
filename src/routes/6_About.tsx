@@ -1,4 +1,5 @@
 /* import styles */
+import TypePicker from '../components/TypePicker'
 import '../styles/5_About.css'
 
 /* import components */

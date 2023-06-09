@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import date from 'date-and-time'
+import remarkGfm from 'remark-gfm'
 
 /* import styles */
 import '../styles/3.1_Assets_Detail.css'
@@ -10,6 +11,7 @@ import AlertDialogAssetSwap from '../components/AlertDialogAssetSwap'
 import AlertDialogAssetDelete from '../components/AlertDialogAssetDelete'
 import AlertDialogAssetOffer from '../components/AlertDialogAssetOffer'
 import Loading from '../components/Loading'
+import ReactMarkdown from 'react-markdown'
 
 /* import types */
 import { AssetInterface } from '../types/types'
@@ -248,7 +250,7 @@ function AssetsDetail(): JSX.Element {
           <div>
             <div className='header'>
               <div>
-                <div>
+                <div style={{ marginBottom: '1rem' }}>
                   <span className='kokans' style={pricey}>
                     {asset?.kokans}
                   </span>
@@ -316,7 +318,10 @@ function AssetsDetail(): JSX.Element {
             </div>
             <br />
             <div className='description long'>
-              <span>{asset?.description_long}</span>
+              <ReactMarkdown
+                children={asset?.description_long}
+                remarkPlugins={[remarkGfm]}
+              />
             </div>
 
             <div
