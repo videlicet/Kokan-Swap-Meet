@@ -34,16 +34,19 @@
 
 - [ ] Abort fetches if necessary.
 - [ ] Better differentiation of buttons and other elements with black backgrounds.
-- [ ] 
 
 ## Restructuring
 
 - [ ] Store verification codes temporarily in database instead of the server state.
-- [ ] The users own profile and the profile of another user shouldn't be on the same route (user/username).
+- [X] The users own profile and the profile of another user shouldn't be on the same route (user/username).
 
 ## Hosting
 
 - [ ] Get domain for the App and redirect the frontend and backend to a similar domain (should solve Cloudflare cookie issue).
+
+## Database
+
+- [] Restrictions on documents.
 
 ## General
 

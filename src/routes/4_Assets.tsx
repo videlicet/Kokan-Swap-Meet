@@ -6,10 +6,10 @@ import '../styles/3_Assets.css'
 
 /* import components */
 import Asset from '../components/Asset.tsx'
-import Loading from '../components/Loading'
+import Loading from '../components/Loading.tsx'
 
 /* import context */
-import { AssetContext, UserContext } from './1_App'
+import { AssetContext, UserContext } from './1_App.tsx'
 
 function Assets(): JSX.Element {
   const [loading, setLoading] = useState(true)

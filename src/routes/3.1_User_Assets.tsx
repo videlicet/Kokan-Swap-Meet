@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 
 /* import styles */
 import '../styles/2.2_User_Assets.css'
@@ -11,15 +11,24 @@ import Loading from '../components/Loading.tsx'
 /* import context */
 import { UserContext } from './1_App.tsx'
 
-function UserAssets(): JSX.Element {
+function UsersAssets(): JSX.Element {
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const { user, setUser } = useContext<any>(UserContext)
   const [userAssets, setUserAssets] = useState<any>([])
+  const { id } = useParams()
+  const [idCurrent, setIdCurrent] = useState<string>(id)
+
+  if (idCurrent !== id) {
+    setIdCurrent(id)
+    getUserAssets()
+  }
+
 
   async function getUserAssets() {
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}users/${user?._id}/assets`,
+        `${import.meta.env.VITE_SERVER_URL}users/${id}/assets`,
         {
           method: 'POST',
           credentials: 'include',
@@ -27,7 +36,7 @@ function UserAssets(): JSX.Element {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': 'true',
           },
-          body: JSON.stringify({ owner: user.username }),
+          body: JSON.stringify({ owner: id }),
         },
       )
       if (res.status == 200) {
@@ -41,6 +50,7 @@ function UserAssets(): JSX.Element {
   }
 
   useEffect(() => {
+    setIdCurrent(id)
     getUserAssets()
   }, [])
 
@@ -49,15 +59,29 @@ function UserAssets(): JSX.Element {
       {!loading ? (
         userAssets?.length !== 0 ? (
           userAssets.map((item: any, index: number) => {
-            return (
-              <NavLink key={index} to={`/assets/${item._id}`}>
-                <Asset
-                  index={index}
-                  assetProps={item}
-                  user_kokans={user?.kokans}
-                ></Asset>
-              </NavLink>
-            )
+            if (id === user?.username) {
+              return (
+                <NavLink key={index} to={`/assets/${item._id}`}>
+                  <Asset
+                    index={index}
+                    assetProps={item}
+                    user_kokans={user?.kokans}
+                  ></Asset>
+                </NavLink>
+              )
+            } else {
+              if (item.onOffer === true) {
+                return (
+                  <NavLink key={index} to={`/assets/${item._id}`}>
+                    <Asset
+                      index={index}
+                      assetProps={item}
+                      user_kokans={user?.kokans}
+                    ></Asset>
+                  </NavLink>
+                )
+              }
+            }
           })
         ) : (
           <div className='asset'>
@@ -79,4 +103,4 @@ function UserAssets(): JSX.Element {
   )
 }
 
-export default UserAssets
+export default UsersAssets

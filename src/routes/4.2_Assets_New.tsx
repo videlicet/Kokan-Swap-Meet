@@ -13,7 +13,7 @@ import SliderKokan from '../components/SliderKokan.tsx'
 import AlertDialogCreateNew from '../components/AlertDialogCreateNew.tsx'
 
 /* import context */
-import { PortalContext, UserContext } from './1_App'
+import { PortalContext, UserContext } from './1_App.tsx'
 
 /* toolTips */
 const tooltipsRepo = (
@@ -127,7 +127,7 @@ function AssetsNew(): JSX.Element {
     } catch (err) {
       // TODO ERROR HANDLING
     }
-    navigate(`/user/${user.username}/assets`)
+    navigate(`/me/assets`)
   }
 
   /* triggers submit of form after confirmation in alert dialog */

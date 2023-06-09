@@ -95,7 +95,7 @@ const RequestOutgoing: React.FC<Props> = (props: Props) => {
         },
       )
       if (res.status === 200) {
-        navigate(`/user/${props.username}/requests/outgoing`)
+        navigate(`/me/requests/outgoing`)
       }
     } catch (err) {
       // TODO ERROR HANDLING

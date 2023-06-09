@@ -9,7 +9,7 @@ function Welcome(): JSX.Element {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (user) {navigate(`user/${user?.username}/assets`)} 
+    if (user) {navigate(`me/assets`)} 
     else return navigate('/login')
   }, [])
 

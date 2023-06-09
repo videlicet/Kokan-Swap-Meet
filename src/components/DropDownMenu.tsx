@@ -34,20 +34,20 @@ export default (props: Props) => {
         <DropdownMenu.Content className='DropDownMenuContent'>
           <DropdownMenu.Item
             className='DropdownMenuItem'
-            onSelect={(e) => navigate(`user/${props.user?.username}/profile`)}
+            onSelect={(e) => navigate(`me/profile`)}
           >
             Profile
           </DropdownMenu.Item>
           <DropdownMenu.Item
             className='DropdownMenuItem'
-            onSelect={(e) => navigate(`user/${props.user?.username}/assets`)}
+            onSelect={(e) => navigate(`me/assets`)}
           >
             Assets
           </DropdownMenu.Item>
           <DropdownMenu.Item
             className='DropdownMenuItem'
             onSelect={(e) =>
-              navigate(`user/${props.user?.username}/requests/incoming`)
+              navigate(`me/requests/incoming`)
             }
           >
             Requests

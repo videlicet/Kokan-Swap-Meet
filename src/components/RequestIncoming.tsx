@@ -163,7 +163,7 @@ const RequestIncoming: React.FC<Props> = (props: Props) => {
           props.requestProps.asset_data.gitHub_repo,
         )
 
-        navigate(`/user/${user.username}/requests/incoming`)
+        navigate(`/me/requests/incoming`)
       }
       if (res.status === 200 && reaction === 'declined') {
         /* update requester kokans  */

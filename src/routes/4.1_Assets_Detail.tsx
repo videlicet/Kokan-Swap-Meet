@@ -140,7 +140,7 @@ function AssetsDetail(): JSX.Element {
       // TODO ERROR HANDLING
       setLoading(false)
     }
-    navigate(`/user/${user?.username}/requests/outgoing`)
+    navigate(`/me/requests/outgoing`)
   }
 
   async function onDelete() {
@@ -201,7 +201,7 @@ function AssetsDetail(): JSX.Element {
       // TODO ERROR HANDLING
       setLoading(false)
     }
-    navigate(`/user/${user?.username}/assets`)
+    navigate(`/me/assets`)
   }
 
   async function onOffer() {
@@ -225,11 +225,11 @@ function AssetsDetail(): JSX.Element {
         },
       )
       if (res.status === 200) {
-        navigate(`/user/${user?.username}/assets`)
+        navigate(`/me/assets`)
         setLoading(false)
       }
     } catch (err) {
-      navigate(`/user/${user?.username}/assets`)
+      navigate(`/me/assets`)
       setLoading(false)
     }
   }

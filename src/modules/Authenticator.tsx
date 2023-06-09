@@ -31,11 +31,11 @@ export const getUser = async (
   const user = await fetchUser(navigate, id ? id : undefined)
   setUser(user) // TODO typing
   /* relevant for logging in: redirect to dashboard instead of staying on the page */
-  if (to === 'dashboard') navigate(`/user/${user?.username}/assets`)
+  if (to === 'dashboard') navigate(`/me/assets`)
 }
 
 export const redirectDashboard = (username: any, navigate: any) => {
-  navigate(`/user/${username}`)
+  navigate(`/me`)
 }
 
 // USER-ROUTE
