@@ -46,11 +46,13 @@ const Asset: React.FC<Props> = (props: Props) => {
       <div className='asset-footer' style={{ marginTop: '0' }}>
         <div className='additional-info'>
           <span className='info-type'>Tags</span>
-          {props.assetProps.tags.map((tag: string, index: number) => (
-            <span className='info' key={index}>
-              {tag}
-            </span>
-          ))}
+          <div className='tag-container'>
+            {props.assetProps.tags.map((tag: string, index: number) => (
+              <span className='info' key={index}>
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
         <div className='additional-info'>
           <span className='info-type'>License</span>
