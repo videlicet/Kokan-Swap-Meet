@@ -22,3 +22,11 @@
   width: 100%;
   padding: 1rem;
 }
+
+.asset .icon {
+  width: 1.2rem;
+}
+
+#user-assets .asset .icon {
+  width: 1rem;
+}

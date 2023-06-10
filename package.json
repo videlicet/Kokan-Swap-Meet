@@ -16,6 +16,7 @@
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@fontsource/rubik": "^4.5.14",
+    "@iconscout/react-unicons": "^2.0.2",
     "@radix-ui/react-alert-dialog": "^1.0.3",
     "@radix-ui/react-avatar": "1.0.2",
     "@radix-ui/react-dialog": "^1.0.3",

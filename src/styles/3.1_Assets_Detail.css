@@ -67,10 +67,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  font-size: small;
-  gap: 1rem;
   margin-top: 2rem;
   height: fit-content;
+  font-size: small;
+  gap: 1rem;
 }
 
 #asset-container .additional-info {
@@ -84,9 +84,8 @@
 
 #assets .asset-footer,
 #user-assets .asset-footer {
-justify-self: top;
-  background-color: rgb(0, 0, 0, 0.4);
   border-radius: 10px;
+  background-color: rgb(0, 0, 0, 0.4);
   gap: 0.5rem;
 }
 
@@ -98,8 +97,10 @@ justify-self: top;
   #assets .additional-info,
   #user-assets .additional-info {
     display: grid;
-    grid-template-rows: 1fr auto;
+    grid-template-columns: 1fr 11fr;
+    background-color: rgb(0, 0, 0, 0.4);
     border-radius: 10px;
+    width: 100%;
   }
 }
 
@@ -112,9 +113,12 @@ justify-self: top;
   padding: 0.5rem 0.9rem;
 }
 
-#assets .info-type, #user-assets .info-type {
+#assets .info-type,
+#user-assets .info-type {
   display: flex;
   justify-content: center;
+  align-items: center;
+  width: 2rem;
   border-radius: 10px;
   background-color: rgb(0, 0, 0, 1);
   padding: 0.5rem 0.9rem;
@@ -122,14 +126,12 @@ justify-self: top;
 
 .tag-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  overflow-x: scroll;
 }
 
 .asset-footer .info {
-  overflow: hidden;
+  display: inline-block;
+  align-self: center;
   padding: 0.5rem 0.9rem;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   text-align: center;
 }

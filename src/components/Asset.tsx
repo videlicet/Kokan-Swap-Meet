@@ -10,6 +10,10 @@ import { UserContext } from '../routes/1_App'
 /* import types */
 import { AssetInterface } from '../types/types'
 
+/* import components */
+import { UilTagAlt } from '@iconscout/react-unicons'
+import { UilBalanceScale } from '@iconscout/react-unicons'
+
 /* types */
 interface Props {
   assetProps: AssetInterface
@@ -45,7 +49,9 @@ const Asset: React.FC<Props> = (props: Props) => {
 
       <div className='asset-footer' style={{ marginTop: '0' }}>
         <div className='additional-info'>
-          <span className='info-type'>Tags</span>
+          <span className='info-type'>
+            <UilTagAlt className='icon' />
+          </span>
           <div className='tag-container'>
             {props.assetProps.tags.map((tag: string, index: number) => (
               <span className='info' key={index}>
@@ -55,11 +61,15 @@ const Asset: React.FC<Props> = (props: Props) => {
           </div>
         </div>
         <div className='additional-info'>
-          <span className='info-type'>License</span>
+          <span className='info-type'>
+            <UilBalanceScale className='icon' />
+          </span>
           <span className='info'>{props.assetProps.licence}</span>
         </div>
         {pathname !== '/assets' && props.assetProps.onOffer && (
-          <span className='on-offer'>on offer</span>
+          <div >
+            <span className='on-offer'>on offer</span>
+          </div>
         )}
       </div>
     </div>

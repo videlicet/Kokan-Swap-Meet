@@ -21,9 +21,9 @@
 @media screen and (min-width: 1200px) {
   #user-assets .title,
   #assets .title {
-      font-size: xx-large;
-    }
+    font-size: xx-large;
   }
+}
 
 #user-assets .kokans,
 #assets .kokans {
@@ -48,8 +48,11 @@
 }
 
 #user-assets .on-offer {
+  display: inline-block;
   border-radius: 10px;
   background-color: var(--main-color-green);
+  width: 100%;
+  box-sizing: border-box;
   padding: 0.3rem 0.9rem;
   text-transform: uppercase;
   font-size: smaller;
