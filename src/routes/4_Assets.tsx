@@ -18,8 +18,38 @@ function Assets(): JSX.Element {
   const { user } = useContext<any>(UserContext)
   const { searchTermHandle } = useContext<any>(AssetContext)
 
-  async function getAssets() {
+  async function getAssets(
+    searchTerm: string,
+    tag?: string,
+    pageNumbers?: number,
+    resultsPerPage?: number,
+  ) {
     try {
+      /* switch logic */
+      let query: string
+      if (!pageNumbers) {
+        pageNumbers = 0
+      }
+      if (!searchTerm) {
+        searchTerm = ''
+      }
+      if (!resultsPerPage) {
+        resultsPerPage = 20
+      }
+      switch (tag) {
+        case 'assets':
+          query = `query=${searchTerm}&tags=${tag}&page=${pageNumbers}`
+          break
+        case 'tags':
+          query = `query=${searchTerm}&tags=${tag}&page=${pageNumbers}`
+          break
+        case 'users':
+          query = `tags=story%2Cauthor_${searchTerm}&page=${pageNumbers}`
+          break
+        default:
+          query = `query=${searchTerm}&tags=${tag}&page=${pageNumbers}`
+      }
+
       const res = await fetch(
         `${import.meta.env.VITE_SERVER_URL}assets/search`,
         {
@@ -29,7 +59,7 @@ function Assets(): JSX.Element {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': 'true',
           },
-          body: JSON.stringify({ asset: { searchTerm: searchTermHandle } }),
+          body: JSON.stringify({ asset: { searchTerm: searchTerm } }),
         },
       )
       if (res.status === 200) {
@@ -49,7 +79,7 @@ function Assets(): JSX.Element {
     if (!user) {
       navigate('/login')
     } else {
-      getAssets()
+      getAssets(searchTermHandle)
     }
   }, [searchTermHandle])
 
