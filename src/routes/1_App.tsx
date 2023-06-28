@@ -32,16 +32,10 @@ const footerContent = [
 ]
 
 function App(): JSX.Element {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    control,
-    reset
-  } = useForm({
+  const { register, handleSubmit, watch, control, reset } = useForm({
     defaultValues: {
       search: undefined,
-      tag: "assets",
+      tag: 'assets',
     },
   })
   const [searchTermHandle, setSearchTermHandle] = useState<string>('')
@@ -60,12 +54,23 @@ function App(): JSX.Element {
     // TODO typing
     setSearchTermHandle(data.search)
     setSearchTagHandle(data.tag)
-    navigate('/assets')
+    if ((data.tag = 'users')) {
+      navigate('/users')
+    } else {
+      navigate('/assets')
+    }
   }
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      <AssetContext.Provider value={{ searchTermHandle, setSearchTermHandle, searchTagHandle, setSearchTagHandle }}>
+      <AssetContext.Provider
+        value={{
+          searchTermHandle,
+          setSearchTermHandle,
+          searchTagHandle,
+          setSearchTagHandle,
+        }}
+      >
         <PortalContext.Provider value={{ portal }}>
           <div className='page-container'>
             <NavLink
@@ -126,15 +131,17 @@ function App(): JSX.Element {
                       name='tag'
                       control={control}
                       rules={{ required: true }}
-                      render={({ field: { onChange, value, ref, ...props } }) => (
+                      render={({
+                        field: { onChange, value, ref, ...props },
+                      }) => (
                         <SelectSearchTag
                           onValueChange={onChange}
                           value={value}
                           forwardedRef={ref}
-                          tag={watch('tag')}                     
+                          tag={watch('tag')}
                         />
                       )}
-                      />
+                    />
                   </form>
                 </div>
                 {user && (

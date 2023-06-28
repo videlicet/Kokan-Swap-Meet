@@ -4,7 +4,7 @@ import date from 'date-and-time'
 import remarkGfm from 'remark-gfm'
 
 /* import styles */
-import '../styles/3.1_Assets_Detail.css'
+import '../styles/4.1_Assets_Detail.css'
 
 /* import components */
 import AlertDialogAssetSwap from '../components/AlertDialogAssetSwap'
@@ -34,7 +34,7 @@ function AssetsDetail(): JSX.Element {
 
   async function getAsset(requester: string) {
     setLoading(true)
-    /* get aasset in database */
+    /* get asset in database */
     try {
       const res = await fetch(
         `${import.meta.env.VITE_SERVER_URL}assets/${id}`,

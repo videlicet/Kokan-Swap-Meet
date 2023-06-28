@@ -18,7 +18,8 @@ import UserRequests from './routes/2.3_User_Requests.tsx'
 import UserRequestsIncoming from './routes/2.3.1_User_Requests_Incoming.tsx'
 import UserRequestsOutgoing from './routes/2.3.2_User_Requests_Outgoing.tsx'
 import Users from './routes/3_Users.tsx'
-import UsersAssets from './routes/3.1_User_Assets.tsx'
+import UsersDetail from './routes/3.1_Users_Detail.tsx'
+import UsersAssets from './routes/3.2_Users_Detail_Assets.tsx'
 import AssetsDetail from './routes/4.1_Assets_Detail.tsx'
 import AssetsNew from './routes/4.2_Assets_New.tsx'
 
@@ -85,8 +86,12 @@ const router = createBrowserRouter([
         ],
       },
       {
+        path: 'users',
+        element: <Users />
+      },
+      {
         path: 'user/:id',
-        element: <Users />,
+        element: <UsersDetail />,
         children: [
           {
             path: 'assets',

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 /* import styles */
-import '../styles/6_Verification.css'
+import '../styles/7_Verification.css'
 
 /* import components */
 import Loading from '../components/Loading'

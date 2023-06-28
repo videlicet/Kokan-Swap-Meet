@@ -1,53 +1,95 @@
-import { useState, useEffect, useContext } from 'react'
-import { useNavigate, Outlet, useParams } from 'react-router-dom'
+import { useState, useContext, useEffect } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 /* import styles */
-import '../styles/2_User.css'
+import '../styles/3_Users.css'
 
 /* import components */
-import UserInfo from '../components/UserInfo'
-import Loading from '../components/Loading'
+import User from '../components/User.tsx'
+import Loading from '../components/Loading.tsx'
 
 /* import context */
-import { UserContext } from './1_App'
+import { AssetContext, UserContext } from './1_App.tsx'
 
-/* import modules */
-import { fetchOtherUser } from '../modules/Authenticator'
-
-function Users(): JSX.Element | undefined {
-  const [loading, setLoading] = useState<boolean>(true)
-  const { user, setUser } = useContext<any>(UserContext)
-  const [otherUser, setOtherUser] = useState<any>()
-  const [loadingUserInfo, setLoadingUserInfo] = useState<boolean>(true)
+function Users(): JSX.Element {
+  const [loading, setLoading] = useState(true)
+  const [users, setUsers] = useState([])
   const navigate = useNavigate()
-  const { id } = useParams<string>()
+  const { user } = useContext<any>(UserContext)
+  const { searchTermHandle, searchTagHandle } = useContext<any>(AssetContext)
+
+  async function getUsers(
+    searchTerm: string,
+    searchTag: string,
+    pageNumbers?: number,
+    resultsPerPage?: number,
+  ) {
+    try {
+      if (!pageNumbers) {
+        pageNumbers = 0
+      }
+      if (!searchTerm) {
+        searchTerm = ''
+      }
+      if (!resultsPerPage) {
+        resultsPerPage = 20
+      }
+      const query = `query=${searchTerm}&tags=${searchTag}&page=${pageNumbers}`
+      // TODO REWRITE TO SEARCH FOR USERS
+
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}users/search`,
+        {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': 'true',
+          },
+          body: JSON.stringify({ user: { searchTerm: searchTerm } }),
+        },
+      )
+      if (res.status === 200) {
+        const data = await res.json()
+        setUsers(data)
+      } else {
+        setUsers([])
+      }
+    } catch (err) {
+      setUsers([])
+    }
+    setLoading(false)
+  }
 
   useEffect(() => {
-    console.log(user)
-    setLoading(true)
-    setLoadingUserInfo(true)
-    fetchOtherUser(id).then((user) => {
-      setOtherUser(user)
-      navigate(`assets`)
-      return setLoading(false)
-    })
-    setLoading(false)
-    setLoadingUserInfo(false)
-  }, [])
+    if (!user) {
+      navigate('/login')
+    } else {
+      getUsers(searchTermHandle, searchTagHandle)
+    }
+  }, [searchTermHandle])
 
+   // TODO styles! USERS COMPONENT
   return (
-    <>
+    <div id='users'>
       {!loading ? (
-        <div id='user-container'>
-          <div id='user-outlet'>
-            <Outlet />
+        (users.length > 0 &&
+            users.map((person: any, index: number) => (
+            <NavLink key={index} to={`/users/${person._id}`}>
+                <User 
+                  userProps={person}
+                  index={index}
+                />
+            </NavLink>
+          ))) || (
+          <div className='user' style={{ height: '5rem' }}>
+            No matching users.
           </div>
-          <UserInfo otherUser={otherUser} loadingUserInfo={loadingUserInfo} />
-        </div>
+        )
       ) : (
         <Loading />
       )}
-    </>
+    </div>
   )
 }
 

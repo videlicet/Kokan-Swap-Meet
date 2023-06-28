@@ -1,6 +1,6 @@
 /* import styles */
 import TypePicker from '../components/TypePicker'
-import '../styles/5_About.css'
+import '../styles/6_About.css'
 
 /* import components */
 import { ExternalLinkIcon } from '@radix-ui/react-icons'

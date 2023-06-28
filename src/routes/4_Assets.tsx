@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 
 /* import styles */
-import '../styles/3_Assets.css'
+import '../styles/4_Assets.css'
 
 /* import components */
 import Asset from '../components/Asset.tsx'

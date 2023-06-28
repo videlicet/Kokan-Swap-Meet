@@ -1,5 +1,5 @@
 /* import styles */
-import '../styles/4_How_It_Works.css'
+import '../styles/5_How_It_Works.css'
 
 function HowItWorks(): JSX.Element {
   return (

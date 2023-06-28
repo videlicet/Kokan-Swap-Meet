@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useForm, Controller } from 'react-hook-form'
 
 /* import styles */
-import '../styles/3.2_Assets_New.css'
+import '../styles/4.2_Assets_New.css'
 
 /* import components */
 import { CheckIcon, Cross1Icon } from '@radix-ui/react-icons'
