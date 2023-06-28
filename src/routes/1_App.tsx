@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, useRef } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 
 /* import styles */
@@ -15,6 +15,7 @@ import {
   HomeIcon,
 } from '@radix-ui/react-icons'
 import DropdownMenu from '../components/DropDownMenu.tsx'
+import SelectSearchTag from '../components/SelectSearchTag.tsx'
 
 /* set up context */
 export const UserContext = createContext({})
@@ -31,10 +32,22 @@ const footerContent = [
 ]
 
 function App(): JSX.Element {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    control,
+    reset
+  } = useForm({
+    defaultValues: {
+      search: undefined,
+      tag: "assets",
+    },
+  })
   const [searchTermHandle, setSearchTermHandle] = useState<string>('')
+  const [searchTagHandle, setSearchTagHandle] = useState<string>('')
   const [user, setUser] = useState<any>()
   const portal = useRef(null)
-  const { register, handleSubmit, reset } = useForm()
 
   const navigate = useNavigate()
 
@@ -46,12 +59,13 @@ function App(): JSX.Element {
   function handleSearchSubmit(data: any) {
     // TODO typing
     setSearchTermHandle(data.search)
+    setSearchTagHandle(data.tag)
     navigate('/assets')
   }
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      <AssetContext.Provider value={{ searchTermHandle, setSearchTermHandle }}>
+      <AssetContext.Provider value={{ searchTermHandle, setSearchTermHandle, searchTagHandle, setSearchTagHandle }}>
         <PortalContext.Provider value={{ portal }}>
           <div className='page-container'>
             <NavLink
@@ -108,6 +122,19 @@ function App(): JSX.Element {
                       <MagnifyingGlassIcon className='search-icon' />
                       <span className='search-span'>search</span>
                     </button>
+                    <Controller
+                      name='tag'
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field: { onChange, value, ref, ...props } }) => (
+                        <SelectSearchTag
+                          onValueChange={onChange}
+                          value={value}
+                          forwardedRef={ref}
+                          tag={watch('tag')}                     
+                        />
+                      )}
+                      />
                   </form>
                 </div>
                 {user && (
@@ -160,7 +187,7 @@ function App(): JSX.Element {
                   className='navlink'
                   key={item.name}
                   style={({ isActive }) => ({
-                    filter: isActive ? "invert(100%)": "invert(50%)"
+                    filter: isActive ? 'invert(100%)' : 'invert(50%)',
                   })}
                   to={`${item.route}`}
                 >

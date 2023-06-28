@@ -16,39 +16,41 @@ function Assets(): JSX.Element {
   const [assets, setAssets] = useState([])
   const navigate = useNavigate()
   const { user } = useContext<any>(UserContext)
-  const { searchTermHandle } = useContext<any>(AssetContext)
+  const { searchTermHandle, searchTagHandle } = useContext<any>(AssetContext)
 
   async function getAssets(
     searchTerm: string,
-    tag?: string,
+    searchTag: string,
     pageNumbers?: number,
     resultsPerPage?: number,
   ) {
     try {
-      /* switch logic */
-      let query: string
       if (!pageNumbers) {
         pageNumbers = 0
       }
       if (!searchTerm) {
         searchTerm = ''
       }
+      if (!searchTag) {
+        searchTag = 'assets'
+      }
       if (!resultsPerPage) {
         resultsPerPage = 20
       }
-      switch (tag) {
-        case 'assets':
-          query = `query=${searchTerm}&tags=${tag}&page=${pageNumbers}`
-          break
-        case 'tags':
-          query = `query=${searchTerm}&tags=${tag}&page=${pageNumbers}`
-          break
-        case 'users':
-          query = `tags=story%2Cauthor_${searchTerm}&page=${pageNumbers}`
-          break
-        default:
-          query = `query=${searchTerm}&tags=${tag}&page=${pageNumbers}`
-      }
+      const query = `query=${searchTerm}&tags=${searchTag}&page=${pageNumbers}`
+      // switch (tag) {
+      //   case 'assets':
+      //     query = `query=${searchTerm}&tags=${tag}&page=${pageNumbers}`
+      //     break
+      //   case 'tags':
+      //     query = `query=${searchTerm}&tags=${tag}&page=${pageNumbers}`
+      //     break
+      //   case 'users':
+      //     query = `tags=story%2Cauthor_${searchTerm}&page=${pageNumbers}`
+      //     break
+      //   default:
+      //     query = `query=${searchTerm}&tags=${tag}&page=${pageNumbers}`
+      // }
 
       const res = await fetch(
         `${import.meta.env.VITE_SERVER_URL}assets/search`,
@@ -79,7 +81,7 @@ function Assets(): JSX.Element {
     if (!user) {
       navigate('/login')
     } else {
-      getAssets(searchTermHandle)
+      getAssets(searchTermHandle, searchTagHandle)
     }
   }, [searchTermHandle])
 
