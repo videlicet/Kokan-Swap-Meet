@@ -90,7 +90,7 @@ const router = createBrowserRouter([
         element: <Users />
       },
       {
-        path: 'user/:id',
+        path: 'users/:id',
         element: <UsersDetail />,
         children: [
           {

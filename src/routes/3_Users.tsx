@@ -38,15 +38,13 @@ function Users(): JSX.Element {
       // TODO REWRITE TO SEARCH FOR USERS
 
       const res = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}users/search`,
+        `${import.meta.env.VITE_SERVER_URL}users/?${query}`,
         {
-          method: 'POST',
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': 'true',
           },
-          body: JSON.stringify({ user: { searchTerm: searchTerm } }),
         },
       )
       if (res.status === 200) {
@@ -69,18 +67,13 @@ function Users(): JSX.Element {
     }
   }, [searchTermHandle])
 
-   // TODO styles! USERS COMPONENT
+  // TODO styles! USERS COMPONENT
   return (
     <div id='users'>
       {!loading ? (
         (users.length > 0 &&
-            users.map((person: any, index: number) => (
-            <NavLink key={index} to={`/users/${person._id}`}>
-                <User 
-                  userProps={person}
-                  index={index}
-                />
-            </NavLink>
+          users.map((person: any, index: number) => (
+              <User userProps={person} index={index} />
           ))) || (
           <div className='user' style={{ height: '5rem' }}>
             No matching users.

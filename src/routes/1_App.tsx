@@ -54,7 +54,7 @@ function App(): JSX.Element {
     // TODO typing
     setSearchTermHandle(data.search)
     setSearchTagHandle(data.tag)
-    if ((data.tag = 'users')) {
+    if (data.tag == 'users') {
       navigate('/users')
     } else {
       navigate('/assets')

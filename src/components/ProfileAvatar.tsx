@@ -17,7 +17,7 @@ interface Props {
 
 const ProfileAvatar: React.FC<Props> = (props: Props) => {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', gap: 20 }}>
+    <div style={{ display: 'flex', justifyContent: 'center'}}>
       <Avatar.Root className='AvatarRoot'>
         <Avatar.Image
           className='AvatarImage'
