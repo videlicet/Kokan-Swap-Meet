@@ -73,14 +73,25 @@ function Users(): JSX.Element {
       {!loading ? (
         (users.length > 0 &&
           users.map((person: any, index: number) => (
-              <User userProps={person} index={index} />
+            <User userProps={person} index={index} />
           ))) || (
-          <div className='user' style={{ height: '5rem' }}>
-            No matching users.
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '100%',
+            }}
+          >
+            <span>No matching users.</span>
           </div>
         )
       ) : (
-        <Loading />
+        <div
+          style={{ display: 'flex', justifyContent: 'center', width: '100%' }}
+        >
+          <Loading />
+        </div>
       )}
     </div>
   )

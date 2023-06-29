@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 
 /* import styles */
-import './SelectLicense.css'
+import './SelectSearchTag.css'
 
 /* import components */
 import * as Select from '@radix-ui/react-select'
@@ -19,15 +19,14 @@ const SelectSearchTag = forwardRef<HTMLButtonElement, propsInterface>(
   ({ ...props }: propsInterface, forwardedRef) => (
     <Select.Root value={props.value} onValueChange={props.onValueChange}>
       <Select.Trigger
-        className='SelectTrigger'
+        className='SelectTagTrigger'
         ref={forwardedRef}
-        aria-label='license'
+        aria-label='tag'
       >
-        {' '}
         <Select.Value>
-          <span>{props.value ?? 'Select license'}</span>
+          <span>{props.value}</span>
         </Select.Value>
-        <Select.Icon className='SelectIcon'>
+        <Select.Icon className='SelectTagIcon'>
           <ChevronDownIcon />
         </Select.Icon>
       </Select.Trigger>
@@ -35,29 +34,26 @@ const SelectSearchTag = forwardRef<HTMLButtonElement, propsInterface>(
       <Select.Portal>
         <Select.Content
           position='popper'
-          className='SelectContent'
+          className='SelectTagContent'
           arrowPadding={104}
         >
-          <Select.Viewport className='SelectViewport'>
+          <Select.Viewport className='SelectTagViewport'>
             <Select.Group>
-                <Select.Item value="assets">
-                  <Select.ItemText> Assets</Select.ItemText>
-                  <Select.ItemIndicator className='SelectItemIndicator'>
-                    <CheckIcon />
-                  </Select.ItemIndicator>
-                </Select.Item>
-                <Select.Item value="tags">
-                  <Select.ItemText> Tags</Select.ItemText>
-                  <Select.ItemIndicator className='SelectItemIndicator'>
-                    <CheckIcon />
-                  </Select.ItemIndicator>
-                </Select.Item>
-                <Select.Item value="users">
-                  <Select.ItemText> Users</Select.ItemText>
-                  <Select.ItemIndicator className='SelectItemIndicator'>
-                    <CheckIcon />
-                  </Select.ItemIndicator>
-                </Select.Item>
+              <Select.Item className='SelectTagItem' value='assets'>
+                <Select.ItemText>
+                  <span className='SelectTagItemText'>Assets</span>
+                </Select.ItemText>
+              </Select.Item>
+              <Select.Item className='SelectTagItem' value='tags'>
+                <Select.ItemText>
+                  <span className='SelectTagItemText'>Tags</span>
+                </Select.ItemText>
+              </Select.Item>
+              <Select.Item className='SelectTagItem' value='users'>
+                <Select.ItemText>
+                  Users
+                </Select.ItemText>
+              </Select.Item>
             </Select.Group>
           </Select.Viewport>
           <Select.ScrollDownButton />

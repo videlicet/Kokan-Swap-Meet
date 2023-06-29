@@ -61,4 +61,4 @@
 
 ## Bugs
 
-- [ ] Picking a license on the dropdown in New Asset selects text on the background. 
+- [ ] Picking a license on the dropdown in New Asset selects text on the background. This also happens on the query tag selector (https://github.com/radix-ui/primitives/issues/1658). Issue is documented but no reasonable fix available.

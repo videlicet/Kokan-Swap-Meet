@@ -112,21 +112,6 @@ function App(): JSX.Element {
                       paddingRight: 0,
                     }}
                   >
-                    <input
-                      {...register('search')}
-                      id='search'
-                      name='search'
-                      type='text'
-                      placeholder='Search assets' // TODO set default in useForm
-                    ></input>
-                    <button
-                      type='submit'
-                      className='search-submit'
-                      style={{ padding: '0.3rem 0.9rem' }}
-                    >
-                      <MagnifyingGlassIcon className='search-icon' />
-                      <span className='search-span'>search</span>
-                    </button>
                     <Controller
                       name='tag'
                       control={control}
@@ -142,6 +127,21 @@ function App(): JSX.Element {
                         />
                       )}
                     />
+                    <input
+                      {...register('search')}
+                      id='search'
+                      name='search'
+                      type='text'
+                      placeholder={`Search ${watch('tag')}`}
+                    ></input>
+                    <button
+                      type='submit'
+                      className='search-submit'
+                      style={{ padding: '0.3rem 0.9rem' }}
+                    >
+                      <MagnifyingGlassIcon className='search-icon' />
+                      <span className='search-span'>search</span>
+                    </button>
                   </form>
                 </div>
                 {user && (
