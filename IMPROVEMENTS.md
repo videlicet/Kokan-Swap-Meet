@@ -6,13 +6,13 @@
   - [ ] Change assets after upload.
   - [ ] Use Markup for long descriptions.
   - [ ] Include preview (at least links to third-parties such as Codepen).
-  - [ ] Tag-picker for asset types (i.e. for 'code', 'graphics', 'reference', '3D-assets', ...).
+  - [X] Tag-picker for asset types (i.e. for 'code', 'graphics', 'reference', '3D-assets', ...).
   - [ ] Let creators determine request management rules (who can decline/accept swap requests; what happens when the original user is deleted etc.).
   - [ ] Implement pagination on search.
-  - [ ] Advanced search (by type, licence, kokan).
+  - [X] Advanced search (by type X, licence, kokan).
   - [ ] Sort search results (by kokans, date, number of owners).
 - Users:
-  - [ ] Search users.
+  - [X] Search users.
   - [ ] Collect user stats (ratio of successful swap requests to swap requests, ...).
   - [X] Deleting a user should rebate pending kokan balances to requesters in pending requests if the deleted user is the only owner.
 - Transactions:

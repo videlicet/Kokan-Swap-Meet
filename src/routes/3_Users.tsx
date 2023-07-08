@@ -75,14 +75,7 @@ function Users(): JSX.Element {
           users.map((person: any, index: number) => (
             <User userProps={person} index={index} />
           ))) || (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '100%',
-            }}
-          >
+          <div className='no-matches'>
             <span>No matching users.</span>
           </div>
         )
