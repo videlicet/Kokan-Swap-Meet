@@ -19,49 +19,27 @@ function Assets(): JSX.Element {
   const { searchTermHandle, searchTagHandle } = useContext<any>(AssetContext)
 
   async function getAssets(
-    searchTerm: string,
-    searchTag: string,
-    pageNumbers?: number,
-    resultsPerPage?: number,
+    searchTerm: string = '',
+    searchTag: string = 'assets',
+    pageNumbers?: number, // TODO for later implementation
+    resultsPerPage?: number, // TODO for later implementation
   ) {
     try {
-      if (!pageNumbers) {
+      if (!pageNumbers) { // TODO for later implementation 
         pageNumbers = 0
       }
-      if (!searchTerm) {
-        searchTerm = ''
-      }
-      if (!searchTag) {
-        searchTag = 'assets'
-      }
-      if (!resultsPerPage) {
+      if (!resultsPerPage) { // TODO for later implementation
         resultsPerPage = 20
       }
       const query = `query=${searchTerm}&tags=${searchTag}&page=${pageNumbers}`
-      // switch (tag) {
-      //   case 'assets':
-      //     query = `query=${searchTerm}&tags=${tag}&page=${pageNumbers}`
-      //     break
-      //   case 'tags':
-      //     query = `query=${searchTerm}&tags=${tag}&page=${pageNumbers}`
-      //     break
-      //   case 'users':
-      //     query = `tags=story%2Cauthor_${searchTerm}&page=${pageNumbers}`
-      //     break
-      //   default:
-      //     query = `query=${searchTerm}&tags=${tag}&page=${pageNumbers}`
-      // }
-
       const res = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}assets/search`,
+        `${import.meta.env.VITE_SERVER_URL}assets/search?${query}`,
         {
-          method: 'POST',
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': 'true',
           },
-          body: JSON.stringify({ asset: { searchTerm: searchTerm } }),
         },
       )
       if (res.status === 200) {
@@ -98,8 +76,10 @@ function Assets(): JSX.Element {
               ></Asset>
             </NavLink>
           ))) || (
-          <div className='asset' style={{ height: '5rem' }}>
-            No matching assets.
+            <div
+            className="no-matches"
+          >
+            <span>No matching assets.</span>
           </div>
         )
       ) : (

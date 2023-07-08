@@ -77,6 +77,7 @@ function App(): JSX.Element {
               to='/'
               onClick={() => {
                 setSearchTermHandle('')
+                setSearchTagHandle('assets')
                 reset()
               }}
             >
@@ -94,6 +95,7 @@ function App(): JSX.Element {
                     style={{ fontSize: 'medium' }}
                     onClick={() => {
                       setSearchTermHandle('')
+                      setSearchTagHandle('assets')
                       reset()
                     }}
                   >
